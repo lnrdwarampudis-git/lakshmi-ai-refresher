@@ -1,0 +1,1290 @@
+
+<style>
+*{box-sizing:border-box;}
+.nav{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;margin-bottom:16px;}
+.ntab{padding:9px 4px;border-radius:7px;border:2px solid #aaa;font-size:10px;font-weight:700;cursor:pointer;text-align:center;line-height:1.3;background:#eee;color:#444;}
+.ntab.on{background:#1560a8;color:#fff;border-color:#1560a8;}
+.sec{display:none;}.sec.on{display:block;}
+.h1{font-size:15px;font-weight:700;color:#111;margin-bottom:3px;}
+.sub{font-size:12px;color:#777;margin-bottom:12px;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:10px;}
+.box{background:#f2f4f8;border-radius:8px;padding:11px;border:1px solid #dde;}
+.box-b{background:#deedfb;border-color:#90bce8;}
+.box-g{background:#def7ec;border-color:#7ecba3;}
+.box-r{background:#fde8e8;border-color:#e8a0a0;}
+.box-y{background:#fef9e3;border-color:#e8d080;}
+.box-p{background:#f0eefb;border-color:#b8aee8;}
+.ct{font-size:13px;font-weight:700;color:#222;margin-bottom:4px;}
+.ct-b{color:#1560a8;}.ct-g{color:#1a9e5f;}.ct-r{color:#c0392b;}.ct-w{color:#c07800;}
+.cb{font-size:12px;color:#444;line-height:1.6;}
+.note{font-size:13px;color:#333;padding:9px 13px;border-left:4px solid #1560a8;background:#deedfb;margin:8px 0;line-height:1.5;border-radius:0 7px 7px 0;}
+.note b{color:#000;}
+.note-g{border-left-color:#1a9e5f;background:#def7ec;}
+.note-r{border-left-color:#c0392b;background:#fde8e8;}
+.note-y{border-left-color:#c07800;background:#fef9e3;}
+.note-p{border-left-color:#7a5af8;background:#f0eefb;}
+.code{font-family:monospace;font-size:11px;background:#1e1e2e;border-radius:6px;padding:11px;line-height:1.78;color:#cdd6f4;margin:8px 0;white-space:pre-wrap;}
+.divider{height:1px;background:#ddd;margin:12px 0;}
+.tag{display:inline-block;font-size:10px;padding:2px 6px;border-radius:4px;font-weight:700;margin:2px;}
+.tg{background:#c3e6cb;color:#155724;}
+.tr{background:#f5c6cb;color:#721c24;}
+.tb{background:#bee5eb;color:#0c5460;}
+.ty{background:#ffeeba;color:#856404;}
+.tp{background:#e2d9f3;color:#4a3b8c;}
+.tbl{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:10px;}
+.tbl th{padding:6px 8px;background:#f2f4f8;color:#555;font-weight:700;text-align:left;border-bottom:1px solid #dde;}
+.tbl td{padding:5px 8px;border-bottom:1px solid #eee;color:#333;vertical-align:top;}
+.tbl tr:last-child td{border-bottom:none;}
+.step{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;}
+.step-num{min-width:28px;height:28px;border-radius:50%;background:#1560a8;color:#fff;font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.step-body{flex:1;}
+.step-title{font-size:13px;font-weight:700;color:#111;margin-bottom:3px;}
+.step-desc{font-size:12px;color:#444;line-height:1.5;}
+.badge{display:inline-block;background:#1560a8;color:#fff;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:700;margin-bottom:8px;}
+.metric-card{background:#f2f4f8;border-radius:8px;padding:10px 12px;border:1px solid #dde;margin-bottom:6px;}
+.metric-title{font-size:12px;font-weight:700;color:#222;margin-bottom:3px;}
+.metric-formula{font-family:monospace;font-size:11px;color:#1560a8;margin-bottom:4px;}
+.metric-body{font-size:11px;color:#555;line-height:1.5;}
+</style>
+
+<div class="nav">
+  <div class="ntab on" onclick="goTab(1)">1. The Pipeline</div>
+  <div class="ntab"    onclick="goTab(2)">2. Feature Selection</div>
+  <div class="ntab"    onclick="goTab(3)">3. Error Analysis</div>
+  <div class="ntab"    onclick="goTab(4)">4. Bias + Variance</div>
+  <div class="ntab"    onclick="goTab(5)">5. Evaluation Metrics</div>
+  <div class="ntab"    onclick="goTab(6)">6. Full Code</div>
+</div>
+
+<!-- TAB 1: Pipeline Overview -->
+<div class="sec on" id="S1">
+<div class="badge">END-TO-END FRAMEWORK</div>
+<div class="h1">The Complete Model Evaluation Pipeline</div>
+<div class="sub">Every step from raw data to production-ready model — in order</div>
+<div class="note"><b>Golden rule:</b> Model evaluation is not a final step — it runs at every stage. Evaluate your features before training, your errors during training, your bias/variance after training, and your metrics before deployment.</div>
+
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-body">
+    <div class="step-title">Understand the data — before anything else</div>
+    <div class="step-desc">Check shape, dtypes, nulls, target distribution, class balance, outliers. This determines which algorithms are even viable and which loss function to use.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-body">
+    <div class="step-title">Split data correctly — train / val / test</div>
+    <div class="step-desc">Split BEFORE any preprocessing. 70/15/15 or 80/10/10. Stratify for classification. Test set is locked — never touch it until final evaluation.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-body">
+    <div class="step-title">Feature engineering + selection</div>
+    <div class="step-desc">Create new features, remove redundant ones, handle missing values. Use correlation matrix, VIF, RFECV, feature importances. Always inside a Pipeline to prevent leakage.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-body">
+    <div class="step-title">Baseline model — always start simple</div>
+    <div class="step-desc">Predict mean (regression) or majority class (classification). Then logistic/linear regression. Every subsequent model must beat this. If it doesn't — the problem is in your data, not your model.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-body">
+    <div class="step-title">Train multiple models + cross-validate</div>
+    <div class="step-desc">Train 3–5 models with cross-validation. Log all metrics in MLflow. Never compare on test set until you've picked the best model on val set.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">6</div>
+  <div class="step-body">
+    <div class="step-title">Error analysis — residuals, confusion matrix, worst samples</div>
+    <div class="step-desc">Look at WHERE the model fails. Residual plots, confusion matrix, misclassified examples. This tells you exactly what to fix.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">7</div>
+  <div class="step-body">
+    <div class="step-title">Bias-variance diagnosis — learning curves</div>
+    <div class="step-desc">Plot train vs val error vs training size and vs model complexity. Diagnose underfitting (high bias) or overfitting (high variance). Apply the right fix.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">8</div>
+  <div class="step-body">
+    <div class="step-title">Hyperparameter tuning on val set</div>
+    <div class="step-desc">GridSearchCV or Optuna. Log every run in MLflow. Pick best by val metric. Never tune on test set.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">9</div>
+  <div class="step-body">
+    <div class="step-title">Final evaluation on test set — once only</div>
+    <div class="step-desc">Evaluate the single best model on the held-out test set. Report all metrics. This is your true generalisation performance.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-num">10</div>
+  <div class="step-body">
+    <div class="step-title">Register + monitor in production</div>
+    <div class="step-desc">Register to MLflow Model Registry. Deploy to Databricks Model Serving. Monitor for data drift and model degradation.</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+<div class="row3">
+  <div class="box box-r">
+    <div class="ct ct-r">Most common mistakes</div>
+    <div class="cb">· Preprocessing before split (leakage)<br>· Tuning on test set<br>· Skipping baseline model<br>· Only looking at accuracy<br>· Not checking residuals<br>· Ignoring class imbalance</div>
+  </div>
+  <div class="box box-g">
+    <div class="ct ct-g">Correct order of operations</div>
+    <div class="cb">1. Split first<br>2. Fit scaler on train only<br>3. Transform train + val + test<br>4. Feature selection on train only<br>5. Train on train<br>6. Evaluate on val (tune here)<br>7. Final score on test (once)</div>
+  </div>
+  <div class="box box-b">
+    <div class="ct">Databricks workflow</div>
+    <div class="cb">· Data from Delta table<br>· randomSplit([0.7,0.15,0.15])<br>· Pipeline with stages<br>· CrossValidator + ParamGrid<br>· MLflow auto-logging<br>· Model Registry<br>· Model Serving endpoint</div>
+  </div>
+</div>
+</div>
+
+<!-- TAB 2: Feature Selection -->
+<div class="sec" id="S2">
+<div class="badge">STEP 3 — FEATURE SELECTION</div>
+<div class="h1">Feature Selection — Complete Hands-on Guide</div>
+<div class="sub">Real dataset: California Housing + Breast Cancer — 6 methods compared</div>
+<div class="note"><b>Why feature selection matters:</b> Irrelevant features add noise, increase training time, cause overfitting, and make models harder to interpret. Good feature selection can improve accuracy by 10–20% and cut training time in half.</div>
+
+<div class="row3">
+  <div class="box box-r">
+    <div class="ct ct-r">Signs you need feature selection</div>
+    <div class="cb">· More features than samples<br>· Many correlated features<br>· Model overfitting badly<br>· Training too slow<br>· Coefficients unstable<br>· R² high on train, low on val<br>· High VIF scores</div>
+  </div>
+  <div class="box box-g">
+    <div class="ct ct-g">6 methods — when to use each</div>
+    <div class="cb"><b>VarianceThreshold</b> — remove constant features<br><b>Correlation</b> — remove redundant pairs<br><b>SelectKBest</b> — fast univariate filter<br><b>RFE/RFECV</b> — wrapper, optimal k<br><b>SelectFromModel</b> — tree importance<br><b>SequentialFS</b> — expensive but thorough</div>
+  </div>
+  <div class="box box-b">
+    <div class="ct">Pipeline placement</div>
+    <div class="cb">ALWAYS put feature selection inside a Pipeline — never fit on all data. If you fit the selector before train/test split, you leak test information into training.<br><br><span class="tag tr">Wrong: fit selector on all data</span><br><span class="tag tg">Right: selector inside Pipeline</span></div>
+  </div>
+</div>
+
+<div class="code">
+# ═══════════════════════════════════════════════════════════════
+# COMPLETE FEATURE SELECTION GUIDE — 6 Methods on Real Data
+# ═══════════════════════════════════════════════════════════════
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import warnings; warnings.filterwarnings('ignore')
+
+from sklearn.datasets import fetch_california_housing, load_breast_cancer
+from sklearn.model_selection import train_test_split, cross_val_score, StratifiedKFold
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
+from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
+from sklearn.linear_model import LogisticRegression, Lasso
+from sklearn.feature_selection import (
+    VarianceThreshold, SelectKBest, SelectPercentile,
+    f_classif, f_regression, mutual_info_classif, mutual_info_regression,
+    RFE, RFECV, SelectFromModel, SequentialFeatureSelector, chi2
+)
+from sklearn.metrics import roc_auc_score, r2_score
+
+# ── Dataset ────────────────────────────────────────────────────
+cancer = load_breast_cancer(as_frame=True)
+X, y   = cancer.data, cancer.target
+feat_names = cancer.feature_names.tolist()
+print(f"Dataset: {X.shape[0]} samples × {X.shape[1]} features")
+print(f"Target: {dict(zip(cancer.target_names, np.bincount(y)))}")
+
+# ALWAYS split FIRST before any feature selection
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y)
+X_train, X_val, y_train, y_val = train_test_split(
+    X_train, y_train, test_size=0.2, random_state=42, stratify=y_train)
+
+print(f"Train: {X_train.shape}  Val: {X_val.shape}  Test: {X_test.shape}")
+
+# ── Step 1: Exploratory Feature Analysis ──────────────────────
+print("\n── Step 1: Exploratory Analysis ──")
+
+# 1a. Missing values
+print(f"Missing values: {X.isnull().sum().sum()} (total)")
+
+# 1b. Variance — remove near-zero variance features
+vt = VarianceThreshold(threshold=0.01)
+X_vt = vt.fit_transform(X_train)
+removed_vt = X.shape[1] - X_vt.shape[1]
+print(f"VarianceThreshold: removed {removed_vt} features  ({X.shape[1]} → {X_vt.shape[1]})")
+
+# 1c. Correlation matrix — find highly correlated pairs
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X_train)
+corr_matrix = pd.DataFrame(X_scaled, columns=feat_names).corr()
+# Find pairs with |r| > 0.9
+high_corr = []
+for i in range(len(feat_names)):
+    for j in range(i+1, len(feat_names)):
+        if abs(corr_matrix.iloc[i,j]) > 0.9:
+            high_corr.append((feat_names[i], feat_names[j], corr_matrix.iloc[i,j]))
+print(f"\nHighly correlated pairs (|r|>0.9): {len(high_corr)}")
+for f1, f2, r in sorted(high_corr, key=lambda x: abs(x[2]), reverse=True)[:5]:
+    print(f"  {f1:35s} ↔ {f2:35s}  r={r:.3f}")
+
+# 1d. VIF (Variance Inflation Factor) — multicollinearity
+from statsmodels.stats.outliers_influence import variance_inflation_factor
+X_sc_df = pd.DataFrame(X_scaled, columns=feat_names)
+vif_data = pd.DataFrame({'feature': feat_names,
+    'VIF': [variance_inflation_factor(X_sc_df.values, i) for i in range(len(feat_names))]
+}).sort_values('VIF', ascending=False)
+print(f"\nTop 5 VIF scores (>5 = multicollinearity):")
+print(vif_data.head(5).to_string(index=False))
+
+# ── Step 2: Filter Methods ─────────────────────────────────────
+print("\n── Step 2: Filter Methods ──")
+
+# 2a. F-statistic (ANOVA)
+skb_f = SelectKBest(f_classif, k=10)
+skb_f.fit(X_train, y_train)
+f_scores = pd.DataFrame({
+    'feature': feat_names,
+    'F_score': skb_f.scores_,
+    'p_value': skb_f.pvalues_
+}).sort_values('F_score', ascending=False)
+print("\nTop 10 by F-score (ANOVA):")
+print(f_scores.head(10)[['feature','F_score','p_value']].to_string(index=False))
+
+# 2b. Mutual Information (non-linear relationships)
+skb_mi = SelectKBest(mutual_info_classif, k=10)
+skb_mi.fit(X_train, y_train)
+mi_scores = pd.DataFrame({'feature': feat_names, 'MI': skb_mi.scores_})\
+              .sort_values('MI', ascending=False)
+print(f"\nTop 10 by Mutual Information:")
+print(mi_scores.head(10).to_string(index=False))
+
+# Agreement between F-score and MI top features
+f_top10  = set(f_scores.head(10)['feature'])
+mi_top10 = set(mi_scores.head(10)['feature'])
+print(f"\nFeatures in both F-score AND MI top-10: {f_top10 & mi_top10}")
+
+# ── Step 3: Wrapper Methods ────────────────────────────────────
+print("\n── Step 3: Wrapper Methods ──")
+
+# 3a. RFE — specify number of features
+rfe = RFE(estimator=LogisticRegression(max_iter=1000), n_features_to_select=10)
+rfe.fit(scaler.transform(X_train), y_train)
+rfe_features = [f for f, s in zip(feat_names, rfe.support_) if s]
+print(f"\nRFE selected (k=10): {rfe_features}")
+
+# 3b. RFECV — cross-validated optimal k (best method for wrapper)
+rfecv = RFECV(
+    estimator=LogisticRegression(max_iter=1000),
+    step=1, cv=StratifiedKFold(5),
+    scoring='roc_auc', min_features_to_select=1, n_jobs=-1
+)
+rfecv.fit(scaler.transform(X_train), y_train)
+rfecv_features = [f for f, s in zip(feat_names, rfecv.support_) if s]
+print(f"\nRFECV optimal k: {rfecv.n_features_}  features: {rfecv_features}")
+print(f"CV AUC at each k: max={max(rfecv.cv_results_['mean_test_score']):.4f}")
+
+# ── Step 4: Embedded Methods ───────────────────────────────────
+print("\n── Step 4: Embedded Methods ──")
+
+# 4a. Tree importance (Random Forest)
+rf_sel = RandomForestClassifier(n_estimators=200, random_state=42, n_jobs=-1)
+sfm_rf = SelectFromModel(rf_sel, threshold='mean')
+sfm_rf.fit(X_train, y_train)
+rf_features = [f for f, s in zip(feat_names, sfm_rf.get_support()) if s]
+feat_imp = pd.Series(sfm_rf.estimator_.feature_importances_, index=feat_names)\
+             .sort_values(ascending=False)
+print(f"\nSelectFromModel (RF importance > mean): {rf_features}")
+print("Feature importances (top 10):")
+print(feat_imp.head(10).round(4))
+
+# 4b. Lasso (L1) — drives irrelevant weights to 0
+from sklearn.linear_model import LassoCV
+lasso_sel = SelectFromModel(LogisticRegression(C=0.1, penalty='l1',
+                             solver='liblinear', max_iter=1000))
+lasso_sel.fit(scaler.transform(X_train), y_train)
+lasso_features = [f for f, s in zip(feat_names, lasso_sel.get_support()) if s]
+print(f"\nLasso (L1) selected: {len(lasso_features)} features: {lasso_features}")
+
+# ── Step 5: Compare all methods ────────────────────────────────
+print("\n── Step 5: Compare all feature selection methods ──")
+
+base_pipe = Pipeline([('sc', StandardScaler()),
+                      ('clf', RandomForestClassifier(n_estimators=100, random_state=42))])
+
+methods = {
+    'All features (30)': Pipeline([
+        ('sc', StandardScaler()),
+        ('clf', RandomForestClassifier(n_estimators=100, random_state=42))]),
+    'SelectKBest F (k=10)': Pipeline([
+        ('sc', StandardScaler()),
+        ('sel', SelectKBest(f_classif, k=10)),
+        ('clf', RandomForestClassifier(n_estimators=100, random_state=42))]),
+    'SelectKBest MI (k=10)': Pipeline([
+        ('sc', StandardScaler()),
+        ('sel', SelectKBest(mutual_info_classif, k=10)),
+        ('clf', RandomForestClassifier(n_estimators=100, random_state=42))]),
+    'RFECV (auto-k)': Pipeline([
+        ('sc', StandardScaler()),
+        ('sel', RFECV(LogisticRegression(max_iter=1000), cv=5, scoring='roc_auc', n_jobs=-1)),
+        ('clf', RandomForestClassifier(n_estimators=100, random_state=42))]),
+    'SelectFromModel RF': Pipeline([
+        ('sc', StandardScaler()),
+        ('sel', SelectFromModel(RandomForestClassifier(n_estimators=100, random_state=42), threshold='mean')),
+        ('clf', RandomForestClassifier(n_estimators=100, random_state=42))]),
+    'L1 Lasso': Pipeline([
+        ('sc', StandardScaler()),
+        ('sel', SelectFromModel(LogisticRegression(C=0.1, penalty='l1', solver='liblinear', max_iter=1000))),
+        ('clf', RandomForestClassifier(n_estimators=100, random_state=42))]),
+}
+
+print(f"\n{'Method':30s} {'CV AUC':8s} {'Val AUC':8s}")
+print("-"*55)
+best_auc, best_method, best_pipe = 0, '', None
+for name, pipe in methods.items():
+    cv_auc = cross_val_score(pipe, X_train, y_train, cv=5, scoring='roc_auc', n_jobs=-1).mean()
+    pipe.fit(X_train, y_train)
+    val_auc = roc_auc_score(y_val, pipe.predict_proba(X_val)[:,1])
+    print(f"{name:30s} {cv_auc:.4f}   {val_auc:.4f}")
+    if val_auc > best_auc:
+        best_auc, best_method, best_pipe = val_auc, name, pipe
+
+print(f"\n✓ Best method: {best_method}  (Val AUC: {best_auc:.4f})")
+
+# ── Step 6: Final feature selection insights ───────────────────
+print("\n── Step 6: Feature Agreement Analysis ──")
+print("Features selected by 3+ methods = most reliable:")
+all_selections = {
+    'F-score':   set(f_scores.head(10)['feature']),
+    'MI':        set(mi_scores.head(10)['feature']),
+    'RFE':       set(rfe_features),
+    'RF Import': set(rf_features),
+    'Lasso':     set(lasso_features)
+}
+from collections import Counter
+all_feat_counts = Counter()
+for method, feats in all_selections.items():
+    for f in feats: all_feat_counts[f] += 1
+print("Features appearing in 3+ methods:")
+for feat, count in sorted(all_feat_counts.items(), key=lambda x: -x[1]):
+    if count >= 3:
+        print(f"  {feat:40s} selected by {count}/5 methods  {'★ CORE' if count==5 else ''}")</div>
+
+<div class="note note-g"><b>Key rule:</b> Features selected by ALL methods are your most reliable features — they have high univariate correlation, are non-redundant, and are important to tree-based models. Start your final model with these "consensus" features.</div>
+</div>
+
+<!-- TAB 3: Error Analysis -->
+<div class="sec" id="S3">
+<div class="badge">STEP 6 — ERROR ANALYSIS</div>
+<div class="h1">Finding and Analysing Errors — Residuals, Confusion Matrix, Worst Samples</div>
+<div class="sub">The step most people skip — but it tells you exactly what to fix next</div>
+<div class="note"><b>Why error analysis?</b> Aggregate metrics (accuracy, RMSE) hide where the model fails. Error analysis shows you the specific samples, patterns, and feature ranges where your model is wrong — that's actionable information.</div>
+
+<div class="row3">
+  <div class="box box-b">
+    <div class="ct">Regression errors to check</div>
+    <div class="cb">· Residual vs fitted (patterns = problem)<br>· Residual distribution (should be normal)<br>· Residual vs each feature (missed patterns)<br>· Predicted vs actual plot<br>· Worst 10% of predictions<br>· Heteroscedasticity check<br>· Outlier influence</div>
+  </div>
+  <div class="box box-g">
+    <div class="ct">Classification errors to check</div>
+    <div class="cb">· Confusion matrix (which classes confused)<br>· Misclassified examples (what's different)<br>· Confidence of wrong predictions<br>· Precision/Recall by class<br>· ROC curve shape<br>· Calibration curve<br>· Error by feature range</div>
+  </div>
+  <div class="box box-y">
+    <div class="ct">What errors tell you</div>
+    <div class="cb">· Curved residuals → non-linearity → add polynomial features or switch model<br>· Funnel residuals → heteroscedasticity → log transform target<br>· High confidence wrong → model overconfident → calibrate<br>· Specific class confused → missing features for that class</div>
+  </div>
+</div>
+
+<div class="code">
+# ═══════════════════════════════════════════════════════════════
+# COMPLETE ERROR ANALYSIS — Regression + Classification
+# ═══════════════════════════════════════════════════════════════
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import warnings; warnings.filterwarnings('ignore')
+
+from sklearn.datasets import fetch_california_housing, load_breast_cancer
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestRegressor, RandomForestClassifier
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
+from sklearn.metrics import (
+    mean_squared_error, mean_absolute_error, r2_score,
+    confusion_matrix, classification_report, roc_auc_score,
+    precision_recall_curve, roc_curve, brier_score_loss,
+    ConfusionMatrixDisplay
+)
+from scipy import stats
+
+# ════════════════════════════════════════════════
+# REGRESSION ERROR ANALYSIS
+# ════════════════════════════════════════════════
+print("═"*60)
+print("REGRESSION ERROR ANALYSIS — California Housing")
+print("═"*60)
+
+housing = fetch_california_housing(as_frame=True)
+X_h, y_h = housing.data, housing.target
+X_tr_h, X_te_h, y_tr_h, y_te_h = train_test_split(X_h, y_h, test_size=0.2, random_state=42)
+
+pipe_rfr = Pipeline([
+    ('scaler', StandardScaler()),
+    ('model',  RandomForestRegressor(n_estimators=100, random_state=42, n_jobs=-1))
+])
+pipe_rfr.fit(X_tr_h, y_tr_h)
+y_pred_h = pipe_rfr.predict(X_te_h)
+residuals = y_te_h.values - y_pred_h
+
+# ── Error metrics ──────────────────────────────
+mae  = mean_absolute_error(y_te_h, y_pred_h)
+mse  = mean_squared_error(y_te_h, y_pred_h)
+rmse = np.sqrt(mse)
+r2   = r2_score(y_te_h, y_pred_h)
+mape = np.mean(np.abs(residuals / y_te_h.values)) * 100
+
+print(f"\nError Metrics:")
+print(f"  MAE:   {mae:.4f}  (avg |error| in $100k)")
+print(f"  MSE:   {mse:.4f}")
+print(f"  RMSE:  {rmse:.4f}  (avg error, same unit as target)")
+print(f"  R²:    {r2:.4f}  (explains {r2*100:.1f}% of variance)")
+print(f"  MAPE:  {mape:.2f}%  (avg % error)")
+print(f"  RMSE/MAE ratio: {rmse/mae:.2f}  {'(outliers present!)' if rmse/mae>1.5 else '(uniform errors)'}")
+
+# ── Residual analysis ──────────────────────────
+print(f"\nResidual Analysis:")
+print(f"  Mean:     {residuals.mean():.4f}  (should be ~0)")
+print(f"  Std:      {residuals.std():.4f}")
+print(f"  Skewness: {pd.Series(residuals).skew():.4f}  (|skew|<0.5 = symmetric)")
+print(f"  Kurtosis: {pd.Series(residuals).kurtosis():.4f}  (>3 = heavy tails)")
+
+# Normality test on residuals
+stat, p_val = stats.shapiro(residuals[:500])  # Shapiro-Wilk (use subset)
+print(f"  Shapiro-Wilk normality test: p={p_val:.4f}  {'Normal ✓' if p_val>0.05 else 'NOT normal ✗'}")
+
+# ── Worst predictions ─────────────────────────
+abs_errors = np.abs(residuals)
+worst_idx  = np.argsort(abs_errors)[-10:][::-1]
+worst_df   = X_te_h.iloc[worst_idx].copy()
+worst_df['actual']    = y_te_h.values[worst_idx]
+worst_df['predicted'] = y_pred_h[worst_idx]
+worst_df['error']     = residuals[worst_idx]
+worst_df['abs_error'] = abs_errors[worst_idx]
+print(f"\nTop 10 worst predictions:")
+print(worst_df[['actual','predicted','error','abs_error']].round(3).to_string())
+
+# ── Heteroscedasticity check ──────────────────
+# Breusch-Pagan concept: does error variance change with prediction level?
+# Sort by predicted value and compare error std in low vs high range
+low_pred_mask  = y_pred_h < np.percentile(y_pred_h, 33)
+high_pred_mask = y_pred_h > np.percentile(y_pred_h, 67)
+std_low  = np.std(residuals[low_pred_mask])
+std_high = np.std(residuals[high_pred_mask])
+print(f"\nHeteroscedasticity check:")
+print(f"  Residual std for low predictions:  {std_low:.4f}")
+print(f"  Residual std for high predictions: {std_high:.4f}")
+print(f"  Ratio: {std_high/std_low:.2f}  {'(heteroscedastic — consider log transform)' if std_high/std_low > 1.5 else '(homoscedastic ✓)'}")
+
+# ── Residual vs each feature ───────────────────
+print(f"\nCorrelation between residuals and features (patterns = missed signal):")
+for col in X_te_h.columns:
+    corr = np.corrcoef(X_te_h[col].values, residuals)[0,1]
+    if abs(corr) > 0.1:
+        print(f"  {col:25s}: r={corr:+.3f}  {'← model missing pattern in this feature!' if abs(corr)>0.15 else ''}")
+
+# ── Prediction interval accuracy ─────────────
+# Check if actual values fall within predicted ± 1 std
+print(f"\nPrediction accuracy buckets:")
+for threshold in [0.1, 0.2, 0.5, 1.0]:
+    within = np.mean(abs_errors <= threshold) * 100
+    print(f"  |error| ≤ {threshold:.1f}: {within:.1f}% of predictions")
+
+# ════════════════════════════════════════════════
+# CLASSIFICATION ERROR ANALYSIS
+# ════════════════════════════════════════════════
+print("\n" + "═"*60)
+print("CLASSIFICATION ERROR ANALYSIS — Breast Cancer")
+print("═"*60)
+
+cancer = load_breast_cancer(as_frame=True)
+X_c, y_c = cancer.data, cancer.target
+X_tr_c, X_te_c, y_tr_c, y_te_c = train_test_split(
+    X_c, y_c, test_size=0.2, random_state=42, stratify=y_c)
+
+pipe_rfc = Pipeline([
+    ('scaler', StandardScaler()),
+    ('model',  RandomForestClassifier(n_estimators=100, random_state=42))
+])
+pipe_rfc.fit(X_tr_c, y_tr_c)
+y_pred_c  = pipe_rfc.predict(X_te_c)
+y_prob_c  = pipe_rfc.predict_proba(X_te_c)[:,1]
+
+# ── Confusion matrix ──────────────────────────
+cm = confusion_matrix(y_te_c, y_pred_c)
+tn, fp, fn, tp = cm.ravel()
+print(f"\nConfusion Matrix:")
+print(f"  True Negatives  (correctly predicted malignant):  {tn}")
+print(f"  False Positives (malignant predicted as benign):  {fp}  ← DANGEROUS in medical context!")
+print(f"  False Negatives (benign predicted as malignant):  {fn}")
+print(f"  True Positives  (correctly predicted benign):     {tp}")
+
+# ── All classification metrics ─────────────────
+precision = tp/(tp+fp) if (tp+fp)>0 else 0
+recall    = tp/(tp+fn) if (tp+fn)>0 else 0
+f1        = 2*precision*recall/(precision+recall) if (precision+recall)>0 else 0
+accuracy  = (tp+tn)/(tp+tn+fp+fn)
+specificity = tn/(tn+fp)
+auc       = roc_auc_score(y_te_c, y_prob_c)
+brier     = brier_score_loss(y_te_c, y_prob_c)
+
+print(f"\nClassification Metrics:")
+print(f"  Accuracy:    {accuracy:.4f}  ({int(accuracy*100)}% correct overall)")
+print(f"  Precision:   {precision:.4f}  (of predicted benign, {precision*100:.1f}% actually benign)")
+print(f"  Recall:      {recall:.4f}  (of actual benign, {recall*100:.1f}% caught)")
+print(f"  F1 Score:    {f1:.4f}  (harmonic mean of precision+recall)")
+print(f"  Specificity: {specificity:.4f}  (of actual malignant, {specificity*100:.1f}% caught)")
+print(f"  AUC-ROC:     {auc:.4f}  (1.0=perfect, 0.5=random)")
+print(f"  Brier score: {brier:.4f}  (probability calibration, lower=better)")
+
+print(f"\nFull classification report:")
+print(classification_report(y_te_c, y_pred_c, target_names=cancer.target_names))
+
+# ── Misclassified sample analysis ─────────────
+wrong_mask = y_pred_c != y_te_c.values
+wrong_df   = X_te_c[wrong_mask].copy()
+wrong_df['true_label'] = y_te_c.values[wrong_mask]
+wrong_df['pred_label'] = y_pred_c[wrong_mask]
+wrong_df['confidence'] = np.max(pipe_rfc.predict_proba(X_te_c)[wrong_mask], axis=1)
+print(f"\nMisclassified samples: {wrong_mask.sum()} out of {len(y_te_c)}")
+print(f"High-confidence wrong predictions (>0.8): {(wrong_df['confidence']>0.8).sum()}")
+print("→ High confidence + wrong = model is certain but mistaken = dangerous!")
+print("\nMean feature values: misclassified vs correctly classified:")
+for col in X_te_c.columns[:5]:
+    mu_wrong   = X_te_c[wrong_mask][col].mean()
+    mu_correct = X_te_c[~wrong_mask][col].mean()
+    if abs(mu_wrong - mu_correct) / (mu_correct + 1e-9) > 0.1:
+        print(f"  {col:35s}: wrong={mu_wrong:.3f}  correct={mu_correct:.3f}")
+
+# ── Threshold analysis ─────────────────────────
+print(f"\nThreshold analysis (default=0.5):")
+for threshold in [0.3, 0.4, 0.5, 0.6, 0.7]:
+    y_pred_t = (y_prob_c >= threshold).astype(int)
+    prec = np.sum((y_pred_t==1)&(y_te_c==1)) / (np.sum(y_pred_t==1)+1e-9)
+    rec  = np.sum((y_pred_t==1)&(y_te_c==1)) / (np.sum(y_te_c==1)+1e-9)
+    acc  = np.mean(y_pred_t == y_te_c.values)
+    print(f"  threshold={threshold:.1f}: accuracy={acc:.3f}  precision={prec:.3f}  recall={rec:.3f}")</div>
+
+<div class="note note-r"><b>Most important insight:</b> In medical/fraud contexts, False Negatives (missing a real case) cost more than False Positives. Lower the threshold from 0.5 to 0.3 to increase recall at the cost of precision. Always report both precision AND recall, never just accuracy.</div>
+</div>
+
+<!-- TAB 4: Bias + Variance -->
+<div class="sec" id="S4">
+<div class="badge">STEP 7 — BIAS + VARIANCE DIAGNOSIS</div>
+<div class="h1">Diagnosing Bias and Variance — Learning Curves + Fixes</div>
+<div class="sub">The most important diagnostic tool in ML — tells you exactly what is wrong and how to fix it</div>
+<div class="row3">
+  <div class="box box-r">
+    <div class="ct ct-r">High Bias (Underfitting)</div>
+    <div class="cb"><b>Signs:</b><br>· Both train AND val error high<br>· Train error ≈ val error (small gap)<br>· Learning curve plateaus at high error<br>· R² stuck below 0.6<br><br><b>Fixes:</b><br>· More complex model<br>· Add features / feature engineering<br>· Reduce regularisation (smaller λ)<br>· More training iterations<br>· Try different algorithm family</div>
+  </div>
+  <div class="box box-y">
+    <div class="ct ct-w">High Variance (Overfitting)</div>
+    <div class="cb"><b>Signs:</b><br>· Train error LOW, val error HIGH<br>· Large gap between train and val<br>· Performance drops on new data<br>· Model performance unstable across folds<br><br><b>Fixes:</b><br>· More training data<br>· Regularisation (L1/L2/dropout)<br>· Reduce model complexity<br>· Feature selection<br>· Early stopping<br>· Ensemble (bagging)</div>
+  </div>
+  <div class="box box-g">
+    <div class="ct ct-g">Good Fit (Sweet Spot)</div>
+    <div class="cb"><b>Signs:</b><br>· Train error low, val error low<br>· Small gap (< 5% relative)<br>· CV scores stable across folds<br>· Learning curves converge<br><br><b>Actions:</b><br>· Fine-tune hyperparameters<br>· Try ensemble for marginal gains<br>· Evaluate on test set<br>· Register model in MLflow<br>· Deploy!</div>
+  </div>
+</div>
+
+<div class="code">
+# ═══════════════════════════════════════════════════════════════
+# BIAS-VARIANCE DIAGNOSIS — Learning Curves + Validation Curves
+# ═══════════════════════════════════════════════════════════════
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import warnings; warnings.filterwarnings('ignore')
+
+from sklearn.datasets import load_breast_cancer, fetch_california_housing
+from sklearn.model_selection import (learning_curve, validation_curve,
+                                      cross_val_score, train_test_split)
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+
+cancer = load_breast_cancer(as_frame=True)
+X, y = cancer.data, cancer.target
+
+# ── 1. Learning Curves — bias vs variance diagnosis ───────────
+print("=" * 60)
+print("LEARNING CURVES — Bias vs Variance Diagnosis")
+print("=" * 60)
+
+models_to_check = {
+    'Logistic Regression (might underfit)': Pipeline([
+        ('sc', StandardScaler()),
+        ('clf', LogisticRegression(max_iter=1000))
+    ]),
+    'Random Forest (well-tuned)': Pipeline([
+        ('sc', StandardScaler()),
+        ('clf', RandomForestClassifier(n_estimators=100, max_depth=6, random_state=42))
+    ]),
+    'Decision Tree depth=20 (likely overfit)': Pipeline([
+        ('sc', StandardScaler()),
+        ('clf', DecisionTreeClassifier(max_depth=20, random_state=42))
+    ]),
+}
+
+train_sizes = np.linspace(0.1, 1.0, 10)
+
+for model_name, pipe in models_to_check.items():
+    train_sizes_abs, train_scores, val_scores = learning_curve(
+        pipe, X, y,
+        train_sizes=train_sizes,
+        cv=5,
+        scoring='roc_auc',
+        n_jobs=-1,
+        shuffle=True,
+        random_state=42
+    )
+    tr_mean = train_scores.mean(axis=1)
+    val_mean = val_scores.mean(axis=1)
+    tr_std  = train_scores.std(axis=1)
+    val_std = val_scores.std(axis=1)
+
+    # Diagnosis
+    final_train = tr_mean[-1]
+    final_val   = val_mean[-1]
+    gap         = final_train - final_val
+
+    if final_val < 0.75:
+        diagnosis = "HIGH BIAS (underfitting) — try more complex model"
+    elif gap > 0.05:
+        diagnosis = "HIGH VARIANCE (overfitting) — try regularisation or more data"
+    else:
+        diagnosis = "GOOD FIT ✓ — ready for tuning and test evaluation"
+
+    print(f"\n{model_name}")
+    print(f"  Train sizes: {train_sizes_abs}")
+    print(f"  Train AUC:  {tr_mean.round(4)}")
+    print(f"  Val AUC:    {val_mean.round(4)}")
+    print(f"  Final gap:  {gap:.4f}  → {diagnosis}")
+
+    # Print learning curve table
+    print(f"\n  {'Train Size':>12} {'Train AUC':>10} {'Val AUC':>10} {'Gap':>8} {'Diagnosis':>30}")
+    print(f"  {'-'*65}")
+    for i, (n, tr, va) in enumerate(zip(train_sizes_abs, tr_mean, val_mean)):
+        g = tr - va
+        diag = 'underfit' if va<0.75 else ('overfit' if g>0.05 else 'good')
+        print(f"  {n:>12} {tr:>10.4f} {va:>10.4f} {g:>8.4f} {diag:>30}")
+
+# ── 2. Validation Curves — hyperparameter effect ──────────────
+print("\n" + "="*60)
+print("VALIDATION CURVES — Hyperparameter Effect")
+print("="*60)
+
+# How does max_depth affect bias-variance in Decision Tree?
+param_range = [1, 2, 3, 4, 5, 6, 7, 8, 10, 15, 20, None]
+train_scores_vc, val_scores_vc = validation_curve(
+    Pipeline([('sc', StandardScaler()),
+              ('clf', DecisionTreeClassifier(random_state=42))]),
+    X, y,
+    param_name='clf__max_depth',
+    param_range=param_range,
+    cv=5, scoring='roc_auc', n_jobs=-1
+)
+print(f"\nDecision Tree: max_depth effect on bias-variance")
+print(f"{'max_depth':>12} {'Train AUC':>10} {'Val AUC':>10} {'Gap':>8} {'Status':>20}")
+print("-"*65)
+for depth, tr, va in zip(param_range,
+                          train_scores_vc.mean(axis=1),
+                          val_scores_vc.mean(axis=1)):
+    gap  = tr - va
+    status = 'UNDERFIT' if va<0.85 else ('OVERFIT' if gap>0.05 else 'GOOD ✓')
+    print(f"{str(depth):>12} {tr:>10.4f} {va:>10.4f} {gap:>8.4f} {status:>20}")
+
+# How does C (regularisation) affect logistic regression?
+c_range = [0.001, 0.01, 0.1, 0.5, 1, 5, 10, 100]
+train_c, val_c = validation_curve(
+    Pipeline([('sc', StandardScaler()),
+              ('clf', LogisticRegression(max_iter=2000))]),
+    X, y,
+    param_name='clf__C',
+    param_range=c_range,
+    cv=5, scoring='roc_auc', n_jobs=-1
+)
+print(f"\nLogistic Regression: C effect (1/C = regularisation)")
+print(f"{'C':>10} {'Train AUC':>10} {'Val AUC':>10} {'Gap':>8} {'Status':>20}")
+print("-"*60)
+for c, tr, va in zip(c_range, train_c.mean(axis=1), val_c.mean(axis=1)):
+    gap = tr - va
+    status = 'UNDERFIT' if va<0.97 else ('OVERFIT' if gap>0.03 else 'GOOD ✓')
+    print(f"{c:>10} {tr:>10.4f} {va:>10.4f} {gap:>8.4f} {status:>20}")
+
+# ── 3. Cross-validation variance check ────────────────────────
+print("\n" + "="*60)
+print("CROSS-VALIDATION VARIANCE — Model Stability Check")
+print("="*60)
+models = {
+    'Logistic Regression': Pipeline([('sc',StandardScaler()),('clf',LogisticRegression(max_iter=1000))]),
+    'Decision Tree':       Pipeline([('sc',StandardScaler()),('clf',DecisionTreeClassifier(max_depth=5,random_state=42))]),
+    'Random Forest':       RandomForestClassifier(n_estimators=100, random_state=42),
+    'Gradient Boosting':   GradientBoostingClassifier(n_estimators=100, random_state=42),
+}
+print(f"\n{'Model':25s} {'Mean AUC':>10} {'Std AUC':>10} {'Min':>8} {'Max':>8} {'Stable?':>10}")
+print("-"*75)
+for name, model in models.items():
+    scores = cross_val_score(model, X, y, cv=10, scoring='roc_auc')
+    stable = 'YES ✓' if scores.std() < 0.03 else 'NO ✗'
+    print(f"{name:25s} {scores.mean():>10.4f} {scores.std():>10.4f} {scores.min():>8.4f} {scores.max():>8.4f} {stable:>10}")
+
+# ── 4. Bias-variance decomposition ────────────────────────────
+print("\n" + "="*60)
+print("BIAS-VARIANCE DECOMPOSITION ESTIMATE")
+print("="*60)
+print("""
+Total Error = Bias² + Variance + Irreducible Noise
+
+How to estimate:
+  Bias²    ≈ (avg_prediction - true_value)²  — systematic offset
+  Variance ≈ var(predictions across different training sets)
+  Noise    ≈ irreducible — cannot be reduced
+
+Practical approximation using cross-validation:
+  Bias²    ≈ (1 - mean_cv_score)²  — avg distance from perfect score
+  Variance ≈ std_cv_score²          — spread across folds
+""")
+for name, model in models.items():
+    scores = cross_val_score(model, X, y, cv=10, scoring='roc_auc')
+    bias2  = (1 - scores.mean())**2
+    var    = scores.var()
+    total  = bias2 + var
+    dominant = 'BIAS' if bias2 > var else 'VARIANCE'
+    print(f"{name:25s}: Bias²={bias2:.6f}  Var={var:.6f}  Dominant={dominant}")</div>
+
+<div class="note note-y"><b>Reading learning curves:</b> If train and val curves converge at a HIGH error → high bias → get a more complex model. If train curve is low but val curve is much higher → high variance → get more data or regularise. If both curves converge at a LOW error → sweet spot — stop here and evaluate on test set.</div>
+</div>
+
+<!-- TAB 5: Evaluation Metrics -->
+<div class="sec" id="S5">
+<div class="badge">STEP 9 — EVALUATION METRICS</div>
+<div class="h1">Complete Model Evaluation Metrics — Regression + Classification</div>
+<div class="sub">Every metric you need, when to use each, and how to interpret them</div>
+
+<div class="h1" style="font-size:13px;margin-bottom:8px;margin-top:4px;">Regression Metrics</div>
+<div class="row2">
+<div>
+  <div class="metric-card">
+    <div class="metric-title">MAE — Mean Absolute Error</div>
+    <div class="metric-formula">MAE = (1/n) Σ|yᵢ − ŷᵢ|</div>
+    <div class="metric-body">Same units as target. Robust to outliers. Interpretable: "on average the model is off by X units". Use when all errors are equally bad.</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-title">RMSE — Root Mean Squared Error</div>
+    <div class="metric-formula">RMSE = √[(1/n) Σ(yᵢ − ŷᵢ)²]</div>
+    <div class="metric-body">Same units as target. Penalises large errors heavily. RMSE ≥ MAE always. RMSE/MAE ratio > 1.5 = outliers dominating. Default regression metric.</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-title">R² Score — Coefficient of Determination</div>
+    <div class="metric-formula">R² = 1 − SS_res/SS_tot</div>
+    <div class="metric-body">Proportion of variance explained. 1.0 = perfect. 0.0 = no better than predicting mean. Negative = worse than mean. Report to stakeholders as "%".</div>
+  </div>
+</div>
+<div>
+  <div class="metric-card">
+    <div class="metric-title">MAPE — Mean Absolute Percentage Error</div>
+    <div class="metric-formula">MAPE = (1/n) Σ|eᵢ/yᵢ| × 100%</div>
+    <div class="metric-body">Scale-free %. Use when relative error matters (forecasting). Undefined when y=0. sMAPE fixes asymmetry issue.</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-title">Huber Loss</div>
+    <div class="metric-formula">½e² if |e|≤δ, else δ(|e|−½δ)</div>
+    <div class="metric-body">Best of MSE + MAE. Quadratic near 0, linear for large errors. Use as training loss when outliers present. δ=1.0 default.</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-title">Adjusted R²</div>
+    <div class="metric-formula">Adj R² = 1−(1−R²)(n−1)/(n−p−1)</div>
+    <div class="metric-body">Penalises adding useless features. Use when comparing models with different numbers of features. Always ≤ R².</div>
+  </div>
+</div>
+</div>
+
+<div class="h1" style="font-size:13px;margin-bottom:8px;">Classification Metrics</div>
+<div class="row2">
+<div>
+  <div class="metric-card">
+    <div class="metric-title">Accuracy</div>
+    <div class="metric-formula">(TP+TN) / (TP+TN+FP+FN)</div>
+    <div class="metric-body">Overall % correct. Misleading for imbalanced classes (99% accuracy by always predicting majority). Never use alone for imbalanced data.</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-title">Precision</div>
+    <div class="metric-formula">TP / (TP + FP)</div>
+    <div class="metric-body">Of all predicted positives, how many were actually positive. "When model says fraud, how often is it right?" Use when FP is costly.</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-title">Recall (Sensitivity)</div>
+    <div class="metric-formula">TP / (TP + FN)</div>
+    <div class="metric-body">Of all actual positives, how many did we find. "Of all actual fraud, how much did we catch?" Use when FN is costly (medical, fraud).</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-title">F1 Score</div>
+    <div class="metric-formula">2 × (Precision × Recall) / (Precision + Recall)</div>
+    <div class="metric-body">Harmonic mean of precision and recall. Best single metric for imbalanced classes. F-beta allows weighting recall over precision.</div>
+  </div>
+</div>
+<div>
+  <div class="metric-card">
+    <div class="metric-title">AUC-ROC</div>
+    <div class="metric-formula">Area under ROC curve (TPR vs FPR)</div>
+    <div class="metric-body">Threshold-independent. 0.5 = random, 1.0 = perfect. Best for comparing models. Does not account for calibration. Use for ranking quality.</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-title">AUC-PR (Precision-Recall AUC)</div>
+    <div class="metric-formula">Area under Precision-Recall curve</div>
+    <div class="metric-body">Better than ROC-AUC for severely imbalanced data. More informative when positive class is rare (fraud, disease). Always report alongside ROC-AUC.</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-title">Brier Score</div>
+    <div class="metric-formula">(1/n) Σ(pᵢ − yᵢ)²</div>
+    <div class="metric-body">Measures probability calibration. 0 = perfect, 0.25 = random. Use when you need well-calibrated probabilities for business decisions.</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-title">Matthews Correlation Coefficient (MCC)</div>
+    <div class="metric-formula">(TP·TN−FP·FN) / √[(TP+FP)(TP+FN)(TN+FP)(TN+FN)]</div>
+    <div class="metric-body">Best single metric for binary classification. Handles imbalanced classes better than F1. Range: −1 to 1. Often overlooked but most informative.</div>
+  </div>
+</div>
+</div>
+
+<div class="code">
+# ═══════════════════════════════════════════════════════════════
+# COMPLETE EVALUATION — All Metrics + Databricks Integration
+# ═══════════════════════════════════════════════════════════════
+import numpy as np
+import pandas as pd
+import warnings; warnings.filterwarnings('ignore')
+
+from sklearn.datasets import fetch_california_housing, load_breast_cancer
+from sklearn.model_selection import train_test_split, cross_validate
+from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
+from sklearn.linear_model import LogisticRegression, LinearRegression
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
+from sklearn.metrics import *
+
+# ════════════════════════════════════════════════
+# REGRESSION — All metrics
+# ════════════════════════════════════════════════
+housing = fetch_california_housing(as_frame=True)
+X_h, y_h = housing.data, housing.target
+X_tr_h, X_te_h, y_tr_h, y_te_h = train_test_split(X_h, y_h, test_size=0.2, random_state=42)
+
+def evaluate_regressor(name, pipe, X_tr, y_tr, X_te, y_te):
+    pipe.fit(X_tr, y_tr)
+    y_pred = pipe.predict(X_te)
+    n, p   = X_te.shape
+    r2     = r2_score(y_te, y_pred)
+    adj_r2 = 1 - (1-r2)*(n-1)/(n-p-1)
+    rmse   = np.sqrt(mean_squared_error(y_te, y_pred))
+    mae    = mean_absolute_error(y_te, y_pred)
+    mape   = mean_absolute_percentage_error(y_te, y_pred) * 100
+    errors = y_te.values - y_pred
+    print(f"\n{'─'*55}")
+    print(f"Model: {name}")
+    print(f"{'─'*55}")
+    print(f"  R²:          {r2:.4f}   (explains {r2*100:.1f}% variance)")
+    print(f"  Adj R²:      {adj_r2:.4f}   (penalised for {p} features)")
+    print(f"  RMSE:        {rmse:.4f}   (avg error ±{rmse:.3f} units)")
+    print(f"  MAE:         {mae:.4f}   (avg |error|)")
+    print(f"  MAPE:        {mape:.2f}%")
+    print(f"  RMSE/MAE:    {rmse/mae:.2f}   {'→ outliers present' if rmse/mae>1.5 else '→ uniform errors'}")
+    print(f"  Max error:   {np.max(np.abs(errors)):.4f}")
+    print(f"  Residual std:{errors.std():.4f}")
+    cv_r2 = cross_validate(pipe, X_tr, y_tr, cv=5,
+                            scoring=['r2','neg_rmse'] if False else ['r2'],
+                            return_train_score=True)
+    print(f"  CV R² (5-fold): {cv_r2['test_r2'].mean():.4f} ± {cv_r2['test_r2'].std():.4f}")
+    print(f"  Train R²:       {cv_r2['train_r2'].mean():.4f}")
+    gap = cv_r2['train_r2'].mean() - cv_r2['test_r2'].mean()
+    print(f"  B-V diagnosis: gap={gap:.4f} → {'HIGH VARIANCE' if gap>0.1 else 'HIGH BIAS' if cv_r2['test_r2'].mean()<0.5 else 'GOOD FIT ✓'}")
+    return pipe
+
+print("REGRESSION EVALUATION — California Housing")
+for name, mdl in [
+    ('Linear Regression', Pipeline([('sc',StandardScaler()),('m',LinearRegression())])),
+    ('Random Forest',     RandomForestRegressor(n_estimators=100, random_state=42))
+]:
+    evaluate_regressor(name, mdl, X_tr_h, y_tr_h, X_te_h, y_te_h)
+
+# ════════════════════════════════════════════════
+# CLASSIFICATION — All metrics
+# ════════════════════════════════════════════════
+cancer = load_breast_cancer(as_frame=True)
+X_c, y_c = cancer.data, cancer.target
+X_tr_c, X_te_c, y_tr_c, y_te_c = train_test_split(
+    X_c, y_c, test_size=0.2, random_state=42, stratify=y_c)
+
+def evaluate_classifier(name, pipe, X_tr, y_tr, X_te, y_te, target_names):
+    pipe.fit(X_tr, y_tr)
+    y_pred = pipe.predict(X_te)
+    y_prob = pipe.predict_proba(X_te)[:,1]
+    tn,fp,fn,tp = confusion_matrix(y_te, y_pred).ravel()
+    prec   = precision_score(y_te, y_pred)
+    rec    = recall_score(y_te, y_pred)
+    f1     = f1_score(y_te, y_pred)
+    acc    = accuracy_score(y_te, y_pred)
+    auc    = roc_auc_score(y_te, y_prob)
+    mcc    = matthews_corrcoef(y_te, y_pred)
+    brier  = brier_score_loss(y_te, y_prob)
+    pr_auc = average_precision_score(y_te, y_prob)
+    print(f"\n{'─'*55}")
+    print(f"Model: {name}")
+    print(f"{'─'*55}")
+    print(f"  Accuracy:    {acc:.4f}   ({acc*100:.1f}% correct)")
+    print(f"  Precision:   {prec:.4f}   (FP rate: {fp/(fp+tn)*100:.1f}%)")
+    print(f"  Recall:      {rec:.4f}   (FN rate: {fn/(fn+tp)*100:.1f}%)")
+    print(f"  F1 Score:    {f1:.4f}")
+    print(f"  AUC-ROC:     {auc:.4f}   (ranking quality)")
+    print(f"  AUC-PR:      {pr_auc:.4f}   (imbalance-robust)")
+    print(f"  MCC:         {mcc:.4f}   (best single metric)")
+    print(f"  Brier Score: {brier:.4f}   (calibration)")
+    print(f"\n  Confusion Matrix:")
+    print(f"  TN={tn:4d}  FP={fp:4d}")
+    print(f"  FN={fn:4d}  TP={tp:4d}")
+    cv = cross_validate(pipe, X_tr, y_tr, cv=5,
+                        scoring=['roc_auc','f1','accuracy'],
+                        return_train_score=True)
+    print(f"\n  Cross-validation (5-fold):")
+    for metric in ['roc_auc','f1','accuracy']:
+        tr_m = cv[f'train_{metric}'].mean()
+        te_m = cv[f'test_{metric}'].mean()
+        gap  = tr_m - te_m
+        print(f"  {metric:12s}: train={tr_m:.4f}  val={te_m:.4f}  gap={gap:.4f}  {'OVERFIT' if gap>0.05 else 'OK'}")
+
+print("\nCLASSIFICATION EVALUATION — Breast Cancer")
+for name, mdl in [
+    ('Logistic Regression', Pipeline([('sc',StandardScaler()),('m',LogisticRegression(max_iter=1000))])),
+    ('Random Forest',       RandomForestClassifier(n_estimators=100, random_state=42))
+]:
+    evaluate_classifier(name, mdl, X_tr_c, y_tr_c, X_te_c, y_te_c, cancer.target_names)</div>
+
+<div class="note note-p"><b>Which metric to pick for your problem:</b> Churn prediction → AUC-ROC + F1. Fraud detection → Recall + AUC-PR (imbalanced). Medical diagnosis → Recall + MCC. Demand forecasting → RMSE + MAPE. House price → RMSE + R². Never rely on a single metric.</div>
+</div>
+
+<!-- TAB 6: Full Code -->
+<div class="sec" id="S6">
+<div class="badge">COMPLETE PRODUCTION WORKFLOW</div>
+<div class="h1">End-to-End: Feature Selection → Errors → Bias/Variance → Evaluation</div>
+<div class="sub">One complete script that ties together all 5 tabs — copy into Databricks notebook</div>
+
+<div class="code">
+# ═══════════════════════════════════════════════════════════════
+# COMPLETE END-TO-END ML EVALUATION WORKFLOW
+# Covers: Feature Selection + Error Analysis + Bias/Variance +
+#         All Metrics + MLflow logging
+# Dataset: Breast Cancer (classification) + California Housing (regression)
+# ═══════════════════════════════════════════════════════════════
+import numpy as np
+import pandas as pd
+import warnings; warnings.filterwarnings('ignore')
+
+from sklearn.datasets import load_breast_cancer, fetch_california_housing
+from sklearn.model_selection import (train_test_split, cross_val_score,
+                                      learning_curve, validation_curve,
+                                      StratifiedKFold, GridSearchCV)
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
+from sklearn.feature_selection import (SelectKBest, f_classif,
+                                        mutual_info_classif, RFECV,
+                                        SelectFromModel)
+from sklearn.ensemble import (RandomForestClassifier,
+                               GradientBoostingClassifier,
+                               RandomForestRegressor)
+from sklearn.linear_model import LogisticRegression, LinearRegression
+from sklearn.metrics import *
+from sklearn.calibration import CalibratedClassifierCV
+import mlflow, mlflow.sklearn
+
+# ════════════════════════════════════════════════════════
+# PHASE 1: LOAD + EXPLORE DATA
+# ════════════════════════════════════════════════════════
+print("▶ PHASE 1: Load and explore data")
+
+cancer = load_breast_cancer(as_frame=True)
+X, y   = cancer.data, cancer.target
+feat_names = cancer.feature_names.tolist()
+
+print(f"  Shape: {X.shape}")
+print(f"  Target distribution: {dict(zip(cancer.target_names, np.bincount(y)))}")
+print(f"  Class balance: {np.bincount(y)/len(y)}")
+print(f"  Missing values: {X.isnull().sum().sum()}")
+print(f"  Feature stats:\n{X.describe().round(2)}")
+
+# ════════════════════════════════════════════════════════
+# PHASE 2: SPLIT DATA (BEFORE ANY PREPROCESSING)
+# ════════════════════════════════════════════════════════
+print("\n▶ PHASE 2: Split data")
+
+# Outer split: hold out test set
+X_trainval, X_test, y_trainval, y_test = train_test_split(
+    X, y, test_size=0.15, random_state=42, stratify=y)
+# Inner split: train / validation
+X_train, X_val, y_train, y_val = train_test_split(
+    X_trainval, y_trainval, test_size=0.18, random_state=42, stratify=y_trainval)
+
+print(f"  Train: {X_train.shape}  Val: {X_val.shape}  Test: {X_test.shape}")
+
+# ════════════════════════════════════════════════════════
+# PHASE 3: FEATURE SELECTION
+# ════════════════════════════════════════════════════════
+print("\n▶ PHASE 3: Feature selection")
+
+scaler = StandardScaler()
+X_train_sc = scaler.fit_transform(X_train)  # fit on train ONLY
+X_val_sc   = scaler.transform(X_val)
+X_test_sc  = scaler.transform(X_test)
+
+# Method 1: Correlation — remove redundant pairs
+corr_df = pd.DataFrame(X_train_sc, columns=feat_names).corr()
+to_drop = set()
+for i in range(len(feat_names)):
+    for j in range(i+1, len(feat_names)):
+        if abs(corr_df.iloc[i,j]) > 0.92 and feat_names[j] not in to_drop:
+            to_drop.add(feat_names[j])
+print(f"  Correlation filter: drop {len(to_drop)} redundant features")
+print(f"  Dropped: {to_drop}")
+
+# Method 2: RFECV — cross-validated optimal feature count
+rfecv = RFECV(LogisticRegression(max_iter=1000), cv=5, scoring='roc_auc', n_jobs=-1)
+rfecv.fit(X_train_sc, y_train)
+optimal_features = [f for f, s in zip(feat_names, rfecv.support_) if s]
+print(f"  RFECV: optimal k={rfecv.n_features_}  features={optimal_features}")
+
+# Method 3: RF importance
+rf_sel = SelectFromModel(RandomForestClassifier(n_estimators=200, random_state=42), threshold='mean')
+rf_sel.fit(X_train_sc, y_train)
+rf_features = [f for f, s in zip(feat_names, rf_sel.get_support()) if s]
+print(f"  RF importance: {len(rf_features)} features={rf_features}")
+
+# Consensus — features in 2+ methods
+from collections import Counter
+all_selected = Counter(optimal_features + rf_features +
+                        [f for f in feat_names if f not in to_drop])
+consensus = [f for f, c in all_selected.items() if c >= 2]
+print(f"  Consensus features (2+ methods): {len(consensus)}: {consensus}")
+
+# Build final feature indices
+final_feat_idx = [feat_names.index(f) for f in consensus]
+X_train_final = X_train_sc[:, final_feat_idx]
+X_val_final   = X_val_sc[:,   final_feat_idx]
+X_test_final  = X_test_sc[:,  final_feat_idx]
+print(f"  Final: {X.shape[1]} → {len(consensus)} features")
+
+# ════════════════════════════════════════════════════════
+# PHASE 4: BASELINE + MODEL COMPARISON
+# ════════════════════════════════════════════════════════
+print("\n▶ PHASE 4: Baseline + model comparison")
+
+# Baseline: majority class
+baseline_auc = roc_auc_score(y_val, np.ones(len(y_val)) * y_train.mean())
+print(f"  Baseline (predict majority): AUC={baseline_auc:.4f}")
+
+models = {
+    'Logistic Regression': LogisticRegression(max_iter=1000, random_state=42),
+    'Random Forest':       RandomForestClassifier(n_estimators=100, random_state=42),
+    'Gradient Boosting':   GradientBoostingClassifier(n_estimators=100, random_state=42),
+}
+results = {}
+for name, model in models.items():
+    model.fit(X_train_final, y_train)
+    val_auc = roc_auc_score(y_val, model.predict_proba(X_val_final)[:,1])
+    cv_auc  = cross_val_score(model, X_train_final, y_train, cv=5, scoring='roc_auc').mean()
+    results[name] = {'val_auc': val_auc, 'cv_auc': cv_auc, 'model': model}
+    print(f"  {name:25s}: CV AUC={cv_auc:.4f}  Val AUC={val_auc:.4f}  {'↑ beats baseline' if val_auc>baseline_auc else '✗ does NOT beat baseline'}")
+
+best_name = max(results, key=lambda k: results[k]['val_auc'])
+best_model = results[best_name]['model']
+print(f"  Best model: {best_name}")
+
+# ════════════════════════════════════════════════════════
+# PHASE 5: BIAS-VARIANCE DIAGNOSIS
+# ════════════════════════════════════════════════════════
+print("\n▶ PHASE 5: Bias-variance diagnosis")
+
+tr_sizes, tr_scores, val_scores = learning_curve(
+    best_model, X_train_final, y_train,
+    train_sizes=np.linspace(0.2,1.0,6), cv=5,
+    scoring='roc_auc', n_jobs=-1)
+
+final_train_score = tr_scores.mean(axis=1)[-1]
+final_val_score   = val_scores.mean(axis=1)[-1]
+bv_gap            = final_train_score - final_val_score
+
+print(f"  Final train AUC:  {final_train_score:.4f}")
+print(f"  Final val AUC:    {final_val_score:.4f}")
+print(f"  Gap (bias-var):   {bv_gap:.4f}")
+
+if final_val_score < 0.80:
+    bv_diagnosis = "HIGH BIAS — try more complex model, add features"
+elif bv_gap > 0.05:
+    bv_diagnosis = "HIGH VARIANCE — add regularisation, more data, or simpler model"
+else:
+    bv_diagnosis = "GOOD FIT ✓ — proceed to hyperparameter tuning"
+print(f"  Diagnosis: {bv_diagnosis}")
+
+# ════════════════════════════════════════════════════════
+# PHASE 6: HYPERPARAMETER TUNING
+# ════════════════════════════════════════════════════════
+print("\n▶ PHASE 6: Hyperparameter tuning")
+
+param_grid = {
+    'n_estimators': [100, 200],
+    'max_depth':    [4, 6, 8],
+    'min_samples_leaf': [1, 2, 4]
+}
+grid_search = GridSearchCV(
+    RandomForestClassifier(random_state=42),
+    param_grid, cv=5, scoring='roc_auc', n_jobs=-1
+)
+grid_search.fit(X_train_final, y_train)
+tuned_model = grid_search.best_estimator_
+
+print(f"  Best params: {grid_search.best_params_}")
+print(f"  Best CV AUC: {grid_search.best_score_:.4f}")
+print(f"  Val AUC:     {roc_auc_score(y_val, tuned_model.predict_proba(X_val_final)[:,1]):.4f}")
+
+# ════════════════════════════════════════════════════════
+# PHASE 7: ERROR ANALYSIS
+# ════════════════════════════════════════════════════════
+print("\n▶ PHASE 7: Error analysis")
+
+y_pred_val  = tuned_model.predict(X_val_final)
+y_prob_val  = tuned_model.predict_proba(X_val_final)[:,1]
+tn,fp,fn,tp = confusion_matrix(y_val, y_pred_val).ravel()
+
+print(f"  Confusion Matrix — Val set:")
+print(f"  TN={tn}  FP={fp}  FN={fn}  TP={tp}")
+print(f"  False Negative Rate: {fn/(fn+tp)*100:.1f}% (missed positives)")
+print(f"  False Positive Rate: {fp/(fp+tn)*100:.1f}% (false alarms)")
+
+# High-confidence wrong predictions
+wrong_mask  = y_pred_val != y_val.values
+wrong_probs = y_prob_val[wrong_mask]
+hi_conf_wrong = np.sum(wrong_probs > 0.8) + np.sum(wrong_probs < 0.2)
+print(f"  Total misclassified:          {wrong_mask.sum()}")
+print(f"  High-confidence wrong (>80%): {hi_conf_wrong}")
+
+# Threshold analysis
+print(f"\n  Threshold analysis:")
+for t in [0.3, 0.4, 0.5, 0.6, 0.7]:
+    yp = (y_prob_val >= t).astype(int)
+    f1 = f1_score(y_val, yp)
+    pr = precision_score(y_val, yp, zero_division=0)
+    re = recall_score(y_val, yp, zero_division=0)
+    print(f"  t={t}: F1={f1:.3f}  Prec={pr:.3f}  Rec={re:.3f}")
+
+# ════════════════════════════════════════════════════════
+# PHASE 8: CALIBRATION
+# ════════════════════════════════════════════════════════
+print("\n▶ PHASE 8: Probability calibration")
+cal_model = CalibratedClassifierCV(tuned_model, method='isotonic', cv='prefit')
+cal_model.fit(X_val_final, y_val)
+prob_raw  = tuned_model.predict_proba(X_val_final)[:,1]
+prob_cal  = cal_model.predict_proba(X_val_final)[:,1]
+print(f"  Brier score before: {brier_score_loss(y_val, prob_raw):.4f}")
+print(f"  Brier score after:  {brier_score_loss(y_val, prob_cal):.4f}")
+
+# ════════════════════════════════════════════════════════
+# PHASE 9: FINAL TEST EVALUATION (ONCE ONLY)
+# ════════════════════════════════════════════════════════
+print("\n▶ PHASE 9: FINAL TEST EVALUATION (locked test set)")
+print("  ⚠ This runs ONCE — do not tune further after seeing these numbers")
+
+y_pred_test = cal_model.predict(X_test_final)
+y_prob_test = cal_model.predict_proba(X_test_final)[:,1]
+
+acc   = accuracy_score(y_test, y_pred_test)
+prec  = precision_score(y_test, y_pred_test)
+rec   = recall_score(y_test, y_pred_test)
+f1    = f1_score(y_test, y_pred_test)
+auc   = roc_auc_score(y_test, y_prob_test)
+mcc   = matthews_corrcoef(y_test, y_pred_test)
+brier = brier_score_loss(y_test, y_prob_test)
+pr_auc = average_precision_score(y_test, y_prob_test)
+
+print(f"\n  FINAL RESULTS:")
+print(f"  ┌─────────────────────────────────────┐")
+print(f"  │ Accuracy:    {acc:.4f}               │")
+print(f"  │ Precision:   {prec:.4f}               │")
+print(f"  │ Recall:      {rec:.4f}               │")
+print(f"  │ F1 Score:    {f1:.4f}               │")
+print(f"  │ AUC-ROC:     {auc:.4f}               │")
+print(f"  │ AUC-PR:      {pr_auc:.4f}               │")
+print(f"  │ MCC:         {mcc:.4f}               │")
+print(f"  │ Brier Score: {brier:.4f}               │")
+print(f"  └─────────────────────────────────────┘")
+
+# ════════════════════════════════════════════════════════
+# PHASE 10: MLFLOW LOGGING + MODEL REGISTRATION
+# ════════════════════════════════════════════════════════
+print("\n▶ PHASE 10: MLflow logging + model registration")
+
+mlflow.set_experiment("breast_cancer_evaluation")
+with mlflow.start_run(run_name="rf_calibrated_final"):
+    # Log hyperparameters
+    mlflow.log_params(grid_search.best_params_)
+    mlflow.log_param("n_features_original", X.shape[1])
+    mlflow.log_param("n_features_selected", len(consensus))
+    mlflow.log_param("selected_features", str(consensus))
+    mlflow.log_param("feature_selection_methods", "RFECV+RF_importance")
+    mlflow.log_param("calibration", "isotonic")
+
+    # Log metrics
+    mlflow.log_metrics({
+        "test_accuracy":  acc,
+        "test_precision": prec,
+        "test_recall":    rec,
+        "test_f1":        f1,
+        "test_auc_roc":   auc,
+        "test_auc_pr":    pr_auc,
+        "test_mcc":       mcc,
+        "test_brier":     brier,
+        "bv_gap":         bv_gap,
+        "n_misclassified": int(wrong_mask.sum()),
+        "hi_conf_wrong":  int(hi_conf_wrong),
+    })
+
+    # Log model
+    mlflow.sklearn.log_model(cal_model, "calibrated_model",
+                              registered_model_name="breast_cancer_classifier")
+
+    print(f"  ✓ Run logged to MLflow")
+    print(f"  ✓ Model registered as 'breast_cancer_classifier'")
+    print(f"\n  Summary:")
+    print(f"  Features: {X.shape[1]} → {len(consensus)} (selected)")
+    print(f"  Bias-Variance: {bv_diagnosis}")
+    print(f"  Test AUC: {auc:.4f}  |  Test F1: {f1:.4f}  |  Brier: {brier:.4f}")
+    print(f"\n  ✅ Model ready for deployment to Databricks Model Serving!")</div>
+
+<div class="note note-g"><b>This is the complete production workflow.</b> Every step is connected: feature selection reduces noise → better signal → lower bias. Error analysis shows what to fix → targeted improvement. Bias-variance curves tell you which direction to go. MLflow tracks everything so you can reproduce and compare any run.</div>
+</div>
+
+<script>
+function goTab(n){
+  for(let i=1;i<=6;i++) document.getElementById('S'+i).className='sec'+(i===n?' on':'');
+  document.querySelectorAll('.ntab').forEach((t,i)=>t.className='ntab'+(i===n-1?' on':''));
+}
+</script>

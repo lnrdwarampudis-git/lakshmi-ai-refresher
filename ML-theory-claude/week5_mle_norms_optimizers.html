@@ -1,0 +1,782 @@
+
+<style>
+*{box-sizing:border-box;}
+.nav{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:18px;}
+.ntab{padding:10px 4px;border-radius:8px;border:2px solid #aaa;font-size:11px;font-weight:700;cursor:pointer;text-align:center;line-height:1.4;background:#eee;color:#444;}
+.ntab.on{background:#1560a8;color:#fff;border-color:#1560a8;}
+.sec{display:none;}.sec.on{display:block;}
+.h1{font-size:15px;font-weight:700;color:#111;margin-bottom:4px;}
+.sub{font-size:12px;color:#777;margin-bottom:14px;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px;}
+.box{background:#f2f4f8;border-radius:8px;padding:12px;border:1px solid #dde;}
+.box-b{background:#deedfb;border-color:#90bce8;}
+.box-g{background:#def7ec;border-color:#7ecba3;}
+.box-r{background:#fde8e8;border-color:#e8a0a0;}
+.box-y{background:#fef9e3;border-color:#e8d080;}
+.box-p{background:#f0eefb;border-color:#b8aee8;}
+.ct{font-size:13px;font-weight:700;color:#222;margin-bottom:5px;}
+.cb{font-size:12px;color:#444;line-height:1.6;}
+.note{font-size:13px;color:#333;padding:10px 14px;border-left:4px solid #1560a8;background:#deedfb;margin:10px 0;line-height:1.6;border-radius:0 8px 8px 0;}
+.note b{color:#000;}
+.note-g{border-left-color:#1a9e5f;background:#def7ec;}
+.note-r{border-left-color:#c0392b;background:#fde8e8;}
+.note-y{border-left-color:#c07800;background:#fef9e3;}
+.note-p{border-left-color:#7a5af8;background:#f0eefb;}
+.code{font-family:monospace;font-size:11px;background:#1e1e2e;border-radius:6px;padding:12px;line-height:1.8;color:#cdd6f4;margin:10px 0;white-space:pre-wrap;}
+.ctrl{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:10px;}
+.cg{display:flex;align-items:center;gap:6px;font-size:12px;color:#555;}
+.cg label{min-width:90px;}
+.vb{min-width:46px;font-weight:700;color:#111;font-size:13px;}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px;}
+.stats3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;}
+.sc{background:#f2f4f8;border-radius:8px;padding:10px;border:1px solid #dde;}
+.sc-l{font-size:10px;color:#888;margin-bottom:3px;}
+.sc-v{font-size:16px;font-weight:700;color:#111;}
+.sc-sub{font-size:10px;color:#888;margin-top:2px;}
+.btn{padding:6px 14px;border-radius:6px;border:1px solid #bbb;font-size:12px;cursor:pointer;background:#f2f2f2;margin-right:6px;}
+.divider{height:1px;background:#ddd;margin:14px 0;}
+.tbl{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:12px;}
+.tbl th{padding:7px 8px;background:#f2f4f8;color:#555;font-weight:700;text-align:left;border-bottom:1px solid #dde;}
+.tbl td{padding:6px 8px;border-bottom:1px solid #eee;color:#333;vertical-align:top;}
+.tbl tr:last-child td{border-bottom:none;}
+.tag{display:inline-block;font-size:10px;padding:2px 6px;border-radius:4px;font-weight:700;margin:2px;}
+.tg{background:#c3e6cb;color:#155724;}
+.tr{background:#f5c6cb;color:#721c24;}
+.tb{background:#bee5eb;color:#0c5460;}
+.ty{background:#ffeeba;color:#856404;}
+.tp{background:#e2d9f3;color:#4a3b8c;}
+.lbtn{padding:6px 12px;border-radius:8px;border:1px solid #bbb;font-size:12px;cursor:pointer;background:#f2f2f2;color:#444;margin:3px;font-weight:600;}
+.lbtn.on{background:#1560a8;color:#fff;border-color:#1560a8;}
+.formula{font-family:monospace;font-size:12px;background:#f2f4f8;border-radius:6px;padding:8px 12px;margin:6px 0;border:1px solid #dde;line-height:1.9;}
+.norm-bar{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.norm-lbl{min-width:120px;font-size:12px;color:#333;font-weight:600;}
+.norm-track{flex:1;height:14px;background:#e8e8e8;border-radius:6px;overflow:hidden;}
+.norm-fill{height:14px;border-radius:6px;transition:width 0.3s;}
+.norm-val{min-width:52px;text-align:right;font-weight:700;font-size:13px;}
+.sim-dot{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:4px;vertical-align:middle;}
+</style>
+
+<div class="nav">
+  <div class="ntab on" onclick="goTab(1)">1. MLE — Why Loss Functions Exist</div>
+  <div class="ntab"    onclick="goTab(2)">2. MAP — Regularisation Explained</div>
+  <div class="ntab"    onclick="goTab(3)">3. Norms + Similarity</div>
+  <div class="ntab"    onclick="goTab(4)">4. Embeddings + RAG</div>
+  <div class="ntab"    onclick="goTab(5)">5. SGD vs Adam Deep Dive</div>
+</div>
+
+<div class="sec on" id="S1">
+  <div class="h1">MLE — Maximum Likelihood Estimation</div>
+  <div class="sub">Why MSE and cross-entropy exist — they are not arbitrary. They come directly from probability theory.</div>
+  <div class="note"><b>The big idea:</b> MLE says — find the model parameters w that make the observed training data most probable. When you derive MLE for different data distributions, you get different loss functions. MSE and cross-entropy are not invented — they are derived from first principles.</div>
+  <div class="row2">
+    <div class="box box-b">
+      <div class="ct">What MLE means</div>
+      <div class="cb">
+        Given data D = {(x₁,y₁),...,(xₙ,yₙ)}, find w that maximises:<br><br>
+        <div class="formula">L(w) = P(D | w) = Π P(yᵢ | xᵢ, w)</div>
+        In practice, maximise log-likelihood (easier):<br>
+        <div class="formula">log L(w) = Σ log P(yᵢ | xᵢ, w)</div>
+        <b>Maximising log-likelihood = minimising negative log-likelihood = minimising loss.</b><br><br>
+        The loss function IS the negative log-likelihood of the assumed data distribution.
+      </div>
+    </div>
+    <div class="box box-y">
+      <div class="ct">MLE → Loss function derivation</div>
+      <div class="cb">
+        <b>Assume Gaussian errors</b> → yᵢ ~ N(ŷᵢ, σ²)<br>
+        log P(yᵢ|xᵢ,w) = −(yᵢ−ŷᵢ)²/2σ² + const<br>
+        Maximising log L → minimising Σ(yᵢ−ŷᵢ)²<br>
+        <span class="tag tb">→ MSE loss!</span><br><br>
+        <b>Assume Bernoulli outcomes</b> → yᵢ ~ Bernoulli(p)<br>
+        log P(yᵢ|xᵢ,w) = yᵢlog(p) + (1−yᵢ)log(1−p)<br>
+        Maximising log L → minimising −Σ[ylog(p)+(1−y)log(1−p)]<br>
+        <span class="tag tg">→ Binary cross-entropy!</span><br><br>
+        <b>Assume Laplace errors</b> (heavy-tailed)<br>
+        <span class="tag ty">→ MAE loss!</span>
+      </div>
+    </div>
+  </div>
+  <div class="ctrl">
+    <div class="cg"><label>Distribution</label>
+      <select id="mle-dist" onchange="drawMLE()" style="font-size:12px;">
+        <option value="gaussian">Gaussian → MSE</option>
+        <option value="bernoulli">Bernoulli → BCE</option>
+        <option value="laplace">Laplace → MAE</option>
+      </select>
+    </div>
+    <div class="cg"><label>σ / spread</label><input type="range" min="1" max="30" value="10" step="1" id="mle-sigma" oninput="drawMLE()"><span class="vb" id="mle-sv">1.0</span></div>
+  </div>
+  <div style="position:relative;height:200px;margin-bottom:8px;"><canvas id="c1mle"></canvas></div>
+  <div class="note" id="mle-note"></div>
+  <div class="divider"></div>
+  <div class="row3">
+    <div class="box">
+      <div class="ct">Why log-likelihood?</div>
+      <div class="cb">Products of probabilities (Π) get very small very fast — numerical underflow. Log converts the product to a sum: log(Π pᵢ) = Σ log(pᵢ). Same maximum, more stable arithmetic. This is why you see "log" everywhere in ML loss functions.</div>
+    </div>
+    <div class="box box-b">
+      <div class="ct">MLE in practice</div>
+      <div class="cb">When you call model.fit() in Spark ML or run PyTorch training, gradient descent is maximising the log-likelihood of your training data under the assumed distribution. The loss function choice = distribution assumption choice.<br><br><span class="tag tb">Loss = −log likelihood</span></div>
+    </div>
+    <div class="box box-g">
+      <div class="ct">MLE for LLMs</div>
+      <div class="cb">LLM pre-training maximises log-likelihood of next token: Σ log P(token_t | token_1...t-1). Cross-entropy loss on next-token prediction IS maximum likelihood over a categorical distribution. The entire GPT family is trained this way.<br><br><span class="tag tg">P(next token | context)</span></div>
+    </div>
+  </div>
+  <div class="code">
+# MLE connection — loss functions are negative log-likelihoods
+
+import numpy as np
+
+# Gaussian MLE → MSE
+# Assume: yᵢ ~ Normal(ŷᵢ, σ²)
+# log P(y|ŷ) = -0.5*(y-ŷ)²/σ² - 0.5*log(2πσ²)
+# Maximise log-likelihood = minimise Σ(y-ŷ)² → MSE!
+def gaussian_nll(y_true, y_pred, sigma=1.0):
+    return np.mean(0.5*((y_true-y_pred)/sigma)**2 + np.log(sigma))
+# This is torch.nn.GaussianNLLLoss()
+
+# Bernoulli MLE → Binary Cross-Entropy
+# Assume: yᵢ ~ Bernoulli(p̂ᵢ)
+# log P(y|p) = y*log(p) + (1-y)*log(1-p)
+# Maximise → minimise -Σ[y*log(p)+(1-y)*log(1-p)] → BCE!
+def bernoulli_nll(y_true, p_pred):
+    eps = 1e-9
+    return -np.mean(y_true*np.log(p_pred+eps)+(1-y_true)*np.log(1-p_pred+eps))
+
+# Laplace MLE → MAE
+# Assume: yᵢ ~ Laplace(ŷᵢ, b)
+# log P(y|ŷ) = -|y-ŷ|/b - log(2b)
+# Maximise → minimise Σ|y-ŷ| → MAE!
+def laplace_nll(y_true, y_pred, b=1.0):
+    return np.mean(np.abs(y_true-y_pred)/b + np.log(2*b))
+
+# In Databricks — check your residuals to pick the right distribution
+residuals = y_true - y_pred
+print(f"Skewness: {residuals.skew():.3f}")    # near 0 → Gaussian → MSE
+print(f"Kurtosis: {residuals.kurtosis():.3f}") # >3 → heavy tails → MAE/Huber</div>
+</div>
+
+<div class="sec" id="S2">
+  <div class="h1">MAP — Maximum A Posteriori</div>
+  <div class="sub">MLE + prior belief = MAP. This is where regularisation comes from.</div>
+  <div class="note"><b>The big idea:</b> MLE only uses the data. MAP says — also incorporate prior knowledge about what the weights should look like. A Gaussian prior on weights → L2 regularisation (Ridge). A Laplace prior → L1 regularisation (Lasso). Regularisation is not a trick — it is Bayesian reasoning.</div>
+  <div class="row2">
+    <div class="box box-b">
+      <div class="ct">MLE vs MAP</div>
+      <div class="cb">
+        <b>MLE:</b> maximise P(data | w)<br>
+        Find w that best explains the data. No assumptions about w itself.<br><br>
+        <b>MAP:</b> maximise P(w | data) ∝ P(data | w) × P(w)<br>
+        Find w that best explains data AND matches our prior belief about w.<br><br>
+        <div class="formula">log P(w|data) = log P(data|w) + log P(w)</div>
+        = Likelihood term + Prior term<br>
+        = Loss function + Regularisation term
+      </div>
+    </div>
+    <div class="box box-y">
+      <div class="ct">Prior → Regularisation derivation</div>
+      <div class="cb">
+        <b>Gaussian prior</b>: P(w) ∝ exp(−λ||w||²)<br>
+        log P(w) = −λΣwᵢ²<br>
+        MAP objective: minimise Loss + λΣwᵢ²<br>
+        <span class="tag tb">→ L2 regularisation (Ridge)!</span><br><br>
+        <b>Laplace prior</b>: P(w) ∝ exp(−λ||w||₁)<br>
+        log P(w) = −λΣ|wᵢ|<br>
+        MAP objective: minimise Loss + λΣ|wᵢ|<br>
+        <span class="tag tg">→ L1 regularisation (Lasso)!</span><br><br>
+        Regularisation strength λ = how strong the prior belief is.
+      </div>
+    </div>
+  </div>
+  <div class="ctrl">
+    <div class="cg"><label>Prior type</label>
+      <select id="map-prior" onchange="drawMAP()" style="font-size:12px;">
+        <option value="gaussian">Gaussian → L2 Ridge</option>
+        <option value="laplace">Laplace → L1 Lasso</option>
+        <option value="uniform">Uniform → No regularisation (MLE)</option>
+      </select>
+    </div>
+    <div class="cg"><label>λ strength</label><input type="range" min="0" max="50" value="10" step="1" id="map-lam" oninput="drawMAP()"><span class="vb" id="map-lv">0.10</span></div>
+  </div>
+  <div class="stats3">
+    <div class="sc"><div class="sc-l">Prior type</div><div class="sc-v" id="map-pt">Gaussian</div></div>
+    <div class="sc"><div class="sc-l">λ (reg strength)</div><div class="sc-v" id="map-lv2">0.10</div></div>
+    <div class="sc"><div class="sc-l">Weights → 0?</div><div class="sc-v" id="map-z">Shrink</div></div>
+  </div>
+  <div style="position:relative;height:195px;margin-bottom:8px;"><canvas id="c2map"></canvas></div>
+  <div class="note" id="map-note"></div>
+  <div class="divider"></div>
+  <div class="row3">
+    <div class="box">
+      <div class="ct">Why Gaussian prior → L2?</div>
+      <div class="cb">A Gaussian prior says "I believe weights are close to 0 with bell-curve probability". Large weights are unlikely. This belief penalises large weights quadratically — exactly what L2 does. As λ→∞, all weights → 0.</div>
+    </div>
+    <div class="box box-b">
+      <div class="ct">Why Laplace prior → L1?</div>
+      <div class="cb">A Laplace prior has sharper peak at 0 and heavier tails than Gaussian. It more strongly believes weights should be exactly 0. This creates the sparsity property of L1 — some weights go to exactly 0 (feature selection).</div>
+    </div>
+    <div class="box box-g">
+      <div class="ct">Choosing λ in Databricks</div>
+      <div class="cb">In Spark ML: <code>regParam=λ</code>, <code>elasticNetParam=0</code> (L2) or <code>1</code> (L1). Start with λ=0.01. If val loss improves → increase λ. If val loss worsens → decrease λ. Log every λ in MLflow.</div>
+    </div>
+  </div>
+  <div class="code">
+# MAP = MLE + prior = Loss + Regularisation
+
+# L2 (Gaussian prior) — PyTorch
+optimizer = torch.optim.AdamW(model.parameters(),
+                               lr=1e-3,
+                               weight_decay=0.01)  # weight_decay = λ = L2 reg
+
+# L1 (Laplace prior) — manual
+def l1_reg(model, lambda_l1=0.01):
+    return lambda_l1 * sum(p.abs().sum() for p in model.parameters())
+
+for epoch in range(epochs):
+    loss = criterion(model(X), y) + l1_reg(model)
+    optimizer.zero_grad(); loss.backward(); optimizer.step()
+
+# ElasticNet (both L1 + L2) — Spark ML
+from pyspark.ml.regression import LinearRegression
+lr = LinearRegression(
+    regParam=0.1,           # λ — total regularisation strength
+    elasticNetParam=0.5     # 0=pure L2, 1=pure L1, 0.5=50/50 ElasticNet
+)
+# Log in MLflow
+mlflow.log_param("regParam", 0.1)
+mlflow.log_param("elasticNetParam", 0.5)</div>
+</div>
+
+<div class="sec" id="S3">
+  <div class="h1">Norms and Similarity Measures</div>
+  <div class="sub">The mathematics behind distance, regularisation, and vector search</div>
+  <div class="note"><b>Why norms matter in ML:</b> Norms measure the "size" of a vector. They appear in regularisation (L1 norm = Lasso, L2 norm = Ridge), distance metrics (KNN, clustering), and similarity search (cosine similarity in RAG). Understanding norms means understanding why these algorithms work.</div>
+  <div style="margin-bottom:12px;">
+    <button class="lbtn on" onclick="showNorm('l1',this)">L1 norm</button>
+    <button class="lbtn"    onclick="showNorm('l2',this)">L2 norm</button>
+    <button class="lbtn"    onclick="showNorm('cosine',this)">Cosine similarity</button>
+    <button class="lbtn"    onclick="showNorm('dot',this)">Dot product</button>
+    <button class="lbtn"    onclick="showNorm('euclidean',this)">Euclidean distance</button>
+  </div>
+  <div id="norm-info"></div>
+  <div class="ctrl">
+    <div class="cg"><label>Vector A</label></div>
+    <div class="cg"><label>a₁</label><input type="range" min="-10" max="10" value="3" step="1" id="a1" oninput="drawNorm()"><span class="vb" id="a1v">3</span></div>
+    <div class="cg"><label>a₂</label><input type="range" min="-10" max="10" value="4" step="1" id="a2" oninput="drawNorm()"><span class="vb" id="a2v">4</span></div>
+    <div class="cg"><label>a₃</label><input type="range" min="-10" max="10" value="0" step="1" id="a3" oninput="drawNorm()"><span class="vb" id="a3v">0</span></div>
+  </div>
+  <div class="ctrl">
+    <div class="cg"><label>Vector B</label></div>
+    <div class="cg"><label>b₁</label><input type="range" min="-10" max="10" value="1" step="1" id="b1" oninput="drawNorm()"><span class="vb" id="b1v">1</span></div>
+    <div class="cg"><label>b₂</label><input type="range" min="-10" max="10" value="2" step="1" id="b2" oninput="drawNorm()"><span class="vb" id="b2v">2</span></div>
+    <div class="cg"><label>b₃</label><input type="range" min="-10" max="10" value="2" step="1" id="b3" oninput="drawNorm()"><span class="vb" id="b3v">2</span></div>
+  </div>
+  <div id="norm-bars" style="margin-bottom:10px;"></div>
+  <div style="position:relative;height:185px;margin-bottom:8px;"><canvas id="c3norm"></canvas></div>
+  <div class="note" id="norm-note"></div>
+  <div class="divider"></div>
+  <table class="tbl">
+    <tr><th>Measure</th><th>Formula</th><th>Range</th><th>Sensitive to magnitude?</th><th>Use in ML</th></tr>
+    <tr><td><b>L1 norm</b></td><td style="font-family:monospace;">||w||₁ = Σ|wᵢ|</td><td>[0,∞)</td><td>Yes</td><td>Lasso reg, sparse features, Manhattan distance</td></tr>
+    <tr><td><b>L2 norm</b></td><td style="font-family:monospace;">||w||₂ = √Σwᵢ²</td><td>[0,∞)</td><td>Yes</td><td>Ridge reg, Euclidean distance, KNN</td></tr>
+    <tr><td><b>Cosine sim</b></td><td style="font-family:monospace;">a·b / (||a||₂||b||₂)</td><td>[−1, 1]</td><td><b>No</b> — angle only</td><td>RAG vector search, NLP similarity</td></tr>
+    <tr><td><b>Dot product</b></td><td style="font-family:monospace;">Σ aᵢbᵢ</td><td>(−∞,∞)</td><td>Yes</td><td>Attention mechanism, recommendation</td></tr>
+    <tr><td><b>Euclidean dist</b></td><td style="font-family:monospace;">||a−b||₂ = √Σ(aᵢ−bᵢ)²</td><td>[0,∞)</td><td>Yes</td><td>KNN, K-means, anomaly detection</td></tr>
+  </table>
+</div>
+
+<div class="sec" id="S4">
+  <div class="h1">Embeddings and RAG — norms in action</div>
+  <div class="sub">How vectors represent meaning and how cosine similarity powers retrieval</div>
+  <div class="note"><b>Connection:</b> Embeddings are dense vectors trained by MLE (cross-entropy on prediction tasks). Stored in vector databases. Retrieved by cosine similarity (L2 norm based). The entire RAG pipeline is built on the math from Weeks 1–5.</div>
+  <div class="ctrl">
+    <div class="cg"><label>Query</label>
+      <select id="emb-query" onchange="drawEmbeddings()" style="font-size:12px;">
+        <option value="0">machine learning</option>
+        <option value="1">deep neural network</option>
+        <option value="2">database query</option>
+        <option value="3">weather forecast</option>
+      </select>
+    </div>
+    <div class="cg"><label>Similarity metric</label>
+      <select id="emb-metric" onchange="drawEmbeddings()" style="font-size:12px;">
+        <option value="cosine">Cosine similarity</option>
+        <option value="dot">Dot product</option>
+        <option value="euclidean">Euclidean distance</option>
+      </select>
+    </div>
+  </div>
+  <div style="position:relative;height:195px;margin-bottom:8px;"><canvas id="c4emb"></canvas></div>
+  <div class="note" id="emb-note"></div>
+  <div class="divider"></div>
+  <div class="row2">
+    <div class="box box-b">
+      <div class="ct">What embeddings are</div>
+      <div class="cb">
+        An embedding is a dense vector representation of any object (word, sentence, document, user, product) in a continuous vector space.<br><br>
+        Semantically similar objects → nearby vectors (small cosine distance).<br>
+        Semantically different objects → far vectors (large cosine distance).<br><br>
+        Trained by MLE: predict context words (Word2Vec), predict next sentence (BERT), predict next token (GPT).<br><br>
+        Azure OpenAI text-embedding-3-large → 3072-dimensional vectors.
+      </div>
+    </div>
+    <div class="box box-g">
+      <div class="ct">How RAG uses norms</div>
+      <div class="cb">
+        <b>Index phase:</b><br>
+        1. Chunk documents into passages<br>
+        2. Embed each chunk: v = embed(chunk) ∈ ℝ^1536<br>
+        3. Store in vector DB (Databricks Vector Search)<br><br>
+        <b>Query phase:</b><br>
+        1. Embed query: q = embed(query) ∈ ℝ^1536<br>
+        2. Compute cosine_sim(q, vᵢ) for all chunks<br>
+        3. Return top-k chunks by similarity<br>
+        4. Feed chunks + query to LLM<br><br>
+        <b>Cosine sim = dot(q,v) / (||q||₂ · ||v||₂)</b>
+      </div>
+    </div>
+  </div>
+  <div class="code">
+# Embeddings + norms in your Databricks RAG pipeline
+
+import numpy as np
+from openai import AzureOpenAI
+
+client = AzureOpenAI(azure_endpoint="...", api_key="...", api_version="2024-02-01")
+
+# ── 1. Create embeddings ──────────────────────────────────────
+def embed(text):
+    resp = client.embeddings.create(
+        input=text,
+        model="text-embedding-3-large"   # 3072-dim vectors
+    )
+    return np.array(resp.data[0].embedding)
+
+# ── 2. Norms and similarity from scratch ─────────────────────
+def l2_norm(v):
+    return np.sqrt(np.sum(v**2))           # same as np.linalg.norm(v)
+
+def cosine_similarity(a, b):
+    return np.dot(a, b) / (l2_norm(a) * l2_norm(b))   # −1 to 1
+
+def euclidean_distance(a, b):
+    return l2_norm(a - b)                  # 0 to ∞
+
+# ── 3. Vector search on Delta table ──────────────────────────
+# Create vector search index in Databricks
+# spark.sql("""
+#   CREATE INDEX emb_index ON TABLE chunks
+#   USING VECTOR_SEARCH (embedding_col)
+# """)
+
+# Query: find top-5 most similar chunks
+query_vec = embed("explain gradient descent")
+# Databricks Vector Search handles cosine similarity internally
+results = vector_search_client.similarity_search(
+    index_name="catalog.schema.emb_index",
+    query_vector=query_vec.tolist(),
+    num_results=5
+)
+
+# ── 4. Why cosine not Euclidean for text ─────────────────────
+a = embed("machine learning")
+b = embed("deep learning")
+c = embed("cooking recipes")
+
+print(f"cos(ML, DL):      {cosine_similarity(a,b):.4f}")  # high ~0.85
+print(f"cos(ML, cooking): {cosine_similarity(a,c):.4f}")  # low  ~0.20
+# Cosine ignores magnitude — a 2-word query vs a 100-word doc
+# have different L2 norms but cosine handles this correctly</div>
+</div>
+
+<div class="sec" id="S5">
+  <div class="h1">SGD vs Momentum vs Adam — deep dive</div>
+  <div class="sub">How each optimizer works internally and when each shines</div>
+  <div class="note"><b>Connection to MLE:</b> Optimizers are algorithms for performing gradient descent on the negative log-likelihood (loss). Different optimizers take the same gradient signal and apply different update rules — trading off speed, stability, and memory.</div>
+  <div style="margin-bottom:12px;">
+    <button class="lbtn on" onclick="showOpt('compare',this)">All 4 — comparison</button>
+    <button class="lbtn"    onclick="showOpt('sgd',this)">SGD internals</button>
+    <button class="lbtn"    onclick="showOpt('momentum',this)">Momentum</button>
+    <button class="lbtn"    onclick="showOpt('adam',this)">Adam</button>
+    <button class="lbtn"    onclick="showOpt('lr_sched',this)">LR schedulers</button>
+  </div>
+  <div id="opt-info"></div>
+  <div class="ctrl">
+    <div class="cg"><label>Learning rate</label><input type="range" min="1" max="50" value="10" step="1" id="opt-lr" oninput="drawOpt()"><span class="vb" id="opt-lrv">0.10</span></div>
+    <div class="cg"><label>Momentum β</label><input type="range" min="0" max="99" value="90" step="1" id="opt-mom" oninput="drawOpt()"><span class="vb" id="opt-momv">0.90</span></div>
+    <div class="cg"><label>Noise (mini-batch)</label><input type="range" min="0" max="30" value="5" step="1" id="opt-noise" oninput="drawOpt()"><span class="vb" id="opt-noisev">0.5</span></div>
+  </div>
+  <div class="stats">
+    <div class="sc"><div class="sc-l">SGD steps to conv</div><div class="sc-v" id="opt-sgd-s">—</div></div>
+    <div class="sc"><div class="sc-l">Momentum steps</div><div class="sc-v" id="opt-mom-s">—</div></div>
+    <div class="sc"><div class="sc-l">Adam steps</div><div class="sc-v" id="opt-adam-s">—</div></div>
+    <div class="sc"><div class="sc-l">Adam speedup</div><div class="sc-v" id="opt-speedup">—</div></div>
+  </div>
+  <div style="position:relative;height:200px;margin-bottom:8px;"><canvas id="c5opt"></canvas></div>
+  <div class="note" id="opt-note"></div>
+  <div class="divider"></div>
+  <div class="row3">
+    <div class="box box-b">
+      <div class="ct">SGD update rule</div>
+      <div class="cb">
+        <div class="formula">w = w − α · ∇L</div>
+        One fixed learning rate for all weights. Gradient directly drives the step.<br><br>
+        <b>Problem 1:</b> Slow on flat loss surfaces (gradient is tiny).<br>
+        <b>Problem 2:</b> Oscillates in ravines (large gradient in one direction, small in another).<br>
+        <b>Problem 3:</b> Sensitive to learning rate choice.<br><br>
+        <span class="tag tr">Rarely used alone</span>
+      </div>
+    </div>
+    <div class="box box-y">
+      <div class="ct">Momentum update rule</div>
+      <div class="cb">
+        <div class="formula">v = β·v − α·∇L<br>w = w + v</div>
+        Accumulates velocity v in the direction of consistent gradients. Dampens oscillations.<br><br>
+        <b>β=0.9</b>: 90% previous velocity + 10% new gradient.<br>
+        Like a ball rolling downhill — builds speed in consistent direction, slows in noisy direction.<br><br>
+        <span class="tag ty">Good for ravines</span>
+      </div>
+    </div>
+    <div class="box box-g">
+      <div class="ct">Adam update rule</div>
+      <div class="cb">
+        <div class="formula">m = β₁m + (1−β₁)∇L    ← mean<br>v = β₂v + (1−β₂)∇L²   ← variance<br>w = w − α·m̂/√(v̂+ε)</div>
+        Per-parameter adaptive lr: large gradient → small step. Small gradient → large step.<br><br>
+        <b>β₁=0.9</b> (momentum), <b>β₂=0.999</b> (variance), <b>ε=1e-8</b> (stability).<br><br>
+        <span class="tag tg">Default for deep learning</span>
+      </div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="h1" style="font-size:14px;margin-bottom:10px;">LR Schedulers — reduce learning rate over time</div>
+  <div class="row2">
+    <div class="box box-b">
+      <div class="ct">Why use a scheduler?</div>
+      <div class="cb">
+        Large lr at start = fast progress. Small lr later = fine-tuning near minimum. Fixed lr risks oscillating around minimum without converging.<br><br>
+        <b>Warmup + decay</b> used in transformers: lr increases linearly for first 1000 steps (warmup), then decreases. Prevents destroying pre-trained weights at the start.<br><br>
+        Always log lr as a metric in MLflow every epoch.
+      </div>
+    </div>
+    <div class="box box-g">
+      <div class="ct">Common schedulers</div>
+      <div class="cb">
+        <b>StepLR</b>: halve lr every N epochs. Simple.<br>
+        <b>CosineAnnealing</b>: smooth cosine decay. Most common.<br>
+        <b>ReduceLROnPlateau</b>: reduce when val loss stops improving. Most practical.<br>
+        <b>OneCycleLR</b>: warmup then decay in one cycle. Fast convergence.<br>
+        <b>WarmupLinearDecay</b>: transformer standard.<br><br>
+        <span class="tag tg">ReduceLROnPlateau is safest default</span>
+      </div>
+    </div>
+  </div>
+  <div class="code">
+# SGD vs Momentum vs Adam — PyTorch full comparison
+
+import torch, torch.nn as nn, mlflow
+
+model_sgd  = build_model(); model_mom  = build_model()
+model_adam = build_model(); model_adamw = build_model()
+
+# Plain SGD — rarely useful alone
+opt_sgd   = torch.optim.SGD(model_sgd.parameters(),  lr=0.01)
+
+# SGD + Momentum — much better
+opt_mom   = torch.optim.SGD(model_mom.parameters(),  lr=0.01, momentum=0.9,
+                              nesterov=True)       # Nesterov = look-ahead
+
+# Adam — default choice
+opt_adam  = torch.optim.Adam(model_adam.parameters(), lr=1e-3,
+                               betas=(0.9, 0.999),  # β₁, β₂
+                               eps=1e-8)
+
+# AdamW — Adam + proper L2 regularisation (use this over Adam)
+opt_adamw = torch.optim.AdamW(model_adamw.parameters(), lr=1e-3,
+                                weight_decay=1e-4)
+
+# ── LR Schedulers ────────────────────────────────────────────
+# ReduceLROnPlateau — most practical
+scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
+    opt_adamw, mode='min', patience=5, factor=0.5, verbose=True)
+
+# CosineAnnealing — smooth decay
+scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
+    opt_adamw, T_max=100, eta_min=1e-6)
+
+# Warmup + linear decay (transformers)
+from transformers import get_linear_schedule_with_warmup
+scheduler = get_linear_schedule_with_warmup(
+    opt_adamw, num_warmup_steps=500, num_training_steps=10000)
+
+# ── Training loop with MLflow logging ────────────────────────
+with mlflow.start_run():
+    mlflow.log_params({"optimizer":"AdamW","lr":1e-3,"weight_decay":1e-4})
+    for epoch in range(100):
+        train_loss = train_one_epoch(model_adamw, opt_adamw)
+        val_loss   = evaluate(model_adamw)
+        scheduler.step(val_loss)           # for ReduceLROnPlateau
+        cur_lr = opt_adamw.param_groups[0]['lr']
+        mlflow.log_metrics({"train_loss":train_loss,
+                             "val_loss":val_loss,
+                             "lr":cur_lr}, step=epoch)
+
+# ── Spark ML — optimizer is internal ─────────────────────────
+from pyspark.ml.regression import LinearRegression
+# Spark uses L-BFGS (quasi-Newton) by default for small feature sets
+# and SGD for large sparse datasets
+lr = LinearRegression(maxIter=100,    # max GD iterations
+                      regParam=0.01,  # λ = L2 strength
+                      solver="auto")  # auto picks L-BFGS or GD
+fitted = lr.fit(train_df)
+print("Objective history:", fitted.summary.objectiveHistory[:5])</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const CH={};
+function mk(id,cfg){if(CH[id])CH[id].destroy();CH[id]=new Chart(document.getElementById(id),cfg);}
+function rn(){let u=0,v=0;while(!u)u=Math.random();while(!v)v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
+
+function goTab(n){
+  for(let i=1;i<=5;i++) document.getElementById('S'+i).className='sec'+(i===n?' on':'');
+  document.querySelectorAll('.ntab').forEach((t,i)=>t.className='ntab'+(i===n-1?' on':''));
+  if(n===1) drawMLE();
+  if(n===2) drawMAP();
+  if(n===3){showNorm('l1',document.querySelector('#S3 .lbtn'));drawNorm();}
+  if(n===4) drawEmbeddings();
+  if(n===5){showOpt('compare',document.querySelector('#S5 .lbtn'));drawOpt();}
+}
+
+// ── Tab 1: MLE ─────────────────────────────────────────────────
+function drawMLE(){
+  const dist=document.getElementById('mle-dist').value;
+  const sigma=+document.getElementById('mle-sigma').value/10;
+  document.getElementById('mle-sv').textContent=sigma.toFixed(1);
+  const xs=Array.from({length:81},(_,i)=>+((-4+i*0.1)).toFixed(2));
+  let pdf,nll,color,note;
+  if(dist==='gaussian'){
+    pdf=xs.map(x=>(1/(sigma*Math.sqrt(2*Math.PI)))*Math.exp(-0.5*(x/sigma)**2));
+    nll=xs.map(x=>0.5*(x/sigma)**2+Math.log(sigma*Math.sqrt(2*Math.PI)));
+    color='#1560a8';
+    note='<b>Gaussian distribution → MSE loss.</b> Maximising Gaussian log-likelihood = minimising (y−ŷ)²/2σ² = minimising MSE. The σ parameter determines the spread of errors the model expects. Large σ = model expects large errors = less penalty per error.';
+  } else if(dist==='bernoulli'){
+    const ps=Array.from({length:99},(_,i)=>(i+1)/100);
+    mk('c1mle',{type:'line',data:{labels:ps.map(v=>v.toFixed(2)),datasets:[
+      {data:ps.map(p=>-(1*Math.log(p+1e-9)+0*Math.log(1-p+1e-9))),borderColor:'#1a9e5f',borderWidth:2,pointRadius:0,fill:false,label:'NLL when y=1 → −log(p)'},
+      {data:ps.map(p=>-(0*Math.log(p+1e-9)+1*Math.log(1-p+1e-9))),borderColor:'#c0392b',borderWidth:2,pointRadius:0,fill:false,borderDash:[4,3],label:'NLL when y=0 → −log(1−p)'}
+    ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:10},color:'#555',boxWidth:14}}},scales:{x:{type:'linear',title:{display:true,text:'predicted probability p',font:{size:10}},ticks:{font:{size:10},color:'#888',maxTicksLimit:7},grid:{color:'rgba(0,0,0,0.05)'}},y:{min:0,max:5,ticks:{font:{size:10},color:'#888',maxTicksLimit:5},grid:{color:'rgba(0,0,0,0.05)'}}}}});
+    document.getElementById('mle-note').innerHTML='<b>Bernoulli distribution → Binary Cross-Entropy.</b> When true label y=1: NLL = −log(p). Loss → 0 as p→1 (correct). Loss → ∞ as p→0 (wrong). When y=0: NLL = −log(1−p). This IS binary cross-entropy — derived directly from MLE.';
+    return;
+  } else {
+    pdf=xs.map(x=>(1/(2*sigma))*Math.exp(-Math.abs(x)/sigma));
+    nll=xs.map(x=>Math.abs(x)/sigma+Math.log(2*sigma));
+    color='#c07800';
+    note='<b>Laplace distribution → MAE loss.</b> Maximising Laplace log-likelihood = minimising Σ|y−ŷ|/σ = minimising MAE. The Laplace distribution has heavier tails than Gaussian — it assumes outliers are more common. This is why MAE is more robust to outliers than MSE.';
+  }
+  mk('c1mle',{type:'line',data:{labels:xs,datasets:[
+    {data:pdf,borderColor:color,borderWidth:2,pointRadius:0,fill:true,backgroundColor:color+'18',label:'PDF (probability density)'},
+    {data:nll,borderColor:'#c0392b',borderWidth:2,pointRadius:0,fill:false,borderDash:[4,3],label:'NLL (= loss function)'}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:10},color:'#555',boxWidth:14}}},scales:{x:{type:'linear',ticks:{font:{size:10},color:'#888',maxTicksLimit:7},grid:{color:'rgba(0,0,0,0.05)'}},y:{min:0,max:4,ticks:{font:{size:10},color:'#888',maxTicksLimit:5},grid:{color:'rgba(0,0,0,0.05)'}}}}});
+  document.getElementById('mle-note').innerHTML=note;
+}
+
+// ── Tab 2: MAP ─────────────────────────────────────────────────
+function drawMAP(){
+  const prior=document.getElementById('map-prior').value;
+  const lam=+document.getElementById('map-lam').value/100;
+  document.getElementById('map-lv').textContent=lam.toFixed(2);
+  document.getElementById('map-lv2').textContent=lam.toFixed(2);
+  const ws=Array.from({length:8},(_,i)=>(Math.random()-0.5)*4);
+  let pen,color,priorName,zeroMsg;
+  if(prior==='gaussian'){
+    pen=ws.map(w=>w/(1+2*lam));
+    color='#1560a8'; priorName='Gaussian → L2 Ridge';
+    zeroMsg='Shrink toward 0';
+  } else if(prior==='laplace'){
+    pen=ws.map(w=>Math.sign(w)*Math.max(0,Math.abs(w)-lam));
+    color='#1a9e5f'; priorName='Laplace → L1 Lasso';
+    zeroMsg='Some → exactly 0';
+  } else {
+    pen=[...ws]; color='#888'; priorName='Uniform → No reg (MLE)'; zeroMsg='No change';
+  }
+  document.getElementById('map-pt').textContent=priorName;
+  document.getElementById('map-z').textContent=zeroMsg;
+  const zeros=pen.filter(w=>Math.abs(w)<0.001).length;
+  mk('c2map',{type:'bar',data:{labels:ws.map((_,i)=>'w'+(i+1)),datasets:[
+    {label:'Original weights',data:ws.map(v=>+v.toFixed(3)),backgroundColor:'rgba(21,96,168,0.4)',borderRadius:4,borderWidth:0},
+    {label:'After MAP / regularisation',data:pen.map(v=>+v.toFixed(3)),backgroundColor:color+'cc',borderRadius:4,borderWidth:0}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:10},color:'#555',boxWidth:14}}},scales:{x:{ticks:{font:{size:10},color:'#888'},grid:{display:false}},y:{ticks:{font:{size:10},color:'#888'},grid:{color:'rgba(0,0,0,0.05)'}}}}});
+  const msg={gaussian:`Gaussian prior (L2/Ridge): all weights shrunk toward 0 but none exactly 0. Average reduction ≈ ${(lam/(1+2*lam)*100).toFixed(0)}%. Larger λ = stronger belief weights should be small. Used in Ridge regression and AdamW weight_decay.`,
+    laplace:`Laplace prior (L1/Lasso): ${zeros} of 8 weights set to exactly 0 — automatic feature selection! Remaining weights still meaningful. The sharp peak of the Laplace prior pushes weights all the way to 0.`,
+    uniform:`No prior (MLE only): weights unchanged. Without a prior, the model purely fits the training data — no regularisation, high risk of overfitting on small datasets.`};
+  document.getElementById('map-note').innerHTML=msg[prior];
+}
+
+// ── Tab 3: Norms ───────────────────────────────────────────────
+var curNorm='l1';
+const normDefs={
+  l1:{title:'L1 Norm — Manhattan distance',
+    formula:'||v||₁ = |v₁| + |v₂| + ... + |vₙ| = Σ|vᵢ|',
+    note:'L1 norm = sum of absolute values. Also called Manhattan distance (taxi-cab geometry). In regularisation: penalises non-zero weights, drives sparse solutions. In feature space: robust to outliers because it does not square values.'},
+  l2:{title:'L2 Norm — Euclidean magnitude',
+    formula:'||v||₂ = √(v₁² + v₂² + ... + vₙ²) = √Σvᵢ²',
+    note:'L2 norm = Euclidean length of a vector. Most common norm in ML. In regularisation: penalises large weights quadratically — smoother solutions than L1. Cosine similarity normalises by L2 norm to remove magnitude effects.'},
+  cosine:{title:'Cosine Similarity — angle between vectors',
+    formula:'cos(a,b) = a·b / (||a||₂ × ||b||₂)',
+    note:'Cosine similarity measures the ANGLE between vectors, ignoring their magnitude. Range: −1 (opposite) to 1 (identical direction). 0 = perpendicular (unrelated). Perfect for text/embedding similarity because document length (magnitude) should not affect relevance. This is the default metric in Databricks Vector Search.'},
+  dot:{title:'Dot Product — projection and attention',
+    formula:'a·b = Σ aᵢbᵢ = ||a||₂ × ||b||₂ × cos(θ)',
+    note:'Dot product combines both magnitude AND angle. Larger vectors produce larger dot products even if angle is the same. Used in attention mechanisms (Q·Kᵀ/√d) because magnitude carries information about confidence. If vectors are L2-normalised first, dot product = cosine similarity.'},
+  euclidean:{title:'Euclidean Distance — straight-line distance',
+    formula:'d(a,b) = ||a−b||₂ = √Σ(aᵢ−bᵢ)²',
+    note:'Euclidean distance = straight-line distance between two points in space. Used in KNN and K-Means. Sensitive to feature scale — always normalise features first. For high-dimensional embeddings (1536 dims), cosine similarity works better than Euclidean because all points tend to be equidistant in high dimensions (curse of dimensionality).'}
+};
+function showNorm(key,el){
+  document.querySelectorAll('#S3 .lbtn').forEach(b=>b.classList.remove('on'));
+  if(el)el.classList.add('on');
+  curNorm=key;
+  const d=normDefs[key];
+  document.getElementById('norm-info').innerHTML=`
+    <div class="box box-b" style="margin-bottom:10px;">
+      <div class="ct">${d.title}</div>
+      <div class="formula">${d.formula}</div>
+    </div>`;
+  drawNorm();
+}
+function drawNorm(){
+  const a=[+document.getElementById('a1').value,+document.getElementById('a2').value,+document.getElementById('a3').value];
+  const b=[+document.getElementById('b1').value,+document.getElementById('b2').value,+document.getElementById('b3').value];
+  ['a1','a2','a3'].forEach((id,i)=>document.getElementById(id+'v').textContent=a[i]);
+  ['b1','b2','b3'].forEach((id,i)=>document.getElementById(id+'v').textContent=b[i]);
+  const l1a=a.reduce((s,v)=>s+Math.abs(v),0);
+  const l2a=Math.sqrt(a.reduce((s,v)=>s+v*v,0));
+  const l1b=b.reduce((s,v)=>s+Math.abs(v),0);
+  const l2b=Math.sqrt(b.reduce((s,v)=>s+v*v,0));
+  const dot=a.reduce((s,v,i)=>s+v*b[i],0);
+  const cos=l2a>0&&l2b>0?dot/(l2a*l2b):0;
+  const euc=Math.sqrt(a.reduce((s,v,i)=>s+(v-b[i])**2,0));
+  const vals={l1:'L1(A)='+l1a.toFixed(2),l2:'L2(A)='+l2a.toFixed(2),cosine:'cos='+cos.toFixed(4),dot:'dot='+dot.toFixed(2),euclidean:'euc='+euc.toFixed(2)};
+  const maxV=Math.max(l1a,l2a,l1b,l2b,Math.abs(dot),euc,1);
+  const bars=[
+    {name:'L1 norm A',val:l1a,max:maxV,color:'#1560a8'},
+    {name:'L2 norm A',val:l2a,max:maxV,color:'#1a9e5f'},
+    {name:'L1 norm B',val:l1b,max:maxV,color:'#7a5af8'},
+    {name:'L2 norm B',val:l2b,max:maxV,color:'#c07800'},
+    {name:'Cosine sim',val:(cos+1)/2,max:1,color:cos>0?'#1a9e5f':'#c0392b',display:cos.toFixed(4)},
+    {name:'Dot product',val:Math.abs(dot)/maxV,max:1,color:'#1560a8',display:dot.toFixed(2)},
+    {name:'Euclidean dist',val:euc/maxV,max:1,color:'#c0392b',display:euc.toFixed(2)}
+  ];
+  document.getElementById('norm-bars').innerHTML=bars.map(b=>`
+    <div class="norm-bar">
+      <span class="norm-lbl">${b.name}</span>
+      <div class="norm-track"><div class="norm-fill" style="width:${Math.min(100,(b.val/b.max*100)).toFixed(1)}%;background:${b.color};"></div></div>
+      <span class="norm-val" style="color:${b.color}">${b.display||b.val.toFixed(3)}</span>
+    </div>`).join('');
+  mk('c3norm',{type:'radar',data:{labels:['L1 norm A','L2 norm A','L1 norm B','L2 norm B','|Cosine|×5','|Dot|/2','Euclidean'],datasets:[
+    {data:[l1a,l2a,0,0,Math.abs(cos)*5,0,0],borderColor:'#1560a8',backgroundColor:'rgba(21,96,168,0.1)',borderWidth:2,pointRadius:4,label:'Vector A metrics'},
+    {data:[0,0,l1b,l2b,0,Math.abs(dot)/2,euc],borderColor:'#1a9e5f',backgroundColor:'rgba(26,158,95,0.1)',borderWidth:2,pointRadius:4,label:'Vector B metrics'}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:10},color:'#555',boxWidth:14}}},scales:{r:{min:0,ticks:{display:false},grid:{color:'rgba(0,0,0,0.08)'},pointLabels:{font:{size:9},color:'#555'}}}}});
+  document.getElementById('norm-note').innerHTML=normDefs[curNorm].note+`<br><br>A=[${a}], B=[${b}]. Cosine=<b>${cos.toFixed(4)}</b>, Euclidean=<b>${euc.toFixed(3)}</b>, Dot=<b>${dot.toFixed(2)}</b>. ${Math.abs(cos)>0.8?'High cosine similarity — vectors point in similar direction.':Math.abs(cos)<0.2?'Low cosine similarity — vectors are nearly perpendicular (unrelated).':'Moderate similarity.'}`;
+}
+
+// ── Tab 4: Embeddings ──────────────────────────────────────────
+function drawEmbeddings(){
+  const qIdx=+document.getElementById('emb-query').value;
+  const metric=document.getElementById('emb-metric').value;
+  const docs=['machine learning models','deep neural network','SQL database query','weather forecast model','artificial intelligence','gradient descent optimiser','relational database','temperature prediction'];
+  const embeddings=[
+    [0.9,0.85,0.1,0.1,0.92,0.88,0.08,0.12],
+    [0.88,0.91,0.09,0.08,0.90,0.93,0.07,0.11],
+    [0.12,0.08,0.95,0.15,0.10,0.09,0.93,0.14],
+    [0.11,0.09,0.14,0.92,0.10,0.08,0.12,0.95]
+  ];
+  const queries=['machine learning','deep neural network','database query','weather forecast'];
+  const qEmb=embeddings[qIdx];
+  const scores=embeddings[0].map((_,di)=>{
+    const doc=embeddings.map(row=>row[di]);
+    if(metric==='cosine'){
+      const dot=qEmb.reduce((s,v,i)=>s+v*doc[i],0);
+      const na=Math.sqrt(qEmb.reduce((s,v)=>s+v*v,0));
+      const nb=Math.sqrt(doc.reduce((s,v)=>s+v*v,0));
+      return +(dot/(na*nb)).toFixed(4);
+    } else if(metric==='dot'){
+      return +(qEmb.reduce((s,v,i)=>s+v*doc[i],0)).toFixed(4);
+    } else {
+      return +(1/(1+Math.sqrt(qEmb.reduce((s,v,i)=>s+(v-doc[i])**2,0)))).toFixed(4);
+    }
+  });
+  const sortedIdx=[...scores.keys()].sort((a,b)=>scores[b]-scores[a]);
+  const colors=sortedIdx.map((_,i)=>i<2?'rgba(26,158,95,0.8)':'rgba(21,96,168,0.5)');
+  mk('c4emb',{type:'bar',data:{labels:sortedIdx.map(i=>docs[i]),datasets:[{data:sortedIdx.map(i=>scores[i]),backgroundColor:sortedIdx.map((_,i)=>i<2?'rgba(26,158,95,0.8)':'rgba(21,96,168,0.5)'),borderRadius:4,borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{ticks:{font:{size:10},color:'#888'},grid:{color:'rgba(0,0,0,0.05)'}},y:{ticks:{font:{size:10},color:'#888'},grid:{display:false}}}}});
+  document.getElementById('emb-note').innerHTML=`Query: <b>"${queries[qIdx]}"</b>. Metric: <b>${metric}</b>. Top-2 results (green) = most semantically similar. These would be retrieved as context for a RAG LLM response. ${metric==='cosine'?'Cosine ignores vector magnitude — pure angle-based similarity. Best for text embeddings.':metric==='dot'?'Dot product = cosine × magnitude. Longer/stronger embeddings score higher. Used in attention mechanisms.':'Euclidean distance converted to similarity (1/(1+d)). Sensitive to vector scale — normalise embeddings first.'}`;
+}
+
+// ── Tab 5: Optimizers ──────────────────────────────────────────
+var curOpt='compare';
+function showOpt(key,el){
+  document.querySelectorAll('#S5 .lbtn').forEach(b=>b.classList.remove('on'));
+  if(el)el.classList.add('on');
+  curOpt=key;
+  const infos={
+    compare:'<div class="note" style="margin-bottom:10px;">All four optimizers on the same loss surface. Same starting point, same learning rate. Watch how Momentum reduces oscillation, Adam converges fastest and most smoothly.</div>',
+    sgd:'<div class="box box-r" style="margin-bottom:10px;"><div class="ct">SGD — Stochastic Gradient Descent</div><div class="cb">Simplest possible update: w = w − α·∇L. One fixed learning rate for all weights. <b>Problems:</b> slow on flat surfaces, oscillates in ravines, very sensitive to lr choice. <b>When to use:</b> large-scale distributed training (Spark MLlib), when generalization matters more than speed, with careful lr tuning.</div></div>',
+    momentum:'<div class="box box-y" style="margin-bottom:10px;"><div class="ct">Momentum — SGD with velocity</div><div class="cb">Accumulates velocity: v = βv − α·∇L, w = w + v. β=0.9 means 90% of previous velocity is kept. <b>Effect:</b> accelerates in consistent gradient directions, dampens oscillations in noisy directions. Like a ball rolling downhill — builds speed. Nesterov momentum (look-ahead) is slightly better.</div></div>',
+    adam:'<div class="box box-g" style="margin-bottom:10px;"><div class="ct">Adam — Adaptive Moment Estimation</div><div class="cb">Maintains per-parameter moving average of gradients (m) and squared gradients (v). Adapts lr for each weight: large gradient history → smaller step. Bias correction in first few steps prevents initial large updates. <b>AdamW</b> = Adam + proper L2 weight decay (use this by default).</div></div>',
+    lr_sched:'<div class="box box-p" style="margin-bottom:10px;"><div class="ct">Learning Rate Schedulers</div><div class="cb">Fixed lr is rarely optimal. Schedulers reduce lr over time: fast progress early (large lr), fine-tuning later (small lr). <b>ReduceLROnPlateau:</b> most practical — halves lr when val loss stagnates. <b>CosineAnnealing:</b> smooth decay, most common in vision. <b>WarmupLinear:</b> transformer standard — gradually increase lr then decrease.</div></div>'
+  };
+  document.getElementById('opt-info').innerHTML=infos[key]||'';
+  drawOpt();
+}
+function drawOpt(){
+  const lr=+document.getElementById('opt-lr').value/100;
+  const beta=+document.getElementById('opt-mom').value/100;
+  const noise=+document.getElementById('opt-noise').value/10;
+  document.getElementById('opt-lrv').textContent=lr.toFixed(2);
+  document.getElementById('opt-momv').textContent=beta.toFixed(2);
+  document.getElementById('opt-noisev').textContent=noise.toFixed(1);
+  const n=60,x0=4;
+  const sgdL=[],momL=[],adamL=[],adamwL=[];
+  let xs=x0,xm=x0,xa=x0,xaw=x0,vm=0,ma=0,va=0,maw=0,vaw=0;
+  let sgdConv=n,momConv=n,adamConv=n;
+  for(let i=0;i<n;i++){
+    const g=2*xs+rn()*noise; xs=xs-lr*g; const ls=+(Math.max(0,xs*xs)).toFixed(4); sgdL.push(ls); if(ls<0.01&&sgdConv===n)sgdConv=i;
+    const gm=2*xm+rn()*noise; vm=beta*vm-lr*gm; xm=xm+vm; const lm=+(Math.max(0,xm*xm)).toFixed(4); momL.push(lm); if(lm<0.01&&momConv===n)momConv=i;
+    const gad=2*xa+rn()*noise; ma=0.9*ma+0.1*gad; va=0.999*va+0.001*gad*gad; const mh=ma/(1-Math.pow(0.9,i+1)),vh=va/(1-Math.pow(0.999,i+1)); xa=xa-0.3*mh/(Math.sqrt(vh)+1e-8); const la=+(Math.max(0,xa*xa)).toFixed(4); adamL.push(la); if(la<0.01&&adamConv===n)adamConv=i;
+    const gawd=2*xaw+rn()*noise+0.01*xaw; maw=0.9*maw+0.1*gawd; vaw=0.999*vaw+0.001*gawd*gawd; const mhw=maw/(1-Math.pow(0.9,i+1)),vhw=vaw/(1-Math.pow(0.999,i+1)); xaw=xaw-0.3*mhw/(Math.sqrt(vhw)+1e-8); adamwL.push(+(Math.max(0,xaw*xaw)).toFixed(4));
+  }
+  document.getElementById('opt-sgd-s').textContent=sgdConv===n?'>'+n:sgdConv;
+  document.getElementById('opt-mom-s').textContent=momConv===n?'>'+n:momConv;
+  document.getElementById('opt-adam-s').textContent=adamConv===n?'>'+n:adamConv;
+  document.getElementById('opt-speedup').textContent=sgdConv>0&&adamConv>0?(sgdConv/Math.max(1,adamConv)).toFixed(1)+'×':'—';
+  const datasets=[
+    {label:'SGD',data:sgdL,borderColor:'#888',borderWidth:1.5,pointRadius:0,fill:false,borderDash:[3,3]},
+    {label:'Momentum',data:momL,borderColor:'#c07800',borderWidth:2,pointRadius:0,fill:false},
+    {label:'Adam',data:adamL,borderColor:'#1a9e5f',borderWidth:2.5,pointRadius:0,fill:false},
+    {label:'AdamW',data:adamwL,borderColor:'#1560a8',borderWidth:2,pointRadius:0,fill:false,borderDash:[2,2]}
+  ];
+  if(curOpt==='sgd') {
+    mk('c5opt',{type:'line',data:{labels:Array.from({length:n},(_,i)=>i+1),datasets:[datasets[0]]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:10},color:'#555',boxWidth:14}}},scales:{x:{title:{display:true,text:'iteration',font:{size:10}},ticks:{font:{size:10},color:'#888'},grid:{color:'rgba(0,0,0,0.05)'}},y:{ticks:{font:{size:10},color:'#888',maxTicksLimit:5},grid:{color:'rgba(0,0,0,0.05)'}}}}});
+  } else if(curOpt==='momentum'){
+    mk('c5opt',{type:'line',data:{labels:Array.from({length:n},(_,i)=>i+1),datasets:[datasets[0],datasets[1]]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:10},color:'#555',boxWidth:14}}},scales:{x:{title:{display:true,text:'iteration',font:{size:10}},ticks:{font:{size:10},color:'#888'},grid:{color:'rgba(0,0,0,0.05)'}},y:{ticks:{font:{size:10},color:'#888',maxTicksLimit:5},grid:{color:'rgba(0,0,0,0.05)'}}}}});
+  } else if(curOpt==='lr_sched'){
+    const lrs1=Array.from({length:n},(_,i)=>+(lr*Math.pow(0.95,i)).toFixed(5));
+    const lrs2=Array.from({length:n},(_,i)=>+(lr*(1+Math.cos(Math.PI*i/n))/2).toFixed(5));
+    const lrs3=Array.from({length:n},(_,i)=>i<10?+(lr*i/10).toFixed(5):+(lr*(1-(i-10)/(n-10))).toFixed(5));
+    mk('c5opt',{type:'line',data:{labels:Array.from({length:n},(_,i)=>i+1),datasets:[
+      {label:'StepLR (γ=0.95)',data:lrs1,borderColor:'#1560a8',borderWidth:2,pointRadius:0,fill:false},
+      {label:'CosineAnnealing',data:lrs2,borderColor:'#1a9e5f',borderWidth:2,pointRadius:0,fill:false,borderDash:[4,3]},
+      {label:'Warmup+LinearDecay',data:lrs3,borderColor:'#c07800',borderWidth:2,pointRadius:0,fill:false}
+    ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:10},color:'#555',boxWidth:14}}},scales:{x:{title:{display:true,text:'epoch',font:{size:10}},ticks:{font:{size:10},color:'#888'},grid:{color:'rgba(0,0,0,0.05)'}},y:{title:{display:true,text:'learning rate',font:{size:10}},ticks:{font:{size:10},color:'#888',maxTicksLimit:5},grid:{color:'rgba(0,0,0,0.05)'}}}}});
+    document.getElementById('opt-note').innerHTML='<b>LR Schedulers:</b> StepLR decays multiplicatively every epoch. CosineAnnealing follows a smooth cosine curve — popular for vision models. Warmup+LinearDecay is the transformer standard — lr increases for warmup_steps then linearly decays. Always log lr as a metric in MLflow every epoch.';
+    return;
+  } else {
+    mk('c5opt',{type:'line',data:{labels:Array.from({length:n},(_,i)=>i+1),datasets},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:10},color:'#555',boxWidth:14}}},scales:{x:{title:{display:true,text:'iteration',font:{size:10}},ticks:{font:{size:10},color:'#888'},grid:{color:'rgba(0,0,0,0.05)'}},y:{ticks:{font:{size:10},color:'#888',maxTicksLimit:5},grid:{color:'rgba(0,0,0,0.05)'}}}}});
+  }
+  document.getElementById('opt-note').innerHTML=`lr=<b>${lr.toFixed(2)}</b>, β=<b>${beta.toFixed(2)}</b>, noise=<b>${noise.toFixed(1)}</b>. SGD converged in <b>${sgdConv===n?'>60':sgdConv}</b> steps, Momentum in <b>${momConv===n?'>60':momConv}</b>, Adam in <b>${adamConv===n?'>60':adamConv}</b>. Adam speedup = <b>${document.getElementById('opt-speedup').textContent}</b>. ${noise>1?'With noisy gradients (mini-batch simulation): Adam handles noise much better than plain SGD.':'Try increasing noise to see how each optimizer handles stochastic gradients.'}`;
+}
+
+// Init
+drawMLE();
+</script>

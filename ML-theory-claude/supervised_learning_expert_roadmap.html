@@ -1,0 +1,1327 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html,body{background:#12141c !important;color:#f0f0f0 !important;font-family:Arial,sans-serif;font-size:13px;margin:0;padding:8px;}
+*{box-sizing:border-box;}
+.nav{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:14px;}
+.tab{background:#1e2235;color:#b0c4f8;border:2px solid #3a4870;border-radius:7px;padding:8px 3px;font-size:9.5px;font-weight:700;cursor:pointer;text-align:center;line-height:1.4;}
+.tab.on{background:#1a5cb8;color:#fff;border-color:#5090ff;}
+.sec{display:none;}.sec.on{display:block;}
+.h1{font-size:16px;font-weight:700;color:#fff;margin-bottom:3px;}
+.sub{font-size:12px;color:#8898bb;margin-bottom:12px;}
+.badge{display:inline-block;color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;margin-bottom:8px;}
+.bg-b{background:#1a5cb8;}.bg-g{background:#1a7a3a;}.bg-r{background:#8a2020;}.bg-y{background:#8a6000;}.bg-p{background:#5a30a0;}
+.sl{font-size:13px;font-weight:700;color:#78aaff;margin:12px 0 7px 0;padding-bottom:4px;border-bottom:1px solid #2a3860;}
+.divider{height:1px;background:#2a3860;margin:10px 0;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px;}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:10px;}
+.card{background:#1a1e30;border:1px solid #2e3858;border-radius:8px;padding:11px;}
+.card .t{font-size:13px;font-weight:700;color:#c0d4ff;margin-bottom:5px;}
+.card .b{font-size:12px;color:#9aaac8;line-height:1.65;}
+.card-b{background:#0c1e38;border-color:#1e5090;}.card-b .t{color:#70c0ff;}.card-b .b{color:#90b8e8;}
+.card-g{background:#081c10;border-color:#1a6030;}.card-g .t{color:#50e880;}.card-g .b{color:#80c898;}
+.card-r{background:#200a0a;border-color:#702020;}.card-r .t{color:#ff7070;}.card-r .b{color:#e89090;}
+.card-y{background:#1e1600;border-color:#6a5000;}.card-y .t{color:#ffc840;}.card-y .b{color:#d8a860;}
+.card-p{background:#140c28;border-color:#4a30a0;}.card-p .t{color:#c0a0ff;}.card-p .b{color:#a888e8;}
+.note{border-left:4px solid #4080ff;background:#0c1e3a;color:#b0ccf8;padding:9px 13px;border-radius:0 7px 7px 0;margin:8px 0;font-size:12px;line-height:1.6;}
+.note b{color:#fff;}
+.note-g{border-left-color:#30c860;background:#081c10;color:#90e8a8;}.note-g b{color:#60ff90;}
+.note-r{border-left-color:#e03030;background:#200808;color:#f09090;}.note-r b{color:#ff8080;}
+.note-y{border-left-color:#e0a000;background:#1c1200;color:#e8c860;}.note-y b{color:#ffe060;}
+.note-p{border-left-color:#9070e0;background:#140c28;color:#c8b0ff;}.note-p b{color:#d8c8ff;}
+.code{background:#080a10;border:1px solid #2a3460;border-radius:6px;padding:11px 13px;font-family:'Courier New',monospace;font-size:11px;color:#d8e8ff;line-height:1.8;white-space:pre-wrap;margin:8px 0;}
+.tg{display:inline-block;background:#0a2c14;color:#50e870;border:1px solid #208040;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin:2px;}
+.tr{display:inline-block;background:#2c0a0a;color:#ff7070;border:1px solid #802020;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin:2px;}
+.tb{display:inline-block;background:#0a1e3c;color:#60b0ff;border:1px solid #204880;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin:2px;}
+.ty{display:inline-block;background:#241800;color:#ffc040;border:1px solid #806000;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin:2px;}
+.tp{display:inline-block;background:#1a0830;color:#c0a0ff;border:1px solid #5030a0;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin:2px;}
+table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:10px;}
+th{background:#1a1e30;color:#78aaff;font-weight:700;padding:7px 8px;text-align:left;border-bottom:1px solid #2e3858;}
+td{padding:5px 8px;border-bottom:1px solid #1e2438;color:#c0cce8;vertical-align:top;}
+tr:hover td{background:#1a2040;}
+.algo-card{background:#1a1e30;border:1.5px solid #2e3858;border-radius:10px;padding:13px;margin-bottom:10px;}
+.algo-name{font-size:14px;font-weight:700;color:#ffffff;margin-bottom:3px;}
+.algo-type{font-size:10px;font-weight:700;padding:2px 8px;border-radius:8px;margin-left:6px;}
+.algo-formula{font-family:monospace;font-size:11px;color:#60e880;background:#080a10;padding:5px 8px;border-radius:4px;margin:5px 0;}
+.algo-section{font-size:11px;font-weight:700;color:#78aaff;margin-top:7px;margin-bottom:3px;}
+.algo-body{font-size:11px;color:#9aaac8;line-height:1.65;}
+.level-pill{display:inline-block;padding:2px 10px;border-radius:10px;font-size:10px;font-weight:700;margin-right:4px;}
+.l1{background:#0a2c14;color:#50e870;border:1px solid #208040;}
+.l2{background:#1e1600;color:#ffc040;border:1px solid #806000;}
+.l3{background:#2c0a0a;color:#ff7070;border:1px solid #802020;}
+.roadmap-step{display:flex;gap:12px;margin-bottom:14px;align-items:flex-start;}
+.rs-num{min-width:36px;height:36px;border-radius:50%;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.rs-body{flex:1;}
+.rs-title{font-size:14px;font-weight:700;color:#ffffff;margin-bottom:3px;}
+.rs-sub{font-size:12px;color:#8898b8;line-height:1.5;}
+.rs-tasks{font-size:11px;color:#70c0ff;margin-top:4px;line-height:1.7;}
+.week-card{background:#1a1e30;border:1px solid #2e3858;border-radius:8px;padding:10px 12px;margin-bottom:8px;}
+.week-title{font-size:12px;font-weight:700;color:#ffc840;margin-bottom:4px;}
+.week-body{font-size:11px;color:#9aaac8;line-height:1.7;}
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:5px;}
+.bar-label{min-width:160px;font-size:11px;color:#c0cce8;}
+.bar-track{flex:1;height:10px;background:#1a1e30;border-radius:5px;overflow:hidden;border:1px solid #2a3460;}
+.bar-fill{height:10px;border-radius:5px;}
+.bar-val{min-width:38px;font-size:11px;font-weight:700;color:#fff;text-align:right;}
+.sit-row{background:#1a1e30;border-radius:8px;padding:8px 12px;margin-bottom:6px;border-left:3px solid #4080ff;}
+.sit-q{font-size:12px;font-weight:700;color:#ffc840;margin-bottom:3px;}
+.sit-a{font-size:11px;color:#9aaac8;line-height:1.55;}
+.sit-algo{font-size:11px;color:#60e880;font-weight:700;margin-top:2px;}
+</style>
+</head>
+<body>
+
+<div class="nav" id="NAV">
+  <div class="tab on" onclick="goTab(1)">1. Algorithm Map</div>
+  <div class="tab"    onclick="goTab(2)">2. Right Situation</div>
+  <div class="tab"    onclick="goTab(3)">3. Deep Dive Each</div>
+  <div class="tab"    onclick="goTab(4)">4. Compare All</div>
+  <div class="tab"    onclick="goTab(5)">5. Beginner Start</div>
+  <div class="tab"    onclick="goTab(6)">6. Expert Roadmap</div>
+  <div class="tab"    onclick="goTab(7)">7. Practice Code</div>
+</div>
+
+<!-- ══ TAB 1: ALGORITHM MAP ══ -->
+<div class="sec on" id="S1">
+<div class="badge bg-b">COMPLETE ALGORITHM MAP</div>
+<div class="h1">All Supervised Learning Algorithms — One View</div>
+<div class="sub">Every algorithm, its family, problem type, and when it shines</div>
+
+<div class="note"><b>The big picture:</b> There are ~15 core supervised learning algorithms. They split into two problem types (regression / classification) and four algorithm families (linear, tree-based, distance-based, probabilistic). Knowing which family each belongs to tells you its strengths and weaknesses instantly.</div>
+
+<div style="position:relative;height:230px;margin-bottom:12px;"><canvas id="c_map"></canvas></div>
+
+<div class="sl">All algorithms at a glance</div>
+<table>
+<tr><th>Algorithm</th><th>Family</th><th>Problem type</th><th>Data size</th><th>Interpretable?</th><th>Needs scaling?</th><th>Handles missing?</th><th>Speed</th></tr>
+<tr><td><b style="color:#70c0ff">Linear Regression</b></td><td>Linear</td><td>Regression</td><td>Any</td><td><span class="tg">Yes</span></td><td><span class="tg">Yes</span></td><td><span class="tr">No</span></td><td>⚡⚡⚡</td></tr>
+<tr><td><b style="color:#70c0ff">Ridge / Lasso</b></td><td>Linear+Reg</td><td>Regression</td><td>Any</td><td><span class="tg">Yes</span></td><td><span class="tg">Yes</span></td><td><span class="tr">No</span></td><td>⚡⚡⚡</td></tr>
+<tr><td><b style="color:#70c0ff">Logistic Regression</b></td><td>Linear</td><td>Classification</td><td>Any</td><td><span class="tg">Yes</span></td><td><span class="tg">Yes</span></td><td><span class="tr">No</span></td><td>⚡⚡⚡</td></tr>
+<tr><td><b style="color:#c0a0ff">SVM / SVR</b></td><td>Margin</td><td>Both</td><td>Small-Med</td><td><span class="tr">No</span></td><td><span class="tg">Yes</span></td><td><span class="tr">No</span></td><td>⚡⚡</td></tr>
+<tr><td><b style="color:#ffc840">Decision Tree</b></td><td>Tree</td><td>Both</td><td>Small-Med</td><td><span class="tg">Yes</span></td><td><span class="tg">No</span></td><td><span class="tg">Yes</span></td><td>⚡⚡⚡</td></tr>
+<tr><td><b style="color:#ffc840">Random Forest</b></td><td>Ensemble</td><td>Both</td><td>Med-Large</td><td><span class="ty">Partial</span></td><td><span class="tg">No</span></td><td><span class="tg">Yes</span></td><td>⚡⚡</td></tr>
+<tr><td><b style="color:#ff7070">XGBoost / GBT</b></td><td>Ensemble</td><td>Both</td><td>Med-Large</td><td><span class="ty">Partial</span></td><td><span class="tg">No</span></td><td><span class="tg">Yes</span></td><td>⚡⚡</td></tr>
+<tr><td><b style="color:#ff7070">LightGBM</b></td><td>Ensemble</td><td>Both</td><td>Large</td><td><span class="ty">Partial</span></td><td><span class="tg">No</span></td><td><span class="tg">Yes</span></td><td>⚡⚡⚡</td></tr>
+<tr><td><b style="color:#60b0ff">KNN</b></td><td>Distance</td><td>Both</td><td>Small only</td><td><span class="tg">Yes</span></td><td><span class="tr">Must</span></td><td><span class="tr">No</span></td><td>⚡ (slow predict)</td></tr>
+<tr><td><b style="color:#60b0ff">Naive Bayes</b></td><td>Probabilistic</td><td>Classification</td><td>Any</td><td><span class="tg">Yes</span></td><td><span class="tg">No</span></td><td><span class="tg">Yes</span></td><td>⚡⚡⚡</td></tr>
+<tr><td><b style="color:#60b0ff">LDA / QDA</b></td><td>Probabilistic</td><td>Classification</td><td>Small-Med</td><td><span class="tg">Yes</span></td><td><span class="tg">No</span></td><td><span class="tr">No</span></td><td>⚡⚡⚡</td></tr>
+<tr><td><b style="color:#50e880">SGD Classifier</b></td><td>Linear+Online</td><td>Both</td><td>Very large</td><td><span class="tg">Yes</span></td><td><span class="tr">Must</span></td><td><span class="tr">No</span></td><td>⚡⚡⚡</td></tr>
+<tr><td><b style="color:#50e880">MLP Neural Net</b></td><td>Neural</td><td>Both</td><td>Med-Large</td><td><span class="tr">No</span></td><td><span class="tr">Must</span></td><td><span class="tr">No</span></td><td>⚡⚡</td></tr>
+<tr><td><b style="color:#50e880">Gaussian Process</b></td><td>Probabilistic</td><td>Both</td><td>Small only</td><td><span class="tg">Yes</span></td><td><span class="tg">No</span></td><td><span class="tr">No</span></td><td>⚡ (very slow)</td></tr>
+<tr><td><b style="color:#50e880">AdaBoost</b></td><td>Ensemble</td><td>Both</td><td>Small-Med</td><td><span class="ty">Partial</span></td><td><span class="tg">No</span></td><td><span class="tr">No</span></td><td>⚡⚡</td></tr>
+</table>
+
+<div class="g3">
+  <div class="card card-g"><div class="t">The 80/20 rule for tabular data</div><div class="b">For tabular data (your Delta tables), these 4 algorithms cover 95% of real-world problems:<br><br>1. <b style="color:#60ff90">Logistic/Linear Regression</b> — baseline always<br>2. <b style="color:#60ff90">Random Forest</b> — robust default<br>3. <b style="color:#60ff90">XGBoost / LightGBM</b> — production winner<br>4. <b style="color:#60ff90">MLP</b> — when above 3 plateau<br><br>Master these 4 before touching anything else.</div></div>
+  <div class="card card-b"><div class="t">The 4 families and their logic</div><div class="b"><b style="color:#70c0ff">Linear:</b> draws a line/hyperplane. Fast, interpretable. Fails on curves.<br><br><b style="color:#ffc840">Tree-based:</b> asks yes/no questions. Handles any shape. No scaling needed.<br><br><b style="color:#c0a0ff">Distance-based:</b> similar items are close. Needs scaling. Slow at prediction.<br><br><b style="color:#60e880">Probabilistic:</b> models class distributions. Fast, needs distribution assumptions.</div></div>
+  <div class="card card-y"><div class="t">Default algorithm by problem</div><div class="b"><b style="color:#ffd060">Tabular classification:</b> XGBoost<br><b style="color:#ffd060">Tabular regression:</b> XGBoost<br><b style="color:#ffd060">Text classification:</b> Logistic + TF-IDF<br><b style="color:#ffd060">Image classification:</b> CNN (PyTorch)<br><b style="color:#ffd060">Interpretability required:</b> Logistic/Decision Tree<br><b style="color:#ffd060">Streaming data:</b> SGDClassifier<br><b style="color:#ffd060">Small dataset:</b> SVM or LDA<br><b style="color:#ffd060">Time series:</b> XGBoost + lag features</div></div>
+</div>
+</div>
+
+<!-- ══ TAB 2: RIGHT SITUATION ══ -->
+<div class="sec" id="S2">
+<div class="badge bg-g">RIGHT SITUATION → RIGHT ALGORITHM</div>
+<div class="h1">Which Algorithm for Which Situation</div>
+<div class="sub">Real-world scenarios mapped to the best algorithm choice</div>
+<div class="note"><b>The most important skill in ML engineering</b> is not tuning hyperparameters — it is matching the algorithm to the problem. Wrong algorithm choice means months of wasted effort. This tab is your decision guide for every real situation.</div>
+
+<div class="sl">Situation decision cards</div>
+
+<div class="g2">
+<div>
+<div class="sit-row" style="border-left-color:#70c0ff">
+  <div class="sit-q">You need to predict a continuous number (price, temperature, demand)</div>
+  <div class="sit-a">Start with Linear Regression as baseline. If R²&lt;0.7, move to Random Forest. If still not enough, use XGBoost. Only move to Neural Net if XGBoost fails on complex feature interactions.</div>
+  <div class="sit-algo">→ Linear Regression → Random Forest → XGBoost → MLP</div>
+</div>
+<div class="sit-row" style="border-left-color:#50e880">
+  <div class="sit-q">Binary classification — churn, fraud, click prediction</div>
+  <div class="sit-a">Start with Logistic Regression (fast baseline, interpretable). If AUC&lt;0.80, try Random Forest. If still struggling, XGBoost. Add class_weight if imbalanced.</div>
+  <div class="sit-algo">→ Logistic Regression → Random Forest → XGBoost</div>
+</div>
+<div class="sit-row" style="border-left-color:#ffc840">
+  <div class="sit-q">Multi-class classification — product category, species, document topic</div>
+  <div class="sit-a">Logistic Regression handles multiclass natively (multinomial). Random Forest and XGBoost also handle it directly. For text use Naive Bayes or SGD+TF-IDF first.</div>
+  <div class="sit-algo">→ Logistic Regression (multinomial) → Random Forest → XGBoost</div>
+</div>
+<div class="sit-row" style="border-left-color:#c0a0ff">
+  <div class="sit-q">Interpretability is mandatory (finance, healthcare, legal)</div>
+  <div class="sit-a">Must use white-box models. Decision Tree for rule extraction. Logistic Regression for probability + coefficients. Add SHAP to XGBoost for post-hoc explanations if accuracy demands it.</div>
+  <div class="sit-algo">→ Logistic Regression → Decision Tree (max_depth=5) → XGBoost + SHAP</div>
+</div>
+<div class="sit-row" style="border-left-color:#ff7070">
+  <div class="sit-q">Very small dataset (less than 1000 rows)</div>
+  <div class="sit-a">Deep learning is impossible. Tree ensembles may overfit. Use: SVM (very effective on small data), LDA/QDA (if features are Gaussian), Logistic with L2 reg, or KNN. Avoid deep trees.</div>
+  <div class="sit-algo">→ SVM → Logistic Ridge → LDA → KNN (k=5-10)</div>
+</div>
+<div class="sit-row" style="border-left-color:#60e880">
+  <div class="sit-q">Very large dataset (millions of rows, Spark/Databricks)</div>
+  <div class="sit-a">Single-machine algorithms (SVM, KNN, GP) are too slow. Use distributed Spark ML: LinearRegression or LogisticRegression (fast, scales perfectly), then GBTClassifier for accuracy.</div>
+  <div class="sit-algo">→ Spark LinearRegression → Spark LogisticRegression → Spark GBT</div>
+</div>
+<div class="sit-row" style="border-left-color:#ffc840">
+  <div class="sit-q">Streaming data / online learning (partial_fit)</div>
+  <div class="sit-a">Only SGDClassifier and SGDRegressor support online learning with partial_fit() in sklearn. Naive Bayes also supports it. These are the only options for truly streaming pipelines.</div>
+  <div class="sit-algo">→ SGDClassifier(loss='log_loss') → SGDRegressor → NaiveBayes</div>
+</div>
+<div class="sit-row" style="border-left-color:#70c0ff">
+  <div class="sit-q">Text classification (spam, sentiment, topic)</div>
+  <div class="sit-a">Start with TF-IDF + Logistic Regression — surprisingly powerful and fast. Naive Bayes (Multinomial or Complement) is another strong baseline. SGD scales to millions of documents.</div>
+  <div class="sit-algo">→ TF-IDF + LogReg → Complement NB → SGD → fine-tuned BERT</div>
+</div>
+</div>
+<div>
+<div class="sit-row" style="border-left-color:#50e880">
+  <div class="sit-q">Severe class imbalance (fraud, rare disease — less than 5% minority)</div>
+  <div class="sit-a">Algorithm matters less than strategy. Add class_weight='balanced' to any model. Use SMOTE for oversampling. For extreme imbalance, consider Isolation Forest (anomaly detection) instead of classification.</div>
+  <div class="sit-algo">→ XGBoost(scale_pos_weight) → LogReg(class_weight) → Isolation Forest</div>
+</div>
+<div class="sit-row" style="border-left-color:#c0a0ff">
+  <div class="sit-q">Features have non-linear relationships with target</div>
+  <div class="sit-a">Linear models will underfit. Tree-based models (Random Forest, XGBoost) capture non-linearity automatically through splits. SVM with RBF kernel also works. Do NOT use Linear Regression without polynomial features.</div>
+  <div class="sit-algo">→ Random Forest → XGBoost → SVM (RBF kernel) → MLP</div>
+</div>
+<div class="sit-row" style="border-left-color:#ff7070">
+  <div class="sit-q">Many correlated features (multicollinearity)</div>
+  <div class="sit-a">Logistic/Linear regression with collinear features gives unstable coefficients. Use Ridge (L2) which handles multicollinearity well. Tree-based models are completely immune to multicollinearity.</div>
+  <div class="sit-algo">→ Ridge Regression → Lasso (feature selection) → Random Forest</div>
+</div>
+<div class="sit-row" style="border-left-color:#ffc840">
+  <div class="sit-q">Mixed data types (numbers + categories + text + dates)</div>
+  <div class="sit-a">XGBoost and LightGBM handle mixed types natively (can use categorical encoding). Random Forest also works. Linear models need manual encoding of all categorical features first.</div>
+  <div class="sit-algo">→ LightGBM (native categoricals) → XGBoost → Random Forest</div>
+</div>
+<div class="sit-row" style="border-left-color:#70c0ff">
+  <div class="sit-q">Probability calibration needed (risk scoring, decision threshold)</div>
+  <div class="sit-a">Logistic Regression is naturally calibrated. Random Forest and XGBoost have good AUC but poorly calibrated probabilities — always apply CalibratedClassifierCV after training if you use probabilities for decisions.</div>
+  <div class="sit-algo">→ Logistic Regression → RF/XGBoost + CalibratedClassifierCV</div>
+</div>
+<div class="sit-row" style="border-left-color:#60e880">
+  <div class="sit-q">Fast inference needed (real-time API, &lt;10ms)</div>
+  <div class="sit-a">Linear models predict in microseconds (single dot product). Shallow trees also fast. Deep ensembles (1000 trees) or neural nets are slower. For real-time serving prefer LogReg or a small XGBoost model.</div>
+  <div class="sit-algo">→ Logistic Regression → Decision Tree (depth≤8) → Small XGBoost</div>
+</div>
+<div class="sit-row" style="border-left-color:#c0a0ff">
+  <div class="sit-q">High-dimensional data (many features, sparse)</div>
+  <div class="sit-a">Sparse high-dim data (TF-IDF vectors, one-hot encoded) works best with linear models (LogReg with L1, Linear SVM). Tree ensembles struggle with very sparse data. SGD is ideal for large sparse data.</div>
+  <div class="sit-algo">→ LogReg (L1) → LinearSVC → SGDClassifier → Naive Bayes</div>
+</div>
+<div class="sit-row" style="border-left-color:#ffc840">
+  <div class="sit-q">Time series with supervised framing</div>
+  <div class="sit-a">Create lag features, rolling statistics, time-based features. Then XGBoost/LightGBM with those features beats most time-series-specific models. Never use KNN or SVM on raw time series.</div>
+  <div class="sit-algo">→ XGBoost + lag features → LightGBM → Linear with time features</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ══ TAB 3: DEEP DIVE EACH ══ -->
+<div class="sec" id="S3">
+<div class="badge bg-p">ALGORITHM DEEP DIVES</div>
+<div class="h1">Every Algorithm — Internals, Strengths, Weaknesses, Code</div>
+<div class="sub">Click through each algorithm to understand it completely</div>
+<div style="margin-bottom:10px;display:flex;flex-wrap:wrap;gap:4px;" id="algo-btns">
+  <button onclick="showAlgo('lr')" class="abtn on">Linear Reg</button>
+  <button onclick="showAlgo('logr')" class="abtn">Logistic Reg</button>
+  <button onclick="showAlgo('ridge')" class="abtn">Ridge/Lasso</button>
+  <button onclick="showAlgo('dt')" class="abtn">Decision Tree</button>
+  <button onclick="showAlgo('rf')" class="abtn">Random Forest</button>
+  <button onclick="showAlgo('xgb')" class="abtn">XGBoost/GBT</button>
+  <button onclick="showAlgo('svm')" class="abtn">SVM/SVR</button>
+  <button onclick="showAlgo('knn')" class="abtn">KNN</button>
+  <button onclick="showAlgo('nb')" class="abtn">Naive Bayes</button>
+  <button onclick="showAlgo('lda')" class="abtn">LDA/QDA</button>
+  <button onclick="showAlgo('sgd')" class="abtn">SGD</button>
+  <button onclick="showAlgo('mlp')" class="abtn">MLP Neural Net</button>
+</div>
+<style>
+.abtn{background:#1a1e30;color:#90b8e8;border:1px solid #2e3858;border-radius:6px;padding:5px 10px;font-size:11px;font-weight:700;cursor:pointer;}
+.abtn.on{background:#1a5cb8;color:#fff;border-color:#5090ff;}
+</style>
+<div id="algo-detail"></div>
+</div>
+
+<!-- ══ TAB 4: COMPARE ALL ══ -->
+<div class="sec" id="S4">
+<div class="badge bg-r">ALGORITHM COMPARISON</div>
+<div class="h1">Side-by-Side Comparison — All Algorithms Scored</div>
+<div class="sub">Accuracy · Speed · Interpretability · Scalability · Ease · Robustness</div>
+<div style="position:relative;height:220px;margin-bottom:12px;"><canvas id="c_compare"></canvas></div>
+<div id="compare-bars"></div>
+<div class="sl">Complete comparison table</div>
+<table>
+<tr><th>Algorithm</th><th>Accuracy</th><th>Train speed</th><th>Predict speed</th><th>Interpretable</th><th>Scalable</th><th>Outlier robust</th><th>When to choose</th></tr>
+<tr><td><b style="color:#70c0ff">Linear Regression</b></td><td>⭐⭐</td><td>⚡⚡⚡</td><td>⚡⚡⚡</td><td>⭐⭐⭐</td><td>⭐⭐⭐</td><td>⭐</td><td>Baseline, linear relationships</td></tr>
+<tr><td><b style="color:#70c0ff">Ridge / Lasso</b></td><td>⭐⭐</td><td>⚡⚡⚡</td><td>⚡⚡⚡</td><td>⭐⭐⭐</td><td>⭐⭐⭐</td><td>⭐</td><td>Multicollinearity, feature selection</td></tr>
+<tr><td><b style="color:#70c0ff">Logistic Regression</b></td><td>⭐⭐</td><td>⚡⚡⚡</td><td>⚡⚡⚡</td><td>⭐⭐⭐</td><td>⭐⭐⭐</td><td>⭐⭐</td><td>Classification baseline, text data</td></tr>
+<tr><td><b style="color:#c0a0ff">SVM</b></td><td>⭐⭐⭐</td><td>⚡</td><td>⚡⚡</td><td>⭐</td><td>⭐</td><td>⭐⭐</td><td>Small data, high dimensions</td></tr>
+<tr><td><b style="color:#ffc840">Decision Tree</b></td><td>⭐⭐</td><td>⚡⚡⚡</td><td>⚡⚡⚡</td><td>⭐⭐⭐</td><td>⭐⭐</td><td>⭐⭐</td><td>Rule extraction, interpretability</td></tr>
+<tr><td><b style="color:#ffc840">Random Forest</b></td><td>⭐⭐⭐⭐</td><td>⚡⚡</td><td>⚡⚡</td><td>⭐⭐</td><td>⭐⭐</td><td>⭐⭐⭐</td><td>Robust default, feature importance</td></tr>
+<tr><td><b style="color:#ff7070">XGBoost / GBT</b></td><td>⭐⭐⭐⭐⭐</td><td>⚡⚡</td><td>⚡⚡</td><td>⭐⭐</td><td>⭐⭐⭐</td><td>⭐⭐⭐</td><td>Production winner, tabular data</td></tr>
+<tr><td><b style="color:#ff7070">LightGBM</b></td><td>⭐⭐⭐⭐⭐</td><td>⚡⚡⚡</td><td>⚡⚡⚡</td><td>⭐⭐</td><td>⭐⭐⭐</td><td>⭐⭐⭐</td><td>Large data, fastest GBT</td></tr>
+<tr><td><b style="color:#60b0ff">KNN</b></td><td>⭐⭐⭐</td><td>⚡⚡⚡</td><td>⚡</td><td>⭐⭐⭐</td><td>⭐</td><td>⭐</td><td>Small data, baseline only</td></tr>
+<tr><td><b style="color:#60b0ff">Naive Bayes</b></td><td>⭐⭐</td><td>⚡⚡⚡</td><td>⚡⚡⚡</td><td>⭐⭐⭐</td><td>⭐⭐⭐</td><td>⭐⭐</td><td>Text, fast baseline, streaming</td></tr>
+<tr><td><b style="color:#60b0ff">LDA</b></td><td>⭐⭐⭐</td><td>⚡⚡⚡</td><td>⚡⚡⚡</td><td>⭐⭐⭐</td><td>⭐⭐</td><td>⭐⭐</td><td>Small data, Gaussian features</td></tr>
+<tr><td><b style="color:#50e880">MLP</b></td><td>⭐⭐⭐⭐</td><td>⚡⚡</td><td>⚡⚡</td><td>⭐</td><td>⭐⭐</td><td>⭐⭐</td><td>Complex patterns, large data</td></tr>
+<tr><td><b style="color:#50e880">SGD</b></td><td>⭐⭐</td><td>⚡⚡⚡</td><td>⚡⚡⚡</td><td>⭐⭐</td><td>⭐⭐⭐</td><td>⭐⭐</td><td>Streaming, massive datasets</td></tr>
+</table>
+<div class="note note-g"><b>Production reality:</b> In 90% of tabular ML projects at companies, the winning model is either XGBoost/LightGBM or a well-tuned Logistic Regression. Random Forest is the robust fallback. Everything else is for specific edge cases. Master these three deeply before going wider.</div>
+</div>
+
+<!-- ══ TAB 5: BEGINNER START ══ -->
+<div class="sec" id="S5">
+<div class="badge bg-g">WHERE TO START</div>
+<div class="h1">Complete Beginner Path — From Zero to First ML Model</div>
+<div class="sub">The exact sequence a beginner should follow — no skipping ahead</div>
+<div class="note"><b>The biggest mistake beginners make:</b> jumping to XGBoost or Neural Networks without understanding why simpler models fail first. You must understand WHY a model fails before you know which model to try next. The sequence below builds this intuition step by step.</div>
+
+<div class="sl">Phase 1 — Foundations (Week 1–2)</div>
+<div class="roadmap-step">
+  <div class="rs-num" style="background:#1a5cb8">1</div>
+  <div class="rs-body">
+    <div class="rs-title">Linear Regression — the foundation of everything</div>
+    <div class="rs-sub">Every ML concept (loss function, gradient descent, overfitting, coefficients) appears in its simplest form here. Master this before anything else.</div>
+    <div class="rs-tasks">✓ Predict house prices with 1 feature (simple LR)<br>✓ Add more features (multiple LR)<br>✓ Plot residuals, compute R², RMSE<br>✓ See what happens when you add irrelevant features<br>✓ Understand: w = (XᵀX)⁻¹Xᵀy</div>
+  </div>
+</div>
+<div class="roadmap-step">
+  <div class="rs-num" style="background:#1a5cb8">2</div>
+  <div class="rs-body">
+    <div class="rs-title">Logistic Regression — classification fundamentals</div>
+    <div class="rs-sub">Binary classification, probabilities, sigmoid function, decision boundary, confusion matrix. This is the gateway to classification ML.</div>
+    <div class="rs-tasks">✓ Predict survival (Titanic) — binary classification<br>✓ Understand sigmoid: p = 1/(1+e^(-z))<br>✓ Plot confusion matrix, compute precision/recall<br>✓ Tune C (regularisation) — watch bias/variance change<br>✓ Visualise the decision boundary</div>
+  </div>
+</div>
+
+<div class="sl">Phase 2 — Tree Models (Week 3–4)</div>
+<div class="roadmap-step">
+  <div class="rs-num" style="background:#1a7a3a">3</div>
+  <div class="rs-body">
+    <div class="rs-title">Decision Tree — understand splits and overfitting visually</div>
+    <div class="rs-sub">The best model for building intuition about overfitting and bias-variance. You can see the tree and understand every decision.</div>
+    <div class="rs-tasks">✓ Train a deep tree — watch it perfectly memorise training data<br>✓ Print the tree — read the actual rules<br>✓ Increase max_depth from 1 to 20 — plot train vs val accuracy<br>✓ Find the optimal depth — your first hyperparameter search<br>✓ Extract feature importances</div>
+  </div>
+</div>
+<div class="roadmap-step">
+  <div class="rs-num" style="background:#1a7a3a">4</div>
+  <div class="rs-body">
+    <div class="rs-title">Random Forest — your first ensemble</div>
+    <div class="rs-sub">Shows how combining weak models creates something stronger. Introduces bagging, OOB score, and feature importance in a more reliable form.</div>
+    <div class="rs-tasks">✓ Compare single tree vs Random Forest on same data<br>✓ Use OOB score as a free validation set<br>✓ Plot feature importances as a bar chart<br>✓ Tune n_estimators and max_depth<br>✓ See how variance decreases vs single tree</div>
+  </div>
+</div>
+
+<div class="sl">Phase 3 — The Production Winner (Week 5–6)</div>
+<div class="roadmap-step">
+  <div class="rs-num" style="background:#8a6000">5</div>
+  <div class="rs-body">
+    <div class="rs-title">XGBoost / LightGBM — the industry standard</div>
+    <div class="rs-sub">This is the algorithm that wins most Kaggle competitions on tabular data. Understand boosting: each tree corrects the errors of the previous trees.</div>
+    <div class="rs-tasks">✓ Train XGBoost on same dataset as RF — compare AUC<br>✓ Use early stopping — understand why it prevents overfitting<br>✓ Tune learning_rate and n_estimators together<br>✓ Use SHAP to explain individual predictions<br>✓ Understand: new_tree = gradient of loss function of current ensemble</div>
+  </div>
+</div>
+
+<div class="sl">Phase 4 — Breadth (Week 7–8)</div>
+<div class="roadmap-step">
+  <div class="rs-num" style="background:#8a2020">6</div>
+  <div class="rs-body">
+    <div class="rs-title">SVM, KNN, Naive Bayes — know when each wins</div>
+    <div class="rs-sub">You will rarely use these over XGBoost in production, but you need to understand WHEN they are better — small data (SVM), text (NB), fast baseline (KNN).</div>
+    <div class="rs-tasks">✓ SVM on small dataset — compare to LR and RF<br>✓ Naive Bayes on text classification — TF-IDF + NB pipeline<br>✓ KNN — vary k from 1 to 50, plot accuracy vs k<br>✓ Understand kernel trick intuitively<br>✓ Know when each beats XGBoost</div>
+  </div>
+</div>
+
+<div class="sl">Your first complete project</div>
+<div class="week-card">
+  <div class="week-title">Project template — start here before anything else</div>
+  <div class="week-body">
+    1. Pick ONE dataset from Kaggle (Titanic, House Prices, or Heart Disease)<br>
+    2. Do complete EDA — understand every feature<br>
+    3. Train ALL 6 algorithms above on the SAME data<br>
+    4. Compare them in ONE table: AUC, RMSE, train time<br>
+    5. For the best model: plot learning curve, confusion matrix, SHAP<br>
+    6. Write down WHY each model performed the way it did<br><br>
+    This single project teaches more than 10 separate tutorial datasets.
+  </div>
+</div>
+
+<div class="note note-y"><b>The learning trap to avoid:</b> watching tutorials and understanding code without writing it yourself. The only way to genuinely learn ML algorithms is to train them, break them, fix them, and explain WHY they work on paper. After every model, ask: "What would happen if I doubled the regularisation? What if I removed the 3 most important features? What if the dataset was 10x larger?"</div>
+</div>
+
+<!-- ══ TAB 6: EXPERT ROADMAP ══ -->
+<div class="sec" id="S6">
+<div class="badge bg-p">EXPERT PROGRESSION ROADMAP</div>
+<div class="h1">From Beginner → Practitioner → Expert → Master</div>
+<div class="sub">The complete progression path with concrete milestones at each level</div>
+
+<div class="sl">Level 1 — Beginner (0–3 months)</div>
+<div class="g2">
+<div>
+<div class="week-card">
+  <div class="week-title"><span class="level-pill l1">L1</span> What you can do</div>
+  <div class="week-body">
+    · Train linear/logistic regression on clean data<br>
+    · Compute accuracy, RMSE, R²<br>
+    · Do train/test split and avoid obvious leakage<br>
+    · Use sklearn Pipeline basics<br>
+    · Understand what overfitting looks like<br>
+    · Read and understand sklearn documentation
+  </div>
+</div>
+</div>
+<div>
+<div class="week-card">
+  <div class="week-title"><span class="level-pill l1">L1</span> Projects to build</div>
+  <div class="week-body">
+    · Titanic survival prediction<br>
+    · Boston/California housing price prediction<br>
+    · Iris species classification<br>
+    · MNIST digit recognition (sklearn MLP)<br>
+    · Breast cancer malignancy prediction
+  </div>
+</div>
+</div>
+</div>
+
+<div class="sl">Level 2 — Practitioner (3–6 months)</div>
+<div class="g2">
+<div>
+<div class="week-card">
+  <div class="week-title"><span class="level-pill l2">L2</span> What you can do</div>
+  <div class="week-body">
+    · Choose the right algorithm for the situation<br>
+    · Handle missing values, outliers, skewness<br>
+    · Do feature engineering that improves accuracy<br>
+    · Tune hyperparameters with GridSearchCV/Optuna<br>
+    · Diagnose bias vs variance from learning curves<br>
+    · Log experiments with MLflow<br>
+    · Handle class imbalance correctly<br>
+    · Interpret SHAP values
+  </div>
+</div>
+</div>
+<div>
+<div class="week-card">
+  <div class="week-title"><span class="level-pill l2">L2</span> Projects to build</div>
+  <div class="week-body">
+    · Customer churn prediction (real company data)<br>
+    · Credit card fraud detection (imbalanced)<br>
+    · Sales forecasting with lag features<br>
+    · Sentiment classification (text pipeline)<br>
+    · End-to-end Databricks pipeline: Delta → model → serving<br>
+    · Kaggle competition — top 25% finish
+  </div>
+</div>
+</div>
+</div>
+
+<div class="sl">Level 3 — Expert (6–12 months)</div>
+<div class="g2">
+<div>
+<div class="week-card">
+  <div class="week-title"><span class="level-pill l3">L3</span> What you can do</div>
+  <div class="week-body">
+    · Derive gradient boosting from first principles<br>
+    · Implement logistic regression from scratch<br>
+    · Design custom loss functions for business problems<br>
+    · Build Stacking and Blending ensembles<br>
+    · Use Optuna for automated hyperparameter search<br>
+    · Build reusable preprocessing + model pipelines<br>
+    · Monitor models in production (drift detection)<br>
+    · Explain any model to non-technical stakeholders<br>
+    · Know WHEN to stop optimising (diminishing returns)
+  </div>
+</div>
+</div>
+<div>
+<div class="week-card">
+  <div class="week-title"><span class="level-pill l3">L3</span> Projects to build</div>
+  <div class="week-body">
+    · Multi-model stacking pipeline on Databricks<br>
+    · Implement XGBoost from scratch (numpy only)<br>
+    · Production model with monitoring + retraining<br>
+    · Kaggle competition — top 5% finish<br>
+    · Custom sklearn estimator (fit/predict/score)<br>
+    · A/B test two models in production<br>
+    · RAG pipeline combining embeddings + supervised model
+  </div>
+</div>
+</div>
+</div>
+
+<div class="sl">Level 4 — Master (12+ months)</div>
+<div class="week-card">
+  <div class="week-title"><span class="level-pill l3">L4 MASTER</span> What distinguishes a master</div>
+  <div class="week-body">
+    · Can look at a new dataset and immediately know which 2–3 algorithms to try and why — without running any code<br>
+    · Knows the mathematical derivation of every algorithm in this guide<br>
+    · Has hit every failure mode (overfitting, leakage, distribution shift, concept drift) and knows the fix from experience<br>
+    · Can train models on billion-row datasets with Spark ML on Databricks<br>
+    · Builds end-to-end ML systems: data ingestion → feature store → model training → serving → monitoring<br>
+    · Contributes to open-source ML projects<br>
+    · Can mentor others through their ML progression<br>
+    · Has at least one production model that processes real business data and produces real value
+  </div>
+</div>
+
+<div class="sl">Weekly practice schedule (for any level)</div>
+<div class="g3">
+  <div class="card card-b"><div class="t">Monday + Tuesday — Theory</div><div class="b">Study one algorithm deeply. Read the original paper or a textbook chapter. Derive the math on paper. Understand: what does this algorithm optimise? What are its assumptions? When does it fail?</div></div>
+  <div class="card card-g"><div class="t">Wednesday + Thursday — Code</div><div class="b">Implement the algorithm on a real dataset. Train it, evaluate it, tune it. Then deliberately break it — add noise, remove features, use too little data. Understand failure modes through experience, not theory.</div></div>
+  <div class="card card-y"><div class="t">Friday — Compare and Reflect</div><div class="b">Compare this week's algorithm to everything you've learned before. Where does it win? Where does it lose? What would you need to see in a dataset to choose this algorithm? Write this down.</div></div>
+</div>
+</div>
+
+<!-- ══ TAB 7: PRACTICE CODE ══ -->
+<div class="sec" id="S7">
+<div class="badge bg-b">COMPLETE PRACTICE CODE</div>
+<div class="h1">All Algorithms — One Script, Real Datasets, Real Comparison</div>
+<div class="sub">Copy into Databricks — trains all algorithms and compares them systematically</div>
+<div class="code">
+# ══════════════════════════════════════════════════════════════
+# SUPERVISED LEARNING — ALL ALGORITHMS COMPARISON
+# Trains every algorithm, compares systematically, shows when each wins
+# Datasets: Breast Cancer (classification) + California Housing (regression)
+# ══════════════════════════════════════════════════════════════
+import numpy as np
+import pandas as pd
+from sklearn.datasets import load_breast_cancer, fetch_california_housing
+from sklearn.model_selection import (train_test_split, cross_val_score,
+                                      learning_curve, GridSearchCV)
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
+from sklearn.metrics import *
+import warnings; warnings.filterwarnings('ignore')
+
+# ── Helper: evaluate any model ────────────────────────────
+def evaluate_clf(name, model, X_tr, y_tr, X_te, y_te, cv=5):
+    cv_auc  = cross_val_score(model, X_tr, y_tr, cv=cv, scoring='roc_auc', n_jobs=-1).mean()
+    model.fit(X_tr, y_tr)
+    y_pred  = model.predict(X_te)
+    y_prob  = model.predict_proba(X_te)[:,1] if hasattr(model,'predict_proba') else None
+    te_auc  = roc_auc_score(y_te, y_prob) if y_prob is not None else 0
+    te_f1   = f1_score(y_te, y_pred)
+    te_acc  = accuracy_score(y_te, y_pred)
+    return {'name':name,'cv_auc':cv_auc,'test_auc':te_auc,'f1':te_f1,'accuracy':te_acc,'model':model}
+
+def evaluate_reg(name, model, X_tr, y_tr, X_te, y_te, cv=5):
+    cv_r2  = cross_val_score(model, X_tr, y_tr, cv=cv, scoring='r2', n_jobs=-1).mean()
+    model.fit(X_tr, y_tr)
+    y_pred = model.predict(X_te)
+    te_r2  = r2_score(y_te, y_pred)
+    te_rmse= np.sqrt(mean_squared_error(y_te, y_pred))
+    te_mae = mean_absolute_error(y_te, y_pred)
+    return {'name':name,'cv_r2':cv_r2,'test_r2':te_r2,'rmse':te_rmse,'mae':te_mae,'model':model}
+
+# ══════════════════════════════════════════════════════
+# PART 1: CLASSIFICATION — ALL ALGORITHMS
+# ══════════════════════════════════════════════════════
+print("="*60)
+print("CLASSIFICATION — Breast Cancer Dataset")
+print("="*60)
+
+cancer = load_breast_cancer(as_frame=True)
+X_c, y_c = cancer.data, cancer.target
+X_tr, X_te, y_tr, y_te = train_test_split(
+    X_c, y_c, test_size=0.2, random_state=42, stratify=y_c)
+
+# All algorithms as Pipelines (scaler only needed for some)
+from sklearn.linear_model import LogisticRegression, SGDClassifier, RidgeClassifier
+from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import (RandomForestClassifier, GradientBoostingClassifier,
+                               AdaBoostClassifier, HistGradientBoostingClassifier,
+                               StackingClassifier, VotingClassifier)
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.naive_bayes import GaussianNB
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis, QuadraticDiscriminantAnalysis
+from sklearn.neural_network import MLPClassifier
+
+clf_models = {
+    # LINEAR FAMILY
+    'Logistic Regression': Pipeline([
+        ('sc', StandardScaler()),
+        ('clf', LogisticRegression(C=1.0, max_iter=1000, random_state=42))
+    ]),
+    'Ridge Classifier': Pipeline([
+        ('sc', StandardScaler()),
+        ('clf', RidgeClassifier(alpha=1.0))
+    ]),
+    'SGD Classifier': Pipeline([
+        ('sc', StandardScaler()),
+        ('clf', SGDClassifier(loss='modified_huber', max_iter=200, random_state=42))
+    ]),
+
+    # TREE FAMILY
+    'Decision Tree': DecisionTreeClassifier(max_depth=5, random_state=42),
+    'Random Forest': RandomForestClassifier(n_estimators=100, n_jobs=-1, random_state=42),
+    'GBT (sklearn)': GradientBoostingClassifier(n_estimators=100, random_state=42),
+    'HistGBT': HistGradientBoostingClassifier(max_iter=200, random_state=42),
+    'AdaBoost': AdaBoostClassifier(n_estimators=100, random_state=42, algorithm='SAMME'),
+
+    # DISTANCE / PROBABILISTIC
+    'SVM (RBF)': Pipeline([
+        ('sc', StandardScaler()),
+        ('clf', SVC(kernel='rbf', probability=True, random_state=42))
+    ]),
+    'KNN (k=5)': Pipeline([
+        ('sc', StandardScaler()),
+        ('clf', KNeighborsClassifier(n_neighbors=5))
+    ]),
+    'Naive Bayes': GaussianNB(),
+    'LDA': LinearDiscriminantAnalysis(),
+    'QDA': QuadraticDiscriminantAnalysis(),
+
+    # NEURAL
+    'MLP Neural Net': Pipeline([
+        ('sc', StandardScaler()),
+        ('clf', MLPClassifier(hidden_layer_sizes=(100,50), max_iter=500, random_state=42))
+    ]),
+
+    # ENSEMBLE
+    'Voting (soft)': VotingClassifier(estimators=[
+        ('lr', Pipeline([('sc',StandardScaler()),('m',LogisticRegression(max_iter=1000))])),
+        ('rf', RandomForestClassifier(n_estimators=100,random_state=42)),
+        ('hgb', HistGradientBoostingClassifier(max_iter=100,random_state=42))
+    ], voting='soft'),
+}
+
+# Train and compare
+clf_results = []
+print(f"\n{'Algorithm':25s}  {'CV AUC':8s}  {'Test AUC':9s}  {'F1':7s}  {'Accuracy':9s}")
+print("-"*65)
+for name, model in clf_models.items():
+    try:
+        res = evaluate_clf(name, model, X_tr, y_tr, X_te, y_te)
+        clf_results.append(res)
+        win = '★' if res['test_auc'] > 0.995 else ' '
+        print(f"{win}{name:24s}  {res['cv_auc']:.4f}   {res['test_auc']:.4f}   {res['f1']:.4f}  {res['accuracy']:.4f}")
+    except Exception as e:
+        print(f" {name:24s}  ERROR: {e}")
+
+clf_df = pd.DataFrame([{k:v for k,v in r.items() if k!='model'} for r in clf_results])
+best_clf = clf_df.loc[clf_df['test_auc'].idxmax()]
+print(f"\n★ BEST: {best_clf['name']}  AUC={best_clf['test_auc']:.4f}  F1={best_clf['f1']:.4f}")
+
+# ══════════════════════════════════════════════════════
+# PART 2: REGRESSION — ALL ALGORITHMS
+# ══════════════════════════════════════════════════════
+print(f"\n{'='*60}")
+print("REGRESSION — California Housing Dataset")
+print("="*60)
+
+housing = fetch_california_housing(as_frame=True)
+X_h, y_h = housing.data, housing.target
+X_tr_h, X_te_h, y_tr_h, y_te_h = train_test_split(
+    X_h, y_h, test_size=0.2, random_state=42)
+
+from sklearn.linear_model import (LinearRegression, Ridge, Lasso,
+                                   ElasticNet, HuberRegressor, SGDRegressor)
+from sklearn.svm import SVR
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.ensemble import (RandomForestRegressor, GradientBoostingRegressor,
+                               HistGradientBoostingRegressor, AdaBoostRegressor)
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn.neural_network import MLPRegressor
+
+reg_models = {
+    # LINEAR
+    'Linear Regression': Pipeline([('sc',StandardScaler()),('m',LinearRegression())]),
+    'Ridge (L2)':        Pipeline([('sc',StandardScaler()),('m',Ridge(alpha=1.0))]),
+    'Lasso (L1)':        Pipeline([('sc',StandardScaler()),('m',Lasso(alpha=0.1))]),
+    'ElasticNet':        Pipeline([('sc',StandardScaler()),('m',ElasticNet(alpha=0.1,l1_ratio=0.5))]),
+    'Huber (robust)':    Pipeline([('sc',StandardScaler()),('m',HuberRegressor(epsilon=1.35,max_iter=300))]),
+    'SGD Regressor':     Pipeline([('sc',StandardScaler()),('m',SGDRegressor(max_iter=500,random_state=42))]),
+
+    # TREE
+    'Decision Tree':     DecisionTreeRegressor(max_depth=6, random_state=42),
+    'Random Forest':     RandomForestRegressor(n_estimators=100, n_jobs=-1, random_state=42),
+    'GBT (sklearn)':     GradientBoostingRegressor(n_estimators=100, random_state=42),
+    'HistGBT':           HistGradientBoostingRegressor(max_iter=200, random_state=42),
+    'AdaBoost':          AdaBoostRegressor(n_estimators=100, random_state=42),
+
+    # OTHER
+    'SVR (RBF)':         Pipeline([('sc',StandardScaler()),('m',SVR(kernel='rbf',C=10,gamma='scale'))]),
+    'KNN (k=10)':        Pipeline([('sc',StandardScaler()),('m',KNeighborsRegressor(n_neighbors=10))]),
+    'MLP':               Pipeline([('sc',StandardScaler()),('m',MLPRegressor(hidden_layer_sizes=(100,50),max_iter=500,random_state=42))]),
+}
+
+reg_results = []
+print(f"\n{'Algorithm':25s}  {'CV R²':8s}  {'Test R²':8s}  {'RMSE':8s}  {'MAE':8s}")
+print("-"*65)
+for name, model in reg_models.items():
+    try:
+        res = evaluate_reg(name, model, X_tr_h, y_tr_h, X_te_h, y_te_h)
+        reg_results.append(res)
+        win = '★' if res['test_r2'] > 0.80 else ' '
+        print(f"{win}{name:24s}  {res['cv_r2']:.4f}   {res['test_r2']:.4f}   {res['rmse']:.4f}   {res['mae']:.4f}")
+    except Exception as e:
+        print(f" {name:24s}  ERROR: {e}")
+
+reg_df = pd.DataFrame([{k:v for k,v in r.items() if k!='model'} for r in reg_results])
+best_reg = reg_df.loc[reg_df['test_r2'].idxmax()]
+print(f"\n★ BEST: {best_reg['name']}  R²={best_reg['test_r2']:.4f}  RMSE={best_reg['rmse']:.4f}")
+
+# ══════════════════════════════════════════════════════
+# PART 3: SITUATION-SPECIFIC COMPARISONS
+# ══════════════════════════════════════════════════════
+print(f"\n{'='*60}")
+print("SITUATION ANALYSIS — When does each algorithm win?")
+print("="*60)
+
+# Scenario 1: Small data — who wins?
+print("\n── Scenario 1: Small dataset (100 samples) ──")
+X_small, y_small = X_c.iloc[:100], y_c.iloc[:100]
+X_tr_s,X_te_s,y_tr_s,y_te_s = train_test_split(X_small,y_small,test_size=0.2,random_state=42,stratify=y_small)
+for name, model in {
+    'Logistic Regression': Pipeline([('sc',StandardScaler()),('clf',LogisticRegression(max_iter=1000))]),
+    'SVM (RBF)':           Pipeline([('sc',StandardScaler()),('clf',SVC(kernel='rbf',probability=True))]),
+    'Random Forest':       RandomForestClassifier(n_estimators=100,random_state=42),
+    'KNN (k=5)':           Pipeline([('sc',StandardScaler()),('clf',KNeighborsClassifier(n_neighbors=5))]),
+}.items():
+    res = evaluate_clf(name, model, X_tr_s, y_tr_s, X_te_s, y_te_s, cv=3)
+    print(f"  {name:22s}: AUC={res['test_auc']:.4f}  F1={res['f1']:.4f}")
+
+# Scenario 2: Noisy data with outliers
+print("\n── Scenario 2: Data with outliers ──")
+X_noise = X_c.copy()
+noise_idx = np.random.choice(len(X_noise), 20, replace=False)
+for col in X_noise.columns[:5]:
+    X_noise.iloc[noise_idx, X_noise.columns.get_loc(col)] += np.random.normal(0, 50, 20)
+X_tr_n,X_te_n,y_tr_n,y_te_n = train_test_split(X_noise,y_c,test_size=0.2,random_state=42,stratify=y_c)
+for name, model in {
+    'Logistic Regression': Pipeline([('sc',StandardScaler()),('clf',LogisticRegression(max_iter=1000))]),
+    'Random Forest':       RandomForestClassifier(n_estimators=100,random_state=42),
+    'SVM':                 Pipeline([('sc',StandardScaler()),('clf',SVC(kernel='rbf',probability=True))]),
+    'Naive Bayes':         GaussianNB(),
+}.items():
+    res = evaluate_clf(name, model, X_tr_n, y_tr_n, X_te_n, y_te_n)
+    print(f"  {name:22s}: AUC={res['test_auc']:.4f}  (tree/NB are robust to outliers)")
+
+# Scenario 3: Class imbalance
+print("\n── Scenario 3: Class imbalance (90/10 split) ──")
+from sklearn.utils import resample
+df_maj = cancer.frame[cancer.frame['target']==1]
+df_min = cancer.frame[cancer.frame['target']==0].sample(40, random_state=42)
+df_imb = pd.concat([df_maj, df_min])
+X_imb, y_imb = df_imb.drop('target',axis=1), df_imb['target']
+X_tr_i,X_te_i,y_tr_i,y_te_i = train_test_split(X_imb,y_imb,test_size=0.2,random_state=42,stratify=y_imb)
+print(f"  Class distribution: {y_tr_i.value_counts().to_dict()}")
+for name, model in {
+    'Logistic (no weight)':  Pipeline([('sc',StandardScaler()),('clf',LogisticRegression(max_iter=1000))]),
+    'Logistic (balanced)':   Pipeline([('sc',StandardScaler()),('clf',LogisticRegression(class_weight='balanced',max_iter=1000))]),
+    'RF (no weight)':        RandomForestClassifier(n_estimators=100,random_state=42),
+    'RF (balanced)':         RandomForestClassifier(n_estimators=100,class_weight='balanced',random_state=42),
+}.items():
+    res = evaluate_clf(name, model, X_tr_i, y_tr_i, X_te_i, y_te_i, cv=3)
+    print(f"  {name:28s}: AUC={res['test_auc']:.4f}  F1={res['f1']:.4f}")
+
+# ══════════════════════════════════════════════════════
+# PART 4: HYPERPARAMETER IMPACT
+# ══════════════════════════════════════════════════════
+print(f"\n{'='*60}")
+print("HYPERPARAMETER IMPACT — See what matters most")
+print("="*60)
+
+# Random Forest: n_estimators
+print("\n── Random Forest: n_estimators ──")
+for n in [1, 5, 10, 25, 50, 100, 200, 500]:
+    rf = RandomForestClassifier(n_estimators=n, random_state=42, n_jobs=-1)
+    auc = cross_val_score(rf, X_c, y_c, cv=5, scoring='roc_auc').mean()
+    bar = '█' * min(40, int(auc*40))
+    print(f"  n={n:4d}: AUC={auc:.4f}  {bar}")
+
+# XGBoost via sklearn HistGBT: learning_rate
+print("\n── HistGBT: learning_rate effect ──")
+for lr in [0.001, 0.01, 0.05, 0.1, 0.2, 0.5, 1.0]:
+    hgb = HistGradientBoostingClassifier(max_iter=100, learning_rate=lr, random_state=42)
+    auc = cross_val_score(hgb, X_c, y_c, cv=5, scoring='roc_auc').mean()
+    print(f"  lr={lr}: AUC={auc:.4f}  {'← start here' if lr==0.1 else ''}")
+
+# Logistic C
+print("\n── Logistic Regression: C (regularisation) ──")
+for C in [0.001, 0.01, 0.1, 0.5, 1, 5, 10, 100]:
+    lr = Pipeline([('sc',StandardScaler()),
+                   ('clf',LogisticRegression(C=C,max_iter=1000))])
+    auc = cross_val_score(lr, X_c, y_c, cv=5, scoring='roc_auc').mean()
+    print(f"  C={C}: AUC={auc:.4f}  {'← underfitting' if auc<0.97 else ''}")
+
+print("\n✅ Complete comparison done!")
+print("Key takeaways:")
+print("  1. Logistic Regression is a very strong baseline — often hard to beat")
+print("  2. HistGBT/XGBoost wins most tabular problems with enough tuning")
+print("  3. SVM wins on small/high-dim data where others struggle")
+print("  4. Class weights matter more than algorithm choice for imbalance")
+print("  5. Feature engineering > algorithm selection every time")</div>
+
+<div class="note note-g"><b>The most important takeaway from running this code:</b> Logistic Regression will surprise you with how competitive it is. On clean, well-engineered features, it often comes within 1-2% AUC of XGBoost. The lesson is that feature engineering matters far more than algorithm choice. Master the features, then let the algorithm choice be a final tuning step.</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const CH={};
+function mk(id,cfg){if(CH[id])CH[id].destroy();CH[id]=new Chart(document.getElementById(id),cfg);}
+
+function goTab(n){
+  for(var i=1;i<=7;i++) document.getElementById('S'+i).className='sec'+(i===n?' on':'');
+  document.querySelectorAll('.tab').forEach(function(t,i){t.className='tab'+(i===n-1?' on':'');});
+  if(n===1) drawMap();
+  if(n===3) showAlgo('lr');
+  if(n===4) drawCompare();
+}
+
+function drawMap(){
+  const labels=['Linear Reg','Logistic Reg','Ridge/Lasso','SVM','Decision Tree','Random Forest','XGBoost','LightGBM','KNN','Naive Bayes','LDA','MLP','SGD','AdaBoost'];
+  const accuracy=[45,50,50,70,55,80,95,95,60,50,65,82,50,72];
+  const speed=[100,100,100,30,95,65,65,85,20,100,95,60,100,70];
+  const interpret=[100,100,100,20,95,50,50,50,75,85,90,15,80,45];
+  mk('c_map',{type:'bar',data:{labels,datasets:[
+    {label:'Accuracy',data:accuracy,backgroundColor:'rgba(80,200,130,0.75)',borderRadius:3},
+    {label:'Speed',data:speed,backgroundColor:'rgba(64,128,255,0.6)',borderRadius:3},
+    {label:'Interpretability',data:interpret,backgroundColor:'rgba(255,200,64,0.6)',borderRadius:3}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#c0d4ff',font:{size:10},boxWidth:12}}},scales:{x:{ticks:{color:'#8898b8',font:{size:8},maxRotation:30},grid:{color:'rgba(255,255,255,0.04)'}},y:{min:0,max:105,ticks:{color:'#8898b8',font:{size:9}},grid:{color:'rgba(255,255,255,0.05)'}}}}});
+}
+
+// Algorithm deep dive data
+const algos={
+  lr:{name:'Linear Regression',type:'Regression',color:'#70c0ff',
+    formula:'ŷ = w₁x₁ + w₂x₂ + ... + wₙxₙ + b   minimize: MSE = (1/n)Σ(y−ŷ)²',
+    how:'Finds the hyperplane that minimises the sum of squared vertical distances from each data point to the plane. Solved analytically via normal equation w=(XᵀX)⁻¹Xᵀy for small data, or gradient descent for large data.',
+    when:'Always the regression baseline. Interpretability required. Linear relationship exists. Large sparse data.',
+    notwhen:'Non-linear relationships. Many outliers (use Huber). Too many correlated features without regularisation.',
+    hyper:'fit_intercept=True, positive=False. Add Ridge for regularisation.',
+    strengths:['Fastest possible training','Fully interpretable coefficients','Closed-form solution exists','Scales to any data size'],
+    weaknesses:['Assumes linear relationship','Sensitive to outliers','Multicollinearity problem','No non-linear interactions'],
+    code:`from sklearn.linear_model import LinearRegression, Ridge, Lasso
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.datasets import fetch_california_housing
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import r2_score, mean_squared_error
+import numpy as np
+
+data = fetch_california_housing(as_frame=True)
+X, y = data.data, data.target
+X_tr,X_te,y_tr,y_te = train_test_split(X,y,test_size=0.2,random_state=42)
+
+# 1. Simple linear regression
+lr = Pipeline([('sc',StandardScaler()),('m',LinearRegression())])
+lr.fit(X_tr, y_tr)
+y_pred = lr.predict(X_te)
+print(f"Linear R²: {r2_score(y_te,y_pred):.4f}  RMSE: {np.sqrt(mean_squared_error(y_te,y_pred)):.4f}")
+
+# 2. Coefficients — feature importance
+import pandas as pd
+coefs = pd.Series(lr['m'].coef_, index=X.columns).sort_values()
+print(f"Most positive: {coefs.idxmax()} ({coefs.max():.4f})")
+print(f"Most negative: {coefs.idxmin()} ({coefs.min():.4f})")
+
+# 3. Ridge vs Lasso
+for alpha in [0.01, 0.1, 1.0, 10]:
+    ridge = Pipeline([('sc',StandardScaler()),('m',Ridge(alpha=alpha))])
+    lasso = Pipeline([('sc',StandardScaler()),('m',Lasso(alpha=alpha))])
+    r_r2 = r2_score(y_te, ridge.fit(X_tr,y_tr).predict(X_te))
+    l_r2 = r2_score(y_te, lasso.fit(X_tr,y_tr).predict(X_te))
+    lasso.fit(X_tr,y_tr)
+    n_zero = np.sum(lasso['m'].coef_==0)
+    print(f"  alpha={alpha}: Ridge R²={r_r2:.4f}  Lasso R²={l_r2:.4f}  Lasso zeros={n_zero}/{X.shape[1]}")`},
+
+  logr:{name:'Logistic Regression',type:'Classification',color:'#70c0ff',
+    formula:'p = 1/(1+e^(−z))  where  z = w₁x₁+...+wₙxₙ+b   Loss: −Σ[y·log(p)+(1−y)·log(1−p)]',
+    how:'Models the log-odds of the positive class as a linear function of features. Applies sigmoid to convert to probability. Trained by maximising log-likelihood (= minimising cross-entropy loss) via gradient descent.',
+    when:'Classification baseline. Text data. Probability calibration needed. Interpretability required. Logistic outputs used as feature for stacking.',
+    notwhen:'Complex non-linear boundaries. Extreme class imbalance without class_weight.',
+    hyper:'C=1.0 (regularisation, higher=less reg), penalty=l2, max_iter=1000, class_weight=balanced',
+    strengths:['Naturally calibrated probabilities','Interpretable coefficients (log-odds)','Very fast training','Works on sparse text data'],
+    weaknesses:['Linear decision boundary only','Feature engineering needed for curves','Assumes independent features'],
+    code:`from sklearn.linear_model import LogisticRegression
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.metrics import roc_auc_score, classification_report
+import numpy as np, pandas as pd
+
+cancer = load_breast_cancer(as_frame=True)
+X, y = cancer.data, cancer.target
+X_tr,X_te,y_tr,y_te = train_test_split(X,y,test_size=0.2,random_state=42,stratify=y)
+
+# 1. Basic logistic regression
+pipe = Pipeline([('sc',StandardScaler()),('clf',LogisticRegression(max_iter=1000,random_state=42))])
+pipe.fit(X_tr, y_tr)
+y_prob = pipe.predict_proba(X_te)[:,1]
+print(f"AUC: {roc_auc_score(y_te, y_prob):.4f}")
+print(classification_report(y_te, pipe.predict(X_te), target_names=cancer.target_names))
+
+# 2. Interpret coefficients
+coefs = pd.Series(pipe['clf'].coef_[0], index=cancer.feature_names).sort_values()
+print("\\nTop positive (→ benign):", coefs.tail(3).to_dict())
+print("Top negative (→ malignant):", coefs.head(3).to_dict())
+
+# 3. Regularisation effect
+print("\\nC effect on AUC:")
+for C in [0.001, 0.01, 0.1, 1, 10, 100]:
+    pipe_c = Pipeline([('sc',StandardScaler()),('clf',LogisticRegression(C=C,max_iter=1000))])
+    auc = cross_val_score(pipe_c, X, y, cv=5, scoring='roc_auc').mean()
+    print(f"  C={C}: AUC={auc:.4f}")`},
+
+  ridge:{name:'Ridge / Lasso / ElasticNet',type:'Regression + Classification',color:'#70c0ff',
+    formula:'Ridge: minimise MSE + λΣwᵢ²   Lasso: minimise MSE + λΣ|wᵢ|   ElasticNet: both',
+    how:'Ridge adds L2 penalty to loss — all weights shrink but none reach zero. Lasso adds L1 penalty — some weights go to exactly zero (feature selection). ElasticNet combines both. Derived from MAP estimation with Gaussian (Ridge) or Laplace (Lasso) prior.',
+    when:'Ridge: multicollinearity, correlated features. Lasso: automatic feature selection. ElasticNet: when both needed.',
+    notwhen:'Non-linear relationships without polynomial features. When you need tree-based importance.',
+    hyper:'alpha (λ): regularisation strength. l1_ratio (ElasticNet): 0=Ridge, 1=Lasso. Use RidgeCV/LassoCV for auto alpha.',
+    strengths:['Handles multicollinearity','Lasso does feature selection','Very fast','Interpretable'],
+    weaknesses:['Still linear','Feature engineering needed','Alpha needs tuning'],
+    code:`from sklearn.linear_model import Ridge, Lasso, ElasticNet, RidgeCV, LassoCV
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
+from sklearn.datasets import fetch_california_housing
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import r2_score
+import numpy as np, pandas as pd
+
+data = fetch_california_housing(as_frame=True)
+X, y = data.data, data.target
+X_tr,X_te,y_tr,y_te = train_test_split(X,y,test_size=0.2,random_state=42)
+
+# Auto-select alpha with cross-validation
+ridge_cv = RidgeCV(alphas=[0.01,0.1,1,10,100], cv=5)
+lasso_cv  = LassoCV(cv=5, random_state=42)
+
+for name, model in [('Ridge CV', ridge_cv), ('Lasso CV', lasso_cv)]:
+    pipe = Pipeline([('sc',StandardScaler()),('m',model)])
+    pipe.fit(X_tr, y_tr)
+    r2 = r2_score(y_te, pipe.predict(X_te))
+    if hasattr(model,'alpha_'):
+        print(f"{name}: R²={r2:.4f}  Best alpha={model.alpha_:.4f}")
+    if name=='Lasso CV':
+        n_zero = np.sum(model.coef_==0)
+        print(f"  Lasso zeroed {n_zero}/{X.shape[1]} features (feature selection!)")`},
+
+  dt:{name:'Decision Tree',type:'Both',color:'#ffc840',
+    formula:'Split criterion: Gini = 1−Σpᵢ²  or  Entropy = −Σpᵢ·log(pᵢ)   Choose split that maximises information gain',
+    how:'Recursively splits the feature space using axis-aligned cuts. At each node, picks the feature and threshold that best separates classes (or reduces variance for regression). Greedy algorithm — does not guarantee global optimum.',
+    when:'Human-readable rules needed. Quick feature importance check. First tree model to understand. Building block for ensembles.',
+    notwhen:'Never deploy a single deep tree in production — use Random Forest or XGBoost instead.',
+    hyper:'max_depth (most important! start 3–8), min_samples_leaf (prevents overfit), ccp_alpha (pruning)',
+    strengths:['Fully interpretable — visualise the tree','No scaling needed','Handles mixed types','Fast training'],
+    weaknesses:['Overfits badly without pruning','Unstable — small data change = different tree','Poor generalisation vs ensembles'],
+    code:`from sklearn.tree import DecisionTreeClassifier, export_text
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.metrics import roc_auc_score
+import numpy as np
+
+cancer = load_breast_cancer(as_frame=True)
+X, y = cancer.data, cancer.target
+X_tr,X_te,y_tr,y_te = train_test_split(X,y,test_size=0.2,random_state=42,stratify=y)
+
+# 1. Overfit vs pruned tree
+for depth in [None, 1, 2, 3, 4, 5, 6, 8]:
+    dt = DecisionTreeClassifier(max_depth=depth, random_state=42)
+    tr_auc = cross_val_score(dt, X_tr, y_tr, cv=5, scoring='roc_auc').mean()
+    dt.fit(X_tr, y_tr)
+    te_auc = roc_auc_score(y_te, dt.predict_proba(X_te)[:,1])
+    print(f"depth={str(depth):5s}: train={tr_auc:.4f}  test={te_auc:.4f}  gap={tr_auc-te_auc:.4f}")
+
+# 2. Read the tree rules
+dt_small = DecisionTreeClassifier(max_depth=3, random_state=42).fit(X_tr,y_tr)
+print("\\nHuman-readable rules:")
+print(export_text(dt_small, feature_names=list(cancer.feature_names), max_depth=3))
+
+# 3. Feature importance
+import pandas as pd
+imp = pd.Series(dt_small.feature_importances_, index=cancer.feature_names).sort_values(ascending=False)
+print("Feature importances:", imp.head(5).round(4).to_dict())`},
+
+  rf:{name:'Random Forest',type:'Both',color:'#ffc840',
+    formula:'Prediction = mode(Tree₁(x), Tree₂(x), ..., Treeₙ(x))   Each tree trained on bootstrap sample with random feature subset',
+    how:'Builds many decision trees, each on a different random bootstrap sample of the data and a random subset of features. Aggregates predictions by majority vote (classification) or average (regression). Variance is reduced by averaging many uncorrelated trees.',
+    when:'Your go-to robust default. When you need feature importances. When single tree overfits. Good OOB score for free validation.',
+    notwhen:'Very large datasets where training time matters (use LightGBM). When you need probability calibration (calibrate after).',
+    hyper:'n_estimators (more=better, 100-500), max_depth (None=good default), max_features (sqrt for classification), min_samples_leaf',
+    strengths:['Robust and hard to overfit','Built-in feature importance','OOB score free validation','Parallelisable'],
+    weaknesses:['Slower than linear models','Memory intensive','Probabilities need calibration','Black box'],
+    code:`from sklearn.ensemble import RandomForestClassifier
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.metrics import roc_auc_score
+import pandas as pd, numpy as np
+
+cancer = load_breast_cancer(as_frame=True)
+X, y = cancer.data, cancer.target
+X_tr,X_te,y_tr,y_te = train_test_split(X,y,test_size=0.2,random_state=42,stratify=y)
+
+# 1. OOB score — free internal validation
+rf_oob = RandomForestClassifier(n_estimators=200, oob_score=True, random_state=42, n_jobs=-1)
+rf_oob.fit(X_tr, y_tr)
+print(f"OOB accuracy: {rf_oob.oob_score_:.4f}")
+print(f"Test AUC:     {roc_auc_score(y_te, rf_oob.predict_proba(X_te)[:,1]):.4f}")
+
+# 2. Feature importances
+imp = pd.Series(rf_oob.feature_importances_, index=cancer.feature_names).nlargest(10)
+print("\\nTop 10 features:")
+print(imp.round(4))
+
+# 3. n_estimators effect
+print("\\nn_estimators effect:")
+for n in [1, 5, 10, 25, 50, 100, 200, 500]:
+    rf = RandomForestClassifier(n_estimators=n, random_state=42, n_jobs=-1)
+    auc = cross_val_score(rf, X, y, cv=5, scoring='roc_auc').mean()
+    print(f"  n={n:4d}: AUC={auc:.4f}")`},
+
+  xgb:{name:'XGBoost / Gradient Boosted Trees',type:'Both',color:'#ff7070',
+    formula:'Fₜ(x) = Fₜ₋₁(x) + η·hₜ(x)   where hₜ fits residuals = −∂L/∂F_{t-1}   (functional gradient descent)',
+    how:'Adds trees sequentially. Each new tree corrects the errors of all previous trees by fitting the gradient of the loss function. Uses regularisation (L1/L2 on tree weights) to prevent overfitting. Functional gradient descent in model space.',
+    when:'Your production default for tabular data. Kaggle competitions. Mixed feature types. When Random Forest is not accurate enough.',
+    notwhen:'Very small datasets (overfit risk). When training time is critical (use LightGBM). Text/image data.',
+    hyper:'n_estimators + learning_rate (tune together, lower lr=more trees), max_depth (4-8), subsample (0.8), colsample_bytree (0.8), reg_alpha (L1), reg_lambda (L2)',
+    strengths:['Best accuracy on tabular data','Handles missing values natively','SHAP explanations','Built-in regularisation'],
+    weaknesses:['Many hyperparameters','Can overfit without tuning','Sequential training','Needs tuning to shine'],
+    code:`from sklearn.ensemble import HistGradientBoostingClassifier, GradientBoostingClassifier
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.metrics import roc_auc_score
+import numpy as np
+
+cancer = load_breast_cancer(as_frame=True)
+X, y = cancer.data, cancer.target
+X_tr,X_te,y_tr,y_te = train_test_split(X,y,test_size=0.2,random_state=42,stratify=y)
+
+# HistGradientBoosting = sklearn's XGBoost equivalent
+hgb = HistGradientBoostingClassifier(
+    max_iter=500, learning_rate=0.05,
+    max_depth=6, l2_regularization=0.1,
+    early_stopping=True, validation_fraction=0.1,
+    n_iter_no_change=20, random_state=42)
+hgb.fit(X_tr, y_tr)
+auc = roc_auc_score(y_te, hgb.predict_proba(X_te)[:,1])
+print(f"HistGBT AUC: {auc:.4f}  (stopped at iter {hgb.n_iter_})")
+
+# Key insight: learning_rate × n_estimators interaction
+print("\\nlearning_rate × n_estimators:")
+for lr, n in [(0.3,50),(0.1,100),(0.05,200),(0.01,500)]:
+    hgb_t = HistGradientBoostingClassifier(max_iter=n,learning_rate=lr,random_state=42)
+    a = cross_val_score(hgb_t,X,y,cv=5,scoring='roc_auc').mean()
+    print(f"  lr={lr}, n={n}: AUC={a:.4f}")
+
+# SHAP-like: permutation importance
+from sklearn.inspection import permutation_importance
+result = permutation_importance(hgb,X_te,y_te,n_repeats=10,random_state=42,scoring='roc_auc')
+import pandas as pd
+pi = pd.Series(result.importances_mean, index=X.columns).nlargest(10)
+print("\\nPermutation importance (top 10):", pi.round(4).to_dict())`},
+
+  svm:{name:'Support Vector Machine (SVM / SVR)',type:'Both',color:'#c0a0ff',
+    formula:'Maximise margin: min ½||w||² subject to yᵢ(w·xᵢ+b)≥1  Kernel trick: K(x,z)=φ(x)·φ(z)',
+    how:'Finds the hyperplane with maximum margin between classes. Support vectors are the data points closest to the boundary. Kernel trick maps data to higher dimensions implicitly without computing the transformation.',
+    when:'Small to medium datasets (<50k rows). High-dimensional sparse data (text). When you need maximum-margin classifier.',
+    notwhen:'Large datasets (O(n²) training). When probabilities are needed (needs extra step). Multiclass without OvR/OvO.',
+    hyper:'C (regularisation, higher=less margin), kernel (rbf most common), gamma (RBF width), epsilon (SVR tube width)',
+    strengths:['Effective in high dimensions','Works well on small data','Kernel trick is powerful','Maximum margin = good generalisation'],
+    weaknesses:['Slow on large data','Needs careful scaling','Hard to tune kernel+C+gamma','No native probabilities'],
+    code:`from sklearn.svm import SVC, SVR
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score
+from sklearn.metrics import roc_auc_score
+import warnings; warnings.filterwarnings('ignore')
+
+cancer = load_breast_cancer(as_frame=True)
+X, y = cancer.data, cancer.target
+X_tr,X_te,y_tr,y_te = train_test_split(X,y,test_size=0.2,random_state=42,stratify=y)
+
+# 1. Kernel comparison
+for kernel in ['linear','rbf','poly','sigmoid']:
+    pipe = Pipeline([('sc',StandardScaler()),
+                     ('svm',SVC(kernel=kernel,probability=True,random_state=42))])
+    auc = cross_val_score(pipe,X,y,cv=5,scoring='roc_auc').mean()
+    print(f"  kernel={kernel:8s}: AUC={auc:.4f}")
+
+# 2. Grid search C and gamma
+param_grid = {'svm__C':[0.1,1,10,100], 'svm__gamma':['scale','auto',0.001,0.01]}
+pipe = Pipeline([('sc',StandardScaler()),('svm',SVC(probability=True,random_state=42))])
+grid = GridSearchCV(pipe, param_grid, cv=5, scoring='roc_auc', n_jobs=-1)
+grid.fit(X_tr, y_tr)
+print(f"\\nBest: {grid.best_params_}  AUC={grid.best_score_:.4f}")`},
+
+  knn:{name:'K-Nearest Neighbours (KNN)',type:'Both',color:'#60b0ff',
+    formula:'ŷ = mode({y_i : x_i ∈ N_k(x)})  where N_k(x) = k nearest neighbours by Euclidean distance',
+    how:'No training phase — stores all data. For each prediction, finds the k closest training points and votes (classification) or averages (regression). Lazy learning. O(n·d) prediction cost where n=samples, d=features.',
+    when:'Quick non-parametric baseline. Small datasets. When you want to understand neighbourhood structure.',
+    notwhen:'Large datasets (prediction is O(n) — too slow). High dimensions (curse of dimensionality). Production systems.',
+    hyper:'n_neighbors k (start 5, tune odd values 1-21), metric (euclidean/manhattan), weights (uniform/distance)',
+    strengths:['No training phase','Simple and intuitive','Non-parametric (no distribution assumptions)','Can detect complex boundaries'],
+    weaknesses:['Slow prediction O(n·d)','Fails in high dimensions','Memory: stores all data','Very sensitive to scaling'],
+    code:`from sklearn.neighbors import KNeighborsClassifier
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.metrics import roc_auc_score
+
+cancer = load_breast_cancer(as_frame=True)
+X, y = cancer.data, cancer.target
+X_tr,X_te,y_tr,y_te = train_test_split(X,y,test_size=0.2,random_state=42,stratify=y)
+
+# MUST scale — KNN is distance-based
+print("Without scaling vs with scaling:")
+for scale in [False, True]:
+    if scale:
+        pipe = Pipeline([('sc',StandardScaler()),('knn',KNeighborsClassifier(n_neighbors=5))])
+    else:
+        pipe = KNeighborsClassifier(n_neighbors=5)
+    auc = cross_val_score(pipe,X,y,cv=5,scoring='roc_auc').mean()
+    print(f"  scaled={scale}: AUC={auc:.4f}")
+
+# Optimal k search
+print("\\nFinding optimal k:")
+for k in [1,3,5,7,9,11,15,21,31,51]:
+    pipe = Pipeline([('sc',StandardScaler()),('knn',KNeighborsClassifier(n_neighbors=k))])
+    auc = cross_val_score(pipe,X,y,cv=5,scoring='roc_auc').mean()
+    bar = '█'*int(auc*30)
+    print(f"  k={k:3d}: {auc:.4f}  {bar}")`},
+
+  nb:{name:'Naive Bayes',type:'Classification',color:'#60b0ff',
+    formula:'P(y|x) ∝ P(y) × Π P(xᵢ|y)   (independence assumption)   GaussianNB: P(xᵢ|y) = N(μ_iy, σ_iy²)',
+    how:'Applies Bayes theorem with the "naive" assumption that all features are independent given the class. Estimates P(xᵢ|y) for each feature and class, then multiplies them. Fast because each feature is estimated independently.',
+    when:'Text classification (Multinomial NB). When features really are independent. Streaming data (partial_fit). Very fast baseline. Small data.',
+    notwhen:'When features are correlated (breaks assumption). Numerical data with complex relationships. When calibrated probabilities are needed.',
+    hyper:'alpha (Laplace smoothing, default 1.0), var_smoothing (GNB), priors',
+    strengths:['Extremely fast','Works with streaming via partial_fit','Good for text','Handles missing values'],
+    weaknesses:['Independence assumption rarely holds','Poor probability calibration','Correlated features hurt it'],
+    code:`from sklearn.naive_bayes import GaussianNB, MultinomialNB, ComplementNB
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.pipeline import Pipeline
+from sklearn.datasets import load_breast_cancer, fetch_20newsgroups
+from sklearn.model_selection import cross_val_score, train_test_split
+from sklearn.metrics import classification_report
+
+# 1. Gaussian NB — continuous features
+cancer = load_breast_cancer(as_frame=True)
+X, y = cancer.data, cancer.target
+gnb = GaussianNB()
+auc = cross_val_score(gnb,X,y,cv=5,scoring='roc_auc').mean()
+print(f"Gaussian NB on cancer data: AUC={auc:.4f}")
+
+# 2. Complement NB — best for text
+cats = ['alt.atheism','sci.med','comp.graphics','soc.religion.christian']
+news_tr = fetch_20newsgroups(subset='train',categories=cats,remove=('headers','footers'))
+news_te = fetch_20newsgroups(subset='test', categories=cats,remove=('headers','footers'))
+for nb_type, nb_model in [('MultinomialNB', MultinomialNB(alpha=0.1)),
+                           ('ComplementNB',  ComplementNB(alpha=0.1))]:
+    pipe = Pipeline([('tfidf',TfidfVectorizer(max_features=10000)), ('nb',nb_model)])
+    pipe.fit(news_tr.data, news_tr.target)
+    print(f"{nb_type} accuracy: {pipe.score(news_te.data, news_te.target):.4f}")
+
+# 3. Streaming / online learning
+gnb_stream = GaussianNB()
+X_tr,X_te,y_tr,y_te = train_test_split(X,y,test_size=0.2,random_state=42)
+for i in range(0,len(X_tr),20):
+    gnb_stream.partial_fit(X_tr[i:i+20],y_tr[i:i+20],classes=[0,1])
+print(f"Streaming GNB accuracy: {gnb_stream.score(X_te.values,y_te.values):.4f}")`},
+
+  lda:{name:'LDA / QDA',type:'Classification',color:'#60b0ff',
+    formula:'LDA: assumes equal class covariances → linear boundary. QDA: each class has own covariance → quadratic boundary.',
+    how:'Models the conditional distribution P(x|y) of features for each class as a Gaussian. Uses Bayes theorem to compute posterior P(y|x). LDA assumes all classes share one covariance matrix (linear boundary). QDA allows per-class covariance (quadratic boundary).',
+    when:'When features are approximately Gaussian. Small datasets. When you need both classification and dimensionality reduction. Fast, interpretable baseline.',
+    notwhen:'Non-Gaussian features. Very large datasets. When classes are not well-separated.',
+    hyper:'solver (svd/lsqr/eigen), n_components (for dimensionality reduction), reg_param (QDA shrinkage)',
+    strengths:['LDA = classifier + dim reduction in one','Probabilistically principled','Very fast','Works well on small data'],
+    weaknesses:['Gaussian assumption','QDA needs more samples per class','Linear (LDA) or quadratic (QDA) boundaries only'],
+    code:`from sklearn.discriminant_analysis import LinearDiscriminantAnalysis, QuadraticDiscriminantAnalysis
+from sklearn.datasets import load_wine, load_digits
+from sklearn.model_selection import cross_val_score, train_test_split
+from sklearn.pipeline import Pipeline
+
+# 1. LDA classification
+wine = load_wine(as_frame=True)
+X, y = wine.data, wine.target
+lda = LinearDiscriminantAnalysis()
+auc = cross_val_score(lda,X,y,cv=5,scoring='accuracy').mean()
+print(f"LDA on Wine (3 classes): accuracy={auc:.4f}")
+
+# 2. LDA as dimensionality reduction
+digits = load_digits()
+lda_dr = LinearDiscriminantAnalysis(n_components=9)  # max = n_classes-1
+X_lda = lda_dr.fit_transform(digits.data, digits.target)
+print(f"LDA: {digits.data.shape[1]} → {X_lda.shape[1]} dims")
+print(f"Explained variance: {lda_dr.explained_variance_ratio_.round(3)}")
+# Train on reduced features
+X_tr,X_te,y_tr,y_te = train_test_split(X_lda,digits.target,test_size=0.2,random_state=42)
+print(f"Accuracy on LDA-reduced digits: {LinearDiscriminantAnalysis().fit(X_tr,y_tr).score(X_te,y_te):.4f}")
+
+# 3. LDA vs QDA
+for name, model in [('LDA',LinearDiscriminantAnalysis()),('QDA',QuadraticDiscriminantAnalysis())]:
+    acc = cross_val_score(model,X,y,cv=5,scoring='accuracy').mean()
+    print(f"{name}: accuracy={acc:.4f}")`},
+
+  sgd:{name:'SGD Classifier / Regressor',type:'Both',color:'#50e880',
+    formula:'w = w − α·∇L(w; xᵢ, yᵢ)  for one sample per step   loss=hinge→SVM, log→LogReg, modified_huber→robust',
+    how:'Implements gradient descent where gradient is computed on ONE sample (or small batch) per step. The loss parameter switches between SVM (hinge), logistic regression (log_loss), or Huber. Supports partial_fit for true online learning on streaming data.',
+    when:'Streaming data (only sklearn estimator with partial_fit for classification). Very large datasets that do not fit in memory. Text data with millions of documents.',
+    notwhen:'Small datasets (worse than LogReg or SVM). When you need tree-based model. When dataset fits in memory.',
+    hyper:'loss (hinge/log_loss/modified_huber), alpha (L2 reg), l1_ratio, learning_rate (optimal/adaptive), max_iter',
+    strengths:['Online learning via partial_fit','Scales to billions of rows','Memory efficient','Pluggable loss functions'],
+    weaknesses:['Hyperparameter sensitive','Needs careful scaling','Noisy convergence','Less accurate than full GD'],
+    code:`from sklearn.linear_model import SGDClassifier, SGDRegressor
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
+from sklearn.datasets import load_digits, fetch_20newsgroups
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.model_selection import cross_val_score
+import numpy as np
+
+# 1. Different loss functions
+digits = load_digits()
+X, y = digits.data, digits.target
+print("SGD loss function comparison:")
+for loss in ['hinge','log_loss','modified_huber','perceptron']:
+    pipe = Pipeline([('sc',StandardScaler()),
+                     ('sgd',SGDClassifier(loss=loss,max_iter=200,random_state=42))])
+    acc = cross_val_score(pipe,X,y,cv=5,scoring='accuracy').mean()
+    print(f"  loss={loss:16s}: accuracy={acc:.4f}")
+
+# 2. Online learning (streaming simulation)
+print("\\nOnline learning — partial_fit:")
+sgd = SGDClassifier(loss='modified_huber', random_state=42)
+sc = StandardScaler()
+X_tr, X_te = X[:1000], X[1000:]
+y_tr, y_te = y[:1000], y[1000:]
+# Stream in chunks
+for i in range(0, len(X_tr), 100):
+    Xc = sc.partial_fit(X_tr[i:i+100]).transform(X_tr[i:i+100])
+    sgd.partial_fit(Xc, y_tr[i:i+100], classes=np.unique(y))
+print(f"  After streaming: accuracy={sgd.score(sc.transform(X_te),y_te):.4f}")
+
+# 3. Text pipeline with SGD (fast, scalable)
+cats = ['alt.atheism','sci.med','comp.graphics']
+tr = fetch_20newsgroups(subset='train',categories=cats,remove=('headers','footers'))
+te = fetch_20newsgroups(subset='test',categories=cats,remove=('headers','footers'))
+pipe = Pipeline([('tfidf',TfidfVectorizer(max_features=50000)),
+                 ('sgd',SGDClassifier(loss='modified_huber',max_iter=100,random_state=42))])
+pipe.fit(tr.data, tr.target)
+print(f"SGD text classification: {pipe.score(te.data,te.target):.4f}")`},
+
+  mlp:{name:'MLP Neural Network',type:'Both',color:'#50e880',
+    formula:'Layer: a = activation(W·a_prev + b)   Backprop: ∂L/∂W = ∂L/∂a × ∂a/∂W (chain rule)',
+    how:'Stacked layers of neurons. Each layer transforms features through linear combination + activation function (ReLU default). Trained by backpropagation — chain rule computes gradient of loss w.r.t. every weight, gradient descent updates them.',
+    when:'Complex non-linear patterns that trees cannot capture. Large datasets (10k+). When XGBoost plateaus. As a step toward PyTorch deep learning.',
+    notwhen:'Small datasets (overfits). When interpretability required. When tree models work well (use those, they are faster).',
+    hyper:'hidden_layer_sizes (architecture), activation (relu/tanh), solver (adam), alpha (L2 reg), learning_rate_init',
+    strengths:['Learns complex non-linear patterns','Universal function approximator','Scales with data and compute','PyTorch gateway'],
+    weaknesses:['Many hyperparameters','Needs scaling','Black box','Slower to train than trees'],
+    code:`from sklearn.neural_network import MLPClassifier
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
+from sklearn.datasets import load_digits, load_breast_cancer
+from sklearn.model_selection import cross_val_score, train_test_split
+from sklearn.metrics import roc_auc_score
+
+# 1. Architecture comparison
+digits = load_digits()
+X, y = digits.data, digits.target
+print("Architecture comparison:")
+architectures = [(50,),(100,),(200,),(100,50),(200,100),(100,100,50)]
+for arch in architectures:
+    pipe = Pipeline([('sc',StandardScaler()),
+                     ('mlp',MLPClassifier(hidden_layer_sizes=arch,max_iter=500,random_state=42))])
+    acc = cross_val_score(pipe,X,y,cv=5,scoring='accuracy').mean()
+    print(f"  {str(arch):20s}: accuracy={acc:.4f}")
+
+# 2. Loss curve — check convergence
+cancer = load_breast_cancer(as_frame=True)
+X_c, y_c = cancer.data, cancer.target
+X_tr,X_te,y_tr,y_te = train_test_split(X_c,y_c,test_size=0.2,random_state=42,stratify=y_c)
+sc = StandardScaler()
+mlp = MLPClassifier(hidden_layer_sizes=(100,50), max_iter=500, random_state=42)
+mlp.fit(sc.fit_transform(X_tr), y_tr)
+print(f"\\nTraining converged: {mlp.n_iter_} iterations")
+print(f"Final loss: {mlp.loss_:.4f}")
+print(f"Test AUC:   {roc_auc_score(y_te, mlp.predict_proba(sc.transform(X_te))[:,1]):.4f}")
+
+# 3. warm_start for incremental training
+mlp_ws = MLPClassifier(hidden_layer_sizes=(100,), max_iter=10, warm_start=True, random_state=42)
+for epoch in range(50):
+    mlp_ws.fit(sc.transform(X_tr), y_tr)
+    if epoch % 10 == 9:
+        auc = roc_auc_score(y_te, mlp_ws.predict_proba(sc.transform(X_te))[:,1])
+        print(f"  Epoch {(epoch+1)*10}: AUC={auc:.4f}")`}
+};
+
+function showAlgo(key){
+  document.querySelectorAll('.abtn').forEach(function(b){b.classList.remove('on');});
+  event && event.target && event.target.classList.add('on');
+  const a=algos[key];
+  if(!a) return;
+  document.getElementById('algo-detail').innerHTML=`
+    <div class="algo-card" style="border-color:${a.color}44">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+        <span class="algo-name">${a.name}</span>
+        <span class="algo-type" style="background:${a.color}22;color:${a.color};border:1px solid ${a.color}44">${a.type}</span>
+      </div>
+      <div class="algo-formula">${a.formula}</div>
+      <div class="g2" style="margin-bottom:8px;">
+        <div>
+          <div class="algo-section">How it works</div>
+          <div class="algo-body">${a.how}</div>
+          <div class="algo-section" style="margin-top:8px;">✓ Use when</div>
+          <div class="algo-body" style="color:#80c898">${a.when}</div>
+          <div class="algo-section" style="margin-top:8px;">✗ Do NOT use when</div>
+          <div class="algo-body" style="color:#e89090">${a.notwhen}</div>
+          <div class="algo-section" style="margin-top:8px;">Key hyperparameters</div>
+          <div class="algo-body" style="color:#d8a860">${a.hyper}</div>
+        </div>
+        <div>
+          <div class="algo-section">Strengths</div>
+          ${a.strengths.map(s=>`<div class="algo-body" style="color:#80c898">✓ ${s}</div>`).join('')}
+          <div class="algo-section" style="margin-top:8px;">Weaknesses</div>
+          ${a.weaknesses.map(w=>`<div class="algo-body" style="color:#e89090">✗ ${w}</div>`).join('')}
+        </div>
+      </div>
+      <div class="algo-section">Complete code</div>
+      <div class="code">${a.code}</div>
+    </div>`;
+}
+
+function drawCompare(){
+  const algNames=['Linear Reg','Logistic Reg','Ridge/Lasso','SVM','Decision Tree','Random Forest','XGBoost','LightGBM','KNN','Naive Bayes','LDA','MLP','SGD'];
+  const accuracy=[45,52,52,72,58,82,95,95,62,52,66,84,54];
+  const trainSpeed=[100,100,100,32,96,65,68,90,98,100,95,62,100];
+  const interpretability=[100,100,100,22,96,52,52,52,76,86,90,16,82];
+  const scalability=[95,95,95,25,80,72,78,96,18,95,80,78,98];
+  mk('c_compare',{type:'bar',data:{labels:algNames,datasets:[
+    {label:'Accuracy',data:accuracy,backgroundColor:'rgba(80,232,128,0.75)',borderRadius:3},
+    {label:'Train Speed',data:trainSpeed,backgroundColor:'rgba(64,128,255,0.65)',borderRadius:3},
+    {label:'Interpretability',data:interpretability,backgroundColor:'rgba(255,200,64,0.65)',borderRadius:3},
+    {label:'Scalability',data:scalability,backgroundColor:'rgba(192,128,255,0.65)',borderRadius:3}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#c0d4ff',font:{size:10},boxWidth:12}}},scales:{x:{ticks:{color:'#8898b8',font:{size:8},maxRotation:35},grid:{color:'rgba(255,255,255,0.04)'}},y:{min:0,max:105,ticks:{color:'#8898b8',font:{size:9}},grid:{color:'rgba(255,255,255,0.05)'}}}}});
+
+  // Score bars
+  const metrics=[
+    {n:'XGBoost / LightGBM',acc:95,spd:75,int:50,scl:85,color:'#ff7070'},
+    {n:'Random Forest',acc:82,spd:65,int:52,scl:72,color:'#ffc840'},
+    {n:'Logistic Regression',acc:52,spd:100,int:100,scl:95,color:'#70c0ff'},
+    {n:'SVM (RBF)',acc:72,spd:32,int:22,scl:25,color:'#c0a0ff'},
+    {n:'MLP Neural Net',acc:84,spd:62,int:16,scl:78,color:'#50e880'},
+  ];
+  let html='<div class="sl">Top 5 algorithms — detailed scores</div>';
+  metrics.forEach(m=>{
+    html+=`<div style="margin-bottom:10px;"><div style="font-size:12px;font-weight:700;color:${m.color};margin-bottom:5px;">${m.n}</div>`;
+    [['Accuracy',m.acc,'#50e880'],['Training Speed',m.spd,'#4080ff'],['Interpretability',m.int,'#ffc040'],['Scalability',m.scl,'#c0a0ff']].forEach(([lbl,val,color])=>{
+      html+=`<div class="bar-row"><span class="bar-label">${lbl}</span><div class="bar-track"><div class="bar-fill" style="width:${val}%;background:${color};"></div></div><span class="bar-val">${val}</span></div>`;
+    });
+    html+='</div>';
+  });
+  document.getElementById('compare-bars').innerHTML=html;
+}
+
+drawMap();
+</script>
+</body>
+</html>

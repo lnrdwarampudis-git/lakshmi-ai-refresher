@@ -1,0 +1,1524 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html,body{background:#12141c !important;color:#f0f0f0 !important;font-family:Arial,sans-serif;font-size:13px;margin:0;padding:8px;}
+*{box-sizing:border-box;}
+.nav{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;margin-bottom:14px;}
+.tab{background:#1e2235;color:#b0c4f8;border:2px solid #3a4870;border-radius:7px;padding:8px 3px;font-size:9px;font-weight:700;cursor:pointer;text-align:center;line-height:1.4;}
+.tab.on{background:#1a5cb8;color:#fff;border-color:#5090ff;}
+.sec{display:none;}.sec.on{display:block;}
+.h1{font-size:15px;font-weight:700;color:#fff;margin-bottom:3px;}
+.sub{font-size:12px;color:#8898bb;margin-bottom:10px;}
+.badge{display:inline-block;background:#1a5cb8;color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;margin-bottom:8px;}
+.sl{font-size:13px;font-weight:700;color:#78aaff;margin:12px 0 7px 0;padding-bottom:4px;border-bottom:1px solid #2a3860;}
+.divider{height:1px;background:#2a3860;margin:10px 0;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px;}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:10px;}
+.card{background:#1a1e30;border:1px solid #2e3858;border-radius:8px;padding:11px;}
+.card .t{font-size:12px;font-weight:700;color:#c0d4ff;margin-bottom:5px;}
+.card .b{font-size:11px;color:#8898b8;line-height:1.65;}
+.card-b{background:#0c1e38;border-color:#1e5090;}.card-b .t{color:#70c0ff;}.card-b .b{color:#90b8e8;}
+.card-g{background:#081c10;border-color:#1a6030;}.card-g .t{color:#50e880;}.card-g .b{color:#80c898;}
+.card-r{background:#200a0a;border-color:#702020;}.card-r .t{color:#ff7070;}.card-r .b{color:#e89090;}
+.card-y{background:#1e1600;border-color:#6a5000;}.card-y .t{color:#ffc840;}.card-y .b{color:#d8a860;}
+.card-p{background:#140c28;border-color:#4a30a0;}.card-p .t{color:#c0a0ff;}.card-p .b{color:#a888e8;}
+.note{border-left:4px solid #4080ff;background:#0c1e3a;color:#b0ccf8;padding:9px 13px;border-radius:0 7px 7px 0;margin:8px 0;font-size:12px;line-height:1.6;}
+.note b{color:#fff;}
+.note-g{border-left-color:#30c860;background:#081c10;color:#90e8a8;}.note-g b{color:#60ff90;}
+.note-r{border-left-color:#e03030;background:#200808;color:#f09090;}.note-r b{color:#ff8080;}
+.note-y{border-left-color:#e0a000;background:#1c1200;color:#e8c860;}.note-y b{color:#ffe060;}
+.code{background:#080a10;border:1px solid #2a3460;border-radius:6px;padding:11px 13px;font-family:'Courier New',monospace;font-size:11px;color:#d8e8ff;line-height:1.8;white-space:pre-wrap;margin:8px 0;}
+.tg{display:inline-block;background:#0a2c14;color:#50e870;border:1px solid #208040;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin:2px;}
+.tr{display:inline-block;background:#2c0a0a;color:#ff7070;border:1px solid #802020;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin:2px;}
+.tb{display:inline-block;background:#0a1e3c;color:#60b0ff;border:1px solid #204880;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin:2px;}
+.ty{display:inline-block;background:#241800;color:#ffc040;border:1px solid #806000;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin:2px;}
+table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:10px;}
+th{background:#1a1e30;color:#78aaff;font-weight:700;padding:7px 8px;text-align:left;border-bottom:1px solid #2e3858;}
+td{padding:5px 8px;border-bottom:1px solid #1e2438;color:#c0cce8;vertical-align:top;}
+tr:hover td{background:#1a2040;}
+.chart-box{background:#0c0e18;border:1px solid #2a3460;border-radius:8px;padding:8px;margin-bottom:8px;}
+.chart-title{font-size:11px;font-weight:700;color:#78aaff;margin-bottom:4px;text-align:center;}
+canvas{display:block;}
+.sit-card{background:#1a1e30;border:1.5px solid #2e3858;border-radius:8px;padding:10px 12px;margin-bottom:8px;}
+.sit-q{font-size:12px;font-weight:700;color:#ffc840;margin-bottom:4px;}
+.sit-a{font-size:11px;color:#c0cce8;line-height:1.6;}
+.sit-plots{font-size:11px;color:#60e880;margin-top:4px;font-weight:700;}
+</style>
+</head>
+<body>
+
+<div class="nav" id="NAV">
+  <div class="tab on" onclick="goTab(1)">1. When to Use What</div>
+  <div class="tab"    onclick="goTab(2)">2. Understanding Distribution</div>
+  <div class="tab"    onclick="goTab(3)">3. Finding Relationships</div>
+  <div class="tab"    onclick="goTab(4)">4. Detecting Problems</div>
+  <div class="tab"    onclick="goTab(5)">5. Feature Selection Viz</div>
+  <div class="tab"    onclick="goTab(6)">6. Target Analysis</div>
+  <div class="tab"    onclick="goTab(7)">7. After Model Training</div>
+  <div class="tab"    onclick="goTab(8)">8. Complete Code</div>
+</div>
+
+<!-- ══ TAB 1: WHEN TO USE WHAT ══ -->
+<div class="sec on" id="S1">
+<div class="badge">SITUATIONAL GUIDE</div>
+<div class="h1">Which Plot for Which Situation — Decision Map</div>
+<div class="sub">The question you ask determines the chart you use</div>
+<div class="note"><b>The wrong chart gives the wrong answer.</b> A bar chart on continuous data hides the distribution shape. A scatter plot on 1M rows is unreadable. Every situation has an optimal visualization — this tab is your lookup table.</div>
+
+<div style="position:relative;height:260px;margin-bottom:10px;"><canvas id="c_overview"></canvas></div>
+
+<div class="sl">Situation → Best Plot (quick lookup)</div>
+<table>
+<tr><th>Your question</th><th>Data type</th><th>Best plot</th><th>Alternative</th><th>Avoid</th></tr>
+<tr><td>What does this feature look like?</td><td>Numerical</td><td><b style="color:#60e880">Histogram + KDE</b></td><td>Box plot, violin</td><td>Bar chart</td></tr>
+<tr><td>What does this feature look like?</td><td>Categorical</td><td><b style="color:#60e880">Bar chart (sorted)</b></td><td>Pie (≤5 cats only)</td><td>Histogram</td></tr>
+<tr><td>Are there outliers?</td><td>Numerical</td><td><b style="color:#60e880">Box plot</b></td><td>Violin, strip plot</td><td>Histogram alone</td></tr>
+<tr><td>Is it normally distributed?</td><td>Numerical</td><td><b style="color:#60e880">Q-Q plot</b></td><td>Histogram+normal curve</td><td>Bar chart</td></tr>
+<tr><td>How do two numerical features relate?</td><td>Num × Num</td><td><b style="color:#60e880">Scatter plot</b></td><td>Hex bin, 2D KDE</td><td>Line chart</td></tr>
+<tr><td>How does feature X relate to target Y?</td><td>Num → Num</td><td><b style="color:#60e880">Scatter + regression line</b></td><td>Partial dependence</td><td>Correlation alone</td></tr>
+<tr><td>How does category affect target?</td><td>Cat → Num</td><td><b style="color:#60e880">Box plot by category</b></td><td>Violin, bar+CI</td><td>Pie chart</td></tr>
+<tr><td>Are features correlated?</td><td>Num × Num</td><td><b style="color:#60e880">Correlation heatmap</b></td><td>Pair plot</td><td>Table alone</td></tr>
+<tr><td>Which features matter most?</td><td>All</td><td><b style="color:#60e880">Feature importance bar</b></td><td>SHAP beeswarm</td><td>Correlation alone</td></tr>
+<tr><td>Are there missing value patterns?</td><td>All</td><td><b style="color:#60e880">Missingness heatmap</b></td><td>Bar chart of % missing</td><td>Table only</td></tr>
+<tr><td>How is the target distributed?</td><td>Categorical</td><td><b style="color:#60e880">Bar chart + %</b></td><td>Pie (if 2 classes)</td><td>Histogram</td></tr>
+<tr><td>Is my model overfitting?</td><td>Scores</td><td><b style="color:#60e880">Learning curve</b></td><td>Validation curve</td><td>Single metric</td></tr>
+<tr><td>Where does model fail?</td><td>Regression</td><td><b style="color:#60e880">Residual vs fitted</b></td><td>Actual vs predicted</td><td>RMSE alone</td></tr>
+<tr><td>Which classes are confused?</td><td>Classification</td><td><b style="color:#60e880">Confusion matrix heatmap</b></td><td>Per-class ROC</td><td>Accuracy alone</td></tr>
+<tr><td>How features vary together?</td><td>Multi-feature</td><td><b style="color:#60e880">Pair plot</b></td><td>PCA 2D scatter</td><td>Individual plots only</td></tr>
+<tr><td>Trend over time?</td><td>Time series</td><td><b style="color:#60e880">Line chart</b></td><td>Area chart</td><td>Bar chart</td></tr>
+<tr><td>Compare two distributions?</td><td>Two groups</td><td><b style="color:#60e880">Overlapping histograms / KDE</b></td><td>QQ-plot, violin</td><td>Pie chart</td></tr>
+</table>
+
+<div class="sl">Situational question cards</div>
+<div class="g2">
+<div>
+  <div class="sit-card"><div class="sit-q">Q: I just loaded a new dataset. Where do I start?</div><div class="sit-a">Start with shape and dtypes. Then plot histogram/KDE for every numerical feature and sorted bar chart for every categorical feature. This gives you the distribution of each feature in 5 minutes.</div><div class="sit-plots">→ Histogram, KDE, Bar chart, Missingness heatmap</div></div>
+  <div class="sit-card"><div class="sit-q">Q: I need to find which features predict my target.</div><div class="sit-a">For numerical features: scatter plot vs target + correlation. For categorical features: box plot grouped by category. Then feature importance from a quick Random Forest.</div><div class="sit-plots">→ Scatter, Box plot by class, Correlation heatmap, Feature importance</div></div>
+  <div class="sit-card"><div class="sit-q">Q: I suspect there are outliers in my data.</div><div class="sit-a">Box plots show outliers visually as dots beyond the whiskers. Combine with histogram to see if the distribution is skewed. Then use IQR method or Z-score to quantify them.</div><div class="sit-plots">→ Box plot, Histogram, Strip plot, Violin plot</div></div>
+  <div class="sit-card"><div class="sit-q">Q: I want to know if two features are redundant.</div><div class="sit-a">Plot a scatter plot of the two features. If points form a straight line, they are highly correlated and redundant. Confirm with correlation heatmap — look for values above 0.85.</div><div class="sit-plots">→ Scatter plot, Correlation heatmap, Pair plot</div></div>
+</div>
+<div>
+  <div class="sit-card"><div class="sit-q">Q: My model is not performing well. What is wrong?</div><div class="sit-a">Plot residuals vs fitted — patterns mean the model is missing signal. Learning curve — large train/val gap means overfitting. Confusion matrix — which specific classes are misclassified.</div><div class="sit-plots">→ Residual plot, Learning curve, Confusion matrix, SHAP</div></div>
+  <div class="sit-card"><div class="sit-q">Q: I have a classification problem. Is the data balanced?</div><div class="sit-a">Plot a bar chart of target class counts with percentages. If one class has less than 20%, you have class imbalance — use AUC-PR not accuracy, and consider class weights or SMOTE.</div><div class="sit-plots">→ Target bar chart, Class distribution pie</div></div>
+  <div class="sit-card"><div class="sit-q">Q: I need to decide whether to log-transform a feature.</div><div class="sit-a">Plot histogram — if it has a long right tail (skewness > 1), apply log transform. Then plot histogram again after transform to confirm it looks more bell-shaped.</div><div class="sit-plots">→ Histogram before/after, Q-Q plot, Skewness value</div></div>
+  <div class="sit-card"><div class="sit-q">Q: I want to see ALL feature relationships at once.</div><div class="sit-a">Use a pair plot (scatter matrix) for up to 10 features. Color points by target class to see separability. For more features, use correlation heatmap + top features pair plot.</div><div class="sit-plots">→ Pair plot, Correlation heatmap, PCA 2D scatter</div></div>
+</div>
+</div>
+</div>
+
+<!-- ══ TAB 2: DISTRIBUTION ══ -->
+<div class="sec" id="S2">
+<div class="badge">UNDERSTANDING DISTRIBUTIONS</div>
+<div class="h1">Visualizing Distributions — Histogram, KDE, Box, Violin, Q-Q</div>
+<div class="sub">Before any modeling: understand what each feature looks like</div>
+
+<div class="g3">
+  <div class="card card-b"><div class="t">Histogram + KDE</div><div class="b">Shows shape of distribution. KDE (kernel density estimate) is a smoothed version. Use together.<br><br>What to look for:<br>· Single peak = unimodal (good for linear models)<br>· Two peaks = bimodal (two sub-populations!)<br>· Right tail = positively skewed → log transform<br>· Left tail = negatively skewed</div></div>
+  <div class="card card-g"><div class="t">Box plot</div><div class="b">Shows: median (line), IQR (box), whiskers (1.5×IQR), outliers (dots beyond whiskers).<br><br>Use for: fast outlier detection, comparing distribution across groups.<br><br>Limitation: hides bimodal distributions — always combine with histogram.</div></div>
+  <div class="card card-y"><div class="t">Violin + Q-Q plot</div><div class="b"><b style="color:#ffd060">Violin:</b> box plot + KDE on both sides. Shows full distribution shape including bimodality.<br><br><b style="color:#ffd060">Q-Q plot:</b> tests normality. If points follow the diagonal line = normal. Curves away = skewed. S-shape = heavy tails.</div></div>
+</div>
+
+<div class="g2">
+  <div>
+    <div class="chart-box"><div class="chart-title">Histogram + KDE — normal vs skewed vs bimodal</div><canvas id="c_hist" height="160"></canvas></div>
+    <div class="chart-box"><div class="chart-title">Box plots — comparison across groups</div><canvas id="c_box" height="150"></canvas></div>
+  </div>
+  <div>
+    <div class="chart-box"><div class="chart-title">Q-Q Plot — testing normality</div><canvas id="c_qq" height="160"></canvas></div>
+    <div class="chart-box"><div class="chart-title">Violin plot — distribution shape by class</div><canvas id="c_violin" height="150"></canvas></div>
+  </div>
+</div>
+
+<div class="code">
+# ══════════════════════════════════════════════════════════
+# DISTRIBUTION VISUALIZATIONS — All Types
+# ══════════════════════════════════════════════════════════
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+import warnings; warnings.filterwarnings('ignore')
+
+from sklearn.datasets import fetch_california_housing, load_breast_cancer
+housing = fetch_california_housing(as_frame=True)
+df = housing.frame.copy()
+cancer = load_breast_cancer(as_frame=True)
+df_c = cancer.frame.copy()
+
+# ── 1. Histogram for all numerical features ───────────────
+fig, axes = plt.subplots(3, 3, figsize=(15, 10))
+axes = axes.ravel()
+num_cols = df.select_dtypes(include=[np.number]).columns[:9]
+for i, col in enumerate(num_cols):
+    skew = df[col].skew()
+    axes[i].hist(df[col], bins=40, color='#4080ff', alpha=0.7, edgecolor='none')
+    # KDE overlay
+    from scipy.stats import gaussian_kde
+    kde = gaussian_kde(df[col].dropna())
+    x_range = np.linspace(df[col].min(), df[col].max(), 200)
+    ax2 = axes[i].twinx()
+    ax2.plot(x_range, kde(x_range), color='#ff6040', linewidth=2)
+    ax2.set_yticks([])
+    axes[i].set_title(f'{col}\nskew={skew:.2f}', fontsize=10)
+    axes[i].set_xlabel('')
+    # Add skew annotation
+    color = '#ff4040' if abs(skew)>1 else '#40ff80' if abs(skew)<0.5 else '#ffcc40'
+    axes[i].set_facecolor('#0a0c14')
+    note = 'log-transform!' if skew>1 else ('OK' if abs(skew)<0.5 else 'moderate skew')
+    axes[i].text(0.98, 0.95, note, transform=axes[i].transAxes,
+                  ha='right', va='top', fontsize=8, color=color)
+plt.suptitle('Distribution of All Features — California Housing', y=1.01, fontsize=13)
+plt.tight_layout()
+plt.savefig('distributions.png', dpi=100, bbox_inches='tight')
+print("Saved: distributions.png")
+print("\nSkewness summary:")
+for col in df.select_dtypes(include=[np.number]).columns:
+    sk = df[col].skew()
+    action = 'LOG TRANSFORM' if sk>1 else 'SQRT TRANSFORM' if sk>0.5 else 'OK'
+    print(f"  {col:25s}: skew={sk:+.3f}  → {action}")
+
+# ── 2. Box plots — outlier detection ──────────────────────
+fig, axes = plt.subplots(1, 4, figsize=(16, 4))
+for i, col in enumerate(['MedInc','HouseAge','AveRooms','Population']):
+    Q1, Q3 = df[col].quantile(0.25), df[col].quantile(0.75)
+    IQR = Q3 - Q1
+    n_outliers = ((df[col]<Q1-1.5*IQR)|(df[col]>Q3+1.5*IQR)).sum()
+    axes[i].boxplot(df[col].dropna(), patch_artist=True,
+                    boxprops=dict(facecolor='#1a3060',color='#4080ff'),
+                    medianprops=dict(color='#ff6040',linewidth=2),
+                    flierprops=dict(marker='o',color='#ff4040',alpha=0.3,markersize=3))
+    axes[i].set_title(f'{col}\n{n_outliers} outliers ({n_outliers/len(df)*100:.1f}%)', fontsize=10)
+    axes[i].set_facecolor('#0a0c14')
+plt.suptitle('Box Plots — Outlier Detection', fontsize=13)
+plt.tight_layout()
+plt.savefig('boxplots.png', dpi=100)
+print("Saved: boxplots.png")
+
+# ── 3. Q-Q plots — normality test ─────────────────────────
+fig, axes = plt.subplots(1, 3, figsize=(15, 4))
+for i, (col, transform) in enumerate([
+    ('MedInc', None),
+    ('MedInc', 'log'),
+    ('HouseAge', None)
+]):
+    data = df[col].dropna()
+    if transform == 'log': data = np.log1p(data)
+    (osm, osr), (slope, intercept, r) = stats.probplot(data, dist='norm')
+    axes[i].plot(osm, osr, 'o', color='#4080ff', alpha=0.3, markersize=3)
+    axes[i].plot(osm, slope*np.array(osm)+intercept, 'r-', linewidth=2, color='#ff6040')
+    title = f'{col}' + (' (log)' if transform else '')
+    axes[i].set_title(f'{title}\nr²={r**2:.3f}', fontsize=10)
+    axes[i].set_xlabel('Theoretical quantiles')
+    axes[i].set_ylabel('Sample quantiles')
+    axes[i].set_facecolor('#0a0c14')
+    note = 'Normal ✓' if r**2>0.99 else ('Close to normal' if r**2>0.97 else 'NOT normal')
+    axes[i].text(0.02,0.98,note,transform=axes[i].transAxes,va='top',fontsize=9,
+                  color='#40ff80' if r**2>0.99 else '#ffcc40' if r**2>0.97 else '#ff6040')
+plt.suptitle('Q-Q Plots — Normality Check (before/after log transform)', fontsize=13)
+plt.tight_layout()
+plt.savefig('qq_plots.png', dpi=100)
+print("Saved: qq_plots.png")
+
+# ── 4. Compare distributions: feature by target class ─────
+fig, axes = plt.subplots(1, 3, figsize=(15, 4))
+top_feats = ['mean radius','mean texture','mean perimeter']
+for i, feat in enumerate(top_feats):
+    for cls, color, label in [(0,'#ff6040','Malignant'), (1,'#4080ff','Benign')]:
+        data = df_c[df_c['target']==cls][feat]
+        axes[i].hist(data, bins=25, alpha=0.5, color=color, label=label, density=True)
+        kde = gaussian_kde(data.dropna())
+        x_range = np.linspace(data.min(), data.max(), 200)
+        axes[i].plot(x_range, kde(x_range), color=color, linewidth=2)
+    axes[i].set_title(f'{feat}', fontsize=10)
+    axes[i].legend(fontsize=8)
+    axes[i].set_facecolor('#0a0c14')
+    # Overlap check — less overlap = better feature
+    overlap_note = "Good separator!" if abs(df_c.groupby('target')[feat].mean().diff().iloc[-1]) > df_c[feat].std() else "Poor separator"
+    axes[i].text(0.02,0.98,overlap_note,transform=axes[i].transAxes,va='top',fontsize=8,
+                  color='#40ff80' if 'Good' in overlap_note else '#ff6040')
+plt.suptitle('Feature Distributions by Target Class — Breast Cancer\n(less overlap = better feature for ML!)', fontsize=12)
+plt.tight_layout()
+plt.savefig('dist_by_class.png', dpi=100)
+print("Saved: dist_by_class.png")
+print("\nKey insight: features with less overlap between classes are better predictors!")</div>
+<div class="note note-y"><b>Interpreting distributions for ML:</b> Right-skewed (long right tail) → apply log transform before training. Bimodal (two peaks) → consider splitting into two sub-models or adding a group indicator feature. Heavy tails (high kurtosis) → use RobustScaler. Class distributions that barely overlap → excellent feature for classification.</div>
+</div>
+
+<!-- ══ TAB 3: RELATIONSHIPS ══ -->
+<div class="sec" id="S3">
+<div class="badge">FINDING RELATIONSHIPS</div>
+<div class="h1">Scatter Plots, Correlation, Pair Plots, Heatmaps</div>
+<div class="sub">How features relate to each other and to the target</div>
+
+<div class="g3">
+  <div class="card card-b"><div class="t">Scatter plot — two numerical features</div><div class="b">Best way to see linear vs non-linear relationships. Add regression line to quantify. Color by target class to see separability. Use hex bin or 2D KDE for large datasets (>10k points) — scatter becomes a black blob.</div></div>
+  <div class="card card-g"><div class="t">Correlation heatmap</div><div class="b">Shows pairwise linear correlation between ALL numerical features at once. Look for: dark red (r≈1, redundant), dark blue (r≈-1, redundant inverse). Values above 0.85 = feature pair is likely redundant — remove one.</div></div>
+  <div class="card card-y"><div class="t">Pair plot (scatter matrix)</div><div class="b">Scatter plot of every pair of features in one grid. Diagonal shows distribution. Color by target class. Reveals both relationships AND separability in one view. Limit to 8–10 features — beyond that it becomes too small to read.</div></div>
+</div>
+
+<div class="g2">
+  <div>
+    <div class="chart-box"><div class="chart-title">Correlation Heatmap — feature redundancy</div><canvas id="c_corr" height="200"></canvas></div>
+  </div>
+  <div>
+    <div class="chart-box"><div class="chart-title">Scatter — feature vs target (coloured by class)</div><canvas id="c_scatter" height="200"></canvas></div>
+  </div>
+</div>
+
+<div class="code">
+# ══════════════════════════════════════════════════════════
+# RELATIONSHIP VISUALIZATIONS — Scatter, Heatmap, Pair Plot
+# ══════════════════════════════════════════════════════════
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+import warnings; warnings.filterwarnings('ignore')
+
+from sklearn.datasets import load_breast_cancer, fetch_california_housing
+cancer = load_breast_cancer(as_frame=True)
+df = cancer.frame.copy()
+housing = fetch_california_housing(as_frame=True)
+df_h = housing.frame.copy()
+
+# ── 1. Correlation Heatmap — full matrix ──────────────────
+top_features = ['mean radius','mean texture','mean perimeter',
+                'mean area','mean smoothness','mean compactness',
+                'mean concavity','mean concave points','mean symmetry','target']
+corr = df[top_features].corr()
+
+fig, ax = plt.subplots(figsize=(12, 10))
+mask = np.triu(np.ones_like(corr, dtype=bool))  # show lower triangle only
+sns.heatmap(corr, mask=mask, annot=True, fmt='.2f', cmap='RdBu_r',
+            center=0, vmin=-1, vmax=1, ax=ax,
+            cbar_kws={'shrink':0.8}, linewidths=0.5,
+            annot_kws={'size':8})
+ax.set_title('Correlation Heatmap — Breast Cancer Features\nRed=positive, Blue=negative, |r|>0.85 = redundant', fontsize=12)
+plt.tight_layout()
+plt.savefig('correlation_heatmap.png', dpi=100)
+print("Saved: correlation_heatmap.png")
+
+# ── Find and report high correlations ─────────────────────
+print("\nHighly correlated feature pairs (|r|>0.85):")
+for i in range(len(corr.columns)):
+    for j in range(i+1, len(corr.columns)-1):  # exclude target
+        r = corr.iloc[i,j]
+        if abs(r) > 0.85:
+            print(f"  {corr.columns[i]:25s} <-> {corr.columns[j]:25s}  r={r:.3f}  → REDUNDANT, remove one")
+
+# Feature-target correlation
+target_corr = corr['target'].drop('target').abs().sort_values(ascending=False)
+print(f"\nFeature-target correlation (|r|) — higher is more predictive:")
+for feat, r in target_corr.items():
+    bar = '█' * int(r * 20)
+    quality = 'STRONG' if r>0.6 else 'MODERATE' if r>0.3 else 'WEAK'
+    print(f"  {feat:30s}: {r:.3f}  {bar:20s}  {quality}")
+
+# ── 2. Scatter plots — feature vs target ──────────────────
+fig, axes = plt.subplots(2, 3, figsize=(15, 9))
+top_feats = target_corr.head(6).index.tolist()
+for i, feat in enumerate(top_feats):
+    r = i // 3; c = i % 3
+    for cls, color, label in [(0,'#ff6040','Malignant'), (1,'#4080ff','Benign')]:
+        mask = df['target'] == cls
+        axes[r,c].scatter(df[mask][feat], df[mask]['target'],
+                          alpha=0.4, color=color, s=20, label=label)
+    # Add trend line
+    x, y = df[feat], df['target']
+    z = np.polyfit(x, y, 1)
+    p = np.poly1d(z)
+    x_line = np.linspace(x.min(), x.max(), 100)
+    axes[r,c].plot(x_line, p(x_line), 'w--', alpha=0.7, linewidth=1.5)
+    corr_val = x.corr(y)
+    axes[r,c].set_title(f'{feat}\nr={corr_val:.3f}', fontsize=10)
+    axes[r,c].set_facecolor('#0a0c14')
+    if i == 0: axes[r,c].legend(fontsize=8)
+plt.suptitle('Top 6 Features vs Target — Breast Cancer\n(colored by class — separation = predictive power)', fontsize=12)
+plt.tight_layout()
+plt.savefig('scatter_vs_target.png', dpi=100)
+
+# ── 3. Pair plot — top features ───────────────────────────
+top4 = target_corr.head(4).index.tolist() + ['target']
+fig, axes = plt.subplots(4, 4, figsize=(14, 14))
+feats = top4[:-1]
+for i, f1 in enumerate(feats):
+    for j, f2 in enumerate(feats):
+        ax = axes[i][j]
+        ax.set_facecolor('#0a0c14')
+        if i == j:  # diagonal — histogram by class
+            for cls, color in [(0,'#ff6040'), (1,'#4080ff')]:
+                data = df[df['target']==cls][f1]
+                ax.hist(data, bins=20, alpha=0.5, color=color, density=True)
+        else:       # off-diagonal — scatter by class
+            for cls, color in [(0,'#ff6040'), (1,'#4080ff')]:
+                mask = df['target'] == cls
+                ax.scatter(df[mask][f2], df[mask][f1], alpha=0.2, color=color, s=5)
+        if i == len(feats)-1: ax.set_xlabel(f2, fontsize=8)
+        if j == 0: ax.set_ylabel(f1, fontsize=8, rotation=45, labelpad=30)
+        ax.tick_params(labelsize=7)
+plt.suptitle('Pair Plot — Top 4 Features colored by Target Class\n(Red=Malignant, Blue=Benign)', fontsize=12, y=1.01)
+plt.tight_layout()
+plt.savefig('pairplot.png', dpi=100)
+print("Saved: scatter_vs_target.png, pairplot.png")
+
+# ── 4. Hex bin — for large datasets (>10k rows) ──────────
+fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+# Scatter (becomes unreadable at large n)
+axes[0].scatter(df_h['MedInc'][:5000], df_h['MedHouseVal'][:5000],
+                alpha=0.1, s=5, color='#4080ff')
+axes[0].set_title('Scatter — 5000 points (overplotting)', fontsize=11)
+axes[0].set_facecolor('#0a0c14')
+# Hex bin (better for dense data)
+hb = axes[1].hexbin(df_h['MedInc'], df_h['MedHouseVal'],
+                     gridsize=40, cmap='Blues', mincnt=1)
+plt.colorbar(hb, ax=axes[1])
+axes[1].set_title('Hex Bin — all 20k rows (density visible!)', fontsize=11)
+axes[1].set_facecolor('#0a0c14')
+for ax in axes:
+    ax.set_xlabel('Median Income'); ax.set_ylabel('House Value')
+plt.tight_layout()
+plt.savefig('hexbin.png', dpi=100)
+print("Saved: hexbin.png")
+print("\nKey insight: hex bin >> scatter plot for large datasets!")</div>
+<div class="note note-g"><b>What to look for in correlation heatmaps:</b> Any pair with |r| > 0.85 is redundant — keep only the one with higher correlation to the target. The target row/column shows which features are most linearly predictive. Note that correlation only captures LINEAR relationships — a feature can have r=0 with the target but still be highly predictive in a non-linear way.</div>
+</div>
+
+<!-- ══ TAB 4: DETECTING PROBLEMS ══ -->
+<div class="sec" id="S4">
+<div class="badge">DETECTING DATA PROBLEMS</div>
+<div class="h1">Visualizing Missing Values, Outliers, Skewness, Imbalance</div>
+<div class="sub">Plots that reveal data quality issues before they break your model</div>
+
+<div class="g2">
+  <div class="chart-box"><div class="chart-title">Missing value heatmap — pattern detection</div><canvas id="c_missing" height="160"></canvas></div>
+  <div class="chart-box"><div class="chart-title">Before vs After transforms — skewness fix</div><canvas id="c_skew" height="160"></canvas></div>
+</div>
+
+<div class="code">
+# ══════════════════════════════════════════════════════════
+# DATA PROBLEM DETECTION VISUALIZATIONS
+# ══════════════════════════════════════════════════════════
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib.gridspec as gridspec
+import seaborn as sns
+from scipy import stats
+import warnings; warnings.filterwarnings('ignore')
+
+np.random.seed(42)
+n = 500
+
+# Create dataset with known problems
+df = pd.DataFrame({
+    'age':       np.random.normal(35, 10, n),
+    'salary':    np.random.lognormal(10.5, 0.5, n),        # right-skewed
+    'score':     np.random.normal(60, 15, n),
+    'balance':   np.random.exponential(5000, n),             # heavily skewed
+    'category':  np.random.choice(['A','B','C','D'], n, p=[0.7,0.15,0.1,0.05]),  # imbalanced
+    'target':    np.random.choice([0,1], n, p=[0.92,0.08])  # severely imbalanced
+})
+# Add outliers
+df.loc[np.random.choice(n,15),'age'] = np.random.choice([-10,150,200], 15, replace=True)
+# Add missing values
+df.loc[np.random.choice(n,60),'salary'] = np.nan
+df.loc[np.random.choice(n,30),'score']  = np.nan
+df.loc[np.random.choice(n,100),'balance'] = np.nan
+df.loc[np.random.choice(n,20),'category'] = np.nan
+
+# ── 1. Missing Value Heatmap ──────────────────────────────
+fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+
+# Bar chart of % missing
+miss_pct = (df.isnull().mean()*100).sort_values(ascending=True)
+colors = ['#ff4040' if p>30 else '#ffcc40' if p>10 else '#4080ff' for p in miss_pct]
+axes[0].barh(range(len(miss_pct)), miss_pct, color=colors)
+axes[0].set_yticks(range(len(miss_pct)))
+axes[0].set_yticklabels(miss_pct.index)
+axes[0].axvline(x=10, color='#ffcc40', linestyle='--', alpha=0.8, label='>10%: use KNN/MICE')
+axes[0].axvline(x=30, color='#ff4040', linestyle='--', alpha=0.8, label='>30%: consider drop')
+axes[0].set_title('Missing Values by Feature', fontsize=11)
+axes[0].set_xlabel('% Missing')
+axes[0].legend(fontsize=8)
+axes[0].set_facecolor('#0a0c14')
+
+# Missingness pattern heatmap (sample 100 rows)
+sample = df.isnull().sample(min(100,len(df)), random_state=42)
+sns.heatmap(sample.T, cbar=False, cmap=['#1a2a4a','#ff4040'],
+            ax=axes[1], linewidths=0)
+axes[1].set_title('Missingness Pattern (100 rows)\nRed=missing — look for row patterns!', fontsize=11)
+axes[1].tick_params(axis='x', labelbottom=False)
+plt.suptitle('Missing Value Analysis', fontsize=13)
+plt.tight_layout()
+plt.savefig('missing_values.png', dpi=100)
+print("Saved: missing_values.png")
+
+# ── 2. Outlier Detection Plots ────────────────────────────
+fig, axes = plt.subplots(2, 3, figsize=(15, 8))
+
+for i, col in enumerate(['age','salary','score']):
+    data = df[col].dropna()
+    Q1,Q3 = data.quantile(0.25), data.quantile(0.75)
+    IQR = Q3-Q1
+    n_out = ((data<Q1-1.5*IQR)|(data>Q3+1.5*IQR)).sum()
+
+    # Histogram
+    axes[0][i].hist(data, bins=40, color='#4080ff', alpha=0.7, edgecolor='none')
+    axes[0][i].axvline(Q1-1.5*IQR, color='#ff4040', linestyle='--', linewidth=1.5, label='IQR bounds')
+    axes[0][i].axvline(Q3+1.5*IQR, color='#ff4040', linestyle='--', linewidth=1.5)
+    axes[0][i].set_title(f'{col}: {n_out} outliers', fontsize=10)
+    axes[0][i].set_facecolor('#0a0c14')
+    if i==0: axes[0][i].legend(fontsize=8)
+
+    # Box plot
+    bp = axes[1][i].boxplot(data, patch_artist=True, vert=False,
+                            boxprops=dict(facecolor='#0a2040',color='#4080ff'),
+                            medianprops=dict(color='#ff6040',linewidth=2),
+                            flierprops=dict(marker='o',color='#ff4040',alpha=0.5,markersize=4),
+                            whiskerprops=dict(color='#4080ff'),
+                            capprops=dict(color='#4080ff'))
+    axes[1][i].set_title(f'{col}: box plot', fontsize=10)
+    axes[1][i].set_facecolor('#0a0c14')
+
+plt.suptitle('Outlier Detection — Histogram + Box Plot', fontsize=13)
+plt.tight_layout()
+plt.savefig('outlier_detection.png', dpi=100)
+print("Saved: outlier_detection.png")
+
+# ── 3. Skewness: Before and After Transform ───────────────
+fig, axes = plt.subplots(2, 3, figsize=(15, 8))
+transforms = [
+    ('salary', 'raw',  df['salary'].dropna()),
+    ('salary', 'log',  np.log1p(df['salary'].dropna())),
+    ('salary', 'sqrt', np.sqrt(df['salary'].dropna())),
+    ('balance','raw',  df['balance'].dropna()),
+    ('balance','log',  np.log1p(df['balance'].dropna())),
+    ('balance','yeo',  stats.yeojohnson(df['balance'].dropna())[0]),
+]
+for i, (col, trans, data) in enumerate(transforms):
+    r, c = i//3, i%3
+    sk = pd.Series(data).skew()
+    axes[r][c].hist(data, bins=40, color='#4080ff', alpha=0.7, edgecolor='none')
+    color = '#40ff80' if abs(sk)<0.5 else '#ffcc40' if abs(sk)<1 else '#ff4040'
+    axes[r][c].set_title(f'{col} — {trans}\nskewness={sk:.2f}', fontsize=10, color=color)
+    axes[r][c].set_facecolor('#0a0c14')
+    recommendation = '✓ Use this' if abs(sk)<0.5 else ('OK' if abs(sk)<1 else '✗ Still skewed')
+    axes[r][c].text(0.98,0.95,recommendation,transform=axes[r][c].transAxes,
+                    ha='right',va='top',fontsize=9,color=color)
+plt.suptitle('Transform Comparison — Before/After (green=good, red=still skewed)', fontsize=12)
+plt.tight_layout()
+plt.savefig('skewness_transforms.png', dpi=100)
+
+# ── 4. Class Imbalance ────────────────────────────────────
+fig, axes = plt.subplots(1, 2, figsize=(12, 4))
+
+# Target imbalance
+counts = df['target'].value_counts()
+pcts = df['target'].value_counts(normalize=True)*100
+bars = axes[0].bar(['Class 0\n(Non-event)','Class 1\n(Event)'],
+                   counts.values, color=['#4080ff','#ff6040'], alpha=0.85)
+for bar, pct in zip(bars, pcts.values):
+    axes[0].text(bar.get_x()+bar.get_width()/2, bar.get_height()+5,
+                 f'{pct:.1f}%', ha='center', fontsize=11, fontweight='bold',
+                 color='#ff4040' if pct<15 else '#ffcc40' if pct<30 else '#40ff80')
+axes[0].set_title('Target Class Distribution', fontsize=11)
+axes[0].set_facecolor('#0a0c14')
+axes[0].axhline(y=len(df)*0.2, color='#ffcc40', linestyle='--', alpha=0.7)
+axes[0].text(1.5, len(df)*0.21, '20% threshold', fontsize=8, color='#ffcc40')
+
+# Category imbalance
+cat_counts = df['category'].value_counts()
+bars2 = axes[1].bar(cat_counts.index, cat_counts.values,
+                    color=['#4080ff','#60a8ff','#80c0ff','#a0d8ff'][:len(cat_counts)])
+for bar in bars2:
+    pct = bar.get_height()/len(df)*100
+    axes[1].text(bar.get_x()+bar.get_width()/2, bar.get_height()+3,
+                 f'{pct:.0f}%', ha='center', fontsize=10)
+axes[1].set_title('Categorical Feature Distribution', fontsize=11)
+axes[1].set_facecolor('#0a0c14')
+
+plt.suptitle('Imbalance Detection', fontsize=13)
+plt.tight_layout()
+plt.savefig('imbalance.png', dpi=100)
+print("All plots saved!")
+print("\n── VISUAL DIAGNOSIS GUIDE ──")
+print("Missing value bar > 30% → consider dropping column")
+print("Missing value bar 5-30% → KNN or MICE imputation")
+print("Missing value pattern rows → systematic problem, investigate!")
+print("Histogram right tail → log transform")
+print("Box plot outliers > 5% → winsorize or investigate")
+print("Class imbalance < 20% minority → use AUC-PR, not accuracy")</div>
+<div class="note note-r"><b>Missing value PATTERNS are more important than counts.</b> If rows that are missing one feature are always missing another feature too, that is a systematic data collection problem — not random. The missingness heatmap reveals these patterns instantly.</div>
+</div>
+
+<!-- ══ TAB 5: FEATURE SELECTION VIZ ══ -->
+<div class="sec" id="S5">
+<div class="badge">FEATURE SELECTION VISUALIZATION</div>
+<div class="h1">Visual Tools for Choosing the Right Features</div>
+<div class="sub">See which features matter — before, during, and after selection</div>
+
+<div class="g2">
+  <div class="chart-box"><div class="chart-title">Feature Importance — Random Forest</div><canvas id="c_importance" height="190"></canvas></div>
+  <div class="chart-box"><div class="chart-title">RFECV — Optimal feature count</div><canvas id="c_rfecv" height="190"></canvas></div>
+</div>
+
+<div class="code">
+# ══════════════════════════════════════════════════════════
+# FEATURE SELECTION VISUALIZATIONS
+# ══════════════════════════════════════════════════════════
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
+import seaborn as sns
+from sklearn.datasets import load_breast_cancer
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
+from sklearn.feature_selection import (SelectKBest, f_classif,
+    mutual_info_classif, RFECV)
+from sklearn.linear_model import LogisticRegression
+from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import StratifiedKFold, cross_val_score
+from sklearn.inspection import permutation_importance
+import warnings; warnings.filterwarnings('ignore')
+
+cancer = load_breast_cancer(as_frame=True)
+X, y = cancer.data, cancer.target
+feat_names = cancer.feature_names
+scaler = StandardScaler()
+X_sc = scaler.fit_transform(X)
+
+# ── 1. Feature Importance — 3 methods compared ───────────
+fig, axes = plt.subplots(1, 3, figsize=(18, 7))
+
+# Method 1: F-score (univariate)
+f_scores, p_values = f_classif(X_sc, y)
+f_df = pd.DataFrame({'feature':feat_names,'F':f_scores,'p':p_values})
+f_df = f_df.sort_values('F', ascending=True)
+colors_f = ['#4080ff' if p<0.001 else '#ffcc40' if p<0.05 else '#ff4040'
+            for p in f_df['p']]
+axes[0].barh(range(len(f_df)), f_df['F'], color=colors_f)
+axes[0].set_yticks(range(len(f_df)))
+axes[0].set_yticklabels(f_df['feature'], fontsize=7)
+axes[0].set_title('F-Score (univariate)\nBlue=sig, Yellow=marginal, Red=not sig', fontsize=10)
+axes[0].set_facecolor('#0a0c14')
+
+# Method 2: Mutual Information
+mi_scores = mutual_info_classif(X_sc, y, random_state=42)
+mi_df = pd.DataFrame({'feature':feat_names,'MI':mi_scores})
+mi_df = mi_df.sort_values('MI', ascending=True)
+axes[1].barh(range(len(mi_df)), mi_df['MI'], color='#60e880')
+axes[1].set_yticks(range(len(mi_df)))
+axes[1].set_yticklabels(mi_df['feature'], fontsize=7)
+axes[1].set_title('Mutual Information\n(captures non-linear relationships)', fontsize=10)
+axes[1].set_facecolor('#0a0c14')
+
+# Method 3: RF Feature Importance
+rf = RandomForestClassifier(n_estimators=200, random_state=42, n_jobs=-1)
+rf.fit(X_sc, y)
+imp_df = pd.DataFrame({'feature':feat_names,'importance':rf.feature_importances_})
+imp_df = imp_df.sort_values('importance', ascending=True)
+colors_i = ['#ff6040' if i>0.05 else '#4080ff' if i>0.02 else '#888'
+            for i in imp_df['importance']]
+axes[2].barh(range(len(imp_df)), imp_df['importance'], color=colors_i)
+axes[2].set_yticks(range(len(imp_df)))
+axes[2].set_yticklabels(imp_df['feature'], fontsize=7)
+axes[2].set_title('RF Feature Importance\nRed=high, Blue=medium, Grey=low', fontsize=10)
+axes[2].set_facecolor('#0a0c14')
+
+plt.suptitle('Feature Importance — 3 Methods Compared\n(features appearing important in all 3 = consensus core features)', fontsize=12)
+plt.tight_layout()
+plt.savefig('feature_importance_comparison.png', dpi=100)
+print("Saved: feature_importance_comparison.png")
+
+# ── 2. RFECV — optimal feature count curve ────────────────
+rfecv = RFECV(LogisticRegression(max_iter=1000), cv=5,
+              scoring='roc_auc', min_features_to_select=1, n_jobs=-1)
+rfecv.fit(X_sc, y)
+
+fig, ax = plt.subplots(figsize=(12, 5))
+n_features = range(1, len(rfecv.cv_results_['mean_test_score'])+1)
+mean_scores = rfecv.cv_results_['mean_test_score']
+std_scores  = rfecv.cv_results_['std_test_score']
+ax.plot(n_features, mean_scores, 'o-', color='#4080ff', linewidth=2, markersize=6)
+ax.fill_between(n_features,
+                np.array(mean_scores)-np.array(std_scores),
+                np.array(mean_scores)+np.array(std_scores),
+                alpha=0.2, color='#4080ff')
+ax.axvline(rfecv.n_features_, color='#ff6040', linestyle='--', linewidth=2,
+           label=f'Optimal k={rfecv.n_features_} (AUC={max(mean_scores):.4f})')
+ax.set_xlabel('Number of features selected', fontsize=11)
+ax.set_ylabel('Cross-validation AUC', fontsize=11)
+ax.set_title('RFECV — Optimal Feature Count\n(select the k where AUC plateaus — more features = diminishing returns)', fontsize=11)
+ax.legend(fontsize=10)
+ax.set_facecolor('#0a0c14')
+ax.grid(alpha=0.2)
+plt.tight_layout()
+plt.savefig('rfecv_curve.png', dpi=100)
+print("Saved: rfecv_curve.png")
+print(f"\nOptimal features: {rfecv.n_features_}")
+print(f"Selected: {[feat_names[i] for i,s in enumerate(rfecv.support_) if s]}")
+
+# ── 3. Feature consensus — which methods agree ────────────
+print("\n── FEATURE CONSENSUS VISUALIZATION ──")
+top_f  = set(f_df.nlargest(10,'F')['feature'])
+top_mi = set(mi_df.nlargest(10,'MI')['feature'])
+top_rf = set(imp_df.nlargest(10,'importance')['feature'])
+rfecv_sel = set(feat_names[i] for i,s in enumerate(rfecv.support_) if s)
+
+methods = {'F-score':top_f, 'Mutual Info':top_mi, 'RF Importance':top_rf, 'RFECV':rfecv_sel}
+all_feats = top_f | top_mi | top_rf | rfecv_sel
+
+consensus_data = pd.DataFrame(
+    {method: [f in feats for f in all_feats] for method,feats in methods.items()},
+    index=all_feats
+)
+consensus_data['score'] = consensus_data.sum(axis=1)
+consensus_data = consensus_data.sort_values('score', ascending=False)
+
+fig, ax = plt.subplots(figsize=(14, 8))
+cmap_custom = ['#0a1e3c','#4080ff']
+sns.heatmap(consensus_data[list(methods.keys())].astype(int),
+            annot=True, fmt='d', cmap=['#0a1e3c','#40e880'],
+            cbar=False, ax=ax, linewidths=1, linecolor='#2a3860')
+ax.set_title('Feature Selection Consensus Map\n(Green=selected, 4/4 = definite core feature)', fontsize=12)
+ax.set_facecolor('#0a0c14')
+plt.tight_layout()
+plt.savefig('feature_consensus.png', dpi=100)
+print("Saved: feature_consensus.png")
+
+# ── 4. Permutation importance (model-agnostic, robust) ────
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import roc_auc_score
+X_tr, X_te, y_tr, y_te = train_test_split(X_sc, y, test_size=0.2, random_state=42)
+rf.fit(X_tr, y_tr)
+result = permutation_importance(rf, X_te, y_te, n_repeats=20,
+                                 random_state=42, scoring='roc_auc', n_jobs=-1)
+perm_df = pd.DataFrame({
+    'feature':  feat_names,
+    'mean_drop': result.importances_mean,
+    'std':       result.importances_std
+}).sort_values('mean_drop', ascending=True)
+
+fig, ax = plt.subplots(figsize=(12, 7))
+colors_p = ['#ff4040' if m>0.05 else '#4080ff' if m>0.01 else '#555555'
+            for m in perm_df['mean_drop']]
+ax.barh(range(len(perm_df)), perm_df['mean_drop'],
+        xerr=perm_df['std'], color=colors_p,
+        error_kw=dict(ecolor='white',capsize=3,alpha=0.7))
+ax.set_yticks(range(len(perm_df)))
+ax.set_yticklabels(perm_df['feature'], fontsize=8)
+ax.axvline(x=0, color='white', linewidth=0.5)
+ax.set_xlabel('Mean AUC drop when feature is shuffled')
+ax.set_title('Permutation Importance — most reliable importance measure\n(bars < 0 = feature actually hurts the model → consider removing)', fontsize=11)
+ax.set_facecolor('#0a0c14')
+plt.tight_layout()
+plt.savefig('permutation_importance.png', dpi=100)
+print("Saved: permutation_importance.png")
+print("\nNegative permutation importance = feature HURTS model — remove it!")</div>
+<div class="note note-p"><b>Permutation importance is the most reliable feature importance method.</b> It measures actual AUC drop when a feature is randomly shuffled — if AUC drops a lot, the feature is important. If AUC stays the same or improves, the feature adds noise. Unlike tree importance, it works for any model and is not biased toward high-cardinality features.</div>
+</div>
+
+<!-- ══ TAB 6: TARGET ANALYSIS ══ -->
+<div class="sec" id="S6">
+<div class="badge">TARGET VARIABLE ANALYSIS</div>
+<div class="h1">Understanding Your Target Variable — The Most Important Analysis</div>
+<div class="sub">The target distribution determines your loss function, metric, and algorithm</div>
+
+<div class="g2">
+  <div class="chart-box"><div class="chart-title">Class distribution + imbalance severity</div><canvas id="c_target" height="180"></canvas></div>
+  <div class="chart-box"><div class="chart-title">Feature vs target — box plots by class</div><canvas id="c_byclass" height="180"></canvas></div>
+</div>
+
+<div class="code">
+# ══════════════════════════════════════════════════════════
+# TARGET VARIABLE ANALYSIS — All Scenarios
+# ══════════════════════════════════════════════════════════
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib.gridspec as gridspec
+import seaborn as sns
+from sklearn.datasets import (load_breast_cancer, fetch_california_housing,
+                               load_wine)
+import warnings; warnings.filterwarnings('ignore')
+
+# ══════════════════════════════════════════════
+# SCENARIO A: Binary Classification Target
+# ══════════════════════════════════════════════
+cancer = load_breast_cancer(as_frame=True)
+df_c = cancer.frame.copy()
+
+fig = plt.figure(figsize=(16, 10))
+gs = gridspec.GridSpec(2, 3)
+
+# A1. Class distribution
+ax1 = fig.add_subplot(gs[0,0])
+counts = df_c['target'].value_counts()
+pcts = df_c['target'].value_counts(normalize=True)*100
+bars = ax1.bar(cancer.target_names, counts.values,
+               color=['#ff6040','#4080ff'], alpha=0.85, width=0.5)
+for bar, pct, cnt in zip(bars, pcts.values, counts.values):
+    ax1.text(bar.get_x()+bar.get_width()/2, bar.get_height()+5,
+             f'{cnt}\n({pct:.1f}%)', ha='center', fontsize=10, fontweight='bold')
+imbalance_ratio = pcts.min()/pcts.max()
+color_ir = '#40ff80' if imbalance_ratio>0.4 else '#ffcc40' if imbalance_ratio>0.2 else '#ff4040'
+ax1.set_title(f'Binary Target Distribution\nImbalance ratio={imbalance_ratio:.2f}', fontsize=10)
+verdict = 'BALANCED — use accuracy' if imbalance_ratio>0.4 else 'IMBALANCED — use AUC+F1' if imbalance_ratio>0.2 else 'SEVERE — use AUC-PR+Recall'
+ax1.text(0.5,-0.15,verdict,transform=ax1.transAxes,ha='center',fontsize=9,color=color_ir)
+ax1.set_facecolor('#0a0c14')
+
+# A2. Feature means by class — find best discriminators
+ax2 = fig.add_subplot(gs[0,1])
+top5 = cancer.feature_names[:10]
+means_0 = df_c[df_c['target']==0][top5].mean()
+means_1 = df_c[df_c['target']==1][top5].mean()
+# Normalize for comparison
+diff = abs(means_1 - means_0) / (df_c[top5].std() + 1e-9)
+diff_sorted = diff.sort_values(ascending=True)
+ax2.barh(range(len(diff_sorted)), diff_sorted,
+         color=['#ff4040' if v>1.5 else '#4080ff' if v>0.8 else '#555' for v in diff_sorted])
+ax2.set_yticks(range(len(diff_sorted)))
+ax2.set_yticklabels([n[:20] for n in diff_sorted.index], fontsize=8)
+ax2.set_title('Standardized mean difference\nby class (higher=better feature)', fontsize=10)
+ax2.axvline(x=1.0, color='#ffcc40', linestyle='--', alpha=0.7, label='threshold=1.0')
+ax2.legend(fontsize=8)
+ax2.set_facecolor('#0a0c14')
+
+# A3. Box plots top feature by class
+ax3 = fig.add_subplot(gs[0,2])
+best_feat = diff.idxmax()
+data_0 = df_c[df_c['target']==0][best_feat]
+data_1 = df_c[df_c['target']==1][best_feat]
+bp = ax3.boxplot([data_0, data_1], labels=['Malignant','Benign'],
+                 patch_artist=True, notch=True,
+                 boxprops=dict(alpha=0.7),
+                 medianprops=dict(color='white',linewidth=2))
+bp['boxes'][0].set_facecolor('#ff6040')
+bp['boxes'][1].set_facecolor('#4080ff')
+ax3.set_title(f'Best discriminating feature:\n{best_feat[:25]}', fontsize=10)
+ax3.set_facecolor('#0a0c14')
+# Add individual points
+for i, (data, color) in enumerate([(data_0,'#ff6040'),(data_1,'#4080ff')]):
+    x = np.random.normal(i+1, 0.05, size=len(data))
+    ax3.scatter(x, data, alpha=0.15, color=color, s=8, zorder=3)
+
+# ══════════════════════════════════════════════
+# SCENARIO B: Regression Target
+# ══════════════════════════════════════════════
+housing = fetch_california_housing(as_frame=True)
+df_h = housing.frame.copy()
+y_h = df_h['MedHouseVal']
+
+ax4 = fig.add_subplot(gs[1,0])
+ax4.hist(y_h, bins=60, color='#4080ff', alpha=0.7, edgecolor='none')
+from scipy.stats import gaussian_kde
+kde = gaussian_kde(y_h)
+x_k = np.linspace(y_h.min(), y_h.max(), 200)
+ax4b = ax4.twinx(); ax4b.plot(x_k, kde(x_k), color='#ff6040', lw=2); ax4b.set_yticks([])
+ax4.axvline(y_h.mean(),   color='#40ff80', linestyle='--', lw=1.5, label=f'Mean={y_h.mean():.2f}')
+ax4.axvline(y_h.median(), color='#ffcc40', linestyle='--', lw=1.5, label=f'Median={y_h.median():.2f}')
+ax4.set_title(f'Regression Target Distribution\nskew={y_h.skew():.2f}', fontsize=10)
+ax4.legend(fontsize=8)
+ax4.set_facecolor('#0a0c14')
+if y_h.skew() > 0.5:
+    ax4.text(0.98,0.95,'Consider log(y)!',transform=ax4.transAxes,ha='right',va='top',
+             color='#ffcc40',fontsize=9)
+
+ax5 = fig.add_subplot(gs[1,1])
+y_log = np.log1p(y_h)
+ax5.hist(y_log, bins=60, color='#60e880', alpha=0.7, edgecolor='none')
+kde2 = gaussian_kde(y_log)
+x_k2 = np.linspace(y_log.min(), y_log.max(), 200)
+ax5b = ax5.twinx(); ax5b.plot(x_k2, kde2(x_k2), color='#ff6040', lw=2); ax5b.set_yticks([])
+ax5.set_title(f'After log1p transform\nskew={y_log.skew():.2f} ✓', fontsize=10)
+ax5.set_facecolor('#0a0c14')
+
+# Scatter: most correlated feature vs target
+ax6 = fig.add_subplot(gs[1,2])
+best_h = df_h.drop('MedHouseVal',axis=1).corrwith(df_h['MedHouseVal']).abs().idxmax()
+ax6.hexbin(df_h[best_h], y_h, gridsize=40, cmap='Blues', mincnt=1)
+ax6.set_xlabel(best_h, fontsize=9)
+ax6.set_ylabel('Target: MedHouseVal', fontsize=9)
+r = df_h[best_h].corr(y_h)
+ax6.set_title(f'Best feature vs target: {best_h}\nr={r:.3f}', fontsize=10)
+ax6.set_facecolor('#0a0c14')
+
+plt.suptitle('Target Variable Analysis — Binary Classification + Regression Scenarios', fontsize=13, y=1.01)
+plt.tight_layout()
+plt.savefig('target_analysis.png', dpi=100)
+print("Saved: target_analysis.png")
+
+# ══════════════════════════════════════════════
+# SCENARIO C: Multiclass Target
+# ══════════════════════════════════════════════
+wine = load_wine(as_frame=True)
+df_w = wine.frame.copy()
+fig, axes = plt.subplots(1, 3, figsize=(15, 5))
+
+# Class distribution
+counts_w = df_w['target'].value_counts().sort_index()
+axes[0].bar([f'Class {c}' for c in counts_w.index], counts_w.values,
+            color=['#4080ff','#60e880','#ff6040'])
+for i, (cnt, pct) in enumerate(zip(counts_w.values, counts_w/len(df_w)*100)):
+    axes[0].text(i, cnt+1, f'{cnt}\n({pct:.0f}%)', ha='center', fontsize=10)
+axes[0].set_title('Multiclass Target Distribution\nWine Dataset', fontsize=10)
+axes[0].set_facecolor('#0a0c14')
+
+# Feature means by class heatmap
+feat_means = df_w.groupby('target').mean()
+feat_means_norm = (feat_means - feat_means.mean()) / (feat_means.std() + 1e-9)
+sns.heatmap(feat_means_norm.T, annot=False, cmap='RdBu_r', center=0,
+            ax=axes[1], cbar_kws={'shrink':0.8}, linewidths=0.3)
+axes[1].set_title('Normalized feature means by class\n(diverging = good discriminator)', fontsize=10)
+axes[1].tick_params(labelsize=7)
+
+# Violin plot top feature by class
+best_w = feat_means_norm.std().idxmax()
+violin_data = [df_w[df_w['target']==c][best_w].values for c in sorted(df_w['target'].unique())]
+vp = axes[2].violinplot(violin_data, positions=[0,1,2], showmedians=True)
+for i, (body, color) in enumerate(zip(vp['bodies'],['#4080ff','#60e880','#ff6040'])):
+    body.set_facecolor(color); body.set_alpha(0.7)
+axes[2].set_xticks([0,1,2])
+axes[2].set_xticklabels([f'Class {i}' for i in range(3)])
+axes[2].set_title(f'Best discriminating feature:\n{best_w[:20]} (violin plot)', fontsize=10)
+axes[2].set_facecolor('#0a0c14')
+plt.suptitle('Multiclass Target Analysis — Wine Dataset', fontsize=13)
+plt.tight_layout()
+plt.savefig('multiclass_target.png', dpi=100)
+print("Saved: target_analysis.png, multiclass_target.png")
+print("\n── WHAT TARGET ANALYSIS TELLS YOU ──")
+decisions = [
+    ('Binary, balanced (50/50)',         'Accuracy, F1, AUC-ROC',    'LogReg, RF, XGBoost'),
+    ('Binary, mild imbalance (70/30)',    'F1, AUC-ROC',               'Same + class_weight'),
+    ('Binary, severe (95/5)',            'AUC-PR, Recall, MCC',       'Focal loss, SMOTE'),
+    ('Regression, normal target',        'RMSE, R²',                  'Linear, RF, XGBoost'),
+    ('Regression, skewed target',        'MAE, RMSE after log(y)',     'Log-transform target first'),
+    ('Multiclass, balanced',             'Macro F1, Accuracy',         'RF, XGBoost, SVM'),
+    ('Multiclass, imbalanced',           'Macro F1, Per-class recall', 'Class weights'),
+]
+print(f"{'Situation':40s}  {'Metric':25s}  {'Algorithm hint'}")
+for s,m,a in decisions:
+    print(f"{s:40s}  {m:25s}  {a}")</div>
+<div class="note note-y"><b>The target distribution is the single most important thing to visualize.</b> It tells you: which loss function to use, which metric to evaluate with, whether you need class weights, whether you should log-transform the target, and whether a simple model can win. Plot this before touching any feature.</div>
+</div>
+
+<!-- ══ TAB 7: AFTER MODEL TRAINING ══ -->
+<div class="sec" id="S7">
+<div class="badge">POST-TRAINING VISUALIZATIONS</div>
+<div class="h1">Plots to Understand, Debug, and Improve Your Trained Model</div>
+<div class="sub">After training — visualize errors, overfitting, and model behaviour</div>
+
+<div class="g2">
+  <div class="chart-box"><div class="chart-title">Learning curves — bias vs variance diagnosis</div><canvas id="c_lc" height="180"></canvas></div>
+  <div class="chart-box"><div class="chart-title">Residual plots — regression error patterns</div><canvas id="c_resid" height="180"></canvas></div>
+</div>
+
+<div class="code">
+# ══════════════════════════════════════════════════════════
+# POST-TRAINING VISUALIZATIONS — All Types
+# ══════════════════════════════════════════════════════════
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib.gridspec as gridspec
+from sklearn.datasets import load_breast_cancer, fetch_california_housing
+from sklearn.model_selection import (train_test_split, learning_curve,
+                                      validation_curve, cross_val_score)
+from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import *
+import warnings; warnings.filterwarnings('ignore')
+
+# ── 1. Learning Curves ────────────────────────────────────
+cancer = load_breast_cancer(as_frame=True)
+X_c, y_c = cancer.data, cancer.target
+fig, axes = plt.subplots(1, 3, figsize=(18, 5))
+
+model_configs = [
+    ('Logistic Regression (may underfit)',
+     LogisticRegression(max_iter=1000), '#4080ff'),
+    ('Random Forest — good fit',
+     RandomForestClassifier(n_estimators=100,max_depth=6,random_state=42), '#40e880'),
+    ('Decision Tree depth=20 — overfit',
+     DecisionTreeClassifier(max_depth=20,random_state=42), '#ff6040'),
+]
+for i, (name, model, color) in enumerate(model_configs):
+    train_sizes, train_scores, val_scores = learning_curve(
+        model, X_c, y_c, train_sizes=np.linspace(0.1,1.0,8),
+        cv=5, scoring='roc_auc', n_jobs=-1, shuffle=True, random_state=42)
+    tr_m, tr_s = train_scores.mean(axis=1), train_scores.std(axis=1)
+    va_m, va_s = val_scores.mean(axis=1), val_scores.std(axis=1)
+    axes[i].plot(train_sizes, tr_m, 'o-', color=color, linewidth=2, label='Train AUC')
+    axes[i].plot(train_sizes, va_m, 's--', color='white', linewidth=2, label='Val AUC')
+    axes[i].fill_between(train_sizes,tr_m-tr_s,tr_m+tr_s,alpha=0.15,color=color)
+    axes[i].fill_between(train_sizes,va_m-va_s,va_m+va_s,alpha=0.15,color='white')
+    gap = tr_m[-1] - va_m[-1]
+    diagnosis = 'HIGH BIAS' if va_m[-1]<0.88 else ('HIGH VARIANCE' if gap>0.05 else 'GOOD FIT')
+    axes[i].set_title(f'{name}\ngap={gap:.3f} → {diagnosis}', fontsize=9.5)
+    axes[i].legend(fontsize=8); axes[i].set_ylim(0.5,1.05)
+    axes[i].set_xlabel('Training size'); axes[i].set_ylabel('AUC')
+    axes[i].set_facecolor('#0a0c14')
+    axes[i].axhline(1.0,color='grey',alpha=0.3,linestyle=':')
+plt.suptitle('Learning Curves — Bias vs Variance Diagnosis', fontsize=13)
+plt.tight_layout()
+plt.savefig('learning_curves.png', dpi=100)
+print("Saved: learning_curves.png")
+
+# ── 2. Validation Curves ──────────────────────────────────
+fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+
+# max_depth effect
+depths = [1,2,3,4,5,6,7,8,10,15,None]
+tr_vc, va_vc = validation_curve(
+    DecisionTreeClassifier(random_state=42), X_c, y_c,
+    param_name='max_depth', param_range=depths,
+    cv=5, scoring='roc_auc', n_jobs=-1)
+x = range(len(depths))
+axes[0].plot(x, tr_vc.mean(1), 'o-', color='#4080ff', lw=2, label='Train')
+axes[0].plot(x, va_vc.mean(1), 's-', color='#ff6040', lw=2, label='Val')
+axes[0].fill_between(x,va_vc.mean(1)-va_vc.std(1),va_vc.mean(1)+va_vc.std(1),alpha=0.2,color='#ff6040')
+best_depth_idx = va_vc.mean(1).argmax()
+axes[0].axvline(best_depth_idx, color='#40ff80', linestyle='--', lw=2,
+               label=f'Best depth={depths[best_depth_idx]}')
+axes[0].set_xticks(x); axes[0].set_xticklabels([str(d) for d in depths])
+axes[0].set_title('Validation Curve: max_depth\n(left=underfit, right=overfit)', fontsize=10)
+axes[0].legend(); axes[0].set_facecolor('#0a0c14')
+
+# C effect (regularisation)
+c_range = [0.001,0.01,0.1,0.5,1,5,10,100]
+tr_c, va_c = validation_curve(
+    LogisticRegression(max_iter=2000), X_c, y_c,
+    param_name='C', param_range=c_range,
+    cv=5, scoring='roc_auc', n_jobs=-1)
+axes[1].semilogx(c_range, tr_c.mean(1), 'o-', color='#4080ff', lw=2, label='Train')
+axes[1].semilogx(c_range, va_c.mean(1), 's-', color='#ff6040', lw=2, label='Val')
+axes[1].fill_between(c_range,va_c.mean(1)-va_c.std(1),va_c.mean(1)+va_c.std(1),alpha=0.2,color='#ff6040')
+best_c = c_range[va_c.mean(1).argmax()]
+axes[1].axvline(best_c, color='#40ff80', linestyle='--', lw=2, label=f'Best C={best_c}')
+axes[1].set_title('Validation Curve: C (LogReg regularisation)\n(left=underfit, right=overfit)', fontsize=10)
+axes[1].legend(); axes[1].set_facecolor('#0a0c14')
+plt.suptitle('Validation Curves — Hyperparameter Effect on Bias/Variance', fontsize=13)
+plt.tight_layout()
+plt.savefig('validation_curves.png', dpi=100)
+print("Saved: validation_curves.png")
+
+# ── 3. Confusion Matrix ───────────────────────────────────
+X_tr,X_te,y_tr,y_te = train_test_split(X_c,y_c,test_size=0.2,random_state=42,stratify=y_c)
+rf = RandomForestClassifier(n_estimators=100,random_state=42).fit(X_tr,y_tr)
+y_pred = rf.predict(X_te); y_prob = rf.predict_proba(X_te)[:,1]
+
+fig, axes = plt.subplots(1, 3, figsize=(15, 5))
+# Confusion matrix heatmap
+cm = confusion_matrix(y_te, y_pred)
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', ax=axes[0],
+            xticklabels=cancer.target_names, yticklabels=cancer.target_names,
+            linewidths=2, cbar=False,
+            annot_kws={'size':14,'fontweight':'bold'})
+axes[0].set_title('Confusion Matrix\nRows=Actual, Cols=Predicted', fontsize=10)
+axes[0].set_ylabel('Actual'); axes[0].set_xlabel('Predicted')
+
+# ROC Curve
+fpr,tpr,_ = roc_curve(y_te, y_prob)
+auc_val = roc_auc_score(y_te, y_prob)
+axes[1].plot(fpr, tpr, color='#4080ff', lw=2.5, label=f'AUC = {auc_val:.4f}')
+axes[1].plot([0,1],[0,1],'--',color='grey',lw=1,label='Random (AUC=0.5)')
+axes[1].fill_between(fpr, tpr, alpha=0.15, color='#4080ff')
+axes[1].set_title('ROC Curve\n(closer to top-left = better)', fontsize=10)
+axes[1].set_xlabel('False Positive Rate'); axes[1].set_ylabel('True Positive Rate')
+axes[1].legend(fontsize=9); axes[1].set_facecolor('#0a0c14')
+
+# Precision-Recall Curve
+prec, rec, thresholds = precision_recall_curve(y_te, y_prob)
+pr_auc = average_precision_score(y_te, y_prob)
+axes[2].plot(rec, prec, color='#ff6040', lw=2.5, label=f'AUC-PR = {pr_auc:.4f}')
+axes[2].axhline(y_te.mean(), color='grey', linestyle='--', label=f'Baseline={y_te.mean():.2f}')
+axes[2].fill_between(rec, prec, alpha=0.15, color='#ff6040')
+axes[2].set_title('Precision-Recall Curve\n(better than ROC for imbalanced!)', fontsize=10)
+axes[2].set_xlabel('Recall'); axes[2].set_ylabel('Precision')
+axes[2].legend(fontsize=9); axes[2].set_facecolor('#0a0c14')
+plt.suptitle('Classification Evaluation Plots', fontsize=13)
+plt.tight_layout()
+plt.savefig('classification_plots.png', dpi=100)
+
+# ── 4. Regression Residual Plots ─────────────────────────
+housing = fetch_california_housing(as_frame=True)
+X_h, y_h = housing.data, housing.target
+X_tr_h,X_te_h,y_tr_h,y_te_h = train_test_split(X_h,y_h,test_size=0.2,random_state=42)
+rfr = RandomForestRegressor(n_estimators=100,random_state=42,n_jobs=-1)
+rfr.fit(X_tr_h, y_tr_h)
+y_pred_h = rfr.predict(X_te_h)
+residuals = y_te_h.values - y_pred_h
+
+fig, axes = plt.subplots(1, 4, figsize=(20, 5))
+# 1. Residuals vs Fitted
+axes[0].scatter(y_pred_h, residuals, alpha=0.2, s=8, color='#4080ff')
+axes[0].axhline(0, color='#ff6040', lw=2, linestyle='--')
+axes[0].set_xlabel('Fitted values'); axes[0].set_ylabel('Residuals')
+axes[0].set_title('Residuals vs Fitted\n(pattern=model missing signal)', fontsize=10)
+axes[0].set_facecolor('#0a0c14')
+
+# 2. Actual vs Predicted
+axes[1].scatter(y_te_h, y_pred_h, alpha=0.2, s=8, color='#60e880')
+mn,mx = min(y_te_h.min(),y_pred_h.min()), max(y_te_h.max(),y_pred_h.max())
+axes[1].plot([mn,mx],[mn,mx],'r-',lw=2,label='Perfect prediction')
+r2 = r2_score(y_te_h, y_pred_h)
+axes[1].set_title(f'Actual vs Predicted\nR²={r2:.4f}', fontsize=10)
+axes[1].legend(fontsize=8); axes[1].set_facecolor('#0a0c14')
+
+# 3. Residual distribution
+axes[2].hist(residuals, bins=50, color='#4080ff', alpha=0.7, density=True, edgecolor='none')
+from scipy.stats import norm, gaussian_kde
+kde = gaussian_kde(residuals)
+x_range = np.linspace(residuals.min(), residuals.max(), 200)
+axes[2].plot(x_range, kde(x_range), color='#ff6040', lw=2, label='KDE')
+axes[2].plot(x_range, norm.pdf(x_range, residuals.mean(), residuals.std()),
+            color='#40ff80', lw=2, linestyle='--', label='Normal curve')
+axes[2].set_title(f'Residual distribution\nskew={pd.Series(residuals).skew():.3f}', fontsize=10)
+axes[2].legend(fontsize=8); axes[2].set_facecolor('#0a0c14')
+
+# 4. Residuals over index (time/order)
+axes[3].scatter(range(len(residuals)), residuals, alpha=0.2, s=5, color='#c080ff')
+axes[3].axhline(0, color='#ff6040', lw=1.5, linestyle='--')
+axes[3].set_xlabel('Sample index'); axes[3].set_ylabel('Residual')
+axes[3].set_title('Residuals vs Order\n(pattern=autocorrelation problem!)', fontsize=10)
+axes[3].set_facecolor('#0a0c14')
+
+plt.suptitle('Regression Residual Analysis — 4 Essential Plots', fontsize=13)
+plt.tight_layout()
+plt.savefig('residual_plots.png', dpi=100)
+print("All post-training plots saved!")
+print("\n── RESIDUAL PLOT INTERPRETATION ──")
+print("Residual vs Fitted: random scatter = good. Curve = try polynomial features. Funnel = log-transform target.")
+print("Actual vs Predicted: points near red diagonal = good. Systematic offset = bias.")
+print("Residual distribution: bell-shaped = good. Skewed = consider different loss function.")
+print("Residuals vs Order: random = good. Pattern = time dependency, add lag features.")</div>
+<div class="note note-g"><b>The four residual plots are mandatory after every regression model.</b> Residuals vs Fitted reveals non-linearity the model missed. The distribution plot checks if your MSE assumption of normal errors holds. The order plot catches time-series autocorrelation that breaks independence assumptions.</div>
+</div>
+
+<!-- ══ TAB 8: COMPLETE CODE ══ -->
+<div class="sec" id="S8">
+<div class="badge">COMPLETE VISUALIZATION WORKFLOW</div>
+<div class="h1">One Script — Every Visualization in Correct Order</div>
+<div class="sub">Run this on any dataset — produces a complete visual EDA report</div>
+<div class="note note-g"><b>Copy this into your Databricks notebook.</b> Replace the dataset loader with spark.table(). This covers every visualization technique across all 7 tabs in the correct workflow order.</div>
+<div class="code">
+# ══════════════════════════════════════════════════════════════
+# COMPLETE VISUALIZATION WORKFLOW — EDA to Model Evaluation
+# Run on ANY dataset — replace loader at the top
+# ══════════════════════════════════════════════════════════════
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib.gridspec as gridspec
+import seaborn as sns
+from scipy import stats
+from sklearn.datasets import fetch_openml, load_breast_cancer
+from sklearn.model_selection import train_test_split, learning_curve
+from sklearn.preprocessing import StandardScaler
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.feature_selection import f_classif, mutual_info_classif
+from sklearn.metrics import *
+import warnings; warnings.filterwarnings('ignore')
+
+plt.rcParams['figure.facecolor'] = '#12141c'
+plt.rcParams['axes.facecolor']   = '#0a0c14'
+plt.rcParams['text.color']       = '#f0f0f0'
+plt.rcParams['axes.labelcolor']  = '#c0d0f0'
+plt.rcParams['xtick.color']      = '#8898b8'
+plt.rcParams['ytick.color']      = '#8898b8'
+
+# ── LOAD DATA ─────────────────────────────────────────────
+# Replace with: df = spark.table("catalog.schema.table").toPandas()
+titanic = fetch_openml('titanic', version=1, as_frame=True, parser='auto')
+df = titanic.frame[['pclass','sex','age','sibsp','parch','fare','embarked','survived']].copy()
+df['survived'] = pd.to_numeric(df['survived'], errors='coerce').astype(float)
+target = 'survived'
+num_cols = ['age','fare','sibsp','parch']
+cat_cols = ['pclass','sex','embarked']
+print(f"Dataset: {df.shape} | Target: {target}")
+
+# ══════════════════════════════════════
+# SECTION 1: DATA OVERVIEW
+# ══════════════════════════════════════
+print("\n▶ SECTION 1: Data Overview")
+fig, axes = plt.subplots(1, 3, figsize=(16, 4))
+
+# 1a. Missing values bar
+miss = (df.isnull().mean()*100).sort_values(ascending=True)
+colors_m = ['#ff4040' if p>30 else '#ffcc40' if p>10 else '#4080ff' for p in miss]
+axes[0].barh(range(len(miss)), miss.values, color=colors_m)
+axes[0].set_yticks(range(len(miss)))
+axes[0].set_yticklabels(miss.index)
+axes[0].axvline(10, color='#ffcc40', lw=1.5, linestyle='--', alpha=0.7)
+axes[0].axvline(30, color='#ff4040', lw=1.5, linestyle='--', alpha=0.7)
+axes[0].set_title('Missing Values (%)')
+axes[0].set_xlabel('% Missing')
+
+# 1b. Data types summary
+dtype_counts = df.dtypes.astype(str).value_counts()
+axes[1].pie(dtype_counts.values, labels=dtype_counts.index,
+           colors=['#4080ff','#60e880','#ff6040'],
+           autopct='%1.0f%%', textprops={'fontsize':10,'color':'white'})
+axes[1].set_title('Feature Data Types')
+
+# 1c. Target distribution
+target_counts = df[target].value_counts().sort_index()
+bars = axes[2].bar(['Died (0)','Survived (1)'],
+                   target_counts.values, color=['#ff6040','#4080ff'], alpha=0.85)
+for bar, cnt in zip(bars, target_counts.values):
+    pct = cnt/len(df)*100
+    axes[2].text(bar.get_x()+bar.get_width()/2, bar.get_height()+3,
+                 f'{cnt}\n({pct:.0f}%)', ha='center', fontsize=10, fontweight='bold')
+axes[2].set_title(f'Target Distribution\nBalance={target_counts.min()/target_counts.max():.2f}')
+plt.suptitle('SECTION 1: Data Overview', fontsize=13, fontweight='bold')
+plt.tight_layout()
+plt.savefig('viz_1_overview.png', dpi=100)
+print("  Saved: viz_1_overview.png")
+
+# ══════════════════════════════════════
+# SECTION 2: DISTRIBUTION OF EACH FEATURE
+# ══════════════════════════════════════
+print("\n▶ SECTION 2: Feature Distributions")
+fig, axes = plt.subplots(2, 4, figsize=(18, 8))
+all_feat_cols = num_cols + cat_cols
+
+for i, col in enumerate(num_cols):
+    r, c = i//4, i%4
+    data = df[col].dropna()
+    sk = data.skew()
+    axes[0][c].hist(data, bins=35, color='#4080ff', alpha=0.7, edgecolor='none')
+    # KDE
+    if len(data) > 1:
+        from scipy.stats import gaussian_kde
+        kde = gaussian_kde(data)
+        x_k = np.linspace(data.min(),data.max(),200)
+        ax2 = axes[0][c].twinx(); ax2.plot(x_k,kde(x_k),color='#ff6040',lw=2); ax2.set_yticks([])
+    color = '#ff4040' if abs(sk)>1 else '#ffcc40' if abs(sk)>0.5 else '#40ff80'
+    action = 'log-transform!' if sk>1 else ('mirror-log' if sk<-1 else 'OK ✓')
+    axes[0][c].set_title(f'{col}\nskew={sk:.2f} — {action}', fontsize=10, color=color)
+    # Outlier annotation
+    Q1,Q3 = data.quantile(0.25),data.quantile(0.75); IQR=Q3-Q1
+    n_out = ((data<Q1-1.5*IQR)|(data>Q3+1.5*IQR)).sum()
+    axes[0][c].text(0.02,0.95,f'{n_out} outliers',transform=axes[0][c].transAxes,
+                    va='top',fontsize=8,color='#ff6040' if n_out>10 else '#8898b8')
+
+for i, col in enumerate(cat_cols):
+    counts = df[col].value_counts()
+    axes[1][i].bar(range(len(counts)), counts.values,
+                  color=[f'#{20+j*30:02x}{80+j*20:02x}ff' for j in range(len(counts))])
+    axes[1][i].set_xticks(range(len(counts)))
+    axes[1][i].set_xticklabels(counts.index.astype(str), rotation=30, ha='right', fontsize=8)
+    axes[1][i].set_title(f'{col}\n{df[col].nunique()} unique values', fontsize=10)
+axes[1][3].axis('off')  # blank last
+
+plt.suptitle('SECTION 2: Feature Distributions', fontsize=13, fontweight='bold')
+plt.tight_layout()
+plt.savefig('viz_2_distributions.png', dpi=100)
+print("  Saved: viz_2_distributions.png")
+
+# ══════════════════════════════════════
+# SECTION 3: FEATURE vs TARGET
+# ══════════════════════════════════════
+print("\n▶ SECTION 3: Feature vs Target (Feature Selection Visual)")
+fig, axes = plt.subplots(2, 4, figsize=(18, 8))
+
+for i, col in enumerate(num_cols):
+    r, c = 0, i
+    # Box plot of feature grouped by target
+    data_0 = df[df[target]==0][col].dropna()
+    data_1 = df[df[target]==1][col].dropna()
+    bp = axes[r][c].boxplot([data_0, data_1], labels=['Died','Survived'],
+                            patch_artist=True, notch=True,
+                            boxprops=dict(alpha=0.75),
+                            medianprops=dict(color='white',linewidth=2))
+    bp['boxes'][0].set_facecolor('#ff6040')
+    bp['boxes'][1].set_facecolor('#4080ff')
+    # Effect size (Cohen's d)
+    pooled_std = np.sqrt((data_0.std()**2 + data_1.std()**2)/2)
+    d = abs(data_0.mean()-data_1.mean())/(pooled_std+1e-9)
+    quality = 'STRONG' if d>0.8 else 'MEDIUM' if d>0.5 else 'WEAK'
+    color_d = '#40ff80' if d>0.8 else '#ffcc40' if d>0.5 else '#ff6040'
+    axes[r][c].set_title(f'{col}\nCohen d={d:.2f} — {quality}', fontsize=10, color=color_d)
+
+for i, col in enumerate(cat_cols):
+    r, c = 1, i
+    # Survival rate by category
+    surv_rate = df.groupby(col)[target].mean().sort_values(ascending=False)
+    n_per_cat  = df.groupby(col)[target].count()
+    color_list = ['#40ff80' if v>0.5 else '#ffcc40' if v>0.35 else '#ff6040' for v in surv_rate]
+    bars = axes[r][c].bar(range(len(surv_rate)), surv_rate.values, color=color_list, alpha=0.85)
+    for j, (bar, (cat, n)) in enumerate(zip(bars, n_per_cat[surv_rate.index].items())):
+        axes[r][c].text(bar.get_x()+bar.get_width()/2, bar.get_height()+0.01,
+                        f'{surv_rate.iloc[j]:.0%}', ha='center', fontsize=9)
+    axes[r][c].set_xticks(range(len(surv_rate)))
+    axes[r][c].set_xticklabels(surv_rate.index.astype(str), rotation=30, fontsize=8)
+    axes[r][c].set_ylim(0, 1.1)
+    axes[r][c].axhline(df[target].mean(), color='grey', lw=1.5, linestyle='--', alpha=0.7)
+    axes[r][c].set_title(f'{col}\nSurvival rate by category', fontsize=10)
+axes[1][3].axis('off')
+
+plt.suptitle('SECTION 3: Feature vs Target — Feature Selection Visual\n(Green bars/high Cohen d = strong predictor)', fontsize=13, fontweight='bold')
+plt.tight_layout()
+plt.savefig('viz_3_feature_vs_target.png', dpi=100)
+print("  Saved: viz_3_feature_vs_target.png")
+
+# ══════════════════════════════════════
+# SECTION 4: CORRELATION HEATMAP
+# ══════════════════════════════════════
+print("\n▶ SECTION 4: Correlation Analysis")
+fig, axes = plt.subplots(1, 2, figsize=(16, 6))
+
+# Encode categoricals for correlation
+df_enc = df.copy()
+df_enc['sex'] = (df_enc['sex']=='male').astype(float)
+df_enc['embarked'] = df_enc['embarked'].map({'S':0,'C':1,'Q':2}).fillna(0)
+df_enc['pclass'] = pd.to_numeric(df_enc['pclass'], errors='coerce')
+df_enc = df_enc.fillna(df_enc.median(numeric_only=True))
+
+corr = df_enc.corr()
+# Lower triangle only
+mask = np.triu(np.ones_like(corr), k=1)
+sns.heatmap(corr, mask=mask, annot=True, fmt='.2f', cmap='RdBu_r',
+            center=0, vmin=-1, vmax=1, ax=axes[0],
+            annot_kws={'size':9}, linewidths=0.5, cbar_kws={'shrink':0.8})
+axes[0].set_title('Correlation Heatmap\n|r|>0.7 = potential redundancy')
+
+# Feature-target correlation bar
+feat_target = corr[target].drop(target).abs().sort_values()
+colors_ft = ['#ff4040' if v>0.4 else '#ffcc40' if v>0.2 else '#4080ff' for v in feat_target]
+axes[1].barh(range(len(feat_target)), feat_target, color=colors_ft)
+axes[1].set_yticks(range(len(feat_target)))
+axes[1].set_yticklabels(feat_target.index)
+axes[1].axvline(0.2, color='#ffcc40', lw=1.5, linestyle='--', label='>0.2: useful')
+axes[1].axvline(0.4, color='#ff4040', lw=1.5, linestyle='--', label='>0.4: strong')
+axes[1].legend(fontsize=9)
+axes[1].set_title(f'Feature-Target Correlation |r|\n(higher = more predictive for linear model)')
+
+plt.suptitle('SECTION 4: Correlation Analysis', fontsize=13, fontweight='bold')
+plt.tight_layout()
+plt.savefig('viz_4_correlation.png', dpi=100)
+print("  Saved: viz_4_correlation.png")
+
+# ══════════════════════════════════════
+# SECTION 5: FEATURE IMPORTANCE
+# ══════════════════════════════════════
+print("\n▶ SECTION 5: Feature Importance (for Feature Selection)")
+df_model = df_enc.copy()
+X = df_model.drop(target,axis=1); y = df_model[target].astype(int)
+X_tr,X_te,y_tr,y_te = train_test_split(X,y,test_size=0.2,random_state=42,stratify=y)
+sc = StandardScaler(); X_tr_sc=sc.fit_transform(X_tr); X_te_sc=sc.transform(X_te)
+
+rf = RandomForestClassifier(n_estimators=200, random_state=42, n_jobs=-1)
+rf.fit(X_tr_sc, y_tr)
+
+fig, axes = plt.subplots(1, 3, figsize=(18, 5))
+
+# RF importance
+imp = pd.Series(rf.feature_importances_, index=X.columns).sort_values()
+colors_i = ['#ff4040' if v>0.15 else '#4080ff' if v>0.05 else '#555' for v in imp]
+axes[0].barh(range(len(imp)), imp, color=colors_i)
+axes[0].set_yticks(range(len(imp))); axes[0].set_yticklabels(imp.index)
+axes[0].set_title('RF Feature Importance\nRed>0.15 (strong), Blue>0.05 (useful)')
+
+# F-score
+f_sc, pv = f_classif(X_tr_sc, y_tr)
+f_df = pd.Series(f_sc, index=X.columns).sort_values()
+colors_f = ['#ff4040' if p<0.001 else '#ffcc40' if p<0.05 else '#555'
+            for f,p in zip(f_sc, pv[f_df.index.map(lambda n: list(X.columns).index(n))])]
+axes[1].barh(range(len(f_df)), f_df, color='#60e880')
+axes[1].set_yticks(range(len(f_df))); axes[1].set_yticklabels(f_df.index)
+axes[1].set_title('F-Score (statistical significance)')
+
+# Permutation importance
+from sklearn.inspection import permutation_importance
+perm = permutation_importance(rf,X_te_sc,y_te,n_repeats=15,random_state=42,scoring='roc_auc')
+perm_df = pd.Series(perm.importances_mean, index=X.columns).sort_values()
+colors_p = ['#ff4040' if v>0.02 else '#4080ff' if v>0.005 else '#555' for v in perm_df]
+axes[2].barh(range(len(perm_df)), perm_df, xerr=perm.importances_std[perm_df.index.map(lambda n:list(X.columns).index(n))],
+             color=colors_p, error_kw=dict(ecolor='white',capsize=3,alpha=0.6))
+axes[2].axvline(0, color='white', lw=0.5)
+axes[2].set_yticks(range(len(perm_df))); axes[2].set_yticklabels(perm_df.index)
+axes[2].set_title('Permutation Importance\n(negative = feature hurts model!)')
+
+plt.suptitle('SECTION 5: Feature Importance — Which Features to Keep?', fontsize=13, fontweight='bold')
+plt.tight_layout()
+plt.savefig('viz_5_importance.png', dpi=100)
+print("  Saved: viz_5_importance.png")
+
+# ══════════════════════════════════════
+# SECTION 6: MODEL PERFORMANCE PLOTS
+# ══════════════════════════════════════
+print("\n▶ SECTION 6: Model Performance Visualizations")
+y_pred = rf.predict(X_te_sc)
+y_prob = rf.predict_proba(X_te_sc)[:,1]
+
+fig, axes = plt.subplots(1, 4, figsize=(20, 5))
+
+# Confusion matrix
+cm = confusion_matrix(y_te, y_pred)
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', ax=axes[0], cbar=False,
+            xticklabels=['Died','Survived'], yticklabels=['Died','Survived'],
+            annot_kws={'size':14,'fontweight':'bold'}, linewidths=2)
+axes[0].set_title(f'Confusion Matrix\nAcc={accuracy_score(y_te,y_pred):.3f}')
+axes[0].set_ylabel('Actual'); axes[0].set_xlabel('Predicted')
+
+# ROC
+fpr,tpr,_ = roc_curve(y_te, y_prob)
+auc_v = roc_auc_score(y_te, y_prob)
+axes[1].plot(fpr, tpr, color='#4080ff', lw=2.5, label=f'AUC={auc_v:.4f}')
+axes[1].plot([0,1],[0,1],'--',color='grey',lw=1)
+axes[1].fill_between(fpr,tpr,alpha=0.15,color='#4080ff')
+axes[1].set_title(f'ROC Curve\nAUC={auc_v:.4f}')
+axes[1].legend(); axes[1].set_xlabel('FPR'); axes[1].set_ylabel('TPR')
+
+# PR Curve
+prec,rec,_ = precision_recall_curve(y_te, y_prob)
+pr_v = average_precision_score(y_te, y_prob)
+axes[2].plot(rec, prec, color='#ff6040', lw=2.5, label=f'AUC-PR={pr_v:.4f}')
+axes[2].axhline(y_te.mean(), color='grey', lw=1, linestyle='--')
+axes[2].fill_between(rec,prec,alpha=0.15,color='#ff6040')
+axes[2].set_title(f'Precision-Recall\nAUC-PR={pr_v:.4f}')
+axes[2].legend(); axes[2].set_xlabel('Recall'); axes[2].set_ylabel('Precision')
+
+# Threshold analysis
+thresholds = np.arange(0.1, 0.9, 0.05)
+precisions, recalls, f1s = [], [], []
+for t in thresholds:
+    yp = (y_prob>=t).astype(int)
+    precisions.append(precision_score(y_te,yp,zero_division=0))
+    recalls.append(recall_score(y_te,yp,zero_division=0))
+    f1s.append(f1_score(y_te,yp,zero_division=0))
+axes[3].plot(thresholds, precisions, 'o-', color='#4080ff', lw=2, label='Precision')
+axes[3].plot(thresholds, recalls,    's-', color='#ff6040', lw=2, label='Recall')
+axes[3].plot(thresholds, f1s,        '^-', color='#40ff80', lw=2, label='F1')
+best_t = thresholds[np.argmax(f1s)]
+axes[3].axvline(best_t, color='white', lw=1.5, linestyle='--', label=f'Best t={best_t:.2f}')
+axes[3].set_title(f'Threshold Analysis\nBest threshold={best_t:.2f}')
+axes[3].legend(fontsize=8); axes[3].set_xlabel('Threshold')
+
+plt.suptitle('SECTION 6: Model Performance Visualizations', fontsize=13, fontweight='bold')
+plt.tight_layout()
+plt.savefig('viz_6_model_performance.png', dpi=100)
+
+# Learning curve
+fig, ax = plt.subplots(figsize=(10, 5))
+tr_sizes, tr_sc, va_sc = learning_curve(
+    rf, sc.transform(X), y, train_sizes=np.linspace(0.1,1.0,8),
+    cv=5, scoring='roc_auc', n_jobs=-1, shuffle=True, random_state=42)
+ax.plot(tr_sizes, tr_sc.mean(1), 'o-', color='#4080ff', lw=2, label='Train AUC')
+ax.plot(tr_sizes, va_sc.mean(1), 's--', color='#ff6040', lw=2, label='Val AUC')
+ax.fill_between(tr_sizes,va_sc.mean(1)-va_sc.std(1),va_sc.mean(1)+va_sc.std(1),alpha=0.2,color='#ff6040')
+gap = tr_sc.mean(1)[-1] - va_sc.mean(1)[-1]
+diag = 'HIGH BIAS' if va_sc.mean(1)[-1]<0.75 else ('HIGH VARIANCE' if gap>0.05 else 'GOOD FIT')
+ax.set_title(f'Learning Curve — gap={gap:.3f} → {diag}', fontsize=12)
+ax.legend(fontsize=10); ax.set_xlabel('Training size'); ax.set_ylabel('AUC')
+ax.set_facecolor('#0a0c14')
+plt.tight_layout()
+plt.savefig('viz_7_learning_curve.png', dpi=100)
+print("  All visualization files saved!")
+print("\n═"*40)
+print("COMPLETE VISUALIZATION WORKFLOW DONE!")
+print("Files: viz_1 through viz_7 saved")
+print("Next step: use findings to clean, transform, engineer, and select features")</div>
+</div>
+
+<script>
+function goTab(n){
+  for(var i=1;i<=8;i++)
+    document.getElementById('S'+i).className='sec'+(i===n?' on':'');
+  document.querySelectorAll('.tab').forEach(function(t,i){
+    t.className='tab'+(i===n-1?' on':'');
+  });
+  if(n===1) drawOverview();
+  if(n===2) drawDistributions();
+  if(n===3) drawRelationships();
+  if(n===5) drawFeatureImportance();
+  if(n===6) drawTargetAnalysis();
+  if(n===7) drawPostTraining();
+}
+
+// Chart.js charts
+const CH={};
+function mk(id,cfg){if(CH[id])CH[id].destroy();CH[id]=new Chart(document.getElementById(id),cfg);}
+function rn(mu,sd,n){return Array.from({length:n},()=>mu+sd*(()=>{let u=0,v=0;while(!u)u=Math.random();while(!v)v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);})());}
+function rnd(a,b,n){return Array.from({length:n},()=>a+(b-a)*Math.random());}
+
+function drawOverview(){
+  const labels=['Histogram','Box Plot','Scatter','Heatmap','Bar Chart','Q-Q Plot','Learning Curve','Confusion Matrix','Violin','Pair Plot','Residual','SHAP'];
+  const useCase=[9,8,8,7,7,6,8,7,6,7,7,8];
+  mk('c_overview',{type:'bar',data:{labels,datasets:[{data:useCase,backgroundColor:labels.map((_,i)=>`hsl(${200+i*15},70%,55%)`),borderRadius:4,borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},title:{display:true,text:'Most Used Visualizations in ML Workflows (usage score)',color:'#c0d4ff',font:{size:11}}},scales:{x:{ticks:{color:'#8898b8',font:{size:9},maxRotation:30},grid:{color:'rgba(255,255,255,0.05)'}},y:{min:0,max:10,ticks:{color:'#8898b8',font:{size:10}},grid:{color:'rgba(255,255,255,0.05)'}}}}});
+}
+
+function drawDistributions(){
+  // Histogram
+  const normal=rn(50,15,200),skewed=rnd(0,1,200).map(x=>Math.pow(x*10,2)),bimodal=[...rn(30,5,100),...rn(70,5,100)];
+  const binHist=(data,bins)=>{const mn=Math.min(...data),mx=Math.max(...data),w=(mx-mn)/bins,counts=Array(bins).fill(0);data.forEach(d=>{let i=Math.min(Math.floor((d-mn)/w),bins-1);counts[i]++;});return counts;};
+  const lbl=Array.from({length:20},(_,i)=>(i*5).toString());
+  mk('c_hist',{type:'bar',data:{labels:lbl,datasets:[{label:'Normal',data:binHist(normal,20),backgroundColor:'rgba(64,128,255,0.7)',borderWidth:0},{label:'Right-skewed',data:binHist(skewed.map(x=>Math.min(x,100)),20),backgroundColor:'rgba(255,96,64,0.7)',borderWidth:0},{label:'Bimodal',data:binHist(bimodal,20),backgroundColor:'rgba(64,232,128,0.6)',borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#c0d4ff',font:{size:9},boxWidth:10}}},scales:{x:{ticks:{color:'#8898b8',font:{size:8},maxTicksLimit:6},grid:{color:'rgba(255,255,255,0.04)'}},y:{ticks:{color:'#8898b8',font:{size:9}},grid:{color:'rgba(255,255,255,0.04)'}}}}});
+
+  // Box plot simulation
+  const groups=[{label:'Normal',data:rn(60,12,100),color:'#4080ff'},{label:'Skewed',data:rnd(0,1,100).map(x=>x*x*80),color:'#ff6040'},{label:'Outliers',data:[...rn(50,8,90),130,140,5,-10,150],color:'#60e880'}];
+  const boxStats=d=>{const s=[...d].sort((a,b)=>a-b);const q=(p)=>s[Math.floor(p*s.length)];return {min:s[0],q1:q(0.25),med:q(0.5),q3:q(0.75),max:s[s.length-1]};};
+  mk('c_box',{type:'bar',data:{labels:groups.map(g=>g.label),datasets:[{data:groups.map(g=>{const s=boxStats(g.data);return s.q3-s.q1;}),backgroundColor:groups.map(g=>g.color+'aa'),borderColor:groups.map(g=>g.color),borderWidth:2,base:groups.map(g=>boxStats(g.data).q1)}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},title:{display:true,text:'IQR comparison by group',color:'#c0d4ff',font:{size:10}}},scales:{x:{ticks:{color:'#8898b8'}},y:{ticks:{color:'#8898b8'},grid:{color:'rgba(255,255,255,0.05)'}}}}});
+
+  // Q-Q
+  const qqData=rn(0,1,50).map((v,i)=>{const x=(i+0.5)/50;return {x:+(Math.sqrt(2)*erfinv(2*x-1)).toFixed(3),y:+v.toFixed(3)};});
+  function erfinv(x){const a=0.147;const ln=Math.log(1-x*x);const t1=2/(Math.PI*a)+ln/2;return Math.sign(x)*Math.sqrt(Math.sqrt(t1*t1-ln/a)-t1);}
+  mk('c_qq',{type:'scatter',data:{datasets:[{data:qqData,backgroundColor:'rgba(64,128,255,0.5)',pointRadius:3},{type:'line',data:[{x:-3,y:-3},{x:3,y:3}],borderColor:'#ff6040',borderWidth:2,pointRadius:0,fill:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},title:{display:true,text:'Q-Q Plot — points on line = Normal',color:'#c0d4ff',font:{size:10}}},scales:{x:{title:{display:true,text:'Theoretical',color:'#8898b8'},ticks:{color:'#8898b8'},grid:{color:'rgba(255,255,255,0.05)'}},y:{title:{display:true,text:'Sample',color:'#8898b8'},ticks:{color:'#8898b8'},grid:{color:'rgba(255,255,255,0.05)'}}}}});
+
+  // Violin (approximated)
+  mk('c_violin',{type:'bar',data:{labels:['Class 0','Class 1'],datasets:[{label:'Mean',data:[45,62],backgroundColor:['rgba(255,96,64,0.7)','rgba(64,128,255,0.7)'],borderWidth:2,borderColor:['#ff6040','#4080ff']},{label:'Std dev',data:[12,10],type:'bar',backgroundColor:['rgba(255,96,64,0.3)','rgba(64,128,255,0.3)'],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#c0d4ff',font:{size:9},boxWidth:10}},title:{display:true,text:'Distribution by class (violin proxy)',color:'#c0d4ff',font:{size:10}}},scales:{x:{ticks:{color:'#8898b8'}},y:{ticks:{color:'#8898b8'},grid:{color:'rgba(255,255,255,0.05)'}}}}});
+}
+
+function drawRelationships(){
+  // Correlation heatmap
+  const feats=['radius','texture','perimeter','area','smoothness'];
+  const corrVals=[[1,0.32,0.98,0.99,0.17],[0.32,1,0.33,0.32,-0.02],[0.98,0.33,1,0.99,0.21],[0.99,0.32,0.99,1,0.21],[0.17,-0.02,0.21,0.21,1]];
+  const heatData=[];
+  corrVals.forEach((row,i)=>row.forEach((v,j)=>heatData.push({x:feats[j],y:feats[i],v:v})));
+  const heatColor=v=>{const r=v>0?Math.round(v*200):0,b=v<0?Math.round(-v*200):0;return `rgba(${r},${Math.round(60+Math.abs(v)*60)},${b+150},0.85)`;};
+  // Use simple bar chart to approximate heatmap colors
+  mk('c_corr',{type:'bar',data:{labels:feats,datasets:[{label:'Correlation with area',data:[0.99,0.32,0.99,1,0.21],backgroundColor:feats.map((_,i)=>[0.99,0.32,0.99,1,0.21].map(v=>v>0.8?'#ff4040':v>0.5?'#ff8040':v>0.2?'#4080ff':'#2040a0')[i]),borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},title:{display:true,text:'Correlation with "area" feature — red=redundant',color:'#c0d4ff',font:{size:10}}},scales:{x:{ticks:{color:'#8898b8',font:{size:9}}},y:{min:-1,max:1,ticks:{color:'#8898b8'},grid:{color:'rgba(255,255,255,0.05)'}}}}});
+
+  // Scatter
+  const n=80,x0=rn(12,2,40),x1=rn(17,2,40),y0=rn(50,30,40),y1=rn(100,25,40);
+  mk('c_scatter',{type:'scatter',data:{datasets:[{label:'Malignant',data:x0.map((v,i)=>({x:v,y:y0[i]})),backgroundColor:'rgba(255,96,64,0.5)',pointRadius:5},{label:'Benign',data:x1.map((v,i)=>({x:v,y:y1[i]})),backgroundColor:'rgba(64,128,255,0.5)',pointRadius:5}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#c0d4ff',font:{size:9},boxWidth:10}},title:{display:true,text:'Scatter: radius vs area (colored by class)',color:'#c0d4ff',font:{size:10}}},scales:{x:{title:{display:true,text:'mean radius',color:'#8898b8'},ticks:{color:'#8898b8'},grid:{color:'rgba(255,255,255,0.05)'}},y:{title:{display:true,text:'mean area',color:'#8898b8'},ticks:{color:'#8898b8'},grid:{color:'rgba(255,255,255,0.05)'}}}}});
+}
+
+function drawFeatureImportance(){
+  const feats=['worst radius','worst perimeter','mean concave pts','worst concave pts','mean concavity','mean perimeter','worst area','mean area','worst concavity','mean radius'].reverse();
+  const imp=[0.18,0.15,0.14,0.12,0.09,0.08,0.07,0.06,0.05,0.04].reverse();
+  const rfecvScores=Array.from({length:30},(_,i)=>({x:i+1,y:Math.min(0.995,0.90+i*0.004-Math.max(0,(i-12)*0.001))}));
+  mk('c_importance',{type:'bar',data:{labels:feats,datasets:[{data:imp,backgroundColor:imp.map(v=>v>0.1?'#ff4040':v>0.06?'#ffcc40':'#4080ff'),borderRadius:3,borderWidth:0}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#8898b8',font:{size:9}},grid:{color:'rgba(255,255,255,0.05)'}},y:{ticks:{color:'#c0d4ff',font:{size:8}}}}}});
+  mk('c_rfecv',{type:'line',data:{datasets:[{data:rfecvScores,borderColor:'#4080ff',borderWidth:2.5,pointRadius:4,pointBackgroundColor:'#4080ff',fill:true,backgroundColor:'rgba(64,128,255,0.1)'}]},options:{responsive:true,maintainAspectRatio:false,parsing:{xAxisKey:'x',yAxisKey:'y'},plugins:{legend:{display:false},annotation:{annotations:{line1:{type:'line',xMin:12,xMax:12,borderColor:'#ff4040',borderWidth:2,borderDash:[5,3]}}}},scales:{x:{type:'linear',title:{display:true,text:'Number of features',color:'#8898b8'},ticks:{color:'#8898b8'},grid:{color:'rgba(255,255,255,0.05)'}},y:{min:0.88,max:1.0,title:{display:true,text:'CV AUC',color:'#8898b8'},ticks:{color:'#8898b8'},grid:{color:'rgba(255,255,255,0.05)'}}}}});
+}
+
+function drawTargetAnalysis(){
+  mk('c_target',{type:'bar',data:{labels:['Died (0)','Survived (1)'],datasets:[{data:[549,342],backgroundColor:['rgba(255,96,64,0.85)','rgba(64,128,255,0.85)'],borderRadius:6,borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},title:{display:true,text:'Titanic: Target distribution — 38% survived',color:'#c0d4ff',font:{size:10}}},scales:{x:{ticks:{color:'#c0d4ff'}},y:{ticks:{color:'#8898b8'},grid:{color:'rgba(255,255,255,0.05)'}}}}});
+  mk('c_byclass',{type:'bar',data:{labels:['Class 1','Class 2','Class 3'],datasets:[{label:'Survived',data:[0.63,0.47,0.24],backgroundColor:'rgba(64,128,255,0.8)',borderRadius:3},{label:'Died',data:[0.37,0.53,0.76],backgroundColor:'rgba(255,96,64,0.8)',borderRadius:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#c0d4ff',font:{size:9},boxWidth:10}},title:{display:true,text:'Survival rate by passenger class\n(pclass is a strong predictor!)',color:'#c0d4ff',font:{size:10}}},scales:{x:{stacked:false,ticks:{color:'#c0d4ff'}},y:{min:0,max:1,ticks:{color:'#8898b8'},grid:{color:'rgba(255,255,255,0.05)'}}}}});
+}
+
+function drawPostTraining(){
+  const n=80;
+  const trainSizes=[0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0];
+  const train_auc=trainSizes.map(s=>0.99-s*0.02+(Math.random()-0.5)*0.005);
+  const val_auc=trainSizes.map(s=>Math.min(0.985,0.82+s*0.16+(Math.random()-0.5)*0.01));
+  mk('c_lc',{type:'line',data:{labels:trainSizes.map(s=>(s*100)+'%'),datasets:[{label:'Train AUC',data:train_auc,borderColor:'#4080ff',borderWidth:2.5,pointRadius:4,fill:false},{label:'Val AUC',data:val_auc,borderColor:'#ff6040',borderWidth:2.5,pointRadius:4,borderDash:[5,3],fill:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#c0d4ff',font:{size:9},boxWidth:10}},title:{display:true,text:'Learning curve — train vs validation AUC',color:'#c0d4ff',font:{size:10}}},scales:{x:{title:{display:true,text:'Training size',color:'#8898b8'},ticks:{color:'#8898b8'},grid:{color:'rgba(255,255,255,0.05)'}},y:{min:0.7,max:1.05,ticks:{color:'#8898b8'},grid:{color:'rgba(255,255,255,0.05)'}}}}});
+
+  const predicted=rn(3,0.8,100);
+  const residuals=predicted.map(p=>p+rn(0,0.3,1)[0]-p*0.05);
+  const res=residuals.map((r,i)=>({x:+predicted[i].toFixed(2),y:+(r-predicted[i]).toFixed(3)}));
+  mk('c_resid',{type:'scatter',data:{datasets:[{data:res,backgroundColor:'rgba(96,160,255,0.4)',pointRadius:4},{type:'line',data:[{x:Math.min(...predicted),y:0},{x:Math.max(...predicted),y:0}],borderColor:'#ff4040',borderWidth:2,pointRadius:0,fill:false}]},options:{responsive:true,maintainAspectRatio:false,parsing:{xAxisKey:'x',yAxisKey:'y'},plugins:{legend:{display:false},title:{display:true,text:'Residuals vs Fitted — random scatter = good',color:'#c0d4ff',font:{size:10}}},scales:{x:{type:'linear',title:{display:true,text:'Fitted value',color:'#8898b8'},ticks:{color:'#8898b8'},grid:{color:'rgba(255,255,255,0.05)'}},y:{title:{display:true,text:'Residual',color:'#8898b8'},ticks:{color:'#8898b8'},grid:{color:'rgba(255,255,255,0.05)'}}}}});
+}
+
+drawOverview();
+</script>
+</body>
+</html>

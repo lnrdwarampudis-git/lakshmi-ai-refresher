@@ -1,0 +1,792 @@
+
+<style>
+*{box-sizing:border-box;}
+.nav{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:18px;}
+.ntab{padding:10px 4px;border-radius:8px;border:2px solid #aaa;font-size:11px;font-weight:700;cursor:pointer;text-align:center;line-height:1.4;background:#eee;color:#444;}
+.ntab.on{background:#1560a8;color:#fff;border-color:#1560a8;}
+.sec{display:none;}.sec.on{display:block;}
+.h1{font-size:15px;font-weight:700;color:#111;margin-bottom:4px;}
+.sub{font-size:12px;color:#777;margin-bottom:14px;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px;}
+.row4{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.box{background:#f2f4f8;border-radius:8px;padding:12px;border:1px solid #dde;}
+.box-b{background:#deedfb;border-color:#90bce8;}
+.box-g{background:#def7ec;border-color:#7ecba3;}
+.box-r{background:#fde8e8;border-color:#e8a0a0;}
+.box-y{background:#fef9e3;border-color:#e8d080;}
+.box-p{background:#f0eefb;border-color:#b8aee8;}
+.ct{font-size:13px;font-weight:700;color:#222;margin-bottom:5px;}
+.cb{font-size:12px;color:#444;line-height:1.6;}
+.note{font-size:13px;color:#333;padding:10px 14px;border-left:4px solid #1560a8;background:#deedfb;margin:10px 0;line-height:1.6;border-radius:0 8px 8px 0;}
+.note b{color:#000;}
+.note-g{border-left-color:#1a9e5f;background:#def7ec;}
+.note-r{border-left-color:#c0392b;background:#fde8e8;}
+.note-y{border-left-color:#c07800;background:#fef9e3;}
+.note-p{border-left-color:#7a5af8;background:#f0eefb;}
+.code{font-family:monospace;font-size:11px;background:#1e1e2e;border-radius:6px;padding:12px;line-height:1.8;color:#cdd6f4;margin:10px 0;white-space:pre-wrap;}
+.ctrl{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:10px;}
+.cg{display:flex;align-items:center;gap:6px;font-size:12px;color:#555;}
+.cg label{min-width:90px;}
+.vb{min-width:46px;font-weight:700;color:#111;font-size:13px;}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px;}
+.stats3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;}
+.sc{background:#f2f4f8;border-radius:8px;padding:10px;border:1px solid #dde;}
+.sc-l{font-size:10px;color:#888;margin-bottom:3px;}
+.sc-v{font-size:16px;font-weight:700;color:#111;}
+.sc-sub{font-size:10px;color:#888;margin-top:2px;}
+.btn{padding:6px 14px;border-radius:6px;border:1px solid #bbb;font-size:12px;cursor:pointer;background:#f2f2f2;margin-right:6px;}
+.divider{height:1px;background:#ddd;margin:14px 0;}
+.tbl{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:12px;}
+.tbl th{padding:7px 8px;background:#f2f4f8;color:#555;font-weight:700;text-align:left;border-bottom:1px solid #dde;}
+.tbl td{padding:6px 8px;border-bottom:1px solid #eee;color:#333;vertical-align:top;}
+.tbl tr:last-child td{border-bottom:none;}
+.tag{display:inline-block;font-size:10px;padding:2px 6px;border-radius:4px;font-weight:700;margin:2px;}
+.tg{background:#c3e6cb;color:#155724;}
+.tr{background:#f5c6cb;color:#721c24;}
+.tb{background:#bee5eb;color:#0c5460;}
+.ty{background:#ffeeba;color:#856404;}
+.tp{background:#e2d9f3;color:#4a3b8c;}
+.lbtn{padding:6px 12px;border-radius:8px;border:1px solid #bbb;font-size:12px;cursor:pointer;background:#f2f2f2;color:#444;margin:3px;font-weight:600;}
+.lbtn.on{background:#1560a8;color:#fff;border-color:#1560a8;}
+.formula{font-family:monospace;font-size:12px;background:#f2f4f8;border-radius:6px;padding:8px 12px;margin:6px 0;border:1px solid #dde;line-height:1.9;}
+</style>
+
+<div class="nav">
+  <div class="ntab on" onclick="goTab(1)">1. Overview</div>
+  <div class="ntab"    onclick="goTab(2)">2. Regression Losses</div>
+  <div class="ntab"    onclick="goTab(3)">3. Classification Losses</div>
+  <div class="ntab"    onclick="goTab(4)">4. KL Divergence + Special</div>
+  <div class="ntab"    onclick="goTab(5)">5. How to Choose</div>
+</div>
+
+<div class="sec on" id="S1">
+  <div class="h1">Loss Functions — complete guide</div>
+  <div class="sub">What they are, why they exist, and the full taxonomy</div>
+  <div class="note"><b>What is a loss function?</b> A loss function measures how wrong a model's prediction is. It converts the difference between predicted and actual values into a single number that gradient descent then minimises. Choosing the right loss function is as important as choosing the right model.</div>
+  <div class="row2">
+    <div class="box box-b">
+      <div class="ct">Loss vs Error vs Metric — clarified</div>
+      <div class="cb">
+        <b>Error</b> = raw difference for one sample: eᵢ = yᵢ − ŷᵢ<br><br>
+        <b>Loss</b> = aggregated function of errors used during training. Must be differentiable (gradient descent needs ∂L/∂w).<br><br>
+        <b>Metric</b> = how you evaluate the model after training. Human-interpretable. Does NOT need to be differentiable.<br><br>
+        Example: train with <b>cross-entropy loss</b>, report <b>accuracy metric</b> to stakeholders.
+      </div>
+    </div>
+    <div class="box box-y">
+      <div class="ct">Why different loss functions exist</div>
+      <div class="cb">
+        Different problems have different statistical assumptions about errors:<br><br>
+        · Errors normally distributed → <b>MSE</b><br>
+        · Binary yes/no outcome → <b>Binary cross-entropy</b><br>
+        · Multiple categories → <b>Categorical cross-entropy</b><br>
+        · Outliers present → <b>MAE or Huber</b><br>
+        · Comparing distributions → <b>KL divergence</b><br>
+        · Ranking/similarity → <b>Contrastive / Triplet</b><br><br>
+        The loss function IS the statistical model of your problem.
+      </div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="h1" style="font-size:14px;margin-bottom:10px;">Full taxonomy of loss functions</div>
+  <div class="row3">
+    <div class="box box-b">
+      <div class="ct">Regression losses</div>
+      <div class="cb">
+        For continuous output prediction:<br><br>
+        · MSE — Mean Squared Error<br>
+        · RMSE — Root MSE<br>
+        · MAE — Mean Absolute Error<br>
+        · Huber loss<br>
+        · Log-Cosh loss<br>
+        · Quantile loss<br>
+        · MAPE — Mean Absolute % Error<br><br>
+        <span class="tag tb">Target is a number</span>
+      </div>
+    </div>
+    <div class="box box-g">
+      <div class="ct">Classification losses</div>
+      <div class="cb">
+        For category prediction:<br><br>
+        · Binary cross-entropy (BCE)<br>
+        · Categorical cross-entropy (CCE)<br>
+        · Sparse categorical cross-entropy<br>
+        · Focal loss<br>
+        · Hinge loss (SVM)<br>
+        · Squared hinge loss<br>
+        · KL divergence<br><br>
+        <span class="tag tg">Target is a category</span>
+      </div>
+    </div>
+    <div class="box box-p">
+      <div class="ct">Specialised losses</div>
+      <div class="cb">
+        For specific architectures:<br><br>
+        · KL divergence (VAEs, distillation)<br>
+        · Contrastive loss (Siamese nets)<br>
+        · Triplet loss (face recognition)<br>
+        · ELBO (variational inference)<br>
+        · Wasserstein loss (GANs)<br>
+        · CTC loss (speech recognition)<br>
+        · Dice loss (image segmentation)<br><br>
+        <span class="tag tp">Special architectures</span>
+      </div>
+    </div>
+  </div>
+  <div style="position:relative;height:200px;margin-bottom:8px;"><canvas id="c1ov"></canvas></div>
+  <div class="note note-g" id="s1note">Chart shows all major loss functions on the same error axis — showing how differently they penalise the same errors.</div>
+</div>
+
+<div class="sec" id="S2">
+  <div class="h1">Regression Loss Functions</div>
+  <div class="sub">For predicting continuous values — price, temperature, score, demand</div>
+  <div style="margin-bottom:12px;">
+    <button class="lbtn on" onclick="showRegLoss('mse',this)">MSE</button>
+    <button class="lbtn"    onclick="showRegLoss('mae',this)">MAE</button>
+    <button class="lbtn"    onclick="showRegLoss('huber',this)">Huber</button>
+    <button class="lbtn"    onclick="showRegLoss('logcosh',this)">Log-Cosh</button>
+    <button class="lbtn"    onclick="showRegLoss('quantile',this)">Quantile</button>
+    <button class="lbtn"    onclick="showRegLoss('mape',this)">MAPE</button>
+  </div>
+  <div id="reg-info"></div>
+  <div class="ctrl">
+    <div class="cg"><label>Error size (e)</label><input type="range" min="-40" max="40" value="15" step="1" id="r-err" oninput="drawRegChart()"><span class="vb" id="r-errv">1.5</span></div>
+    <div class="cg"><label>Huber δ</label><input type="range" min="1" max="20" value="5" step="1" id="r-delta" oninput="drawRegChart()"><span class="vb" id="r-deltav">0.5</span></div>
+    <div class="cg"><label>Quantile τ</label><input type="range" min="5" max="95" value="50" step="5" id="r-tau" oninput="drawRegChart()"><span class="vb" id="r-tauv">0.50</span></div>
+  </div>
+  <div class="stats">
+    <div class="sc"><div class="sc-l">Error e</div><div class="sc-v" id="rv-e">1.5</div></div>
+    <div class="sc"><div class="sc-l">MSE loss</div><div class="sc-v" id="rv-mse">2.25</div></div>
+    <div class="sc"><div class="sc-l">MAE loss</div><div class="sc-v" id="rv-mae">1.5</div></div>
+    <div class="sc"><div class="sc-l">Huber loss</div><div class="sc-v" id="rv-hub">—</div></div>
+  </div>
+  <div style="position:relative;height:200px;margin-bottom:8px;"><canvas id="c2reg"></canvas></div>
+  <div class="note" id="reg-note"></div>
+  <div class="divider"></div>
+  <table class="tbl">
+    <tr><th>Loss</th><th>Formula</th><th>Outlier sensitive?</th><th>Gradient at 0</th><th>Best for</th></tr>
+    <tr><td><b>MSE</b></td><td style="font-family:monospace;">(1/n)Σeᵢ²</td><td><span class="tag tr">Yes — heavily</span></td><td>Smooth</td><td>Normal errors, large errors matter most</td></tr>
+    <tr><td><b>MAE</b></td><td style="font-family:monospace;">(1/n)Σ|eᵢ|</td><td><span class="tag tg">No — robust</span></td><td>Discontinuous</td><td>Outliers present, equal penalty for all errors</td></tr>
+    <tr><td><b>Huber</b></td><td style="font-family:monospace;">½e² if |e|≤δ, else δ|e|−½δ²</td><td><span class="tag tg">No — robust</span></td><td>Smooth</td><td>Best of MSE+MAE, outliers present</td></tr>
+    <tr><td><b>Log-Cosh</b></td><td style="font-family:monospace;">Σlog(cosh(eᵢ))</td><td><span class="tag tg">Robust</span></td><td>Smooth</td><td>Similar to Huber, twice differentiable</td></tr>
+    <tr><td><b>Quantile</b></td><td style="font-family:monospace;">Στ·e if e≥0, (τ−1)·e if e&lt;0</td><td><span class="tag tg">Robust</span></td><td>Asymmetric</td><td>Prediction intervals, when over/under matter differently</td></tr>
+    <tr><td><b>MAPE</b></td><td style="font-family:monospace;">(1/n)Σ|eᵢ/yᵢ|×100</td><td><span class="tag ty">Moderate</span></td><td>Scale-free</td><td>When relative % error matters (forecasting)</td></tr>
+  </table>
+</div>
+
+<div class="sec" id="S3">
+  <div class="h1">Classification Loss Functions</div>
+  <div class="sub">For predicting categories — binary yes/no, multi-class, imbalanced data</div>
+  <div style="margin-bottom:12px;">
+    <button class="lbtn on" onclick="showClsLoss('bce',this)">Binary Cross-Entropy</button>
+    <button class="lbtn"    onclick="showClsLoss('cce',this)">Categorical CE</button>
+    <button class="lbtn"    onclick="showClsLoss('focal',this)">Focal Loss</button>
+    <button class="lbtn"    onclick="showClsLoss('hinge',this)">Hinge Loss</button>
+    <button class="lbtn"    onclick="showClsLoss('nll',this)">NLL Loss</button>
+  </div>
+  <div id="cls-info"></div>
+  <div class="ctrl">
+    <div class="cg"><label>P(correct class)</label><input type="range" min="1" max="99" value="70" step="1" id="c-prob" oninput="drawClsChart()"><span class="vb" id="c-probv">0.70</span></div>
+    <div class="cg"><label>Focal γ</label><input type="range" min="0" max="50" value="20" step="5" id="c-gamma" oninput="drawClsChart()"><span class="vb" id="c-gammav">2.0</span></div>
+    <div class="cg"><label>True label</label>
+      <select id="c-label" style="font-size:12px;" onchange="drawClsChart()">
+        <option value="1">y=1 (positive class)</option>
+        <option value="0">y=0 (negative class)</option>
+      </select>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="sc"><div class="sc-l">P(pred)</div><div class="sc-v" id="cv-p">0.70</div></div>
+    <div class="sc"><div class="sc-l">BCE loss</div><div class="sc-v" id="cv-bce">—</div></div>
+    <div class="sc"><div class="sc-l">Focal loss</div><div class="sc-v" id="cv-foc">—</div></div>
+    <div class="sc"><div class="sc-l">NLL loss</div><div class="sc-v" id="cv-nll">—</div></div>
+  </div>
+  <div style="position:relative;height:200px;margin-bottom:8px;"><canvas id="c3cls"></canvas></div>
+  <div class="note" id="cls-note"></div>
+  <div class="divider"></div>
+  <div class="row2">
+    <div class="box box-b">
+      <div class="ct">Binary Cross-Entropy — deep dive</div>
+      <div class="cb">
+        <div class="formula">L = −[y·log(p) + (1−y)·log(1−p)]</div>
+        <b>y=1</b>: L = −log(p) → loss → 0 as p → 1<br>
+        <b>y=0</b>: L = −log(1−p) → loss → 0 as p → 0<br><br>
+        Derived from Bernoulli MLE. Pairs with sigmoid output.<br><br>
+        <span class="tag tb">Logistic regression</span>
+        <span class="tag tb">Binary classification</span>
+        <span class="tag tb">Churn, fraud detection</span>
+      </div>
+    </div>
+    <div class="box box-g">
+      <div class="ct">Categorical Cross-Entropy — deep dive</div>
+      <div class="cb">
+        <div class="formula">L = −Σ yᵢ · log(p̂ᵢ)  over all classes</div>
+        Only the true class contributes (yᵢ=1 for true class, 0 for rest).<br>
+        So: L = −log(p̂_true_class)<br><br>
+        Pairs with softmax output layer.<br><br>
+        <span class="tag tg">Multi-class classification</span>
+        <span class="tag tg">Image classification</span>
+        <span class="tag tg">NLP tasks</span>
+      </div>
+    </div>
+    <div class="box box-r">
+      <div class="ct">Focal Loss — for class imbalance</div>
+      <div class="cb">
+        <div class="formula">L = −(1−p)^γ · log(p)</div>
+        Reduces loss for easy examples (high p) so the model focuses on hard, misclassified examples.<br><br>
+        γ=0 → standard BCE. γ=2 → strong focus on hard examples.<br><br>
+        <span class="tag tr">Class imbalance</span>
+        <span class="tag tr">Object detection (YOLO)</span>
+        <span class="tag tr">Fraud (1% positive rate)</span>
+      </div>
+    </div>
+    <div class="box box-y">
+      <div class="ct">Hinge Loss — for SVMs</div>
+      <div class="cb">
+        <div class="formula">L = max(0, 1 − y · ŷ)  where y ∈ {-1, +1}</div>
+        Penalises predictions within the margin. Zero loss when correct and confident (|ŷ| > 1).<br><br>
+        Creates maximum-margin classifier (SVM).<br><br>
+        <span class="tag ty">SVM classifier</span>
+        <span class="tag ty">Ranking tasks</span>
+        <span class="tag ty">Not for probabilities</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sec" id="S4">
+  <div class="h1">KL Divergence + Specialised Loss Functions</div>
+  <div class="sub">For comparing distributions, generative models, embeddings and ranking</div>
+  <div style="margin-bottom:12px;">
+    <button class="lbtn on" onclick="showSpecLoss('kl',this)">KL Divergence</button>
+    <button class="lbtn"    onclick="showSpecLoss('triplet',this)">Triplet Loss</button>
+    <button class="lbtn"    onclick="showSpecLoss('contrastive',this)">Contrastive</button>
+    <button class="lbtn"    onclick="showSpecLoss('elbo',this)">ELBO (VAE)</button>
+    <button class="lbtn"    onclick="showSpecLoss('dice',this)">Dice Loss</button>
+  </div>
+  <div id="spec-info"></div>
+  <div style="position:relative;height:200px;margin-bottom:8px;"><canvas id="c4spec"></canvas></div>
+  <div class="note" id="spec-note"></div>
+  <div class="divider"></div>
+  <div class="row2">
+    <div class="box box-p">
+      <div class="ct">KL Divergence — deep dive</div>
+      <div class="cb">
+        <div class="formula">KL(P‖Q) = Σ P(x) · log(P(x)/Q(x))</div>
+        Measures how much distribution Q differs from distribution P.<br><br>
+        <b>Asymmetric:</b> KL(P‖Q) ≠ KL(Q‖P)<br>
+        <b>Always ≥ 0</b>. Zero only when P = Q exactly.<br><br>
+        <b>Used in:</b> VAEs (encoder output vs standard normal), knowledge distillation (student vs teacher), RL (policy updates), attention regularisation.<br><br>
+        <span class="tag tp">VAE training</span>
+        <span class="tag tp">Model distillation</span>
+        <span class="tag tp">RL policy gradient</span>
+      </div>
+    </div>
+    <div class="box box-b">
+      <div class="ct">Triplet Loss — deep dive</div>
+      <div class="cb">
+        <div class="formula">L = max(0, d(a,p) − d(a,n) + margin)</div>
+        <b>a</b> = anchor, <b>p</b> = positive (same class), <b>n</b> = negative (different class)<br><br>
+        Forces: distance(anchor, positive) + margin &lt; distance(anchor, negative)<br><br>
+        Creates an embedding space where similar items cluster together and dissimilar items are pushed apart.<br><br>
+        <span class="tag tb">Face recognition</span>
+        <span class="tag tb">Sentence embeddings</span>
+        <span class="tag tb">Product recommendations</span>
+      </div>
+    </div>
+  </div>
+  <div class="row2">
+    <div class="box box-g">
+      <div class="ct">ELBO — Variational Autoencoder</div>
+      <div class="cb">
+        <div class="formula">ELBO = E[log p(x|z)] − KL(q(z|x)‖p(z))</div>
+        Two terms:<br>
+        1. <b>Reconstruction loss</b>: how well decoder recreates input<br>
+        2. <b>KL term</b>: how close encoder distribution is to standard normal<br><br>
+        The KL term acts as regularisation — prevents the encoder from memorising exact points.<br><br>
+        <span class="tag tg">Image generation</span>
+        <span class="tag tg">Anomaly detection</span>
+        <span class="tag tg">Latent space learning</span>
+      </div>
+    </div>
+    <div class="box box-r">
+      <div class="ct">Dice Loss — image segmentation</div>
+      <div class="cb">
+        <div class="formula">Dice = 1 − (2|P∩G|) / (|P|+|G|)</div>
+        <b>P</b> = predicted mask, <b>G</b> = ground truth mask<br><br>
+        Dice coefficient = overlap between predicted and true segmentation. Loss = 1 − Dice.<br><br>
+        Handles extreme class imbalance in segmentation (e.g. small tumour in large image).<br><br>
+        <span class="tag tr">Medical image segmentation</span>
+        <span class="tag tr">Semantic segmentation</span>
+        <span class="tag tr">Object detection</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sec" id="S5">
+  <div class="h1">How to Choose the Right Loss Function</div>
+  <div class="sub">A decision framework — answer these 4 questions before every model</div>
+  <div class="note"><b>The golden rule:</b> The loss function must match the statistical nature of your target variable and the architecture of your output layer. A wrong loss function can make a perfect model perform terribly.</div>
+  <div class="ctrl">
+    <div class="cg"><label>Add outlier</label><input type="range" min="0" max="100" value="0" step="5" id="cmp-out" oninput="drawCmpChart()"><span class="vb" id="cmpov">0</span></div>
+    <div class="cg"><label>Imbalance %</label><input type="range" min="1" max="50" value="50" step="1" id="cmp-imb" oninput="drawCmpChart()"><span class="vb" id="cmpiv">50</span></div>
+  </div>
+  <div class="stats">
+    <div class="sc"><div class="sc-l">MSE</div><div class="sc-v" id="cmp-mse">—</div><div class="sc-sub">with outlier</div></div>
+    <div class="sc"><div class="sc-l">MAE</div><div class="sc-v" id="cmp-mae">—</div><div class="sc-sub">with outlier</div></div>
+    <div class="sc"><div class="sc-l">Huber</div><div class="sc-v" id="cmp-hub">—</div><div class="sc-sub">with outlier</div></div>
+    <div class="sc"><div class="sc-l">RMSE/MAE ratio</div><div class="sc-v" id="cmp-rat">—</div><div class="sc-sub">&gt;1.5 = outliers</div></div>
+  </div>
+  <div style="position:relative;height:185px;margin-bottom:8px;"><canvas id="c5cmp"></canvas></div>
+  <div class="note" id="cmp-note"></div>
+  <div class="divider"></div>
+  <div class="h1" style="font-size:14px;margin-bottom:10px;">Decision framework — 4 questions</div>
+  <div class="row4">
+    <div class="box box-b">
+      <div class="ct">Q1 — What is your output type?</div>
+      <div class="cb">
+        <b>Continuous number</b> → regression loss family<br>
+        → Start with MSE<br><br>
+        <b>Binary yes/no</b> → binary cross-entropy<br>
+        → Pair with sigmoid output<br><br>
+        <b>3+ categories</b> → categorical cross-entropy<br>
+        → Pair with softmax output<br><br>
+        <b>Distribution</b> → KL divergence / ELBO<br>
+        → VAE, distillation tasks<br><br>
+        <b>Embedding similarity</b> → triplet / contrastive<br>
+        → Face recognition, RAG
+      </div>
+    </div>
+    <div class="box box-g">
+      <div class="ct">Q2 — Are outliers a problem?</div>
+      <div class="cb">
+        <b>No outliers (normal errors)</b><br>
+        → Use MSE — smooth gradients, assumes normality<br><br>
+        <b>Some outliers</b><br>
+        → Use Huber loss — quadratic near 0, linear for large errors. δ=1.0 is default.<br><br>
+        <b>Many/extreme outliers</b><br>
+        → Use MAE — linear penalty, completely robust<br><br>
+        <b>Quick check:</b> if RMSE >> MAE (ratio > 1.5) → outliers are dominating → switch to Huber or MAE.<br><br>
+        PySpark: <code style="font-size:11px;">RegressionEvaluator(metricName="rmse")</code> vs <code style="font-size:11px;">metricName="mae"</code>
+      </div>
+    </div>
+    <div class="box box-r">
+      <div class="ct">Q3 — Is your data imbalanced?</div>
+      <div class="cb">
+        <b>Balanced classes (50/50 or close)</b><br>
+        → Standard binary/categorical cross-entropy<br><br>
+        <b>Moderate imbalance (80/20)</b><br>
+        → BCE with class_weight parameter<br>
+        → Spark: <code style="font-size:11px;">weightCol</code> in LogisticRegression<br><br>
+        <b>Severe imbalance (&lt;5% minority)</b><br>
+        → Focal loss (γ=2 default)<br>
+        → Focus on hard misclassified examples<br>
+        → Used in fraud detection, rare disease diagnosis<br><br>
+        <b>Extreme (&lt;0.1%)</b><br>
+        → Anomaly detection + Dice loss or custom loss
+      </div>
+    </div>
+    <div class="box box-y">
+      <div class="ct">Q4 — Does relative or absolute error matter?</div>
+      <div class="cb">
+        <b>Absolute error matters</b> (same units as target)<br>
+        → MSE, MAE, Huber<br>
+        → E.g. predicting temperature in °C<br><br>
+        <b>Relative % error matters</b><br>
+        → MAPE or sMAPE<br>
+        → E.g. forecasting sales across products of very different scales<br><br>
+        <b>Ranking / similarity matters</b><br>
+        → Triplet loss, contrastive loss<br>
+        → RAG embedding quality, recommendation systems<br><br>
+        <b>Distribution matching</b><br>
+        → KL divergence, Wasserstein distance<br>
+        → VAEs, GANs, knowledge distillation
+      </div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <table class="tbl">
+    <tr><th>Use case</th><th>Recommended loss</th><th>Output activation</th><th>Spark ML / PyTorch</th></tr>
+    <tr><td>House price prediction</td><td>MSE / Huber</td><td>Linear (none)</td><td><code>LinearRegression()</code> / <code>nn.MSELoss()</code></td></tr>
+    <tr><td>Churn prediction (balanced)</td><td>Binary cross-entropy</td><td>Sigmoid</td><td><code>LogisticRegression()</code> / <code>nn.BCEWithLogitsLoss()</code></td></tr>
+    <tr><td>Fraud detection (1% fraud)</td><td>Focal loss</td><td>Sigmoid</td><td>Custom / <code>torchvision.ops.sigmoid_focal_loss</code></td></tr>
+    <tr><td>Image classification</td><td>Categorical cross-entropy</td><td>Softmax</td><td><code>nn.CrossEntropyLoss()</code> (includes softmax)</td></tr>
+    <tr><td>Demand forecasting (% error)</td><td>MAPE / Quantile</td><td>Linear</td><td>Custom loss / <code>nn.L1Loss()</code></td></tr>
+    <tr><td>Sentence embeddings (RAG)</td><td>Triplet / Contrastive</td><td>L2 normalised</td><td>HuggingFace <code>TripletLoss</code></td></tr>
+    <tr><td>VAE / generative model</td><td>ELBO = Recon + KL</td><td>Sigmoid/Softmax</td><td><code>nn.BCELoss() + kl_divergence()</code></td></tr>
+    <tr><td>Medical image segmentation</td><td>Dice loss</td><td>Sigmoid per pixel</td><td>Custom or <code>monai.losses.DiceLoss</code></td></tr>
+    <tr><td>LLM pre-training</td><td>Cross-entropy (next token)</td><td>Softmax over vocab</td><td><code>nn.CrossEntropyLoss()</code></td></tr>
+    <tr><td>Knowledge distillation</td><td>KL divergence</td><td>Softmax (soft labels)</td><td><code>nn.KLDivLoss()</code></td></tr>
+  </table>
+  <div class="code">
+# PyTorch — all major loss functions
+import torch, torch.nn as nn, torch.nn.functional as F
+
+# ── Regression ────────────────────────────────────────────────
+nn.MSELoss()                          # Mean Squared Error
+nn.L1Loss()                           # MAE
+nn.HuberLoss(delta=1.0)              # Huber — best of MSE+MAE
+nn.SmoothL1Loss(beta=1.0)            # same as Huber in PyTorch
+
+# ── Classification ────────────────────────────────────────────
+nn.BCEWithLogitsLoss()               # Binary CE — includes sigmoid (numerically stable)
+nn.BCEWithLogitsLoss(pos_weight=...)  # with class weight for imbalance
+nn.CrossEntropyLoss()                # Categorical CE — includes softmax
+nn.CrossEntropyLoss(weight=...)       # with per-class weights
+nn.NLLLoss()                         # Negative log likelihood (needs log-softmax input)
+
+# ── Focal loss — for severe imbalance ─────────────────────────
+def focal_loss(inputs, targets, gamma=2.0, alpha=0.25):
+    bce = F.binary_cross_entropy_with_logits(inputs, targets, reduction='none')
+    pt  = torch.exp(-bce)             # p_t = prob of correct class
+    return (alpha * (1-pt)**gamma * bce).mean()
+
+# ── KL Divergence ─────────────────────────────────────────────
+nn.KLDivLoss(reduction='batchmean')  # input must be log-probabilities!
+# F.kl_div(F.log_softmax(pred, dim=1), target_probs, reduction='batchmean')
+
+# ── Triplet loss — for embeddings ─────────────────────────────
+nn.TripletMarginLoss(margin=1.0)     # d(anchor,pos)+margin < d(anchor,neg)
+
+# ── Contrastive loss (Siamese network) ────────────────────────
+def contrastive_loss(d, y, margin=1.0):
+    # y=1 same class, y=0 different class
+    return (y * d**2 + (1-y) * F.relu(margin - d)**2).mean()
+
+# ── ELBO for VAE ──────────────────────────────────────────────
+def elbo_loss(recon_x, x, mu, logvar):
+    recon = F.binary_cross_entropy(recon_x, x, reduction='sum')
+    kl    = -0.5 * torch.sum(1 + logvar - mu**2 - logvar.exp())
+    return recon + kl
+
+# ── PySpark — regression losses ───────────────────────────────
+from pyspark.ml.evaluation import RegressionEvaluator
+for m in ["rmse","mae","r2","mse"]:
+    print(m, RegressionEvaluator(metricName=m).evaluate(preds))
+
+# ── PySpark — classification with class weights ───────────────
+from pyspark.sql import functions as F
+counts = df.groupBy("label").count().toPandas()
+total  = counts["count"].sum()
+weights = {int(r["label"]): total/(2*r["count"]) for _,r in counts.iterrows()}
+df = df.withColumn("weight", F.when(F.col("label")==1, weights[1]).otherwise(weights[0]))
+model = LogisticRegression(weightCol="weight", labelCol="label")</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const CH={};
+function mk(id,cfg){if(CH[id])CH[id].destroy();CH[id]=new Chart(document.getElementById(id),cfg);}
+function rn(){let u=0,v=0;while(!u)u=Math.random();while(!v)v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
+
+function goTab(n){
+  for(let i=1;i<=5;i++) document.getElementById('S'+i).className='sec'+(i===n?' on':'');
+  document.querySelectorAll('.ntab').forEach((t,i)=>t.className='ntab'+(i===n-1?' on':''));
+  if(n===1) drawOverview();
+  if(n===2){showRegLoss('mse',document.querySelector('#S2 .lbtn'));drawRegChart();}
+  if(n===3){showClsLoss('bce',document.querySelector('#S3 .lbtn'));drawClsChart();}
+  if(n===4){showSpecLoss('kl',document.querySelector('#S4 .lbtn'));drawSpecChart('kl');}
+  if(n===5){drawCmpChart();}
+}
+
+// ── Tab 1 overview chart ───────────────────────────────────────
+function drawOverview(){
+  const es=Array.from({length:81},(_,i)=>+((-4+i*0.1)).toFixed(2));
+  const mse=es.map(e=>e*e);
+  const mae=es.map(e=>Math.abs(e));
+  const hub=es.map(e=>Math.abs(e)<=1?0.5*e*e:Math.abs(e)-0.5);
+  const lc =es.map(e=>Math.log(Math.cosh(e)));
+  mk('c1ov',{type:'line',data:{labels:es,datasets:[
+    {label:'MSE',data:mse,borderColor:'#c0392b',borderWidth:2,pointRadius:0,fill:false},
+    {label:'MAE',data:mae,borderColor:'#1560a8',borderWidth:2,pointRadius:0,fill:false},
+    {label:'Huber',data:hub,borderColor:'#1a9e5f',borderWidth:2,pointRadius:0,fill:false,borderDash:[5,3]},
+    {label:'Log-Cosh',data:lc,borderColor:'#7a5af8',borderWidth:1.5,pointRadius:0,fill:false,borderDash:[2,2]}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:10},color:'#555',boxWidth:16}}},scales:{x:{ticks:{maxTicksLimit:7,font:{size:10},color:'#888'},grid:{color:'rgba(0,0,0,0.05)'}},y:{min:0,max:8,ticks:{font:{size:10},color:'#888',maxTicksLimit:5},grid:{color:'rgba(0,0,0,0.05)'}}}}});
+}
+
+// ── Tab 2 regression ──────────────────────────────────────────
+var curRegLoss='mse';
+const regDefs={
+  mse:{title:'MSE — Mean Squared Error',
+    formula:'L = (1/n) Σ eᵢ²   where eᵢ = yᵢ − ŷᵢ',
+    when:'Default for regression. Use when errors are normally distributed and large errors matter more.',
+    pros:'Smooth gradient everywhere. Penalises large errors heavily (quadratic). Has closed-form solution.',
+    cons:'Very sensitive to outliers — one large error dominates the loss completely.',
+    usecase:'House price, temperature, sensor reading regression on your Delta tables.',
+    fn:e=>e*e, color:'#c0392b'},
+  mae:{title:'MAE — Mean Absolute Error',
+    formula:'L = (1/n) Σ |eᵢ|',
+    when:'When outliers are present. When all error sizes should be penalised equally.',
+    pros:'Robust to outliers. Interpretable — same units as target. Median estimator.',
+    cons:'Gradient is constant (±1) — not smooth at 0. Harder to optimise than MSE.',
+    usecase:'Financial forecasting with outlier transactions. Delivery time estimation.',
+    fn:e=>Math.abs(e), color:'#1560a8'},
+  huber:{title:'Huber Loss',
+    formula:'L = ½e² if |e|≤δ,  else δ·(|e| − ½δ)',
+    when:'When you want MSE smoothness near 0 AND MAE robustness for large errors. Best of both.',
+    pros:'Smooth gradient. Robust to outliers. δ controls the boundary between MSE and MAE regions.',
+    cons:'Extra hyperparameter δ to tune. Slightly more complex than MSE or MAE.',
+    usecase:'Any regression where outliers exist. Default choice when unsure. δ=1.0 is a good start.',
+    fn:(e,d)=>Math.abs(e)<=d?0.5*e*e:d*(Math.abs(e)-0.5*d), color:'#1a9e5f'},
+  logcosh:{title:'Log-Cosh Loss',
+    formula:'L = Σ log(cosh(eᵢ))   where cosh(e) = (eᵉ + e⁻ᵉ)/2',
+    when:'Similar to Huber but twice differentiable everywhere. Works well with second-order optimisers.',
+    pros:'Twice differentiable (Hessian exists). Approximates MSE for small errors, MAE for large.',
+    cons:'Less interpretable than MSE or MAE. log(cosh) can overflow for very large errors.',
+    usecase:'When using L-BFGS or second-order methods. Spark ML LinearRegression with BFGS solver.',
+    fn:e=>Math.log(Math.cosh(e)), color:'#7a5af8'},
+  quantile:{title:'Quantile Loss (Pinball)',
+    formula:'L = τ·e if e≥0,  (τ−1)·e if e<0',
+    when:'When you need prediction intervals. When over-prediction and under-prediction have different costs.',
+    pros:'Directly optimises any quantile (median=0.5, 90th pct=0.9). Asymmetric penalty.',
+    cons:'Need to train separate models for each quantile. Not a standard loss in most frameworks.',
+    usecase:'Demand forecasting (optimise for 90th percentile to avoid stockouts). Risk quantification.',
+    fn:(e,d,tau)=>e>=0?tau*e:(tau-1)*e, color:'#c07800'},
+  mape:{title:'MAPE — Mean Absolute Percentage Error',
+    formula:'L = (1/n) Σ |eᵢ / yᵢ| × 100%',
+    when:'When relative error matters more than absolute. Comparing models across different scales.',
+    pros:'Scale-independent — 10% error means the same whether target is 10 or 10,000.',
+    cons:'Undefined when y=0. Asymmetric — over-prediction penalised more than under-prediction.',
+    usecase:'Sales forecasting across products. Revenue prediction. Any % accuracy reporting.',
+    fn:e=>Math.abs(e)/1*100, color:'#e67e22'}
+};
+function showRegLoss(key,el){
+  document.querySelectorAll('#S2 .lbtn').forEach(b=>b.classList.remove('on'));
+  if(el)el.classList.add('on');
+  curRegLoss=key;
+  const d=regDefs[key];
+  document.getElementById('reg-info').innerHTML=`
+    <div class="row2" style="margin-bottom:8px;">
+      <div class="box box-b"><div class="ct">${d.title}</div><div class="formula">${d.formula}</div><div class="cb"><b>When:</b> ${d.when}</div></div>
+      <div class="box box-g"><div class="ct">Pros + Cons</div><div class="cb"><b>Pros:</b> ${d.pros}<br><br><b>Cons:</b> ${d.cons}<br><br><b>Use case:</b> ${d.usecase}</div></div>
+    </div>`;
+  drawRegChart();
+}
+function drawRegChart(){
+  const e=+document.getElementById('r-err').value/10;
+  const delta=+document.getElementById('r-delta').value/10;
+  const tau=+document.getElementById('r-tau').value/100;
+  document.getElementById('r-errv').textContent=e.toFixed(1);
+  document.getElementById('r-deltav').textContent=delta.toFixed(1);
+  document.getElementById('r-tauv').textContent=tau.toFixed(2);
+  document.getElementById('rv-e').textContent=e.toFixed(2);
+  document.getElementById('rv-mse').textContent=(e*e).toFixed(4);
+  document.getElementById('rv-mae').textContent=Math.abs(e).toFixed(4);
+  const hub=Math.abs(e)<=delta?0.5*e*e:delta*(Math.abs(e)-0.5*delta);
+  document.getElementById('rv-hub').textContent=hub.toFixed(4);
+  const es=Array.from({length:81},(_,i)=>+((-4+i*0.1)).toFixed(2));
+  const all={mse:es.map(x=>x*x),mae:es.map(x=>Math.abs(x)),
+    huber:es.map(x=>Math.abs(x)<=delta?0.5*x*x:delta*(Math.abs(x)-0.5*delta)),
+    logcosh:es.map(x=>Math.log(Math.cosh(x))),
+    quantile:es.map(x=>x>=0?tau*x:(tau-1)*x),
+    mape:es.map(x=>Math.abs(x)*10)};
+  const cur=all[curRegLoss];
+  const curD=regDefs[curRegLoss];
+  const curPt=curD.fn(e,delta,tau);
+  mk('c2reg',{type:'line',data:{labels:es,datasets:[
+    {data:all.mse,borderColor:'rgba(192,57,43,0.25)',borderWidth:1,pointRadius:0,fill:false,label:'MSE'},
+    {data:all.mae,borderColor:'rgba(21,96,168,0.25)',borderWidth:1,pointRadius:0,fill:false,label:'MAE'},
+    {data:cur,borderColor:curD.color,borderWidth:2.5,pointRadius:0,fill:true,backgroundColor:curD.color+'15',label:curRegLoss},
+    {type:'scatter',data:[{x:e,y:+curPt.toFixed(4)}],backgroundColor:curD.color,pointRadius:10,label:'current e'}
+  ]},options:{responsive:true,maintainAspectRatio:false,parsing:{xAxisKey:'x',yAxisKey:'y'},plugins:{legend:{labels:{font:{size:10},color:'#555',boxWidth:14}}},scales:{x:{type:'linear',title:{display:true,text:'error e = y − ŷ',font:{size:10}},ticks:{maxTicksLimit:7,font:{size:10},color:'#888'},grid:{color:'rgba(0,0,0,0.05)'}},y:{min:0,max:10,title:{display:true,text:'loss value',font:{size:10}},ticks:{font:{size:10},color:'#888',maxTicksLimit:5},grid:{color:'rgba(0,0,0,0.05)'}}}}});
+  document.getElementById('reg-note').innerHTML=`At error e=<b>${e.toFixed(2)}</b>: ${curRegLoss.toUpperCase()} loss = <b>${curPt.toFixed(4)}</b>, MSE = <b>${(e*e).toFixed(4)}</b>, MAE = <b>${Math.abs(e).toFixed(4)}</b>. ${Math.abs(e)>2?'Large error — notice how MSE ('+(e*e).toFixed(1)+') penalises much more heavily than MAE ('+Math.abs(e).toFixed(1)+').':'Small error — MSE and MAE are similar here. Differences become clear for large errors.'}`;
+}
+
+// ── Tab 3 classification ───────────────────────────────────────
+var curClsLoss='bce';
+const clsDefs={
+  bce:{title:'Binary Cross-Entropy (BCE)',
+    formula:'L = −[y·log(p) + (1−y)·log(1−p)]',
+    when:'Binary classification. Target is 0 or 1. Always pair with sigmoid output.',
+    pros:'Derived from Bernoulli MLE. Smooth gradient. Outputs probability. Standard for logistic regression.',
+    cons:'Assumes balanced classes. Poor with severe imbalance (use Focal instead). Numerically unstable at p=0/1.',
+    fn:(p,y,g)=>y===1?-Math.log(p+1e-9):-Math.log(1-p+1e-9)},
+  cce:{title:'Categorical Cross-Entropy (CCE)',
+    formula:'L = −Σ yᵢ·log(p̂ᵢ)  = −log(p̂_true_class)',
+    when:'Multi-class classification (3+ classes). Pair with softmax output.',
+    pros:'Extends BCE to any number of classes. Probabilistically principled. Used in every LLM.',
+    cons:'Same class imbalance issue as BCE. Need one-hot or integer labels.',
+    fn:(p,y,g)=>-Math.log(p+1e-9)},
+  focal:{title:'Focal Loss',
+    formula:'L = −(1−p)^γ · log(p)',
+    when:'Severe class imbalance (fraud, rare disease, object detection). Focuses on hard examples.',
+    pros:'Reduces loss weight for easy well-classified examples. Forces model to focus on hard examples.',
+    cons:'Extra hyperparameter γ. More complex than BCE. γ=2 is default.',
+    fn:(p,y,g)=>-Math.pow(1-p,g)*Math.log(p+1e-9)},
+  hinge:{title:'Hinge Loss (SVM)',
+    formula:'L = max(0, 1 − y·ŷ)  where y ∈ {−1, +1}',
+    when:'SVM classifiers. When you want maximum-margin decision boundary, not probabilities.',
+    pros:'Creates maximum margin. Sparse solution (support vectors only). Effective in high dimensions.',
+    cons:'Does not output probabilities. Not differentiable at hinge point. Requires y ∈ {-1,+1}.',
+    fn:(p,y,g)=>Math.max(0,1-(2*y-1)*(2*p-1))},
+  nll:{title:'Negative Log-Likelihood (NLL)',
+    formula:'L = −log(p̂_true_class)',
+    when:'Multi-class with log-softmax output. Equivalent to CCE mathematically.',
+    pros:'Numerically stable when combined with log-softmax. Used in PyTorch nn.NLLLoss().',
+    cons:'Input must be log-probabilities (apply log-softmax first). Less intuitive than CCE.',
+    fn:(p,y,g)=>-Math.log(p+1e-9)}
+};
+function showClsLoss(key,el){
+  document.querySelectorAll('#S3 .lbtn').forEach(b=>b.classList.remove('on'));
+  if(el)el.classList.add('on');
+  curClsLoss=key;
+  const d=clsDefs[key];
+  document.getElementById('cls-info').innerHTML=`
+    <div class="row2" style="margin-bottom:8px;">
+      <div class="box box-b"><div class="ct">${d.title}</div><div class="formula">${d.formula}</div><div class="cb"><b>When:</b> ${d.when}</div></div>
+      <div class="box box-g"><div class="ct">Pros + Cons</div><div class="cb"><b>Pros:</b> ${d.pros}<br><br><b>Cons:</b> ${d.cons}</div></div>
+    </div>`;
+  drawClsChart();
+}
+function drawClsChart(){
+  const p=+document.getElementById('c-prob').value/100;
+  const gamma=+document.getElementById('c-gamma').value/10;
+  const y=+document.getElementById('c-label').value;
+  document.getElementById('c-probv').textContent=p.toFixed(2);
+  document.getElementById('c-gammav').textContent=gamma.toFixed(1);
+  document.getElementById('cv-p').textContent=p.toFixed(2);
+  const bce=y===1?-Math.log(p+1e-9):-Math.log(1-p+1e-9);
+  const foc=-Math.pow(1-p,gamma)*Math.log(p+1e-9);
+  const nll=-Math.log(p+1e-9);
+  document.getElementById('cv-bce').textContent=bce.toFixed(4);
+  document.getElementById('cv-foc').textContent=foc.toFixed(4);
+  document.getElementById('cv-nll').textContent=nll.toFixed(4);
+  const ps=Array.from({length:99},(_,i)=>(i+1)/100);
+  const bces=ps.map(q=>y===1?-Math.log(q+1e-9):-Math.log(1-q+1e-9));
+  const focs=ps.map(q=>-Math.pow(1-q,gamma)*Math.log(q+1e-9));
+  const hinges=ps.map(q=>Math.max(0,1-(2*y-1)*(2*q-1)));
+  const curD=clsDefs[curClsLoss];
+  const curData=ps.map(q=>curD.fn(q,y,gamma));
+  mk('c3cls',{type:'line',data:{labels:ps.map(v=>v.toFixed(2)),datasets:[
+    {data:bces,borderColor:'rgba(21,96,168,0.3)',borderWidth:1,pointRadius:0,fill:false,label:'BCE'},
+    {data:focs,borderColor:'rgba(192,57,43,0.3)',borderWidth:1,pointRadius:0,fill:false,label:'Focal'},
+    {data:curData,borderColor:'#1560a8',borderWidth:2.5,pointRadius:0,fill:true,backgroundColor:'rgba(21,96,168,0.1)',label:curClsLoss},
+    {type:'scatter',data:[{x:p,y:+curD.fn(p,y,gamma).toFixed(4)}],backgroundColor:'#c0392b',pointRadius:10}
+  ]},options:{responsive:true,maintainAspectRatio:false,parsing:{xAxisKey:'x',yAxisKey:'y'},plugins:{legend:{labels:{font:{size:10},color:'#555',boxWidth:14}}},scales:{x:{type:'linear',min:0.01,max:0.99,title:{display:true,text:'predicted probability p',font:{size:10}},ticks:{font:{size:10},color:'#888',maxTicksLimit:7},grid:{color:'rgba(0,0,0,0.05)'}},y:{min:0,max:5,title:{display:true,text:'loss',font:{size:10}},ticks:{font:{size:10},color:'#888',maxTicksLimit:5},grid:{color:'rgba(0,0,0,0.05)'}}}}});
+  document.getElementById('cls-note').innerHTML=`True label y=<b>${y}</b>, predicted p=<b>${p.toFixed(2)}</b>. BCE=<b>${bce.toFixed(4)}</b>, Focal(γ=${gamma.toFixed(1)})=<b>${foc.toFixed(4)}</b>. ${y===1&&p>0.8?'Model is confident and correct — focal loss much lower than BCE (easy example downweighted).':y===1&&p<0.3?'Model is confident but WRONG — very high loss. Gradient will be large.':'Model uncertain — both BCE and Focal give meaningful gradients.'}`;
+}
+
+// ── Tab 4 specialised ─────────────────────────────────────────
+var curSpecLoss='kl';
+const specDefs={
+  kl:{title:'KL Divergence',formula:'KL(P‖Q) = Σ P(x)·log(P(x)/Q(x))',
+    chart:()=>{
+      const ps=Array.from({length:99},(_,i)=>(i+1)/100);
+      const q=0.5;
+      const kl=ps.map(p=>p*Math.log(p/q)+(1-p)*Math.log((1-p)/(1-q)));
+      const rkl=ps.map(p=>q*Math.log(q/p)+(1-q)*Math.log((1-q)/(1-p)));
+      return{labels:ps.map(v=>v.toFixed(2)),datasets:[
+        {data:kl,borderColor:'#7a5af8',borderWidth:2,pointRadius:0,fill:false,label:'KL(P‖Q)'},
+        {data:rkl,borderColor:'#c07800',borderWidth:2,pointRadius:0,fill:false,borderDash:[4,3],label:'KL(Q‖P) — asymmetry'}
+      ],yMin:0,yMax:3};
+    },
+    note:'<b>KL divergence is asymmetric</b> — KL(P‖Q) ≠ KL(Q‖P). Q=0.5 is fixed. As P diverges from Q, loss increases. Used in VAEs to keep the latent space close to standard normal. In knowledge distillation, forces student model distribution to match teacher.'},
+  triplet:{title:'Triplet Loss',formula:'L = max(0, d(a,p) − d(a,n) + margin)',
+    chart:()=>{
+      const dps=Array.from({length:50},(_,i)=>i*0.1);
+      const margin=1.0;
+      const data1=dps.map(dp=>Math.max(0,dp-2.5+margin));
+      const data2=dps.map(dp=>Math.max(0,dp-1.5+margin));
+      const data3=dps.map(dp=>Math.max(0,dp-0.5+margin));
+      return{labels:dps.map(v=>v.toFixed(1)),datasets:[
+        {data:data1,borderColor:'#1a9e5f',borderWidth:2,pointRadius:0,fill:false,label:'d(a,n)=2.5 — easy'},
+        {data:data2,borderColor:'#c07800',borderWidth:2,pointRadius:0,fill:false,borderDash:[4,3],label:'d(a,n)=1.5 — medium'},
+        {data:data3,borderColor:'#c0392b',borderWidth:2,pointRadius:0,fill:false,label:'d(a,n)=0.5 — hard'}
+      ],yMin:0,yMax:3};
+    },
+    note:'<b>Triplet loss</b> pushes similar items together and dissimilar items apart in embedding space. X axis = d(anchor,positive). Loss=0 when positive is margin closer than negative. Hard negatives (same distance) create highest loss. Used in face recognition, sentence similarity, and RAG embedding training.'},
+  contrastive:{title:'Contrastive Loss',formula:'L = y·d² + (1−y)·max(0, margin−d)²',
+    chart:()=>{
+      const ds=Array.from({length:50},(_,i)=>i*0.1);
+      const margin=2.0;
+      const same=ds.map(d=>d*d);
+      const diff=ds.map(d=>Math.max(0,margin-d)**2);
+      return{labels:ds.map(v=>v.toFixed(1)),datasets:[
+        {data:same,borderColor:'#1560a8',borderWidth:2,pointRadius:0,fill:false,label:'y=1 (same class)'},
+        {data:diff,borderColor:'#c0392b',borderWidth:2,pointRadius:0,fill:false,borderDash:[4,3],label:'y=0 (different class)'}
+      ],yMin:0,yMax:4};
+    },
+    note:'<b>Contrastive loss</b> for Siamese networks. Same-class pairs (y=1): loss increases with distance — push closer. Different-class pairs (y=0): loss is zero when distance > margin — push apart. Used in signature verification, face matching, and semantic similarity.'},
+  elbo:{title:'ELBO (VAE)',formula:'ELBO = E[log p(x|z)] − KL(q(z|x)‖p(z))',
+    chart:()=>{
+      const betas=Array.from({length:50},(_,i)=>i*0.1);
+      const recon=betas.map(b=>2.0*Math.exp(-b*0.3)+0.5);
+      const kl=betas.map(b=>b*0.8);
+      const total=recon.map((r,i)=>r+kl[i]);
+      return{labels:betas.map(v=>v.toFixed(1)),datasets:[
+        {data:recon,borderColor:'#1560a8',borderWidth:2,pointRadius:0,fill:false,label:'Reconstruction loss'},
+        {data:kl,borderColor:'#c0392b',borderWidth:2,pointRadius:0,fill:false,borderDash:[4,3],label:'KL term'},
+        {data:total,borderColor:'#1a9e5f',borderWidth:2,pointRadius:0,fill:false,label:'Total ELBO loss'}
+      ],yMin:0,yMax:4};
+    },
+    note:'<b>ELBO</b> balances two competing objectives. Reconstruction loss = how well the VAE recreates the input. KL term = how close the latent space is to standard normal (regularisation). During training they trade off — good reconstruction often means a non-standard latent space.'},
+  dice:{title:'Dice Loss',formula:'Dice = 1 − 2|P∩G| / (|P|+|G|)',
+    chart:()=>{
+      const overlaps=Array.from({length:50},(_,i)=>i/49);
+      const dice=overlaps.map(o=>1-2*o/(1+o+0.001));
+      const bce=overlaps.map(o=>-(o*Math.log(o+0.001)+(1-o)*Math.log(1-o+0.001)));
+      return{labels:overlaps.map(v=>v.toFixed(2)),datasets:[
+        {data:dice,borderColor:'#c0392b',borderWidth:2,pointRadius:0,fill:false,label:'Dice loss'},
+        {data:bce,borderColor:'#1560a8',borderWidth:2,pointRadius:0,fill:false,borderDash:[4,3],label:'BCE loss (comparison)'}
+      ],yMin:0,yMax:2};
+    },
+    note:'<b>Dice loss</b> measures overlap between predicted and true segmentation masks. X axis = overlap ratio. Dice=0 means perfect overlap (loss=0). Unlike BCE, Dice naturally handles class imbalance in segmentation — a small tumour in a large image would be ignored by BCE but gets proper weight with Dice.'}
+};
+function showSpecLoss(key,el){
+  document.querySelectorAll('#S4 .lbtn').forEach(b=>b.classList.remove('on'));
+  if(el)el.classList.add('on');
+  curSpecLoss=key;
+  const d=specDefs[key];
+  document.getElementById('spec-info').innerHTML=`
+    <div class="box box-p" style="margin-bottom:10px;"><div class="ct">${d.title}</div><div class="formula">${d.formula}</div></div>`;
+  drawSpecChart(key);
+}
+function drawSpecChart(key){
+  const d=specDefs[key];
+  const cd=d.chart();
+  mk('c4spec',{type:'line',data:{labels:cd.labels,datasets:cd.datasets},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:10},color:'#555',boxWidth:16}}},scales:{x:{ticks:{font:{size:10},color:'#888',maxTicksLimit:7},grid:{color:'rgba(0,0,0,0.05)'}},y:{min:cd.yMin,max:cd.yMax,ticks:{font:{size:10},color:'#888',maxTicksLimit:5},grid:{color:'rgba(0,0,0,0.05)'}}}}});
+  document.getElementById('spec-note').innerHTML=d.note;
+}
+
+// ── Tab 5 comparison ──────────────────────────────────────────
+function drawCmpChart(){
+  const out=+document.getElementById('cmp-out').value;
+  const imb=+document.getElementById('cmp-imb').value/100;
+  document.getElementById('cmpov').textContent=out;
+  document.getElementById('cmpiv').textContent=(imb*100).toFixed(0)+'%';
+  const n=30;
+  const yt=Array.from({length:n},(_,i)=>50+i*2+rn()*5);
+  const yp=yt.map(y=>y+rn()*5);
+  if(out>0) yp[n-1]+=out;
+  const errors=yt.map((y,i)=>y-yp[i]);
+  const mse=+(errors.reduce((s,e)=>s+e*e,0)/n).toFixed(2);
+  const mae=+(errors.reduce((s,e)=>s+Math.abs(e),0)/n).toFixed(2);
+  const delta=1.0;
+  const hub=+(errors.reduce((s,e)=>s+(Math.abs(e)<=delta?0.5*e*e:delta*(Math.abs(e)-0.5*delta)),0)/n).toFixed(2);
+  const ratio=+(Math.sqrt(mse)/mae).toFixed(2);
+  document.getElementById('cmp-mse').textContent=mse;
+  document.getElementById('cmp-mae').textContent=mae;
+  document.getElementById('cmp-hub').textContent=hub;
+  document.getElementById('cmp-rat').textContent=ratio;
+  const outs=Array.from({length:20},(_,i)=>i*5);
+  const mses=[],maes=[],hubs=[];
+  outs.forEach(o=>{
+    const yp2=yt.map(y=>y+rn()*5); yp2[n-1]+=o;
+    const errs=yt.map((y,i)=>y-yp2[i]);
+    mses.push(+(errs.reduce((s,e)=>s+e*e,0)/n).toFixed(2));
+    maes.push(+(errs.reduce((s,e)=>s+Math.abs(e),0)/n).toFixed(2));
+    hubs.push(+(errs.reduce((s,e)=>s+(Math.abs(e)<=delta?0.5*e*e:delta*(Math.abs(e)-0.5*delta)),0)/n).toFixed(2));
+  });
+  mk('c5cmp',{type:'line',data:{labels:outs,datasets:[
+    {label:'MSE',data:mses,borderColor:'#c0392b',borderWidth:2,pointRadius:0,fill:false},
+    {label:'MAE',data:maes,borderColor:'#1560a8',borderWidth:2,pointRadius:0,fill:false},
+    {label:'Huber',data:hubs,borderColor:'#1a9e5f',borderWidth:2,pointRadius:0,fill:false,borderDash:[4,3]}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:10},color:'#555',boxWidth:14}}},scales:{x:{title:{display:true,text:'outlier size →',font:{size:10}},ticks:{font:{size:10},color:'#888'},grid:{color:'rgba(0,0,0,0.05)'}},y:{title:{display:true,text:'loss value',font:{size:10}},ticks:{font:{size:10},color:'#888',maxTicksLimit:5},grid:{color:'rgba(0,0,0,0.05)'}}}}});
+  document.getElementById('cmp-note').innerHTML=`Outlier size=<b>${out}</b>. MSE=<b>${mse}</b>, MAE=<b>${mae}</b>, Huber=<b>${hub}</b>. RMSE/MAE ratio=<b>${ratio}</b>. ${ratio>1.5?'<b>Ratio > 1.5</b> — outlier is inflating MSE. Switch to Huber or MAE for training.':'Errors are fairly uniform — MSE is appropriate here.'} ${out>30?'Drag outlier to 0 to see normal behaviour, then increase to see divergence.':'Try dragging the outlier slider to 50–100 to see how dramatically MSE reacts vs MAE.'}`;
+}
+
+// Init
+drawOverview();
+</script>

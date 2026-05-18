@@ -1,0 +1,1204 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html,body{background:#12141c !important;color:#f0f0f0 !important;font-family:Arial,sans-serif;font-size:13px;margin:0;padding:8px;}
+*{box-sizing:border-box;}
+.nav{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:14px;}
+.tab{background:#1e2235;color:#b0c4f8;border:2px solid #3a4870;border-radius:7px;padding:8px 3px;font-size:9.5px;font-weight:700;cursor:pointer;text-align:center;line-height:1.4;}
+.tab.on{background:#1a5cb8;color:#fff;border-color:#5090ff;}
+.sec{display:none;}.sec.on{display:block;}
+.h1{font-size:16px;font-weight:700;color:#fff;margin-bottom:3px;}
+.sub{font-size:12px;color:#8898bb;margin-bottom:12px;}
+.badge{display:inline-block;color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;margin-bottom:8px;}
+.bg-b{background:#1a5cb8;}.bg-g{background:#1a7a3a;}.bg-r{background:#8a2020;}.bg-y{background:#7a5800;}.bg-p{background:#5a30a0;}.bg-t{background:#0a6070;}.bg-o{background:#7a3800;}
+.sl{font-size:13px;font-weight:700;color:#78aaff;margin:12px 0 7px 0;padding-bottom:4px;border-bottom:1px solid #2a3860;}
+.divider{height:1px;background:#2a3860;margin:10px 0;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px;}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:10px;}
+.card{background:#1a1e30;border:1px solid #2e3858;border-radius:8px;padding:11px;}
+.card .t{font-size:13px;font-weight:700;color:#c0d4ff;margin-bottom:5px;}
+.card .b{font-size:12px;color:#9aaac8;line-height:1.65;}
+.card-b{background:#0c1e38;border-color:#1e5090;}.card-b .t{color:#70c0ff;}.card-b .b{color:#90b8e8;}
+.card-g{background:#081c10;border-color:#1a6030;}.card-g .t{color:#50e880;}.card-g .b{color:#80c898;}
+.card-r{background:#200a0a;border-color:#702020;}.card-r .t{color:#ff7070;}.card-r .b{color:#e89090;}
+.card-y{background:#1e1600;border-color:#6a5000;}.card-y .t{color:#ffc840;}.card-y .b{color:#d8a860;}
+.card-p{background:#140c28;border-color:#4a30a0;}.card-p .t{color:#c0a0ff;}.card-p .b{color:#a888e8;}
+.card-o{background:#1e0c00;border-color:#6a3000;}.card-o .t{color:#ff9840;}.card-o .b{color:#d88040;}
+.note{border-left:4px solid #4080ff;background:#0c1e3a;color:#b0ccf8;padding:9px 13px;border-radius:0 7px 7px 0;margin:8px 0;font-size:12px;line-height:1.6;}
+.note b{color:#fff;}
+.note-g{border-left-color:#30c860;background:#081c10;color:#90e8a8;}.note-g b{color:#60ff90;}
+.note-r{border-left-color:#e03030;background:#200808;color:#f09090;}.note-r b{color:#ff8080;}
+.note-y{border-left-color:#e0a000;background:#1c1200;color:#e8c860;}.note-y b{color:#ffe060;}
+.note-p{border-left-color:#9070e0;background:#140c28;color:#c8b0ff;}.note-p b{color:#d8c8ff;}
+.note-o{border-left-color:#e07020;background:#1e0c00;color:#e8a060;}.note-o b{color:#ffc080;}
+.code{background:#080a10;border:1px solid #2a3460;border-radius:6px;padding:11px 13px;font-family:'Courier New',monospace;font-size:11px;color:#d8e8ff;line-height:1.8;white-space:pre-wrap;margin:8px 0;}
+.tg{display:inline-block;background:#0a2c14;color:#50e870;border:1px solid #208040;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin:2px;}
+.tr{display:inline-block;background:#2c0a0a;color:#ff7070;border:1px solid #802020;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin:2px;}
+.tb{display:inline-block;background:#0a1e3c;color:#60b0ff;border:1px solid #204880;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin:2px;}
+.ty{display:inline-block;background:#241800;color:#ffc040;border:1px solid #806000;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin:2px;}
+.tp{display:inline-block;background:#1a0830;color:#c0a0ff;border:1px solid #5030a0;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin:2px;}
+.to{display:inline-block;background:#1e0c00;color:#ff9840;border:1px solid #6a3000;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin:2px;}
+table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:10px;}
+th{background:#1a1e30;color:#78aaff;font-weight:700;padding:7px 8px;text-align:left;border-bottom:1px solid #2e3858;}
+td{padding:5px 8px;border-bottom:1px solid #1e2438;color:#c0cce8;vertical-align:top;}
+tr:hover td{background:#1a2040;}
+.algo-card{background:#1a1e30;border:1.5px solid #2e3858;border-radius:10px;padding:13px;margin-bottom:10px;}
+.algo-name{font-size:14px;font-weight:700;color:#fff;}
+.algo-formula{font-family:monospace;font-size:11px;color:#60e880;background:#080a10;padding:5px 8px;border-radius:4px;margin:5px 0;}
+.algo-section{font-size:11px;font-weight:700;color:#78aaff;margin-top:7px;margin-bottom:3px;}
+.algo-body{font-size:11px;color:#9aaac8;line-height:1.65;}
+.abtn{background:#1a1e30;color:#90b8e8;border:1px solid #2e3858;border-radius:6px;padding:5px 10px;font-size:11px;font-weight:700;cursor:pointer;margin:2px;}
+.abtn.on{background:#1a5cb8;color:#fff;border-color:#5090ff;}
+.sit-row{background:#1a1e30;border-radius:8px;padding:8px 12px;margin-bottom:6px;border-left:3px solid #4080ff;}
+.sit-q{font-size:12px;font-weight:700;color:#ffc840;margin-bottom:3px;}
+.sit-a{font-size:11px;color:#9aaac8;line-height:1.55;}
+.sit-algo{font-size:11px;color:#60e880;font-weight:700;margin-top:2px;}
+.roadmap-step{display:flex;gap:12px;margin-bottom:12px;align-items:flex-start;}
+.rs-num{min-width:34px;height:34px;border-radius:50%;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.rs-title{font-size:13px;font-weight:700;color:#fff;margin-bottom:2px;}
+.rs-sub{font-size:11px;color:#8898b8;line-height:1.5;}
+.rs-tasks{font-size:11px;color:#70c0ff;margin-top:3px;line-height:1.7;}
+.week-card{background:#1a1e30;border:1px solid #2e3858;border-radius:8px;padding:10px 12px;margin-bottom:8px;}
+.week-title{font-size:12px;font-weight:700;color:#ffc840;margin-bottom:4px;}
+.week-body{font-size:11px;color:#9aaac8;line-height:1.7;}
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:5px;}
+.bar-label{min-width:160px;font-size:11px;color:#c0cce8;}
+.bar-track{flex:1;height:10px;background:#1a1e30;border-radius:5px;overflow:hidden;}
+.bar-fill{height:10px;border-radius:5px;}
+.bar-val{min-width:36px;font-size:11px;font-weight:700;color:#fff;text-align:right;}
+.flow-box{background:#1a1e30;border:1.5px solid #2e3858;border-radius:8px;padding:10px 13px;text-align:center;font-size:12px;font-weight:700;}
+.flow-arr{text-align:center;font-size:18px;color:#4080ff;line-height:1.2;}
+</style>
+</head>
+<body>
+
+<div class="nav" id="NAV">
+  <div class="tab on" onclick="goTab(1)">1. What is RL</div>
+  <div class="tab"    onclick="goTab(2)">2. Core Concepts</div>
+  <div class="tab"    onclick="goTab(3)">3. Algorithm Families</div>
+  <div class="tab"    onclick="goTab(4)">4. Deep Dive Each</div>
+  <div class="tab"    onclick="goTab(5)">5. Right Situation</div>
+  <div class="tab"    onclick="goTab(6)">6. RL for LLMs (RLHF)</div>
+  <div class="tab"    onclick="goTab(7)">7. Practice Code</div>
+</div>
+
+<!-- ══ TAB 1 ══ -->
+<div class="sec on" id="S1">
+<div class="badge bg-o">REINFORCEMENT LEARNING — COMPLETE GUIDE</div>
+<div class="h1">What is Reinforcement Learning?</div>
+<div class="sub">Learning through interaction — trial and error with a reward signal</div>
+
+<div class="note"><b>The key difference from supervised and unsupervised learning:</b> No labelled data. No structure to discover. Instead — an <b>agent</b> takes <b>actions</b> in an <b>environment</b>, receives <b>rewards</b>, and learns a <b>policy</b> that maximises cumulative reward over time. The agent learns purely from consequences of its actions.</div>
+
+<div class="sl">The RL loop — the foundation of everything</div>
+<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:14px;align-items:center;">
+  <div class="flow-box card-b"><div style="color:#70c0ff;font-size:15px;margin-bottom:3px;">🤖</div><div style="color:#70c0ff">AGENT</div><div style="font-size:10px;color:#90b8e8;font-weight:400;margin-top:2px;">The learner and decision maker</div></div>
+  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+    <div style="font-size:10px;color:#60e880;font-weight:700;">ACTION aₜ</div>
+    <div style="font-size:20px;color:#4080ff;">→</div>
+    <div style="font-size:10px;color:#ff9840;font-weight:700;">REWARD rₜ</div>
+    <div style="font-size:20px;color:#ff9840;">←</div>
+    <div style="font-size:10px;color:#c0a0ff;font-weight:700;">STATE sₜ₊₁</div>
+    <div style="font-size:20px;color:#c0a0ff;">←</div>
+  </div>
+  <div class="flow-box card-g"><div style="color:#50e880;font-size:15px;margin-bottom:3px;">🌍</div><div style="color:#50e880">ENVIRONMENT</div><div style="font-size:10px;color:#80c898;font-weight:400;margin-top:2px;">The world the agent interacts with</div></div>
+  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+    <div style="font-size:10px;color:#ffc840;font-weight:700;">OBSERVE sₜ</div>
+    <div style="font-size:20px;color:#ffc840;">→</div>
+  </div>
+  <div class="flow-box card-p"><div style="color:#c0a0ff;font-size:15px;margin-bottom:3px;">🎯</div><div style="color:#c0a0ff">POLICY π</div><div style="font-size:10px;color:#a888e8;font-weight:400;margin-top:2px;">Maps states → actions to maximise reward</div></div>
+</div>
+
+<div class="g3">
+  <div class="card card-b"><div class="t">Supervised vs RL</div><div class="b">
+    <b style="color:#ff7070">Supervised:</b> given correct answer for each input. Teacher tells you the right move.<br><br>
+    <b style="color:#50e880">RL:</b> only gets a reward signal after taking an action. No teacher — learns from consequences.<br><br>
+    Example: chess engine. Supervised = given correct move every turn. RL = play games, win/lose, learn what works.<br><br>
+    <span class="tg">RL discovers strategies humans never programmed</span>
+  </div></div>
+  <div class="card card-g"><div class="t">Key components</div><div class="b">
+    <b style="color:#50e880">State (s):</b> current situation the agent observes<br>
+    <b style="color:#50e880">Action (a):</b> what the agent can do<br>
+    <b style="color:#50e880">Reward (r):</b> scalar feedback after each action<br>
+    <b style="color:#50e880">Policy (π):</b> strategy — maps states to actions<br>
+    <b style="color:#50e880">Value (V/Q):</b> expected cumulative future reward<br>
+    <b style="color:#50e880">Episode:</b> one complete sequence of states/actions<br>
+    <b style="color:#50e880">Discount (γ):</b> how much future rewards matter
+  </div></div>
+  <div class="card card-y"><div class="t">Where RL is used</div><div class="b">
+    · Game playing (AlphaGo, OpenAI Five, StarCraft)<br>
+    · Robotics (locomotion, manipulation)<br>
+    · Autonomous vehicles (lane changing, parking)<br>
+    · Resource management (data center cooling)<br>
+    · Trading strategies (portfolio optimisation)<br>
+    · Recommender systems (sequential decisions)<br>
+    · <b style="color:#ffd060">LLM fine-tuning (RLHF — ChatGPT, Claude)</b><br>
+    · Drug discovery (molecule optimisation)
+  </div></div>
+</div>
+
+<div class="sl">RL vs Supervised — when to choose RL</div>
+<table>
+<tr><th>Criterion</th><th>Use Supervised Learning</th><th>Use Reinforcement Learning</th></tr>
+<tr><td><b>Labels available?</b></td><td>Yes — correct answer known for each input</td><td>No labels — only reward signal from environment</td></tr>
+<tr><td><b>Sequential decisions?</b></td><td>Single prediction, no dependency on past</td><td>Sequence of decisions, each affects future state</td></tr>
+<tr><td><b>Delayed feedback?</b></td><td>Immediate — know correct answer right away</td><td>Reward may come much later (credit assignment)</td></tr>
+<tr><td><b>Environment interaction?</b></td><td>Static dataset, no feedback loop</td><td>Agent changes environment, environment changes agent</td></tr>
+<tr><td><b>Goal?</b></td><td>Predict a fixed target from features</td><td>Maximise cumulative reward over time</td></tr>
+<tr><td><b>Examples</b></td><td>Churn prediction, image classification</td><td>Game playing, robot control, RLHF</td></tr>
+</table>
+
+<div style="position:relative;height:210px;margin-bottom:10px;"><canvas id="c1overview"></canvas></div>
+
+<div class="note note-y"><b>RL is NOT a replacement for supervised learning.</b> For most business problems (churn, fraud, demand forecasting) supervised learning is faster, cheaper, and more reliable. Use RL only when you have a sequential decision problem with delayed rewards and an environment to train in. The most practical RL application for your work is RLHF — understanding how ChatGPT and Claude are trained.</div>
+</div>
+
+<!-- ══ TAB 2: CORE CONCEPTS ══ -->
+<div class="sec" id="S2">
+<div class="badge bg-b">CORE CONCEPTS</div>
+<div class="h1">RL Core Concepts — The Math Behind the Loop</div>
+<div class="sub">Markov Decision Process · Bellman Equation · Value Functions · Policy</div>
+
+<div class="note"><b>Everything in RL is built on one foundation:</b> the Markov Decision Process (MDP). Every RL algorithm is essentially a different way to solve the same MDP. Master these concepts and every algorithm becomes a variation on the same theme.</div>
+
+<div class="sl">Markov Decision Process (MDP)</div>
+<div class="g2">
+  <div class="card card-b">
+    <div class="t">MDP = (S, A, P, R, γ)</div>
+    <div class="b">
+      <b style="color:#70c0ff">S</b> = State space (all possible situations)<br>
+      <b style="color:#70c0ff">A</b> = Action space (all possible actions)<br>
+      <b style="color:#70c0ff">P(s'|s,a)</b> = Transition probability (environment dynamics)<br>
+      <b style="color:#70c0ff">R(s,a,s')</b> = Reward function<br>
+      <b style="color:#70c0ff">γ</b> = Discount factor (0=myopic, 1=far-sighted)<br><br>
+      <b>Markov property:</b> the future depends only on the current state, not the full history. P(sₜ₊₁|sₜ,aₜ) — the next state depends only on current state and action.
+    </div>
+  </div>
+  <div class="card card-g">
+    <div class="t">The goal — maximise expected return</div>
+    <div class="b">
+      <b>Return Gₜ</b> = sum of discounted future rewards:<br>
+      <div class="algo-formula">Gₜ = rₜ + γ·rₜ₊₁ + γ²·rₜ₊₂ + ... = Σₖ γᵏ·rₜ₊ₖ</div>
+      γ=0: only care about immediate reward<br>
+      γ=0.99: care about rewards far in future<br><br>
+      <b>Optimal policy π*</b> = the policy that maximises expected return from every state:<br>
+      <div class="algo-formula">π* = argmax_π E[Gₜ | π]</div>
+    </div>
+  </div>
+</div>
+
+<div class="sl">Value Functions — the heart of RL</div>
+<div class="g2">
+  <div class="card card-y">
+    <div class="t">State Value Function V(s)</div>
+    <div class="b">
+      V^π(s) = expected return starting from state s, following policy π:<br>
+      <div class="algo-formula">V^π(s) = E_π[Gₜ | sₜ=s] = E_π[Σₖ γᵏ·rₜ₊ₖ | sₜ=s]</div>
+      <b>Intuition:</b> "How good is it to BE in state s?"<br><br>
+      V*(s) = optimal value = best return possible from s<br>
+      Used in: Value iteration, TD learning, Actor-Critic
+    </div>
+  </div>
+  <div class="card card-p">
+    <div class="t">Action Value Function Q(s,a)</div>
+    <div class="b">
+      Q^π(s,a) = expected return starting from state s, taking action a, then following π:<br>
+      <div class="algo-formula">Q^π(s,a) = E_π[Gₜ | sₜ=s, aₜ=a]</div>
+      <b>Intuition:</b> "How good is it to take action a in state s?"<br><br>
+      Q*(s,a) = optimal Q-value<br>
+      Used in: Q-Learning, DQN, SARSA<br>
+      <b>Policy from Q:</b> π(s) = argmax_a Q(s,a)
+    </div>
+  </div>
+</div>
+
+<div class="sl">Bellman Equations — recursive definition of value</div>
+<div class="g2">
+  <div class="card card-b">
+    <div class="t">Bellman Expectation Equation</div>
+    <div class="b">
+      Value of current state = immediate reward + discounted value of next state:<br>
+      <div class="algo-formula">V^π(s) = Σ_a π(a|s) Σ_s' P(s'|s,a)[R(s,a,s') + γV^π(s')]</div>
+      <b>This is the key recursive identity:</b> the value of a state equals the expected reward plus the discounted value of the next state. Every RL algorithm is solving or approximating this equation.
+    </div>
+  </div>
+  <div class="card card-g">
+    <div class="t">Bellman Optimality Equation</div>
+    <div class="b">
+      Optimal Q-value satisfies:<br>
+      <div class="algo-formula">Q*(s,a) = R(s,a) + γ Σ_s' P(s'|s,a) max_a' Q*(s',a')</div>
+      <b>Q-Learning update rule</b> (the foundation of DQN):<br>
+      <div class="algo-formula">Q(s,a) ← Q(s,a) + α[r + γ max_a' Q(s',a') − Q(s,a)]</div>
+      TD error = r + γ max Q(s',a') − Q(s,a)<br>
+      This is the "prediction error" that drives all Q-learning.
+    </div>
+  </div>
+</div>
+
+<div class="sl">Exploration vs Exploitation — the fundamental dilemma</div>
+<div class="g3">
+  <div class="card card-r"><div class="t">The dilemma</div><div class="b">
+    <b style="color:#ff9090">Exploitation:</b> take the action you know is best. Maximises reward now but may miss better options.<br><br>
+    <b style="color:#ff9090">Exploration:</b> try new actions to discover potentially better strategies. Costs reward now but may find something better.<br><br>
+    Too much exploitation = local optimum. Too much exploration = never converges.
+  </div></div>
+  <div class="card card-y"><div class="t">ε-greedy (most common)</div><div class="b">
+    With probability ε: explore (random action)<br>
+    With probability 1-ε: exploit (best known action)<br><br>
+    <b>Decaying ε:</b> start ε=1.0 (all explore), decay to ε=0.01 as training progresses.<br><br>
+    <div class="algo-formula">ε = ε_min + (ε_max-ε_min)·e^(-decay·step)</div>
+  </div></div>
+  <div class="card card-g"><div class="t">Other strategies</div><div class="b">
+    <b style="color:#60ff90">UCB:</b> Upper Confidence Bound — choose action with highest Q + uncertainty bonus. Systematic exploration.<br><br>
+    <b style="color:#60ff90">Boltzmann/Softmax:</b> sample actions proportional to Q-values. Temperature τ controls exploration.<br><br>
+    <b style="color:#60ff90">Thompson Sampling:</b> Bayesian — sample from posterior belief over Q-values.
+  </div></div>
+</div>
+<div style="position:relative;height:185px;margin-bottom:8px;"><canvas id="c2concepts"></canvas></div>
+</div>
+
+<!-- ══ TAB 3: ALGORITHM FAMILIES ══ -->
+<div class="sec" id="S3">
+<div class="badge bg-g">ALGORITHM FAMILIES</div>
+<div class="h1">RL Algorithm Families — The Complete Taxonomy</div>
+<div class="sub">Model-Free vs Model-Based · Value-Based vs Policy-Based · On-Policy vs Off-Policy</div>
+
+<div class="note"><b>The most important classification:</b> Model-free vs Model-based. In model-free RL (most algorithms), the agent does not know P(s'|s,a) — it just experiences transitions. In model-based RL, the agent learns or is given the environment dynamics and can plan ahead.</div>
+
+<div style="position:relative;height:220px;margin-bottom:12px;"><canvas id="c3families"></canvas></div>
+
+<div class="sl">Dimension 1 — Model-Free vs Model-Based</div>
+<div class="g2">
+  <div class="card card-b"><div class="t">Model-Free (most common)</div><div class="b">
+    Agent does NOT learn environment dynamics. Just experiences (s, a, r, s') tuples and learns directly from them.<br><br>
+    <b style="color:#70c0ff">Pros:</b> simpler, works when model is hard to learn, no model errors<br>
+    <b style="color:#70c0ff">Cons:</b> less sample-efficient, cannot plan ahead<br><br>
+    <b>Algorithms:</b> Q-Learning, SARSA, DQN, PPO, A3C, SAC, TD3<br>
+    <span class="tb">90% of practical RL is model-free</span>
+  </div></div>
+  <div class="card card-g"><div class="t">Model-Based</div><div class="b">
+    Agent learns or is given P(s'|s,a) and R(s,a). Can simulate trajectories and plan without real interaction.<br><br>
+    <b style="color:#50e880">Pros:</b> much more sample-efficient, can plan ahead<br>
+    <b style="color:#50e880">Cons:</b> model errors compound, hard to build accurate models<br><br>
+    <b>Algorithms:</b> Dyna-Q, World Models, MuZero, AlphaZero<br>
+    <span class="tg">Used when real interactions are expensive (robotics)</span>
+  </div></div>
+</div>
+
+<div class="sl">Dimension 2 — Value-Based vs Policy-Based vs Actor-Critic</div>
+<div class="g3">
+  <div class="card card-y"><div class="t">Value-Based</div><div class="b">
+    Learn Q(s,a) or V(s). Derive policy implicitly: π(s) = argmax_a Q(s,a).<br><br>
+    <b>Algorithms:</b> Q-Learning, SARSA, DQN, Double DQN, Dueling DQN<br><br>
+    <b style="color:#ffd060">Best for:</b> discrete action spaces (games, inventory)<br>
+    <b style="color:#ff9090">Bad for:</b> continuous actions (robotics)<br><br>
+    <span class="ty">Cannot handle continuous actions directly</span>
+  </div></div>
+  <div class="card card-p"><div class="t">Policy-Based (Policy Gradient)</div><div class="b">
+    Directly optimise policy π(a|s;θ). Gradient ascent on expected return.<br><br>
+    <b>Algorithms:</b> REINFORCE, TRPO, PPO<br><br>
+    <b style="color:#c0a0ff">Best for:</b> continuous action spaces, stochastic policies<br>
+    <b style="color:#ff9090">Bad for:</b> high variance (needs many samples)<br><br>
+    <span class="tp">Can handle continuous actions</span>
+  </div></div>
+  <div class="card card-g"><div class="t">Actor-Critic (best of both)</div><div class="b">
+    <b>Actor:</b> policy π(a|s) — decides actions<br>
+    <b>Critic:</b> value V(s) or Q(s,a) — evaluates actions<br><br>
+    <b>Algorithms:</b> A2C, A3C, SAC, TD3, PPO (hybrid)<br><br>
+    <b style="color:#50e880">Best for:</b> continuous + discrete, most complex envs<br>
+    Lower variance than pure policy gradient<br><br>
+    <span class="tg">State of the art for most problems</span>
+  </div></div>
+</div>
+
+<div class="sl">Dimension 3 — On-Policy vs Off-Policy</div>
+<div class="g2">
+  <div class="card card-r"><div class="t">On-Policy</div><div class="b">
+    Learns from experience generated by the CURRENT policy. Must collect new data every update.<br><br>
+    <b>Algorithms:</b> SARSA, A2C, A3C, PPO<br><br>
+    <b style="color:#ff9090">Pros:</b> more stable, safer for real-world deployment<br>
+    <b style="color:#ff9090">Cons:</b> less sample-efficient — cannot reuse old data<br><br>
+    <b>Example:</b> PPO collects a batch of experience with current policy, updates, then throws away that data and collects fresh.
+  </div></div>
+  <div class="card card-b"><div class="t">Off-Policy</div><div class="b">
+    Learns from experience generated by ANY policy (old or different). Can reuse data with a replay buffer.<br><br>
+    <b>Algorithms:</b> Q-Learning, DQN, SAC, TD3, DDPG<br><br>
+    <b style="color:#70c0ff">Pros:</b> more sample-efficient — reuses past experience<br>
+    <b style="color:#70c0ff">Cons:</b> can be unstable, harder to tune<br><br>
+    <b>Experience Replay:</b> store (s,a,r,s') in buffer, sample random batches for training — breaks correlations.
+  </div></div>
+</div>
+
+<div class="sl">Complete algorithm map</div>
+<table>
+<tr><th>Algorithm</th><th>Family</th><th>On/Off Policy</th><th>Action space</th><th>Best for</th><th>Key idea</th></tr>
+<tr><td><b style="color:#ffc840">Q-Learning</b></td><td>Value-based</td><td><span class="tb">Off-policy</span></td><td>Discrete</td><td>Tabular envs, simple games</td><td>TD update on Q-table</td></tr>
+<tr><td><b style="color:#ffc840">SARSA</b></td><td>Value-based</td><td><span class="to">On-policy</span></td><td>Discrete</td><td>Safe exploration needed</td><td>Q-update using actual next action</td></tr>
+<tr><td><b style="color:#70c0ff">DQN</b></td><td>Value-based+DL</td><td><span class="tb">Off-policy</span></td><td>Discrete</td><td>Atari games, discrete control</td><td>Neural Q-function + replay buffer</td></tr>
+<tr><td><b style="color:#70c0ff">Double DQN</b></td><td>Value-based+DL</td><td><span class="tb">Off-policy</span></td><td>Discrete</td><td>DQN overestimation fix</td><td>Separate networks for select/evaluate</td></tr>
+<tr><td><b style="color:#70c0ff">Dueling DQN</b></td><td>Value-based+DL</td><td><span class="tb">Off-policy</span></td><td>Discrete</td><td>When many actions have similar value</td><td>V(s) + A(s,a) architecture</td></tr>
+<tr><td><b style="color:#50e880">REINFORCE</b></td><td>Policy Gradient</td><td><span class="to">On-policy</span></td><td>Both</td><td>Simple continuous control</td><td>Monte Carlo policy gradient</td></tr>
+<tr><td><b style="color:#50e880">PPO</b></td><td>Actor-Critic</td><td><span class="to">On-policy</span></td><td>Both</td><td>Most practical problems, RLHF</td><td>Clipped surrogate objective</td></tr>
+<tr><td><b style="color:#50e880">A3C / A2C</b></td><td>Actor-Critic</td><td><span class="to">On-policy</span></td><td>Both</td><td>Parallel training, games</td><td>Async workers share gradients</td></tr>
+<tr><td><b style="color:#c0a0ff">SAC</b></td><td>Actor-Critic</td><td><span class="tb">Off-policy</span></td><td>Continuous</td><td>Robotics, continuous control</td><td>Maximum entropy + replay buffer</td></tr>
+<tr><td><b style="color:#c0a0ff">TD3</b></td><td>Actor-Critic</td><td><span class="tb">Off-policy</span></td><td>Continuous</td><td>Robotics, MuJoCo</td><td>Twin critics, delayed policy updates</td></tr>
+<tr><td><b style="color:#c0a0ff">DDPG</b></td><td>Actor-Critic</td><td><span class="tb">Off-policy</span></td><td>Continuous</td><td>Continuous control (precursor to TD3)</td><td>Deterministic policy gradient</td></tr>
+<tr><td><b style="color:#ff7070">AlphaZero</b></td><td>Model-Based</td><td><span class="tb">Off-policy</span></td><td>Discrete</td><td>Perfect info games (chess, Go)</td><td>MCTS + self-play + neural evaluation</td></tr>
+<tr><td><b style="color:#ff7070">MuZero</b></td><td>Model-Based</td><td><span class="tb">Off-policy</span></td><td>Both</td><td>Games without known rules</td><td>Learns latent model + MCTS</td></tr>
+<tr><td><b style="color:#ff9840">PPO (RLHF)</b></td><td>Actor-Critic</td><td><span class="to">On-policy</span></td><td>Token vocab</td><td>LLM fine-tuning (ChatGPT)</td><td>PPO on human preference reward model</td></tr>
+</table>
+</div>
+
+<!-- ══ TAB 4: DEEP DIVE ══ -->
+<div class="sec" id="S4">
+<div class="badge bg-p">ALGORITHM DEEP DIVES</div>
+<div class="h1">Every Major RL Algorithm — Internals + Code</div>
+<div class="sub">Click each algorithm to see the complete explanation</div>
+<div style="margin-bottom:10px;display:flex;flex-wrap:wrap;gap:3px;" id="rl-btns">
+  <button onclick="showRL('qlearn')"  class="abtn on">Q-Learning</button>
+  <button onclick="showRL('sarsa')"   class="abtn">SARSA</button>
+  <button onclick="showRL('dqn')"     class="abtn">DQN</button>
+  <button onclick="showRL('reinforce')" class="abtn">REINFORCE</button>
+  <button onclick="showRL('ppo')"     class="abtn">PPO</button>
+  <button onclick="showRL('a3c')"     class="abtn">A3C/A2C</button>
+  <button onclick="showRL('sac')"     class="abtn">SAC</button>
+  <button onclick="showRL('td3')"     class="abtn">TD3</button>
+  <button onclick="showRL('alphazero')" class="abtn">AlphaZero</button>
+</div>
+<div id="rl-detail"></div>
+</div>
+
+<!-- ══ TAB 5: RIGHT SITUATION ══ -->
+<div class="sec" id="S5">
+<div class="badge bg-t">RIGHT SITUATION → RIGHT ALGORITHM</div>
+<div class="h1">Which RL Algorithm for Which Situation</div>
+<div class="sub">Real-world scenarios mapped to the best algorithm</div>
+
+<div class="note"><b>Most important rule:</b> Before choosing an RL algorithm, ask "Can I solve this with supervised or rule-based methods instead?" RL is harder to train, requires an environment, and takes much longer to converge. Only use RL when the problem genuinely requires sequential decision-making with delayed rewards.</div>
+
+<div class="sl">Action space situations</div>
+<div class="g2">
+<div>
+<div class="sit-row" style="border-left-color:#ffc840">
+  <div class="sit-q">Action space is discrete and small (e.g. game: up/down/left/right)</div>
+  <div class="sit-a">Start with Q-Learning if state space is small (tabular). If state space is large or image-based, use DQN. For best performance on Atari-like games, use Double DQN + Dueling DQN + Prioritised Replay.</div>
+  <div class="sit-algo">→ Q-Learning (small) → DQN → Double+Dueling DQN (best)</div>
+</div>
+<div class="sit-row" style="border-left-color:#c0a0ff">
+  <div class="sit-q">Action space is continuous (e.g. robot joint angles, steering angle)</div>
+  <div class="sit-a">Value-based methods (Q-Learning, DQN) cannot handle continuous actions directly. Use SAC as your first choice — it is the most stable and sample-efficient for continuous control. TD3 is also excellent.</div>
+  <div class="sit-algo">→ SAC (most stable) → TD3 → PPO (if on-policy preferred)</div>
+</div>
+<div class="sit-row" style="border-left-color:#50e880">
+  <div class="sit-q">Need to work with both discrete and continuous actions</div>
+  <div class="sit-a">PPO handles both naturally with appropriate output heads. Use Gaussian distribution head for continuous, softmax for discrete. PPO is the most general-purpose algorithm.</div>
+  <div class="sit-algo">→ PPO with appropriate action head</div>
+</div>
+</div>
+<div>
+<div class="sit-row" style="border-left-color:#ff7070">
+  <div class="sit-q">Safety is critical — agent must not take dangerous actions during training</div>
+  <div class="sit-a">On-policy methods are safer because they only learn from current policy. PPO with constraints (PPO-Lagrangian) or TRPO with hard constraints. Off-policy methods can use dangerous past experience.</div>
+  <div class="sit-algo">→ PPO with safety constraints → TRPO → Constrained RL</div>
+</div>
+<div class="sit-row" style="border-left-color:#70c0ff">
+  <div class="sit-q">Environment interactions are expensive (real robot, real simulator)</div>
+  <div class="sit-a">Off-policy methods + replay buffer are more sample-efficient. SAC reuses every experience in the buffer many times. Also consider model-based RL (Dyna-Q, MBPO) which generates synthetic rollouts.</div>
+  <div class="sit-algo">→ SAC (best sample efficiency) → Model-Based RL → Dyna-Q</div>
+</div>
+<div class="sit-row" style="border-left-color:#ffc840">
+  <div class="sit-q">I want to train a game-playing agent from scratch</div>
+  <div class="sit-a">Atari/screen-based: DQN family. Board games with known rules: AlphaZero self-play. Any game without needing rules: MuZero. For fastest convergence with stable training: PPO.</div>
+  <div class="sit-algo">→ DQN (Atari) → AlphaZero (board games) → PPO (general)</div>
+</div>
+</div>
+</div>
+
+<div class="sl">Environment type situations</div>
+<div class="g2">
+<div>
+<div class="sit-row" style="border-left-color:#50e880">
+  <div class="sit-q">State space is small and tabular (few states, few actions)</div>
+  <div class="sit-a">Classic Q-Learning with a Q-table. No neural networks needed. Perfect for teaching RL concepts (FrozenLake, Taxi, simple grid worlds). State and action spaces must be discrete and small.</div>
+  <div class="sit-algo">→ Q-Learning table → SARSA → Dynamic Programming</div>
+</div>
+<div class="sit-row" style="border-left-color:#c0a0ff">
+  <div class="sit-q">State is high-dimensional (images, raw pixels)</div>
+  <div class="sit-a">Need deep neural network to process states. DQN uses CNN to process frames. PPO/SAC with CNN encoder. Always preprocess: resize to 84×84, grayscale, stack 4 frames for temporal context.</div>
+  <div class="sit-algo">→ DQN+CNN → PPO+CNN encoder → A3C (parallel)</div>
+</div>
+<div class="sit-row" style="border-left-color:#ff9840">
+  <div class="sit-q">Multi-agent environment (multiple agents interact)</div>
+  <div class="sit-a">Standard RL algorithms treat other agents as part of the environment. For cooperative multi-agent: MADDPG or MAPPO. For competitive: self-play with PPO. OpenAI Five and AlphaStar used self-play.</div>
+  <div class="sit-algo">→ Self-play PPO → MADDPG → MAPPO</div>
+</div>
+</div>
+<div>
+<div class="sit-row" style="border-left-color:#70c0ff">
+  <div class="sit-q">Environment is partially observable (agent cannot see full state)</div>
+  <div class="sit-a">Standard RL assumes full observability. For partial observation (POMDP): use LSTM/GRU memory in the policy network to remember past states. Frame stacking is simple alternative.</div>
+  <div class="sit-algo">→ PPO/SAC + LSTM memory → Frame stacking</div>
+</div>
+<div class="sit-row" style="border-left-color:#ffc840">
+  <div class="sit-q">Reward is sparse — agent rarely receives any reward</div>
+  <div class="sit-a">Sparse rewards make learning very slow. Use reward shaping (add intermediate rewards), curiosity-driven exploration (ICM), hindsight experience replay (HER), or hierarchical RL to break task into subtasks.</div>
+  <div class="sit-algo">→ HER (goal-conditioned) → Curiosity (ICM) → Reward shaping → Hierarchical RL</div>
+</div>
+<div class="sit-row" style="border-left-color:#50e880">
+  <div class="sit-q">I want the most practical RL for most problems today</div>
+  <div class="sit-a">PPO is the default choice for most practical RL problems. It is stable, works on discrete and continuous action spaces, has few hyperparameters to tune, and is what OpenAI uses. Stable-Baselines3 makes it easy.</div>
+  <div class="sit-algo">→ PPO (Stable-Baselines3) → SAC (if continuous and off-policy wanted)</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ══ TAB 6: RLHF ══ -->
+<div class="sec" id="S6">
+<div class="badge bg-o">RLHF — RL FOR LLMs</div>
+<div class="h1">RLHF — Reinforcement Learning from Human Feedback</div>
+<div class="sub">How ChatGPT, Claude, and Gemini are trained — the most important RL application today</div>
+
+<div class="note note-o"><b>This is the most relevant RL topic for your work.</b> RLHF is the technique that takes a pre-trained LLM (trained on next-token prediction) and aligns it to be helpful, harmless, and honest. Understanding RLHF explains WHY ChatGPT and Claude behave the way they do — and how to fine-tune LLMs on Azure OpenAI.</div>
+
+<div class="sl">The 3-phase RLHF pipeline</div>
+
+<div class="roadmap-step">
+  <div class="rs-num" style="background:#1a5cb8">1</div>
+  <div class="rs-body">
+    <div class="rs-title">Phase 1 — Supervised Fine-Tuning (SFT)</div>
+    <div class="rs-sub">Start with a pre-trained LLM (GPT-4 base, LLaMA, etc.). Fine-tune on high-quality human demonstrations — examples of what a helpful assistant should say. This gives the model a good starting policy before RL.</div>
+    <div class="rs-tasks">Input: (prompt, ideal_response) pairs written by human labellers<br>Loss: Cross-entropy on ideal responses<br>Output: SFT model — a reasonable baseline assistant<br>This is standard supervised learning on (X, y) pairs</div>
+  </div>
+</div>
+
+<div class="roadmap-step">
+  <div class="rs-num" style="background:#1a7a3a">2</div>
+  <div class="rs-body">
+    <div class="rs-title">Phase 2 — Reward Model Training</div>
+    <div class="rs-sub">Human labellers compare pairs of model outputs — "which response is better?" This preference data trains a reward model that learns to score any response from 0 to 1 based on helpfulness and safety.</div>
+    <div class="rs-tasks">Input: (prompt, response_A, response_B, human_preference) pairs<br>Train a classifier: P(A preferred over B)<br>Output: RM(prompt, response) → scalar reward score<br>This reward model replaces the human labeller during RL training</div>
+  </div>
+</div>
+
+<div class="roadmap-step">
+  <div class="rs-num" style="background:#8a6000">3</div>
+  <div class="rs-body">
+    <div class="rs-title">Phase 3 — PPO Fine-Tuning</div>
+    <div class="rs-sub">Use PPO to optimise the SFT model to maximise the reward model score. The LLM is the policy (outputs token sequences). The reward model is the environment. A KL penalty prevents the model from drifting too far from the SFT model.</div>
+    <div class="rs-tasks">Agent = SFT LLM (policy π_θ)<br>State = prompt + tokens generated so far<br>Action = next token to generate (from vocabulary of 50k+)<br>Reward = reward_model(full_response) − β·KL(π_θ || π_SFT)<br>Algorithm = PPO (clipped surrogate objective)</div>
+  </div>
+</div>
+
+<div class="sl">Why PPO for RLHF — and why not other algorithms</div>
+<div class="g3">
+  <div class="card card-b"><div class="t">Why PPO specifically?</div><div class="b">
+    · Stable training — clipped objective prevents large policy jumps<br>
+    · Works on discrete actions (tokens from vocab)<br>
+    · On-policy — uses fresh model outputs each iteration<br>
+    · Well-understood, easy to implement<br>
+    · KL penalty easily added to loss<br><br>
+    <span class="tb">PPO is the standard for RLHF</span>
+  </div></div>
+  <div class="card card-y"><div class="t">The KL penalty — critical for RLHF</div><div class="b">
+    Without KL penalty, PPO would optimise the reward model too aggressively and break the LLM (reward hacking).<br><br>
+    <div class="algo-formula">Reward = RM(response) − β·KL(π_θ || π_SFT)</div>
+    β controls the trade-off: high β = stay close to SFT. Low β = maximise reward aggressively.<br><br>
+    This prevents the model from generating nonsense that tricks the reward model.
+  </div></div>
+  <div class="card card-g"><div class="t">Newer alternatives to PPO</div><div class="b">
+    <b style="color:#60ff90">DPO (Direct Preference Optimisation):</b> Skips the reward model entirely. Directly trains on (preferred, rejected) pairs. Simpler, more stable than PPO. Used in many open-source models.<br><br>
+    <b style="color:#60ff90">GRPO:</b> Used to train DeepSeek-R1. Group Relative Policy Optimisation — samples multiple responses and uses relative scores.<br><br>
+    <span class="tg">DPO is replacing PPO in many modern systems</span>
+  </div></div>
+</div>
+
+<div class="sl">RLHF connection to your Azure OpenAI work</div>
+<div class="g2">
+  <div class="card card-o"><div class="t">Azure OpenAI fine-tuning IS RLHF (simplified)</div><div class="b">
+    When you fine-tune GPT-4o on Azure OpenAI with (prompt, completion) pairs:<br><br>
+    1. Phase 1 (SFT) runs under the hood — your data is the demonstration dataset<br>
+    2. Azure OpenAI applies their internal RLHF alignment on top<br>
+    3. Your model inherits their reward model (helpful, safe, honest)<br><br>
+    You don't run PPO yourself — Azure handles it. Your job is providing high-quality (prompt, ideal_completion) pairs.<br><br>
+    <span class="to">Quality of your training data = quality of your fine-tuned model</span>
+  </div></div>
+  <div class="card card-p"><div class="t">RAG + RLHF connection</div><div class="b">
+    In your Databricks RAG pipeline:<br><br>
+    1. <b style="color:#c0a0ff">Retrieval:</b> vector search finds relevant chunks (unsupervised)<br>
+    2. <b style="color:#c0a0ff">Generation:</b> LLM generates response (supervised pre-training)<br>
+    3. <b style="color:#c0a0ff">Alignment:</b> RLHF ensures helpful responses (RL)<br><br>
+    The LLM you call (GPT-4, Claude) was trained with RLHF. When you evaluate RAG responses and give thumbs up/down — that IS the RLHF preference data collection process at the application level.<br><br>
+    <span class="tp">Your human feedback → reward signal → better responses</span>
+  </div></div>
+</div>
+
+<div class="code">
+# ══════════════════════════════════════════════════════════════
+# RLHF SIMPLIFIED IMPLEMENTATION — Educational
+# Shows the concepts: reward model + PPO training loop
+# (Production RLHF uses TRL library — see below)
+# ══════════════════════════════════════════════════════════════
+
+# ── Option 1: TRL library (Hugging Face) — Production RLHF ───
+from trl import PPOTrainer, PPOConfig, AutoModelForCausalLMWithValueHead
+from trl import RewardTrainer, DPOTrainer
+from transformers import AutoTokenizer
+import torch
+
+# Phase 1: SFT — fine-tune on demonstrations
+from trl import SFTTrainer
+from transformers import AutoModelForCausalLM, TrainingArguments
+
+model_name = "microsoft/phi-2"  # small model for example
+model = AutoModelForCausalLM.from_pretrained(model_name)
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+
+# Your demonstration dataset: (prompt, ideal_response) pairs
+# dataset = load_dataset("your_demonstrations")
+sft_trainer = SFTTrainer(
+    model=model,
+    train_dataset=dataset,  # your (prompt, response) pairs
+    dataset_text_field="text",
+    max_seq_length=512,
+    args=TrainingArguments(
+        output_dir="./sft_model",
+        num_train_epochs=3,
+        learning_rate=2e-5,
+        per_device_train_batch_size=4,
+    )
+)
+sft_trainer.train()  # Phase 1 complete
+
+# Phase 2: Reward Model — train on human preferences
+# dataset: {"chosen": response_A, "rejected": response_B}
+reward_model = AutoModelForCausalLM.from_pretrained("./sft_model")
+rm_trainer = RewardTrainer(
+    model=reward_model,
+    args=TrainingArguments(output_dir="./reward_model", num_train_epochs=1),
+    train_dataset=preference_dataset,  # (prompt, chosen, rejected) pairs
+    tokenizer=tokenizer,
+)
+rm_trainer.train()  # Phase 2 complete
+
+# Phase 3a: PPO — RL fine-tuning with reward model
+ppo_config = PPOConfig(
+    model_name="./sft_model",
+    learning_rate=1e-5,
+    batch_size=8,
+    mini_batch_size=2,
+    kl_penalty="kl",       # KL divergence penalty
+    target_kl=6.0,         # target KL from SFT model
+    init_kl_coef=0.2,      # β — KL penalty weight
+)
+ppo_model = AutoModelForCausalLMWithValueHead.from_pretrained("./sft_model")
+ppo_trainer = PPOTrainer(ppo_config, ppo_model, tokenizer=tokenizer)
+
+# Training loop
+for batch in ppo_trainer.dataloader:
+    query_tensors = batch["input_ids"]
+    # Generate responses with current policy
+    response_tensors = ppo_trainer.generate(query_tensors, max_new_tokens=100)
+    # Get reward scores from reward model
+    rewards = reward_model_score(responses)  # scalar per response
+    # PPO update
+    stats = ppo_trainer.step(query_tensors, response_tensors, rewards)
+    print(f"KL: {stats['objective/kl']:.3f}  Reward: {stats['ppo/mean_scores']:.3f}")
+
+# Phase 3b: DPO — Direct Preference Optimisation (simpler than PPO)
+# Skips reward model — trains directly on preferences
+dpo_trainer = DPOTrainer(
+    model=sft_model,
+    ref_model=sft_model_frozen,  # reference model (frozen SFT)
+    beta=0.1,                    # KL temperature
+    train_dataset=preference_dataset,  # (prompt, chosen, rejected)
+    tokenizer=tokenizer,
+    args=TrainingArguments(output_dir="./dpo_model", num_train_epochs=3)
+)
+dpo_trainer.train()  # Phase 2+3 in one step!
+
+# ── Azure OpenAI fine-tuning (handles RLHF internally) ────────
+from openai import AzureOpenAI
+
+client = AzureOpenAI(azure_endpoint="...", api_key="...", api_version="2024-05-01-preview")
+
+# Prepare training file (JSONL format)
+# Each line: {"messages": [{"role":"user","content":"..."}, {"role":"assistant","content":"..."}]}
+training_file = client.files.create(
+    file=open("training_data.jsonl", "rb"),
+    purpose="fine-tune"
+)
+# Create fine-tuning job (Azure handles SFT + RLHF internally)
+job = client.fine_tuning.jobs.create(
+    training_file=training_file.id,
+    model="gpt-4o-mini",       # base model
+    hyperparameters={"n_epochs": 3, "learning_rate_multiplier": 2}
+)
+print(f"Fine-tuning job: {job.id}")
+
+# Monitor
+import time
+while True:
+    status = client.fine_tuning.jobs.retrieve(job.id)
+    print(f"Status: {status.status}")
+    if status.status in ['succeeded','failed']: break
+    time.sleep(60)
+
+# Use fine-tuned model
+ft_model = status.fine_tuned_model
+response = client.chat.completions.create(
+    model=ft_model,
+    messages=[{"role":"user","content":"Your domain-specific question"}]
+)
+print(response.choices[0].message.content)</div>
+
+<div class="note note-g"><b>DPO vs PPO for your work:</b> If you are fine-tuning an LLM on Databricks with HuggingFace, use DPO — it is simpler, more stable, and gives results as good as PPO without needing a separate reward model. DPO just needs (prompt, chosen_response, rejected_response) triplets — you can collect these by having people rate your RAG outputs.</div>
+</div>
+
+<!-- ══ TAB 7: PRACTICE CODE ══ -->
+<div class="sec" id="S7">
+<div class="badge bg-b">COMPLETE PRACTICE CODE</div>
+<div class="h1">RL from Scratch — Complete Working Examples</div>
+<div class="sub">Q-Learning → DQN → PPO — built step by step with full explanations</div>
+<div class="code">
+# ══════════════════════════════════════════════════════════════
+# REINFORCEMENT LEARNING — Complete Practice Code
+# Level 1: Q-Learning from scratch (numpy only)
+# Level 2: DQN with PyTorch
+# Level 3: PPO with Stable-Baselines3
+# Level 4: Custom environment
+# ══════════════════════════════════════════════════════════════
+import numpy as np
+import random
+from collections import deque, namedtuple
+
+# ══════════════════════════════════════════════
+# LEVEL 1: Q-LEARNING FROM SCRATCH
+# Environment: FrozenLake (4×4 grid, reach goal)
+# ══════════════════════════════════════════════
+print("="*55)
+print("LEVEL 1: Q-LEARNING FROM SCRATCH")
+print("="*55)
+
+import gymnasium as gym
+
+env = gym.make('FrozenLake-v1', is_slippery=False)  # deterministic
+n_states  = env.observation_space.n   # 16 states (4×4 grid)
+n_actions = env.action_space.n        # 4 actions (left/down/right/up)
+print(f"States: {n_states}  Actions: {n_actions}")
+
+# Q-table: n_states × n_actions, initialised to 0
+Q = np.zeros((n_states, n_actions))
+
+# Hyperparameters
+alpha       = 0.8    # learning rate
+gamma       = 0.95   # discount factor
+epsilon     = 1.0    # exploration rate
+epsilon_min = 0.01
+epsilon_decay = 0.995
+n_episodes  = 2000
+
+rewards_per_episode = []
+
+for episode in range(n_episodes):
+    state, _ = env.reset()
+    total_reward = 0
+    done = False
+
+    while not done:
+        # ε-greedy action selection
+        if random.random() < epsilon:
+            action = env.action_space.sample()     # explore
+        else:
+            action = np.argmax(Q[state])           # exploit
+
+        # Take action, observe result
+        next_state, reward, terminated, truncated, _ = env.step(action)
+        done = terminated or truncated
+
+        # Bellman update (Q-Learning)
+        # Q(s,a) ← Q(s,a) + α[r + γ·max_a'Q(s',a') − Q(s,a)]
+        td_target = reward + gamma * np.max(Q[next_state]) * (not done)
+        td_error  = td_target - Q[state, action]
+        Q[state, action] += alpha * td_error
+
+        state = next_state
+        total_reward += reward
+
+    # Decay exploration
+    epsilon = max(epsilon_min, epsilon * epsilon_decay)
+    rewards_per_episode.append(total_reward)
+
+    if (episode+1) % 200 == 0:
+        avg = np.mean(rewards_per_episode[-100:])
+        print(f"  Episode {episode+1:5d}: avg reward (last 100) = {avg:.3f}  ε={epsilon:.3f}")
+
+print(f"\nFinal Q-table:")
+print(Q.round(3))
+print(f"Policy (best action per state): {Q.argmax(axis=1)}")
+actions = ['←','↓','→','↑']
+print(f"Human readable: {[actions[a] for a in Q.argmax(axis=1)]}")
+
+# ══════════════════════════════════════════════
+# LEVEL 2: DQN WITH PYTORCH
+# Environment: CartPole (balance a pole)
+# ══════════════════════════════════════════════
+print(f"\n{'='*55}")
+print("LEVEL 2: DQN WITH PYTORCH — CartPole")
+print("="*55)
+
+import torch
+import torch.nn as nn
+import torch.optim as optim
+
+# ── Q-Network ─────────────────────────────────
+class QNetwork(nn.Module):
+    def __init__(self, state_dim, action_dim, hidden=128):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(state_dim, hidden), nn.ReLU(),
+            nn.Linear(hidden, hidden),   nn.ReLU(),
+            nn.Linear(hidden, action_dim)
+        )
+    def forward(self, x):
+        return self.net(x)
+
+# ── Replay Buffer ─────────────────────────────
+class ReplayBuffer:
+    def __init__(self, capacity=10000):
+        self.buffer = deque(maxlen=capacity)
+    def push(self, s, a, r, s_, done):
+        self.buffer.append((s, a, r, s_, done))
+    def sample(self, batch_size):
+        batch = random.sample(self.buffer, batch_size)
+        s,a,r,s_,d = zip(*batch)
+        return (torch.FloatTensor(np.array(s)),
+                torch.LongTensor(a),
+                torch.FloatTensor(r),
+                torch.FloatTensor(np.array(s_)),
+                torch.FloatTensor(d))
+    def __len__(self): return len(self.buffer)
+
+# ── DQN Agent ─────────────────────────────────
+class DQNAgent:
+    def __init__(self, state_dim, action_dim):
+        self.action_dim  = action_dim
+        self.q_net       = QNetwork(state_dim, action_dim)   # online network
+        self.target_net  = QNetwork(state_dim, action_dim)   # target network
+        self.target_net.load_state_dict(self.q_net.state_dict())
+        self.optimizer   = optim.Adam(self.q_net.parameters(), lr=1e-3)
+        self.buffer      = ReplayBuffer(10000)
+        self.epsilon     = 1.0
+        self.gamma       = 0.99
+        self.batch_size  = 64
+        self.update_freq = 100  # target network update frequency
+
+    def act(self, state):
+        if random.random() < self.epsilon:
+            return random.randrange(self.action_dim)
+        with torch.no_grad():
+            return self.q_net(torch.FloatTensor(state)).argmax().item()
+
+    def train_step(self):
+        if len(self.buffer) < self.batch_size: return 0
+        s,a,r,s_,done = self.buffer.sample(self.batch_size)
+        # Current Q values
+        q_values = self.q_net(s).gather(1, a.unsqueeze(1)).squeeze()
+        # Target Q values (Double DQN: use online net to SELECT, target to EVALUATE)
+        with torch.no_grad():
+            next_actions = self.q_net(s_).argmax(1)
+            next_q = self.target_net(s_).gather(1, next_actions.unsqueeze(1)).squeeze()
+            target = r + self.gamma * next_q * (1 - done)
+        # Huber loss (more robust than MSE)
+        loss = nn.SmoothL1Loss()(q_values, target)
+        self.optimizer.zero_grad()
+        loss.backward()
+        nn.utils.clip_grad_norm_(self.q_net.parameters(), 10)  # gradient clipping
+        self.optimizer.step()
+        return loss.item()
+
+    def update_target(self):
+        self.target_net.load_state_dict(self.q_net.state_dict())
+
+# ── Training loop ─────────────────────────────
+env_cp  = gym.make('CartPole-v1')
+agent   = DQNAgent(state_dim=4, action_dim=2)
+rewards = []
+
+for episode in range(400):
+    state, _ = env_cp.reset()
+    total_reward = 0
+
+    for t in range(500):  # max 500 steps per episode
+        action = agent.act(state)
+        next_state, reward, terminated, truncated, _ = env_cp.step(action)
+        done = terminated or truncated
+        agent.buffer.push(state, action, reward, next_state, float(done))
+        loss = agent.train_step()
+        if (episode * 500 + t) % agent.update_freq == 0:
+            agent.update_target()
+        state = next_state
+        total_reward += reward
+        if done: break
+
+    # Decay epsilon
+    agent.epsilon = max(0.01, agent.epsilon * 0.995)
+    rewards.append(total_reward)
+
+    if (episode+1) % 50 == 0:
+        avg = np.mean(rewards[-50:])
+        print(f"  Episode {episode+1:4d}: avg reward={avg:.1f}  ε={agent.epsilon:.3f}")
+        if avg >= 450:
+            print(f"  ✓ SOLVED at episode {episode+1}!")
+            break
+
+# ══════════════════════════════════════════════
+# LEVEL 3: PPO WITH STABLE-BASELINES3
+# ══════════════════════════════════════════════
+print(f"\n{'='*55}")
+print("LEVEL 3: PPO WITH STABLE-BASELINES3")
+print("="*55)
+print("""
+# Install: pip install stable-baselines3[extra]
+
+from stable_baselines3 import PPO, SAC, DQN, A2C
+from stable_baselines3.common.env_util import make_vec_env
+from stable_baselines3.common.evaluation import evaluate_policy
+from stable_baselines3.common.callbacks import EvalCallback
+import gymnasium as gym
+
+# ── PPO on CartPole ────────────────────────────
+env = make_vec_env("CartPole-v1", n_envs=4)  # 4 parallel envs
+
+model = PPO(
+    "MlpPolicy",          # policy type: MlpPolicy (tabular), CnnPolicy (images)
+    env,
+    learning_rate=3e-4,
+    n_steps=2048,         # steps per update
+    batch_size=64,
+    n_epochs=10,          # PPO epochs per update
+    gamma=0.99,
+    gae_lambda=0.95,      # GAE parameter
+    clip_range=0.2,       # clipping parameter ε
+    ent_coef=0.0,         # entropy bonus for exploration
+    vf_coef=0.5,          # value function loss weight
+    verbose=1,
+    tensorboard_log="./tb_logs/"
+)
+
+# Training with evaluation callback
+eval_callback = EvalCallback(
+    gym.make("CartPole-v1"),
+    best_model_save_path="./best_model/",
+    eval_freq=5000,
+    n_eval_episodes=10,
+    deterministic=True,
+)
+model.learn(total_timesteps=100_000, callback=eval_callback)
+
+# Evaluate
+mean_reward, std_reward = evaluate_policy(model, gym.make("CartPole-v1"), n_eval_episodes=20)
+print(f"Mean reward: {mean_reward:.2f} ± {std_reward:.2f}")
+
+# ── SAC on continuous env (MuJoCo / LunarLander) ─
+env_cont = gym.make("LunarLanderContinuous-v2")
+sac_model = SAC(
+    "MlpPolicy", env_cont,
+    learning_rate=3e-4,
+    buffer_size=1_000_000,   # large replay buffer
+    learning_starts=1000,    # collect 1000 steps before training
+    batch_size=256,
+    tau=0.005,               # soft target update
+    gamma=0.99,
+    train_freq=1,
+    gradient_steps=1,
+    ent_coef='auto',         # automatic entropy tuning
+    verbose=1,
+)
+sac_model.learn(total_timesteps=200_000)
+mean_r, _ = evaluate_policy(sac_model, env_cont, n_eval_episodes=10)
+print(f"SAC LunarLander: {mean_r:.2f}")
+
+# ── Custom reward wrapper ─────────────────────
+import gymnasium as gym
+from gymnasium import Wrapper
+
+class RewardShapingWrapper(Wrapper):
+    def step(self, action):
+        obs, reward, terminated, truncated, info = self.env.step(action)
+        # Shape reward: bonus for staying near center
+        bonus = 1.0 - abs(obs[0])   # obs[0] = cart position
+        shaped_reward = reward + 0.1 * bonus
+        return obs, shaped_reward, terminated, truncated, info
+
+env_shaped = RewardShapingWrapper(gym.make("CartPole-v1"))
+ppo_shaped = PPO("MlpPolicy", env_shaped, verbose=0)
+ppo_shaped.learn(total_timesteps=50_000)
+""")
+
+# ══════════════════════════════════════════════
+# LEVEL 4: CUSTOM ENVIRONMENT
+# Build your own RL environment (Grid World)
+# ══════════════════════════════════════════════
+print(f"\n{'='*55}")
+print("LEVEL 4: CUSTOM GYMNASIUM ENVIRONMENT")
+print("="*55)
+print("""
+import gymnasium as gym
+from gymnasium import spaces
+import numpy as np
+
+class SimpleGridWorld(gym.Env):
+    '''5×5 grid world: agent starts at (0,0), goal at (4,4), holes cause -1 reward'''
+
+    metadata = {'render_modes': ['human']}
+
+    def __init__(self):
+        super().__init__()
+        self.grid_size = 5
+        self.observation_space = spaces.Discrete(self.grid_size**2)   # 25 states
+        self.action_space      = spaces.Discrete(4)                   # up/down/left/right
+        self.holes = {(1,1),(2,3),(3,2)}  # positions that give -1 reward
+        self.goal  = (4,4)
+
+    def reset(self, seed=None, options=None):
+        super().reset(seed=seed)
+        self.pos = (0, 0)
+        return self._state(), {}
+
+    def _state(self):
+        return self.pos[0] * self.grid_size + self.pos[1]
+
+    def step(self, action):
+        r, c = self.pos
+        moves = [(-1,0),(1,0),(0,-1),(0,1)]  # up/down/left/right
+        dr, dc = moves[action]
+        # Clip to grid boundaries
+        new_r = max(0, min(self.grid_size-1, r+dr))
+        new_c = max(0, min(self.grid_size-1, c+dc))
+        self.pos = (new_r, new_c)
+
+        if self.pos == self.goal:
+            return self._state(), 10.0, True, False, {}   # reached goal
+        elif self.pos in self.holes:
+            return self._state(), -1.0, False, False, {}  # hit hole
+        else:
+            return self._state(), -0.01, False, False, {} # small step penalty
+
+    def render(self):
+        grid = [['.' for _ in range(self.grid_size)] for _ in range(self.grid_size)]
+        for h in self.holes: grid[h[0]][h[1]] = 'H'
+        grid[self.goal[0]][self.goal[1]] = 'G'
+        grid[self.pos[0]][self.pos[1]] = 'A'
+        for row in grid: print(' '.join(row))
+        print()
+
+# Register and use with SB3
+from gymnasium.envs.registration import register
+register(id='SimpleGridWorld-v0', entry_point='__main__:SimpleGridWorld')
+
+env = SimpleGridWorld()
+from stable_baselines3 import PPO
+model = PPO("MlpPolicy", env, verbose=1)
+model.learn(total_timesteps=50_000)
+obs, _ = env.reset()
+for _ in range(20):
+    action, _ = model.predict(obs, deterministic=True)
+    obs, reward, done, _, _ = env.step(int(action))
+    env.render()
+    if done: break
+""")
+
+print("✅ Complete RL implementation guide done!")
+print("\n── LEARNING PATH ──")
+print("Week 1-2:  Q-Learning on FrozenLake/Taxi (understand Bellman equations)")
+print("Week 3-4:  DQN on CartPole/MountainCar (understand replay buffer + target net)")
+print("Week 5-6:  PPO with SB3 on various envs (understand actor-critic)")
+print("Week 7-8:  SAC on continuous control (understand entropy regularisation)")
+print("Week 9+:   RLHF concepts — read 'Learning to summarize from human feedback'")
+print("           (Stiennon et al., 2020) — the paper behind ChatGPT's training")</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const CH={};
+function mk(id,cfg){if(CH[id])CH[id].destroy();CH[id]=new Chart(document.getElementById(id),cfg);}
+
+function goTab(n){
+  for(var i=1;i<=7;i++) document.getElementById('S'+i).className='sec'+(i===n?' on':'');
+  document.querySelectorAll('.tab').forEach(function(t,i){t.className='tab'+(i===n-1?' on':'');});
+  if(n===1) drawOverview();
+  if(n===2) drawConcepts();
+  if(n===3) drawFamilies();
+  if(n===4) showRL('qlearn');
+}
+
+function drawOverview(){
+  const cats=['Game Playing','Robotics','Autonomous Vehicles','LLM Training (RLHF)','Resource Management','Recommendation','Trading','Drug Discovery'];
+  const maturity=[95,70,55,90,75,60,55,40];
+  const difficulty=[60,85,90,70,65,75,80,90];
+  mk('c1overview',{type:'bar',data:{labels:cats,datasets:[
+    {label:'Industry maturity (%)',data:maturity,backgroundColor:'rgba(80,232,128,0.75)',borderRadius:4},
+    {label:'Implementation difficulty (%)',data:difficulty,backgroundColor:'rgba(255,100,64,0.65)',borderRadius:4}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#c0d4ff',font:{size:10},boxWidth:12}}},scales:{x:{ticks:{color:'#8898b8',font:{size:8},maxRotation:25},grid:{color:'rgba(255,255,255,0.04)'}},y:{min:0,max:105,ticks:{color:'#8898b8',font:{size:9}},grid:{color:'rgba(255,255,255,0.05)'}}}}});
+}
+
+function drawConcepts(){
+  const eps=Array.from({length:100},(_,i)=>i+1);
+  const e_decay=eps.map(e=>Math.max(0.01,1.0*Math.pow(0.97,e)));
+  const e_const=eps.map(()=>0.1);
+  const reward_greedy=eps.map(e=>Math.min(1,0.02*e+0.3*(Math.random()-0.5)*0.1));
+  const reward_decay=eps.map(e=>Math.min(1,0.015*e+0.2+0.05*(Math.random()-0.5)));
+  mk('c2concepts',{type:'line',data:{labels:eps,datasets:[
+    {label:'ε (decaying)',data:e_decay,borderColor:'#ff9840',borderWidth:2,pointRadius:0,fill:false,yAxisID:'y2'},
+    {label:'ε (constant)',data:e_const,borderColor:'#ff604066',borderWidth:1,pointRadius:0,fill:false,borderDash:[4,3],yAxisID:'y2'},
+    {label:'Reward (decaying ε)',data:reward_decay,borderColor:'#50e880',borderWidth:2.5,pointRadius:0,fill:true,backgroundColor:'rgba(80,232,128,0.08)',yAxisID:'y'},
+    {label:'Reward (constant ε)',data:reward_greedy,borderColor:'#4080ff',borderWidth:1.5,pointRadius:0,fill:false,borderDash:[5,3],yAxisID:'y'}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#c0d4ff',font:{size:10},boxWidth:12}},title:{display:true,text:'ε-greedy exploration: decaying ε (green) learns faster than constant ε',color:'#c0d4ff',font:{size:10}}},scales:{x:{ticks:{color:'#8898b8',font:{size:9},maxTicksLimit:8},grid:{color:'rgba(255,255,255,0.04)'}},y:{min:0,max:1.1,title:{display:true,text:'Avg Reward',color:'#8898b8'},ticks:{color:'#8898b8',font:{size:9}},position:'left',grid:{color:'rgba(255,255,255,0.05)'}},y2:{min:0,max:1.1,title:{display:true,text:'Epsilon',color:'#ff9840'},ticks:{color:'#ff9840',font:{size:9}},position:'right',grid:{display:false}}}}});
+}
+
+function drawFamilies(){
+  const algos=['Q-Learning','SARSA','DQN','Double DQN','REINFORCE','PPO','A3C','SAC','TD3','DDPG','AlphaZero','MuZero'];
+  const stability=[60,65,72,80,45,90,75,88,85,65,92,90];
+  const sampleEff=[50,50,60,65,30,55,55,85,82,70,90,92];
+  const simplicity=[90,85,65,60,70,72,60,55,50,45,25,20];
+  mk('c3families',{type:'bar',data:{labels:algos,datasets:[
+    {label:'Stability',data:stability,backgroundColor:'rgba(80,232,128,0.72)',borderRadius:3},
+    {label:'Sample efficiency',data:sampleEff,backgroundColor:'rgba(64,128,255,0.65)',borderRadius:3},
+    {label:'Simplicity',data:simplicity,backgroundColor:'rgba(255,200,64,0.65)',borderRadius:3}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#c0d4ff',font:{size:10},boxWidth:12}}},scales:{x:{ticks:{color:'#8898b8',font:{size:8},maxRotation:30},grid:{color:'rgba(255,255,255,0.04)'}},y:{min:0,max:105,ticks:{color:'#8898b8',font:{size:9}},grid:{color:'rgba(255,255,255,0.05)'}}}}});
+}
+
+// Algorithm deep dives
+const rldefs={
+  qlearn:{name:'Q-Learning',color:'#ffc840',
+    formula:'Q(s,a) ← Q(s,a) + α·[r + γ·max_a\' Q(s\',a\') − Q(s,a)]   (Bellman update)',
+    type:'Model-Free | Value-Based | Off-Policy | Tabular',
+    how:'Maintains a Q-table (states × actions). For each (s,a,r,s\') transition, updates Q-value using the Bellman equation. The key: it uses max_a\' Q(s\',a\') — the best possible next action — making it off-policy (learns optimal policy regardless of exploration).',
+    when:'State and action spaces are small and discrete. Grid worlds, simple games. Learning the fundamentals of RL. When you want a Q-table you can read directly.',
+    notwhen:'Large/continuous state spaces. Images as input. Complex environments. Large action spaces.',
+    hyper:'α=learning rate (0.1-0.8), γ=discount (0.9-0.99), ε=exploration (decay from 1.0 to 0.01)',
+    insight:'The TD error (r + γ max Q(s\',a\') − Q(s,a)) is the prediction error — positive means the action was better than expected, negative means worse. This error drives all value-based learning.',
+    code:`env = gym.make('FrozenLake-v1', is_slippery=False)\nQ = np.zeros((16, 4))\nfor ep in range(1000):\n    s,_ = env.reset()\n    done = False\n    while not done:\n        a = env.action_space.sample() if random.random()<epsilon else Q[s].argmax()\n        s_, r, term, trunc, _ = env.step(a)\n        done = term or trunc\n        Q[s,a] += alpha*(r + gamma*Q[s_].max()*(not done) - Q[s,a])\n        s = s_`},
+
+  sarsa:{name:'SARSA (On-Policy TD)',color:'#ffc840',
+    formula:'Q(s,a) ← Q(s,a) + α·[r + γ·Q(s\',a\') − Q(s,a)]   a\' is the ACTUAL next action taken',
+    type:'Model-Free | Value-Based | On-Policy | Tabular',
+    how:'Like Q-Learning but uses the ACTUAL next action a\' instead of the best possible next action. This makes it on-policy — it learns the value of the policy it is currently following (including exploration). More conservative than Q-Learning.',
+    when:'Safety matters — learning on real systems where exploration must be conservative. SARSA stays on the safe side of cliffs; Q-Learning walks close to the edge because it assumes optimal behaviour.',
+    notwhen:'When sample efficiency matters most. Large state/action spaces.',
+    hyper:'Same as Q-Learning. On-policy means ε-greedy directly affects what Q values are learned.',
+    insight:'The classic "cliff walking" example: Q-Learning learns the optimal but dangerous path near the cliff (assuming perfect future behaviour). SARSA learns the safer longer path (accounting for ε-greedy exploration that might cause falling).',
+    code:`# SARSA: use actual next action, not max\nfor ep in range(1000):\n    s,_ = env.reset()\n    a = eps_greedy(Q, s, epsilon)  # choose first action\n    done = False\n    while not done:\n        s_, r, term, trunc, _ = env.step(a)\n        a_ = eps_greedy(Q, s_, epsilon)  # choose ACTUAL next action\n        Q[s,a] += alpha*(r + gamma*Q[s_,a_]*(not term) - Q[s,a])\n        s, a = s_, a_\n        done = term or trunc`},
+
+  dqn:{name:'DQN — Deep Q-Network',color:'#70c0ff',
+    formula:'Q(s,a;θ) ← neural net   Loss = E[(r+γ·max_a\'Q(s\',a\';θ⁻) − Q(s,a;θ))²]',
+    type:'Model-Free | Value-Based | Off-Policy | Deep Learning',
+    how:'Replaces Q-table with a neural network Q(s,a;θ). Two key innovations: (1) Experience Replay — store (s,a,r,s\') in buffer, sample random mini-batches to break correlations. (2) Target Network — use separate frozen network Q(s\',a\';θ⁻) for targets, update slowly. These two tricks make neural Q-learning stable.',
+    when:'Large/continuous state spaces (images, raw pixels). Atari games. When tabular Q-learning is infeasible.',
+    notwhen:'Continuous action spaces (cannot take argmax over infinite actions). Very large action spaces.',
+    hyper:'lr=1e-4, γ=0.99, buffer_size=100k-1M, batch=32-64, target_update_freq=100-1000, ε decay',
+    insight:'Without experience replay, consecutive transitions are highly correlated — neural net forgets previous data. Without target network, the target Q-value changes every step creating a moving target — training becomes unstable. These two tricks make the training stable enough to learn.',
+    code:`class DQN(nn.Module):\n    def __init__(self, in_dim, out_dim):\n        super().__init__()\n        self.net = nn.Sequential(\n            nn.Linear(in_dim,128), nn.ReLU(),\n            nn.Linear(128,128),   nn.ReLU(),\n            nn.Linear(128,out_dim)\n        )\n    def forward(self,x): return self.net(x)\n\n# Key: two networks + replay buffer\nq_net = DQN(state_dim, action_dim)\ntarget_net = DQN(state_dim, action_dim)\ntarget_net.load_state_dict(q_net.state_dict())\nbuffer = ReplayBuffer(100000)`},
+
+  reinforce:{name:'REINFORCE (Policy Gradient)',color:'#50e880',
+    formula:'∇θ J(θ) = E_π[∇θ log π(a|s;θ) · Gₜ]   Update: θ ← θ + α·∇θJ(θ)',
+    type:'Model-Free | Policy Gradient | On-Policy',
+    how:'Directly parametrises and optimises the policy π(a|s;θ). For each complete episode, computes the return Gₜ for each step. Updates parameters to increase probability of actions that led to high returns. Monte Carlo — uses full episode returns, so very high variance.',
+    when:'Continuous action spaces. When you need a stochastic policy. Simple environments for learning policy gradient concepts.',
+    notwhen:'Complex environments with sparse rewards. When low variance is needed (use Actor-Critic). When sample efficiency matters.',
+    hyper:'lr=1e-3 to 1e-4, γ=0.99, baseline (subtract value baseline to reduce variance)',
+    insight:'The key insight: ∇log π(a|s) points in the direction that increases the probability of action a. Multiplying by the return Gₜ means we push toward actions that had high returns. This is the policy gradient theorem.',
+    code:`class PolicyNet(nn.Module):\n    def __init__(self, s_dim, a_dim):\n        super().__init__()\n        self.net = nn.Sequential(\n            nn.Linear(s_dim,128), nn.ReLU(),\n            nn.Linear(128,a_dim), nn.Softmax(dim=-1))\n    def forward(self,x): return self.net(x)\n\n# REINFORCE update\nfor ep in range(1000):\n    states,actions,rewards = rollout(policy, env)\n    returns = compute_returns(rewards, gamma=0.99)\n    log_probs = [torch.log(policy(s)[a]) for s,a in zip(states,actions)]\n    loss = -sum(lp*G for lp,G in zip(log_probs,returns))\n    optimizer.zero_grad(); loss.backward(); optimizer.step()`},
+
+  ppo:{name:'PPO — Proximal Policy Optimisation',color:'#50e880',
+    formula:'L^CLIP(θ) = E[min(rₜ(θ)·Âₜ, clip(rₜ(θ), 1-ε, 1+ε)·Âₜ)]   rₜ=π(a|s;θ)/π(a|s;θ_old)',
+    type:'Model-Free | Actor-Critic | On-Policy',
+    how:'Improves on REINFORCE by limiting how much the policy changes per update. The clipped ratio rₜ(θ) = π_new(a|s)/π_old(a|s) measures policy change. If the ratio goes outside [1-ε, 1+ε], the clip cuts off the gradient — preventing large destabilising updates. Uses Generalised Advantage Estimation (GAE) to reduce variance.',
+    when:'Most practical RL problems. RLHF for LLMs. Robotics. Games. When stability is more important than sample efficiency. The default choice for most tasks.',
+    notwhen:'When off-policy and sample efficiency are critical (use SAC). When memory is limited.',
+    hyper:'clip_ε=0.2, lr=3e-4, n_steps=2048, batch=64, n_epochs=10, γ=0.99, gae_λ=0.95, ent_coef=0.01',
+    insight:'The clip is the key innovation: it prevents the policy from changing too much in one update (which would destabilise training) while still allowing meaningful improvement. PPO is simpler and more robust than TRPO while achieving similar performance.',
+    code:`from stable_baselines3 import PPO\nfrom stable_baselines3.common.env_util import make_vec_env\n\nenv = make_vec_env("CartPole-v1", n_envs=4)\nmodel = PPO(\n    "MlpPolicy", env,\n    learning_rate=3e-4,\n    n_steps=2048,         # steps per env before update\n    batch_size=64,\n    n_epochs=10,          # PPO epochs\n    clip_range=0.2,       # ε — clipping threshold\n    gae_lambda=0.95,\n    ent_coef=0.01,        # exploration bonus\n    verbose=1\n)\nmodel.learn(total_timesteps=100_000)\nmean_r,_ = evaluate_policy(model, env, n_eval_episodes=20)\nprint(f"Mean reward: {mean_r:.1f}")`},
+
+  a3c:{name:'A3C / A2C — Advantage Actor-Critic',color:'#50e880',
+    formula:'Actor loss: −log π(a|s)·Â(s,a)   Critic loss: (Vₜ − V(s))²   Â = Gₜ − V(s)',
+    type:'Model-Free | Actor-Critic | On-Policy',
+    how:'Separates the policy (Actor) from the value function (Critic). Actor learns π(a|s;θ). Critic learns V(s;w). Advantage Â = actual return − predicted value guides actor updates. A3C (Asynchronous) runs multiple workers in parallel updating a shared network. A2C (Synchronous) waits for all workers before updating.',
+    when:'When parallel training is available. Training speed is critical. When you want to understand the Actor-Critic architecture that underlies most modern RL.',
+    notwhen:'Off-policy needed. When synchronisation overhead is problematic. When PPO (which is generally better) is available.',
+    hyper:'lr=7e-4, γ=0.99, n_workers=8-16, n_steps=5-20 (per worker), entropy_coef=0.01',
+    insight:'The Advantage function Â(s,a) = Q(s,a) − V(s) measures how much better action a was than average. This is the key quantity: positive advantage = good action (reinforce it). Negative advantage = bad action (discourage it). A2C is simpler and just as good as A3C on most tasks.',
+    code:`from stable_baselines3 import A2C\nimport gymnasium as gym\n\nenv = gym.make("CartPole-v1")\nmodel = A2C(\n    "MlpPolicy", env,\n    learning_rate=7e-4,\n    gamma=0.99,\n    n_steps=5,            # update every 5 steps\n    ent_coef=0.0,\n    vf_coef=0.5,\n    gae_lambda=1.0,\n    verbose=1\n)\nmodel.learn(total_timesteps=50_000)\nmean_r,_ = evaluate_policy(model,env,n_eval_episodes=10)\nprint(f"A2C CartPole: {mean_r:.1f}")`},
+
+  sac:{name:'SAC — Soft Actor-Critic',color:'#c0a0ff',
+    formula:'J(π) = E[Σ γᵗ(r(sₜ,aₜ) + α·H(π(·|sₜ)))]   maximise reward + entropy',
+    type:'Model-Free | Actor-Critic | Off-Policy | Maximum Entropy',
+    how:'Off-policy actor-critic that maximises both reward AND entropy H(π). The entropy term α·H(π) encourages exploration — the policy is rewarded for being uncertain. Uses two Q-networks (twin critics) to reduce overestimation bias. Automatic entropy tuning adjusts α during training. Replay buffer for sample efficiency.',
+    when:'Continuous action spaces. Robotics. MuJoCo locomotion. When sample efficiency is important. Most stable continuous control algorithm.',
+    notwhen:'Discrete action spaces (use DQN). When on-policy is required. Simple problems where PPO suffices.',
+    hyper:'lr=3e-4, γ=0.99, τ=0.005 (soft update), batch=256, buffer=1M, ent_coef="auto"',
+    insight:'Maximum entropy RL is a different objective: instead of just maximising reward, the agent also wants to be as random as possible. This naturally encourages exploration and prevents premature convergence to suboptimal deterministic policies. The temperature α controls the exploration-exploitation trade-off.',
+    code:`from stable_baselines3 import SAC\nimport gymnasium as gym\n\nenv = gym.make("LunarLanderContinuous-v2")\nmodel = SAC(\n    "MlpPolicy", env,\n    learning_rate=3e-4,\n    buffer_size=1_000_000,  # large replay buffer\n    learning_starts=1000,   # warm up with random actions\n    batch_size=256,\n    tau=0.005,              # soft target update\n    gamma=0.99,\n    ent_coef="auto",        # automatic entropy tuning\n    target_update_interval=1,\n    verbose=1\n)\nmodel.learn(total_timesteps=300_000)\nmean_r,_ = evaluate_policy(model, env, n_eval_episodes=10)\nprint(f"SAC LunarLander: {mean_r:.1f}")`},
+
+  td3:{name:'TD3 — Twin Delayed Deep Deterministic',color:'#c0a0ff',
+    formula:'Deterministic policy μ(s;θ). Twin critics Q₁,Q₂. Target = r + γ·min(Q₁,Q₂)(s\',μ(s\')+ε)',
+    type:'Model-Free | Actor-Critic | Off-Policy | Deterministic',
+    how:'Addresses three failure modes of DDPG: (1) Overestimation bias — use two critics, take minimum. (2) High variance — delay policy updates (update actor every 2 critic updates). (3) Action noise — add clipped noise to target actions for smoothing. Deterministic policy with added exploration noise.',
+    when:'Continuous control. Robotics. When slightly better performance than SAC needed. MuJoCo benchmarks.',
+    notwhen:'Discrete actions. When SAC (stochastic) stability is preferred.',
+    hyper:'policy_delay=2, target_policy_noise=0.2, noise_clip=0.5, lr=3e-4, batch=256',
+    insight:'The twin critics trick: both Q₁ and Q₂ are trained independently, but we use min(Q₁,Q₂) for updates. Since each network overestimates in different ways, taking the minimum removes the upward bias. This single trick dramatically improves stability.',
+    code:`from stable_baselines3 import TD3\nfrom stable_baselines3.common.noise import NormalActionNoise\nimport gymnasium as gym, numpy as np\n\nenv = gym.make("Pendulum-v1")\nn_actions = env.action_space.shape[-1]\n# Exploration noise\naction_noise = NormalActionNoise(\n    mean=np.zeros(n_actions), sigma=0.1*np.ones(n_actions))\nmodel = TD3(\n    "MlpPolicy", env,\n    action_noise=action_noise,\n    policy_delay=2,            # update actor every 2 critic steps\n    target_policy_noise=0.2,   # smooth target actions\n    noise_clip=0.5,\n    verbose=1\n)\nmodel.learn(total_timesteps=100_000)`},
+
+  alphazero:{name:'AlphaZero — MCTS + Self-Play',color:'#ff7070',
+    formula:'π(a|s) = N(s,a)^(1/τ) / ΣN(s,a\')\nUCT: Q(s,a) + c·P(s,a)·√N(s) / (1+N(s,a))',
+    type:'Model-Based | MCTS | Off-Policy | Self-Play',
+    how:'Combines Monte Carlo Tree Search (MCTS) with a deep neural network. The network outputs: (1) policy prior P(s,a) — probability over moves. (2) value V(s) — probability of winning. MCTS uses these to guide search: UCT formula balances exploitation (Q) + exploration (prior). Self-play generates training data without human games.',
+    when:'Perfect information games where rules are known (Chess, Go, Shogi). When you can simulate the environment perfectly. World-class game playing.',
+    notwhen:'Partial information games. When simulation is expensive. Real-world applications (too slow).',
+    hyper:'n_simulations=800 (MCTS per move), c_puct=1.0 (exploration), temp τ (1.0 then 0 after move 30)',
+    insight:'AlphaZero discovers strategies that no human conceived — because it has no human bias. It plays millions of games against itself, continuously improving. The MCTS guides the neural network and the neural network guides the MCTS — a virtuous cycle that produces superhuman play.',
+    code:`# AlphaZero is complex — use existing implementations\n# pip install alpha-zero-general  (general framework)\n# or chess-zero, leela-chess-zero for specific games\n\n# Simplified MCTS concept:\nclass MCTSNode:\n    def __init__(self, state, prior_prob):\n        self.Q = 0          # mean action value\n        self.N = 0          # visit count\n        self.P = prior_prob # neural net prior\n    def ucb_score(self, parent_N, c=1.0):\n        return self.Q + c * self.P * np.sqrt(parent_N) / (1 + self.N)\n\n# In training:\n# 1. MCTS simulation using current neural net\n# 2. Play move according to MCTS visit counts\n# 3. Record (state, MCTS_policy, game_outcome)\n# 4. Train neural net to predict MCTS policy and game outcome\n# 5. Repeat with improved neural net`}
+};
+
+function showRL(key){
+  document.querySelectorAll('#rl-btns .abtn').forEach(b=>b.classList.remove('on'));
+  event&&event.target&&event.target.classList.add('on');
+  const a=rldefs[key];
+  if(!a) return;
+  document.getElementById('rl-detail').innerHTML=`
+    <div class="algo-card" style="border-color:${a.color}44;">
+      <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:6px;">
+        <span class="algo-name" style="color:${a.color}">${a.name}</span>
+        <span style="font-size:10px;color:#8898b8;font-weight:400">${a.type}</span>
+      </div>
+      <div class="algo-formula">${a.formula}</div>
+      <div class="g2" style="margin-bottom:8px;">
+        <div>
+          <div class="algo-section">How it works</div>
+          <div class="algo-body">${a.how}</div>
+          <div class="algo-section" style="margin-top:7px;color:#60e880">✓ Use when</div>
+          <div class="algo-body" style="color:#80c898">${a.when}</div>
+          <div class="algo-section" style="margin-top:7px;color:#ff7070">✗ Do NOT use when</div>
+          <div class="algo-body" style="color:#e89090">${a.notwhen}</div>
+          <div class="algo-section" style="margin-top:7px;">Key insight</div>
+          <div class="algo-body" style="color:#d8c080">${a.insight}</div>
+        </div>
+        <div>
+          <div class="algo-section">Key hyperparameters</div>
+          <div class="algo-body" style="color:#d8a860">${a.hyper}</div>
+          <div class="algo-section" style="margin-top:7px;">Quick code</div>
+          <div class="code" style="font-size:10px;padding:8px;">${a.code}</div>
+        </div>
+      </div>
+    </div>`;
+}
+
+drawOverview();
+</script>
+</body>
+</html>

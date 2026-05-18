@@ -1,0 +1,1317 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html,body{background:#12141c !important;color:#f0f0f0 !important;font-family:Arial,sans-serif;font-size:13px;margin:0;padding:8px;}
+*{box-sizing:border-box;}
+.nav{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:14px;}
+.tab{background:#1e2235;color:#b0c4f8;border:2px solid #3a4870;border-radius:7px;padding:8px 3px;font-size:9.5px;font-weight:700;cursor:pointer;text-align:center;line-height:1.4;}
+.tab.on{background:#1a5cb8;color:#fff;border-color:#5090ff;}
+.sec{display:none;}.sec.on{display:block;}
+.h1{font-size:16px;font-weight:700;color:#fff;margin-bottom:3px;}
+.sub{font-size:12px;color:#8898bb;margin-bottom:12px;}
+.badge{display:inline-block;color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;margin-bottom:8px;}
+.bg-b{background:#1a5cb8;}.bg-g{background:#1a7a3a;}.bg-r{background:#8a2020;}.bg-y{background:#7a5800;}.bg-p{background:#5a30a0;}.bg-t{background:#0a6070;}.bg-o{background:#7a3800;}
+.sl{font-size:13px;font-weight:700;color:#78aaff;margin:12px 0 7px 0;padding-bottom:4px;border-bottom:1px solid #2a3860;}
+.divider{height:1px;background:#2a3860;margin:10px 0;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px;}
+.card{background:#1a1e30;border:1px solid #2e3858;border-radius:8px;padding:11px;}
+.card .t{font-size:13px;font-weight:700;color:#c0d4ff;margin-bottom:5px;}
+.card .b{font-size:12px;color:#9aaac8;line-height:1.65;}
+.card-b{background:#0c1e38;border-color:#1e5090;}.card-b .t{color:#70c0ff;}.card-b .b{color:#90b8e8;}
+.card-g{background:#081c10;border-color:#1a6030;}.card-g .t{color:#50e880;}.card-g .b{color:#80c898;}
+.card-r{background:#200a0a;border-color:#702020;}.card-r .t{color:#ff7070;}.card-r .b{color:#e89090;}
+.card-y{background:#1e1600;border-color:#6a5000;}.card-y .t{color:#ffc840;}.card-y .b{color:#d8a860;}
+.card-p{background:#140c28;border-color:#4a30a0;}.card-p .t{color:#c0a0ff;}.card-p .b{color:#a888e8;}
+.card-o{background:#1e0c00;border-color:#6a3000;}.card-o .t{color:#ff9840;}.card-o .b{color:#d88040;}
+.note{border-left:4px solid #4080ff;background:#0c1e3a;color:#b0ccf8;padding:9px 13px;border-radius:0 7px 7px 0;margin:8px 0;font-size:12px;line-height:1.6;}
+.note b{color:#fff;}
+.note-g{border-left-color:#30c860;background:#081c10;color:#90e8a8;}.note-g b{color:#60ff90;}
+.note-r{border-left-color:#e03030;background:#200808;color:#f09090;}.note-r b{color:#ff8080;}
+.note-y{border-left-color:#e0a000;background:#1c1200;color:#e8c860;}.note-y b{color:#ffe060;}
+.note-p{border-left-color:#9070e0;background:#140c28;color:#c8b0ff;}.note-p b{color:#d8c8ff;}
+.code{background:#080a10;border:1px solid #2a3460;border-radius:6px;padding:11px 13px;font-family:'Courier New',monospace;font-size:11px;color:#d8e8ff;line-height:1.8;white-space:pre-wrap;margin:8px 0;}
+.tg{display:inline-block;background:#0a2c14;color:#50e870;border:1px solid #208040;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin:2px;}
+.tr{display:inline-block;background:#2c0a0a;color:#ff7070;border:1px solid #802020;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin:2px;}
+.tb{display:inline-block;background:#0a1e3c;color:#60b0ff;border:1px solid #204880;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin:2px;}
+.ty{display:inline-block;background:#241800;color:#ffc040;border:1px solid #806000;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin:2px;}
+.tp{display:inline-block;background:#1a0830;color:#c0a0ff;border:1px solid #5030a0;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin:2px;}
+.to{display:inline-block;background:#1e0c00;color:#ff9840;border:1px solid #6a3000;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin:2px;}
+table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:10px;}
+th{background:#1a1e30;color:#78aaff;font-weight:700;padding:7px 8px;text-align:left;border-bottom:1px solid #2e3858;}
+td{padding:5px 8px;border-bottom:1px solid #1e2438;color:#c0cce8;vertical-align:top;}
+tr:hover td{background:#1a2040;}
+/* Week card */
+.wk{background:#1a1e30;border-radius:10px;border:1.5px solid #2e3858;margin-bottom:12px;overflow:hidden;}
+.wk-header{display:flex;align-items:center;gap:10px;padding:10px 14px;}
+.wk-num{min-width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;flex-shrink:0;}
+.wk-title{font-size:14px;font-weight:700;color:#fff;}
+.wk-sub{font-size:11px;color:#8898b8;margin-top:1px;}
+.wk-body{padding:0 14px 12px 14px;}
+.day-row{display:flex;gap:8px;margin-bottom:7px;align-items:flex-start;}
+.day-label{min-width:90px;font-size:11px;font-weight:700;padding:3px 8px;border-radius:5px;text-align:center;flex-shrink:0;margin-top:1px;}
+.day-content{font-size:11px;color:#9aaac8;line-height:1.65;flex:1;}
+.day-content b{color:#c0d4ff;}
+.day-content .aws{color:#ff9840;font-weight:700;}
+.milestone{background:#081c10;border:1px solid #1a6030;border-radius:6px;padding:6px 10px;margin-top:6px;font-size:11px;color:#60e880;}
+.milestone b{color:#80ffb0;}
+.checkpoint{background:#0c1e38;border:1px solid #1e5090;border-radius:6px;padding:6px 10px;margin-top:6px;font-size:11px;color:#70c0ff;}
+.checkpoint b{color:#a0e0ff;}
+.resource-pill{display:inline-block;background:#140c28;color:#c0a0ff;border:1px solid #4a30a0;font-size:10px;padding:2px 8px;border-radius:10px;margin:2px;font-weight:600;}
+.aws-pill{display:inline-block;background:#1e0c00;color:#ff9840;border:1px solid #6a3000;font-size:10px;padding:2px 8px;border-radius:10px;margin:2px;font-weight:600;}
+.proj-card{background:#1a1e30;border:1.5px solid #2e3858;border-radius:8px;padding:11px;margin-bottom:8px;}
+.proj-title{font-size:12px;font-weight:700;color:#ffc840;margin-bottom:4px;}
+.proj-body{font-size:11px;color:#9aaac8;line-height:1.65;}
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:5px;}
+.bar-label{min-width:150px;font-size:11px;color:#c0cce8;}
+.bar-track{flex:1;height:10px;background:#1a1e30;border-radius:5px;overflow:hidden;}
+.bar-fill{height:10px;border-radius:5px;}
+.bar-val{min-width:36px;font-size:11px;font-weight:700;color:#fff;text-align:right;}
+.week-btn{background:#1a1e30;color:#90b8e8;border:1px solid #2e3858;border-radius:6px;padding:5px 10px;font-size:11px;font-weight:700;cursor:pointer;margin:3px;}
+.week-btn.on{background:#1a5cb8;color:#fff;border-color:#5090ff;}
+</style>
+</head>
+<body>
+
+<div class="nav" id="NAV">
+  <div class="tab on" onclick="goTab(1)">Overview + Your Edge</div>
+  <div class="tab"    onclick="goTab(2)">Weeks 1–2: Math Foundations</div>
+  <div class="tab"    onclick="goTab(3)">Weeks 3–4: Core ML</div>
+  <div class="tab"    onclick="goTab(4)">Weeks 5–6: Algorithms</div>
+  <div class="tab"    onclick="goTab(5)">Weeks 7–8: Evaluation + EDA</div>
+  <div class="tab"    onclick="goTab(6)">Weekend Projects</div>
+  <div class="tab"    onclick="goTab(7)">Resources + Checklist</div>
+</div>
+
+<!-- ══ TAB 1: OVERVIEW ══ -->
+<div class="sec on" id="S1">
+<div class="badge bg-b">PHASE 1 — MATH + ML FOUNDATIONS</div>
+<div class="h1">Your Personalised 8-Week Study Plan</div>
+<div class="sub">Built specifically for an AWS Data Engineer transitioning to Databricks + Azure ML</div>
+
+<div class="note"><b>Your starting advantage:</b> You already understand distributed computing, data pipelines, S3/Delta storage, SQL, Python, and ETL design. This gives you a 4–6 week head start over someone starting from scratch. You do NOT need to re-learn Python, data structures, or how databases work. You jump straight into the math and ML-specific concepts.</div>
+
+<div class="sl">What you already know vs what you need to learn</div>
+<div class="g2">
+  <div class="card card-g">
+    <div class="t">✓ Your AWS/DE strengths — keep these, extend them</div>
+    <div class="b">
+      <span class="tg">Strong</span> Python (pandas, numpy basics, PySpark)<br>
+      <span class="tg">Strong</span> SQL and data modelling<br>
+      <span class="tg">Strong</span> Pipeline design (ETL, batch, streaming)<br>
+      <span class="tg">Strong</span> S3, Delta Lake, distributed storage<br>
+      <span class="tg">Strong</span> Data quality thinking (nulls, types, schemas)<br>
+      <span class="tg">Strong</span> Cloud architecture (IAM, VPCs, orchestration)<br>
+      <span class="tg">Good</span> Statistical thinking (aggregations, distributions from SQL)<br>
+      <span class="tg">Good</span> Performance tuning (partitioning = feature engineering mindset)<br><br>
+      <b style="color:#80ffb0">These directly transfer to ML — your data pipeline skills = feature engineering skills</b>
+    </div>
+  </div>
+  <div class="card card-r">
+    <div class="t">✗ What you need to build — the actual gaps</div>
+    <div class="b">
+      <span class="tr">Gap</span> Linear algebra (vectors, matrices, eigenvalues)<br>
+      <span class="tr">Gap</span> Calculus (derivatives, chain rule, gradient)<br>
+      <span class="tr">Gap</span> Probability theory (distributions, Bayes, MLE)<br>
+      <span class="tr">Gap</span> Loss functions and optimisation<br>
+      <span class="tr">Gap</span> Bias-variance tradeoff<br>
+      <span class="tr">Gap</span> sklearn API and ML Pipeline patterns<br>
+      <span class="tr">Gap</span> Model evaluation (AUC, F1, residuals)<br>
+      <span class="tr">Gap</span> Feature engineering FOR ML (not just for reporting)<br><br>
+      <b style="color:#ff9090">These 8 gaps are exactly what Phase 1 covers — nothing else</b>
+    </div>
+  </div>
+</div>
+
+<div class="sl">Phase 1 overview — 8 weeks, 3 hours/day</div>
+<div style="position:relative;height:200px;margin-bottom:12px;"><canvas id="c1plan"></canvas></div>
+
+<div class="sl">Daily schedule — non-negotiable structure</div>
+<div class="g3">
+  <div class="card card-b">
+    <div class="t">⏰ Morning — Theory (60–75 min)</div>
+    <div class="b">
+      Study one concept deeply. Read, watch, take notes. No coding yet — just understand the math and intuition. Use 3Blue1Brown, StatQuest, or the textbook chapter.<br><br>
+      <b style="color:#70c0ff">Rule:</b> Can you explain it to someone with no ML background using an analogy? If yes — you understood it. If no — re-read.<br><br>
+      Best time: 6–7:30 AM before work distraction
+    </div>
+  </div>
+  <div class="card card-g">
+    <div class="t">💻 Evening — Code (60–75 min)</div>
+    <div class="b">
+      Implement the morning's concept in Python/numpy. No copy-paste — type everything. Then deliberately break it and fix it.<br><br>
+      <b style="color:#50e880">Rule:</b> Always run the code on a REAL dataset (sklearn built-ins). Synthetic data hides real issues.<br><br>
+      Best time: After dinner, 8–9:30 PM
+    </div>
+  </div>
+  <div class="card card-y">
+    <div class="t">📝 Before bed — Review (15 min)</div>
+    <div class="b">
+      Write 3 sentences: what did I learn today, one analogy for it, and one question I still have. This activates active recall and spaced repetition.<br><br>
+      <b style="color:#ffd060">Rule:</b> If you cannot write 3 sentences about it, you did not actually learn it — redo tomorrow morning.<br><br>
+      Keep a learning journal — one page per concept
+    </div>
+  </div>
+</div>
+
+<div class="sl">How your AWS experience maps to ML concepts</div>
+<table>
+<tr><th>What you know in AWS/DE</th><th>ML equivalent</th><th>Why it helps</th></tr>
+<tr><td>ETL pipeline stages</td><td>ML Pipeline (sklearn Pipeline)</td><td>Same concept — transform data step by step without leakage</td></tr>
+<tr><td>S3 partitioning strategy</td><td>Feature engineering / binning</td><td>Partitioning = choosing how to group data = feature design</td></tr>
+<tr><td>Data quality checks</td><td>EDA + cleaning + missing value handling</td><td>Same mindset — find and fix data problems before processing</td></tr>
+<tr><td>GROUP BY aggregations</td><td>Feature engineering (GroupBy mean, std, count)</td><td>Aggregated features ARE GroupBy operations</td></tr>
+<tr><td>JOIN operations</td><td>Feature store joins</td><td>Joining feature tables = feature engineering at scale</td></tr>
+<tr><td>Monitoring CloudWatch</td><td>MLflow experiment tracking</td><td>Both track metrics over time to find problems</td></tr>
+<tr><td>Lambda functions</td><td>Model serving / inference endpoints</td><td>Stateless function: input → output = prediction service</td></tr>
+<tr><td>SQS/Kinesis streaming</td><td>Online learning / streaming inference</td><td>Process records one at a time = streaming ML</td></tr>
+<tr><td>A/B testing deployments</td><td>Model A/B testing, champion-challenger</td><td>Identical concept — route traffic, measure metrics</td></tr>
+<tr><td>Step Functions orchestration</td><td>ML training pipelines / Databricks Jobs</td><td>DAG of tasks = ML pipeline stages</td></tr>
+</table>
+
+<div class="note note-g"><b>The mindset shift you need to make:</b> As a data engineer you optimise for throughput, latency, and data quality. As an ML engineer you optimise for model accuracy, generalisation, and prediction quality. The tools change (sklearn, PyTorch instead of Spark, Glue) but the systematic, quality-first thinking is identical.</div>
+</div>
+
+<!-- ══ TAB 2: WEEKS 1-2 ══ -->
+<div class="sec" id="S2">
+<div class="badge bg-b">WEEKS 1–2 — MATH FOUNDATIONS</div>
+<div class="h1">Linear Algebra + Calculus + Probability</div>
+<div class="sub">The mathematical engine behind every ML algorithm</div>
+
+<div class="note note-y"><b>Don't panic about the math.</b> You don't need a PhD. You need enough to understand WHY gradient descent works, WHY we scale features, and WHY we use log loss. The goal is intuition + ability to read papers/docs, not theorem proving.</div>
+
+<!-- WEEK 1 -->
+<div class="wk">
+  <div class="wk-header">
+    <div class="wk-num" style="background:#1a5cb8">W1</div>
+    <div>
+      <div class="wk-title">Week 1 — Vectors, Matrices + Derivatives</div>
+      <div class="wk-sub">Linear algebra fundamentals + calculus basics that drive ML</div>
+    </div>
+  </div>
+  <div class="wk-body">
+
+    <div class="day-row">
+      <div class="day-label" style="background:#0c1e38;color:#70c0ff">MON<br>Theory</div>
+      <div class="day-content">
+        <b>Vectors and dot products</b> — what a vector IS (a list of numbers representing a point in space), dot product a·b = Σaᵢbᵢ, geometric meaning (projection), cosine similarity.<br>
+        <span class="aws">AWS link:</span> Your S3 file has 30 feature columns → it is a 30-dimensional vector. Distance between two customer rows = distance in 30D space.<br>
+        <span class="resource-pill">3Blue1Brown: Essence of Linear Algebra Ch1-2</span>
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#0c1e38;color:#70c0ff">MON<br>Code</div>
+      <div class="day-content">
+<div class="code">
+import numpy as np
+
+# Vectors
+a = np.array([3, 4, 0])
+b = np.array([1, 2, 2])
+
+# Dot product — manually and with numpy
+dot_manual = sum(a[i]*b[i] for i in range(len(a)))
+dot_numpy   = np.dot(a, b)
+print(f"Dot product: {dot_manual} = {dot_numpy}")
+
+# L2 norm (magnitude)
+norm_a = np.sqrt(np.sum(a**2))
+print(f"||a|| = {norm_a:.4f}")  # same as np.linalg.norm(a)
+
+# Cosine similarity (angle between vectors)
+cos_sim = np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
+print(f"Cosine similarity: {cos_sim:.4f}")
+# This is exactly what vector search in RAG computes!
+
+# Real data: feature vector from breast cancer dataset
+from sklearn.datasets import load_breast_cancer
+cancer = load_breast_cancer(as_frame=True)
+row_1 = cancer.data.iloc[0].values  # first patient = vector in 30D space
+row_2 = cancer.data.iloc[1].values  # second patient
+dist  = np.linalg.norm(row_1 - row_2)
+print(f"Distance between patients 1 and 2: {dist:.4f}")
+</div>
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#0c1e38;color:#70c0ff">TUE<br>Theory</div>
+      <div class="day-content">
+        <b>Matrices — the engine of ML</b> — matrix multiplication, transpose, identity matrix, what matrix × vector means (transform a point). The normal equation w = (XᵀX)⁻¹Xᵀy.<br>
+        <span class="aws">AWS link:</span> Your Glue DynamicFrame is a matrix — rows = records, columns = features. Matrix multiplication = applying a transformation to every row simultaneously.<br>
+        <span class="resource-pill">3Blue1Brown: Ch3-4 (Matrix multiplication)</span>
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#0c1e38;color:#70c0ff">TUE<br>Code</div>
+      <div class="day-content">
+<div class="code">
+import numpy as np
+
+# Matrix operations
+A = np.array([[1,2],[3,4],[5,6]])   # 3×2 matrix
+B = np.array([[7,8,9],[10,11,12]])  # 2×3 matrix
+
+AB = A @ B          # matrix multiplication (3×2)×(2×3) = 3×3
+print(f"A shape: {A.shape}, B shape: {B.shape}, AB shape: {AB.shape}")
+print(f"AB =\n{AB}")
+
+# Transpose
+print(f"Aᵀ =\n{A.T}")
+
+# Normal equation for linear regression: w = (XᵀX)⁻¹Xᵀy
+from sklearn.datasets import fetch_california_housing
+data = fetch_california_housing()
+X = np.hstack([data.data, np.ones((data.data.shape[0],1))])  # add bias
+y = data.target
+
+# Solve analytically (closed form)
+w = np.linalg.solve(X.T @ X, X.T @ y)
+print(f"\nLinear regression weights: {w.round(4)}")
+y_pred = X @ w
+ss_res = np.sum((y - y_pred)**2)
+ss_tot = np.sum((y - y.mean())**2)
+print(f"R² = {1 - ss_res/ss_tot:.4f}")
+</div>
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#0c1e38;color:#70c0ff">WED<br>Theory</div>
+      <div class="day-content">
+        <b>Derivatives and gradients</b> — what a derivative IS (slope at a point), chain rule (f(g(x))' = f'(g(x))·g'(x)), partial derivatives, gradient vector ∇f.<br>
+        <span class="aws">AWS link:</span> When your Lambda function optimises retry logic — that IS gradient-like feedback: error signal → adjust parameter → repeat. Gradient descent is the same thing but mathematically rigorous.<br>
+        <span class="resource-pill">3Blue1Brown: Essence of Calculus Ch1-4</span>
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#0c1e38;color:#70c0ff">WED<br>Code</div>
+      <div class="day-content">
+<div class="code">
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Numerical derivative (finite difference)
+def f(x):   return x**2 + 3*x + 2
+def df(x):  return 2*x + 3   # analytical derivative
+
+x = np.linspace(-5, 5, 100)
+h = 1e-5
+numerical_deriv = (f(x+h) - f(x)) / h
+analytical_deriv = df(x)
+print("Max error between numerical and analytical:", np.max(np.abs(numerical_deriv - analytical_deriv)))
+
+# Chain rule example: MSE loss with linear prediction
+def mse(w, X, y):
+    y_pred = X @ w
+    return np.mean((y - y_pred)**2)
+
+def mse_gradient(w, X, y):
+    y_pred = X @ w
+    return -2/len(y) * X.T @ (y - y_pred)  # chain rule!
+
+# One step of gradient descent
+np.random.seed(42)
+X_demo = np.random.randn(100, 3)
+y_demo = X_demo @ np.array([2, -1, 3]) + np.random.randn(100)*0.1
+w = np.zeros(3)
+
+for step in range(50):
+    grad = mse_gradient(w, X_demo, y_demo)
+    w = w - 0.01 * grad    # w = w - lr * gradient
+    if step % 10 == 0:
+        print(f"  Step {step:3d}: loss={mse(w,X_demo,y_demo):.6f}  w={w.round(3)}")
+</div>
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#0c1e38;color:#70c0ff">THU<br>Theory</div>
+      <div class="day-content">
+        <b>Eigenvalues and PCA intuition</b> — eigenvectors are directions a matrix stretches. Eigenvalues are the stretch factors. PCA finds the directions of maximum variance = eigenvectors of the covariance matrix.<br>
+        <span class="aws">AWS link:</span> S3 Intelligent-Tiering analyses access patterns (variance) and moves data accordingly. PCA does the same — finds the "directions of most activity" in your feature space.<br>
+        <span class="resource-pill">3Blue1Brown: Ch14 Eigenvectors</span>
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#0c1e38;color:#70c0ff">THU<br>Code</div>
+      <div class="day-content">
+<div class="code">
+import numpy as np
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+from sklearn.datasets import load_breast_cancer
+
+cancer = load_breast_cancer(as_frame=True)
+X = StandardScaler().fit_transform(cancer.data)
+
+# Manual eigendecomposition of covariance matrix
+cov = np.cov(X.T)               # 30×30 covariance matrix
+eigenvalues, eigenvectors = np.linalg.eigh(cov)
+# Sort by descending eigenvalue
+idx = eigenvalues.argsort()[::-1]
+eigenvalues = eigenvalues[idx]
+cum_var = np.cumsum(eigenvalues) / eigenvalues.sum()
+print("Variance explained by first k components:")
+for k in [1,2,3,5,10,20]:
+    print(f"  k={k:3d}: {cum_var[k-1]*100:.1f}%")
+
+# sklearn PCA
+pca = PCA(n_components=2)
+X_2d = pca.fit_transform(X)
+print(f"\nPCA 2D: {X.shape} → {X_2d.shape}")
+print(f"Explained variance: {pca.explained_variance_ratio_.sum()*100:.1f}%")
+</div>
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#0c1e38;color:#70c0ff">FRI<br>Theory</div>
+      <div class="day-content">
+        <b>Backpropagation intuition</b> — chain rule applied layer by layer. How gradients flow backwards through a neural network. You don't need to implement it — you need to understand WHAT it computes.<br>
+        <span class="resource-pill">3Blue1Brown: Neural Networks Ch3-4</span>
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#0c1e38;color:#70c0ff">FRI<br>Code</div>
+      <div class="day-content">
+<div class="code">
+import torch
+import torch.nn as nn
+
+# PyTorch autograd — automatic chain rule
+x = torch.tensor([2.0, 3.0], requires_grad=True)
+# f(x) = x[0]² + 2·x[1]³
+y = x[0]**2 + 2*x[1]**3
+y.backward()  # chain rule computed automatically
+print(f"∂f/∂x[0] = {x.grad[0]:.1f} (expected: 2·2={2*2:.1f})")
+print(f"∂f/∂x[1] = {x.grad[1]:.1f} (expected: 6·3²={6*9:.1f})")
+
+# Simple neural net — see gradients per parameter
+net = nn.Sequential(nn.Linear(4,8), nn.ReLU(), nn.Linear(8,1))
+X_t = torch.randn(10,4); y_t = torch.randn(10,1)
+loss = nn.MSELoss()(net(X_t), y_t)
+loss.backward()
+for name, param in net.named_parameters():
+    print(f"{name:20s}: grad norm = {param.grad.norm():.4f}")
+</div>
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#081c10;color:#50e880">SAT<br>Review</div>
+      <div class="day-content">
+        <b>Consolidation day</b> — revisit every concept from Mon-Fri. Re-derive gradient descent formula from scratch on paper. Build a mini cheat sheet: one formula + one analogy per concept.<br>
+        Afternoon: Watch 3Blue1Brown playlist end-to-end as review.
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#081c10;color:#50e880">SUN<br>Project</div>
+      <div class="day-content">
+        <b>Mini project:</b> Implement linear regression COMPLETELY from scratch — no sklearn, numpy only. Forward pass → compute MSE → compute gradient → update weights → repeat 100 epochs. Compare your result to sklearn's LinearRegression on California Housing. Must match within 0.001.
+      </div>
+    </div>
+
+    <div class="milestone"><b>Week 1 milestone:</b> Can implement gradient descent from scratch on paper in 5 minutes. Understands WHY we scale features (gradient descent converges faster on normalised inputs). Can explain eigenvectors using a concrete analogy.</div>
+  </div>
+</div>
+
+<!-- WEEK 2 -->
+<div class="wk">
+  <div class="wk-header">
+    <div class="wk-num" style="background:#1a7a3a">W2</div>
+    <div>
+      <div class="wk-title">Week 2 — Probability, Statistics + Distributions</div>
+      <div class="wk-sub">The statistical foundation of every loss function and evaluation metric</div>
+    </div>
+  </div>
+  <div class="wk-body">
+
+    <div class="day-row">
+      <div class="day-label" style="background:#081c10;color:#50e880">MON<br>Theory</div>
+      <div class="day-content">
+        <b>Probability fundamentals</b> — P(A), P(A|B), Bayes theorem P(A|B)=P(B|A)P(A)/P(B). Joint, marginal, conditional. Independence.<br>
+        <span class="aws">AWS link:</span> Your Kinesis stream: P(message arrives in next 100ms | current load). This is conditional probability. Kinesis auto-scaling uses similar probabilistic reasoning.<br>
+        <span class="resource-pill">StatQuest: Probability Fundamentals playlist</span>
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#081c10;color:#50e880">MON<br>Code</div>
+      <div class="day-content">
+<div class="code">
+import numpy as np
+from scipy import stats
+
+# Bayes theorem — spam filter analogy
+P_spam      = 0.30   # 30% of emails are spam
+P_word_spam = 0.80   # word appears in 80% of spam
+P_word_ham  = 0.10   # word appears in 10% of non-spam
+P_word      = P_word_spam*P_spam + P_word_ham*(1-P_spam)
+P_spam_word = P_word_spam * P_spam / P_word
+print(f"P(spam | contains word) = {P_spam_word:.4f}")
+
+# This is exactly what Naive Bayes does! Let's verify
+from sklearn.naive_bayes import BernoulliNB
+from sklearn.datasets import fetch_20newsgroups
+from sklearn.feature_extraction.text import CountVectorizer
+cats = ['alt.atheism','soc.religion.christian']
+train = fetch_20newsgroups(subset='train',categories=cats)
+test  = fetch_20newsgroups(subset='test', categories=cats)
+vec = CountVectorizer(binary=True, max_features=1000)
+nb = BernoulliNB()
+nb.fit(vec.fit_transform(train.data), train.target)
+print(f"\nNaive Bayes accuracy: {nb.score(vec.transform(test.data),test.target):.4f}")
+print("Naive Bayes IS repeated Bayes theorem per feature — same math!")
+</div>
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#081c10;color:#50e880">TUE<br>Theory</div>
+      <div class="day-content">
+        <b>Key distributions</b> — Gaussian/Normal (MSE assumption), Bernoulli (binary classification), Binomial, Poisson, Uniform. Know the shape, parameters, and when real data follows each.<br>
+        <span class="aws">AWS link:</span> DynamoDB request latency follows log-normal. S3 object sizes follow power law. Knowing distributions = knowing how to set SLA thresholds correctly.<br>
+        <span class="resource-pill">StatQuest: Probability Distributions</span>
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#081c10;color:#50e880">TUE<br>Code</div>
+      <div class="day-content">
+<div class="code">
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+
+# Plot and understand each distribution
+np.random.seed(42)
+distributions = {
+    'Gaussian N(0,1)':  np.random.normal(0, 1, 1000),
+    'Log-Normal':       np.random.lognormal(0, 1, 1000),   # salary, house prices
+    'Exponential':      np.random.exponential(1, 1000),     # time between events
+    'Poisson(λ=5)':     np.random.poisson(5, 1000),         # count events
+    'Binomial(n=10,p=0.3)': np.random.binomial(10,0.3,1000), # successes
+}
+for name, data in distributions.items():
+    sk = stats.skew(data); ku = stats.kurtosis(data)
+    print(f"{name:25s}: mean={data.mean():.2f}  std={data.std():.2f}  skew={sk:.2f}  kurt={ku:.2f}")
+
+# Check if your feature follows normal distribution (important for linear models!)
+from sklearn.datasets import fetch_california_housing
+housing = fetch_california_housing(as_frame=True)
+for col in housing.data.columns:
+    _, p = stats.shapiro(housing.data[col].sample(200, random_state=42))
+    action = 'log-transform' if p < 0.05 else 'OK'
+    print(f"  {col:25s}: p={p:.4f}  → {action}")
+</div>
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#081c10;color:#50e880">WED<br>Theory</div>
+      <div class="day-content">
+        <b>MLE — Maximum Likelihood Estimation</b> — finding parameters that make data most probable. Deriving MSE from Gaussian MLE, BCE from Bernoulli MLE, MAE from Laplace MLE. This is the deep WHY behind loss functions.<br>
+        <span class="resource-pill">StatQuest: MLE playlist (3 videos)</span>
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#081c10;color:#50e880">WED<br>Code</div>
+      <div class="day-content">
+<div class="code">
+import numpy as np
+from scipy.optimize import minimize_scalar
+from scipy.stats import norm
+
+# MLE for Gaussian mean (should recover the true mean)
+np.random.seed(42)
+data = np.random.normal(5.0, 2.0, 200)  # true mean=5, std=2
+
+# Negative log-likelihood for Gaussian
+def neg_log_likelihood(mu):
+    return -np.sum(norm.logpdf(data, loc=mu, scale=2.0))
+
+result = minimize_scalar(neg_log_likelihood, bounds=(0,10), method='bounded')
+print(f"MLE estimate of mean: {result.x:.4f}  (sample mean: {data.mean():.4f})")
+print("They match! MLE finds the sample mean for Gaussian distribution.")
+
+# MLE for logistic regression = cross-entropy loss
+def cross_entropy(y_true, y_pred):
+    eps = 1e-9
+    return -np.mean(y_true*np.log(y_pred+eps) + (1-y_true)*np.log(1-y_pred+eps))
+
+y_true = np.array([1,1,0,0,1])
+for p in [0.9, 0.7, 0.5, 0.3]:
+    y_pred = np.full(5, p)
+    print(f"  predicted={p}: BCE = {cross_entropy(y_true,y_pred):.4f}")
+print("Lower BCE = predictions more likely under Bernoulli MLE!")
+</div>
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#081c10;color:#50e880">THU<br>Theory</div>
+      <div class="day-content">
+        <b>Hypothesis testing and p-values</b> — null hypothesis, p-value, Type I/II errors, t-test, chi-square. Used in feature selection (f_classif uses F-test) and A/B testing your models.<br>
+        <span class="aws">AWS link:</span> Your A/B deployments via CodeDeploy or Lambda aliases use the exact same logic as statistical hypothesis testing. p-value = probability the difference is due to chance.<br>
+        <span class="resource-pill">StatQuest: p-values, t-tests</span>
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#081c10;color:#50e880">THU<br>Code</div>
+      <div class="day-content">
+<div class="code">
+import numpy as np
+from scipy import stats
+from sklearn.datasets import load_breast_cancer
+from sklearn.feature_selection import f_classif, SelectKBest
+
+cancer = load_breast_cancer(as_frame=True)
+X, y = cancer.data, cancer.target
+
+# F-test for feature selection
+f_scores, p_values = f_classif(X, y)
+import pandas as pd
+feat_stats = pd.DataFrame({
+    'feature': cancer.feature_names,
+    'F_score': f_scores,
+    'p_value': p_values,
+    'significant': p_values < 0.05
+}).sort_values('F_score', ascending=False)
+print("Top 10 features by F-score:")
+print(feat_stats.head(10)[['feature','F_score','p_value']].to_string())
+print(f"\nAll {feat_stats['significant'].sum()} features are significant (p<0.05)")
+
+# T-test between two groups
+group_0 = X[y==0]['mean radius']
+group_1 = X[y==1]['mean radius']
+t_stat, p_val = stats.ttest_ind(group_0, group_1)
+print(f"\nT-test 'mean radius' malignant vs benign:")
+print(f"  t={t_stat:.3f}  p={p_val:.2e}  → {'significant difference' if p_val<0.05 else 'no significant difference'}")
+</div>
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#081c10;color:#50e880">FRI<br>Theory</div>
+      <div class="day-content">
+        <b>Correlation, covariance, and information theory</b> — Pearson r, mutual information, entropy H(X) = -Σp·log(p), KL divergence. Why mutual information is better than correlation for non-linear relationships.<br>
+        <span class="resource-pill">StatQuest: Correlation, Mutual Information</span>
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#081c10;color:#50e880">FRI<br>Code</div>
+      <div class="day-content">
+<div class="code">
+import numpy as np
+from sklearn.feature_selection import mutual_info_classif
+from sklearn.datasets import load_breast_cancer
+
+cancer = load_breast_cancer(as_frame=True)
+X, y = cancer.data.values, cancer.target.values
+
+# Pearson correlation — linear only
+correlations = np.array([np.corrcoef(X[:,i], y)[0,1] for i in range(X.shape[1])])
+
+# Mutual information — captures non-linear relationships too
+mi_scores = mutual_info_classif(X, y, random_state=42)
+
+import pandas as pd
+compare = pd.DataFrame({
+    'feature': cancer.feature_names,
+    'pearson_r': np.abs(correlations),
+    'mutual_info': mi_scores
+}).sort_values('mutual_info', ascending=False)
+print("Pearson r vs Mutual Information (top 10):")
+print(compare.head(10).round(4).to_string(index=False))
+print("\nNote: features where MI >> Pearson r have non-linear relationships")
+</div>
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#081c10;color:#50e880">SAT<br>Review</div>
+      <div class="day-content">
+        <b>Statistics consolidation</b> — review all Week 2 concepts. Derive BCE from Bernoulli MLE on paper without looking at notes. Write out Bayes theorem and apply it to a new example you make up yourself.
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#081c10;color:#50e880">SUN<br>Project</div>
+      <div class="day-content">
+        <b>Mini project:</b> Full statistical EDA on Titanic dataset. For every feature: compute descriptive stats, test normality, plot distribution, compute correlation AND mutual information with survival target. Write a 1-paragraph interpretation of which features are most predictive and WHY statistically.
+      </div>
+    </div>
+
+    <div class="milestone"><b>Week 2 milestone:</b> Can explain WHY MSE is the right loss for normal errors and WHY BCE is right for binary classification — deriving from MLE. Can run and interpret a full statistical EDA. Understands p-values well enough to use f_classif for feature selection correctly.</div>
+  </div>
+</div>
+</div>
+
+<!-- ══ TAB 3: WEEKS 3-4 ══ -->
+<div class="sec" id="S3">
+<div class="badge bg-g">WEEKS 3–4 — CORE ML CONCEPTS</div>
+<div class="h1">The ML Learning Framework — From Data to Predictions</div>
+<div class="sub">Supervised learning pipeline · Loss functions · Gradient descent · Regularisation · Validation</div>
+
+<div class="note"><b>This is where your AWS engineering skills shine.</b> Building an ML training pipeline is exactly like building an ETL pipeline — stages, data flow, quality checks at each step. The logic is identical, the vocabulary changes.</div>
+
+<!-- WEEK 3 -->
+<div class="wk">
+  <div class="wk-header">
+    <div class="wk-num" style="background:#8a6000">W3</div>
+    <div>
+      <div class="wk-title">Week 3 — ML Pipeline + Loss Functions + Gradient Descent</div>
+      <div class="wk-sub">The complete training loop — how every ML model actually learns</div>
+    </div>
+  </div>
+  <div class="wk-body">
+
+    <div class="day-row">
+      <div class="day-label" style="background:#1e1600;color:#ffc840">MON</div>
+      <div class="day-content">
+        <b>The supervised learning pipeline end-to-end</b> — data → split → preprocess → model → loss → gradient → update → evaluate. Map every step to the AWS equivalent. Build the skeleton in code first, then fill in pieces all week.<br>
+        <span class="aws">AWS link:</span> Your Glue job: read S3 → transform → write S3. ML pipeline: read data → transform features → train model → write to MLflow. Same DAG pattern.<br>
+        <b>Code:</b> Build the complete skeleton (no fitting yet) — Pipeline with placeholder stages. Run it end to end on Iris dataset.
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#1e1600;color:#ffc840">TUE</div>
+      <div class="day-content">
+        <b>All loss functions — derive each from MLE</b> — MSE (Gaussian), MAE (Laplace), BCE (Bernoulli), CCE (Categorical), Huber. Understand the shape of each loss curve and what outliers do to each.<br>
+        <b>Code:</b> For each loss function: plot L(e) vs error e. Compute loss for same predictions with and without an outlier. Print the ratio. See how MSE explodes, MAE barely changes.
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#1e1600;color:#ffc840">WED</div>
+      <div class="day-content">
+        <b>Gradient descent variants</b> — Batch GD, SGD, Mini-batch (default for DL), Adam (β₁=0.9, β₂=0.999). How Adam adapts learning rate per parameter. When to use each.<br>
+        <b>Code:</b> Implement all four variants on same linear regression problem. Plot loss curve for each. Time each one on 10k rows. See mini-batch wins on speed + convergence.
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#1e1600;color:#ffc840">THU</div>
+      <div class="day-content">
+        <b>Regularisation — L1, L2, ElasticNet</b> — derived from MAP (Laplace/Gaussian priors). Ridge shrinks all, Lasso zeroes some. When to use each. The λ hyperparameter.<br>
+        <span class="aws">AWS link:</span> DynamoDB auto-scaling has a regularisation-like mechanism — it prevents over-provisioning (L2) or forces scale-to-zero (L1). Same trade-off: cost vs performance.<br>
+        <b>Code:</b> RidgeCV and LassoCV on California Housing. Plot coefficient paths. Count zeroed features. Compare R² at different λ values.
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#1e1600;color:#ffc840">FRI</div>
+      <div class="day-content">
+        <b>Train/Val/Test split — WHY and HOW</b> — data leakage, stratification, the 70/15/15 rule. sklearn Pipeline to prevent leakage. Why you fit scaler on train only.<br>
+        <span class="aws">AWS link:</span> Your blue-green deployments use the same logic: new code tested on staging (val) before production (test). You don't test new Lambda code directly on prod — same with test sets.<br>
+        <b>Code:</b> Demonstrate data leakage. Fit scaler on all data, then on train only. Show the difference in reported accuracy. This is the single most important practical lesson.
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#1e1600;color:#ffc840">SAT/SUN</div>
+      <div class="day-content">
+        <b>Weekend project:</b> Complete ML pipeline on Titanic. Data loading → EDA (5 plots) → missing value handling → feature engineering (family_size, is_alone) → encoding → scaling → logistic regression → evaluation. Log to MLflow. This is your first real end-to-end ML project.
+      </div>
+    </div>
+
+    <div class="milestone"><b>Week 3 milestone:</b> Can build a complete sklearn Pipeline from scratch. Understands why data leakage is dangerous and can identify it. Can explain gradient descent to a non-technical person using an analogy. First MLflow experiment logged.</div>
+  </div>
+</div>
+
+<!-- WEEK 4 -->
+<div class="wk">
+  <div class="wk-header">
+    <div class="wk-num" style="background:#8a2020">W4</div>
+    <div>
+      <div class="wk-title">Week 4 — Overfitting, Bias-Variance, Cross-Validation</div>
+      <div class="wk-sub">Diagnosing model problems — the most important practical ML skill</div>
+    </div>
+  </div>
+  <div class="wk-body">
+
+    <div class="day-row">
+      <div class="day-label" style="background:#200a0a;color:#ff7070">MON</div>
+      <div class="day-content">
+        <b>Overfitting and underfitting</b> — visualise with polynomial regression. Plot train vs val error as degree increases from 1 to 15. Watch the U-shaped validation curve. Understand this is the fundamental tension in all of ML.<br>
+        <span class="aws">AWS link:</span> Over-provisioning EC2 (overfitting) = costs too much. Under-provisioning (underfitting) = crashes. Right-sizing = generalisation.<br>
+        <b>Code:</b> PolynomialFeatures degrees 1-15 on synthetic dataset. Plot train R² and val R² on same chart. Identify the sweet spot visually.
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#200a0a;color:#ff7070">TUE</div>
+      <div class="day-content">
+        <b>Bias-variance decomposition</b> — Total error = Bias² + Variance + Noise. High bias = both errors high (underfitting). High variance = train low, val high gap (overfitting). The learning curve is your diagnostic tool.<br>
+        <b>Code:</b> learning_curve() on Breast Cancer with 3 models (linear, RF, deep tree). Plot all three. Learn to read the diagnosis from each curve shape.
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#200a0a;color:#ff7070">WED</div>
+      <div class="day-content">
+        <b>Cross-validation</b> — k-fold, stratified k-fold, leave-one-out, time-series CV. When to use each. CV score vs test score — why they sometimes differ.<br>
+        <span class="aws">AWS link:</span> Cross-validation = running your Glue job on multiple data partitions to verify it works consistently. Same logic — test on multiple subsets, average the result.<br>
+        <b>Code:</b> cross_val_score with cv=5 vs cv=10. StratifiedKFold. TimeSeriesSplit. Compare variance of scores across methods.
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#200a0a;color:#ff7070">THU</div>
+      <div class="day-content">
+        <b>Hyperparameter tuning</b> — GridSearchCV, RandomizedSearchCV, Optuna. The tuning budget problem. Why you tune on val set ONLY. How to log every trial in MLflow.<br>
+        <b>Code:</b> GridSearchCV on Random Forest (max_depth, n_estimators). RandomizedSearchCV — compare n_iter=10 vs 50. Plot CV score vs each hyperparameter.
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#200a0a;color:#ff7070">FRI</div>
+      <div class="day-content">
+        <b>Class imbalance</b> — when accuracy is misleading. class_weight, SMOTE, threshold adjustment. Using AUC-ROC and F1 instead of accuracy. The imbalanced-learn library.<br>
+        <span class="aws">AWS link:</span> Your SQS dead-letter queue catches rare failures — you tune DLQ threshold the same way you tune classification threshold. Both are about acceptable false positive/negative rates.<br>
+        <b>Code:</b> Create 95/5 imbalanced dataset. Train without class_weight → show misleading 95% accuracy. Train with class_weight='balanced' → show real improvement in F1.
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#200a0a;color:#ff7070">SAT/SUN</div>
+      <div class="day-content">
+        <b>Weekend project:</b> Fraud detection with imbalanced data (credit card dataset from Kaggle or synthetic). Train 3 models. Plot learning curve for each. Diagnose bias/variance. Tune the best model with GridSearchCV. Final evaluation with confusion matrix + AUC-ROC + AUC-PR. Log everything to MLflow.
+      </div>
+    </div>
+
+    <div class="milestone"><b>Week 4 milestone:</b> Can look at a learning curve and immediately diagnose high bias vs high variance and prescribe the correct fix. Has tuned a model with GridSearchCV and logged it to MLflow. Understands why accuracy is wrong for imbalanced data and can choose the right metric.</div>
+  </div>
+</div>
+</div>
+
+<!-- ══ TAB 4: WEEKS 5-6 ══ -->
+<div class="sec" id="S4">
+<div class="badge bg-p">WEEKS 5–6 — SUPERVISED ALGORITHMS</div>
+<div class="h1">All Major Algorithms — Hands-on with Real Datasets</div>
+<div class="sub">Linear → Tree → Ensemble → SVM → Neural Nets — build intuition for each</div>
+
+<div class="wk">
+  <div class="wk-header">
+    <div class="wk-num" style="background:#5a30a0">W5</div>
+    <div>
+      <div class="wk-title">Week 5 — Linear Models + Tree Models</div>
+      <div class="wk-sub">The foundation algorithms — master these before anything else</div>
+    </div>
+  </div>
+  <div class="wk-body">
+
+    <div class="day-row">
+      <div class="day-label" style="background:#140c28;color:#c0a0ff">MON</div>
+      <div class="day-content">
+        <b>Linear Regression — deep dive</b> — OLS, Ridge, Lasso, ElasticNet. Coefficient interpretation. Assumption checking (residual plots). When it fails (non-linearity).<br>
+        <b>Code:</b> California Housing. Train all 4 variants. Plot coefficient paths. Check residuals with 4 diagnostic plots. Compare R² and RMSE. Log all to MLflow.
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#140c28;color:#c0a0ff">TUE</div>
+      <div class="day-content">
+        <b>Logistic Regression — deep dive</b> — sigmoid, log-odds, decision boundary, C parameter, multi-class (OvR vs softmax). Probability calibration.<br>
+        <span class="aws">AWS link:</span> Your Route 53 health checks: P(endpoint healthy | response time, error rate). This is logistic regression — combine multiple signals → probability → binary decision.<br>
+        <b>Code:</b> Breast Cancer + Titanic. Plot decision boundary (2D features). Vary C from 0.001 to 100. Calibrate with isotonic regression.
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#140c28;color:#c0a0ff">WED</div>
+      <div class="day-content">
+        <b>Decision Trees — deep dive</b> — Gini impurity, information gain, overfitting at high depth, pruning (max_depth, ccp_alpha), feature importance, export_text to read rules.<br>
+        <b>Code:</b> Titanic. Train depth=None (overfit). Read export_text. Then max_depth=3. Plot train vs val AUC vs depth. Extract and print 5 most important features with their importances.
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#140c28;color:#c0a0ff">THU</div>
+      <div class="day-content">
+        <b>Random Forest — deep dive</b> — bagging, bootstrap samples, random feature subsets, OOB score, feature importance. Why averaging reduces variance.<br>
+        <b>Code:</b> Compare single tree vs RF on same data — show variance reduction with different random seeds. Use OOB score instead of cross-validation. Plot feature importances. n_estimators 1→500: when does it plateau?
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#140c28;color:#c0a0ff">FRI</div>
+      <div class="day-content">
+        <b>SVM + Naive Bayes + KNN</b> — when each wins (small data → SVM, text → NB, baseline → KNN). Kernel trick intuition. KNN k selection.<br>
+        <b>Code:</b> Run all 3 on Breast Cancer. Compare AUC. SVM kernel comparison (linear/rbf/poly). KNN: plot accuracy vs k. NB on 20 Newsgroups text.
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#140c28;color:#c0a0ff">SAT/SUN</div>
+      <div class="day-content">
+        <b>Weekend project:</b> Train ALL 5 algorithm families on the same dataset (Breast Cancer). One comparison table: AUC, F1, MCC, train time. For each model: feature importance / coefficient plot. Learning curve. Best model: full error analysis. MLflow: all experiments in one run with tags.
+      </div>
+    </div>
+
+    <div class="milestone"><b>Week 5 milestone:</b> Can train and compare 5 different algorithm families. Knows which to choose based on dataset characteristics. Can explain feature importance from both linear models (coefficients) and tree models (importance scores) and knows they measure different things.</div>
+  </div>
+</div>
+
+<div class="wk">
+  <div class="wk-header">
+    <div class="wk-num" style="background:#0a6070">W6</div>
+    <div>
+      <div class="wk-title">Week 6 — Ensembles + Neural Nets + Complete Comparison</div>
+      <div class="wk-sub">XGBoost, MLP, Stacking — and your first complete ML system</div>
+    </div>
+  </div>
+  <div class="wk-body">
+
+    <div class="day-row">
+      <div class="day-label" style="background:#081820;color:#40d8f0">MON</div>
+      <div class="day-content">
+        <b>Gradient Boosting + XGBoost</b> — functional gradient descent, each tree fits residuals, learning_rate × n_estimators interaction, early stopping, SHAP explanations.<br>
+        <b>Code:</b> HistGradientBoostingClassifier (sklearn's XGBoost) on California Housing. Early stopping with validation set. Permutation importance vs tree importance — compare. SHAP waterfall plot for one prediction.
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#081820;color:#40d8f0">TUE</div>
+      <div class="day-content">
+        <b>Ensemble methods — Voting + Stacking</b> — soft voting, stacking with meta-learner, when ensembles help (diverse models) vs when they don't (similar models).<br>
+        <b>Code:</b> VotingClassifier (LR + RF + GBT) on Breast Cancer. StackingClassifier with LogReg meta-learner. Compare all to best single model.
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#081820;color:#40d8f0">WED</div>
+      <div class="day-content">
+        <b>MLP Neural Network (sklearn)</b> — architecture choices, activation functions, Adam solver, alpha (L2 reg), loss curve, warm_start for incremental.<br>
+        <b>Code:</b> Digits dataset (handwritten). Architecture comparison (50,) vs (100,50) vs (200,100,50). Loss curve analysis. When does MLP beat Random Forest on tabular data?
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#081820;color:#40d8f0">THU</div>
+      <div class="day-content">
+        <b>Probability calibration + threshold tuning</b> — CalibratedClassifierCV, Brier score, reliability diagrams. Business threshold selection based on cost of FP vs FN.<br>
+        <span class="aws">AWS link:</span> Your SQS redrive policy: how many failed attempts before DLQ. This is threshold tuning — balance false alarms vs missed failures. Same concept as classification threshold.<br>
+        <b>Code:</b> Random Forest before and after calibration. Plot reliability diagram. Threshold analysis 0.1→0.9 for a medical diagnosis scenario.
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#081820;color:#40d8f0">FRI</div>
+      <div class="day-content">
+        <b>Full algorithm selection decision framework</b> — the 9-question checklist. When does each algorithm family win? Build your personal cheat sheet.<br>
+        <b>Code:</b> Run 12 algorithms on 3 different datasets (balanced, imbalanced, small). Plot comparison heatmap. Identify which algorithm wins in each scenario and write the reason in comments.
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#081820;color:#40d8f0">SAT/SUN</div>
+      <div class="day-content">
+        <b>Capstone project (Weeks 5-6):</b> Customer churn prediction end-to-end. Real dataset (IBM Telco Churn from Kaggle). Complete pipeline: EDA → cleaning → feature engineering → selection → train 6 models → error analysis → bias-variance diagnosis → tune best model → calibrate → final test evaluation → MLflow experiment with all metrics + model registered. Target: AUC > 0.85.
+      </div>
+    </div>
+
+    <div class="milestone"><b>Week 6 milestone:</b> Has a working churn prediction model with AUC > 0.85. Can explain to a non-technical person what the model does, which features matter most, and where it fails. First model registered in MLflow Model Registry.</div>
+  </div>
+</div>
+</div>
+
+<!-- ══ TAB 5: WEEKS 7-8 ══ -->
+<div class="sec" id="S5">
+<div class="badge bg-o">WEEKS 7–8 — EVALUATION + EDA + DATABRICKS</div>
+<div class="h1">Complete Model Evaluation + Databricks Integration</div>
+<div class="sub">Weeks 7-8 — from sklearn → Spark ML → Databricks production workflows</div>
+
+<div class="wk">
+  <div class="wk-header">
+    <div class="wk-num" style="background:#7a3800">W7</div>
+    <div>
+      <div class="wk-title">Week 7 — Complete Evaluation Framework + EDA Mastery</div>
+      <div class="wk-sub">Every metric, every diagnostic plot, every cleaning technique — mastered</div>
+    </div>
+  </div>
+  <div class="wk-body">
+
+    <div class="day-row">
+      <div class="day-label" style="background:#1e0c00;color:#ff9840">MON</div>
+      <div class="day-content">
+        <b>Complete regression evaluation</b> — MAE, RMSE, R², Adjusted R², MAPE, Huber. Residual plots (4 plots). Heteroscedasticity check. RMSE/MAE ratio as outlier indicator. When to log-transform target.<br>
+        <b>Code:</b> California Housing with RandomForest. Compute all 6 metrics. Generate all 4 residual plots. Inject outliers. Show RMSE/MAE ratio change. Log-transform target and retrain.
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#1e0c00;color:#ff9840">TUE</div>
+      <div class="day-content">
+        <b>Complete classification evaluation</b> — Accuracy, Precision, Recall, F1, AUC-ROC, AUC-PR, MCC, Brier. Confusion matrix analysis. ROC curve interpretation. When AUC-PR beats AUC-ROC (imbalanced data).<br>
+        <b>Code:</b> Breast Cancer with full suite. Precision-Recall curve. ROC curve. Threshold analysis 0.1-0.9. Per-class analysis. High-confidence wrong predictions analysis.
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#1e0c00;color:#ff9840">WED</div>
+      <div class="day-content">
+        <b>Feature selection mastery</b> — VarianceThreshold, correlation filter, SelectKBest (F + MI), RFECV, SelectFromModel, permutation importance. The consensus approach (features in 3+ methods).<br>
+        <b>Code:</b> Breast Cancer. Run all 6 methods. Build consensus table. Show AUC with all features vs consensus features. Always in Pipeline — demonstrate leakage if done wrong.
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#1e0c00;color:#ff9840">THU</div>
+      <div class="day-content">
+        <b>EDA mastery</b> — all 10 EDA steps. Correct visualization for each situation. Missingness patterns. Skewness diagnosis. Correlation heatmap interpretation. Class imbalance detection.<br>
+        <b>Code:</b> Full EDA report generator — function that takes any DataFrame and produces: missing values bar, distribution plots for all numericals, correlation heatmap, target analysis, outlier summary. Reusable for any project.
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#1e0c00;color:#ff9840">FRI</div>
+      <div class="day-content">
+        <b>Data preparation mastery</b> — missing value strategies (indicator + impute), outlier treatment (IQR, winsorize, isolation forest), all encoding methods (OHE, ordinal, target), all scalers (standard, robust, minmax, quantile), feature engineering (interactions, polynomials, date features).<br>
+        <b>Code:</b> Build a reusable preprocessing Pipeline class. Config-driven: takes a YAML config specifying which columns need which treatment. Produces a fitted sklearn Pipeline.
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#1e0c00;color:#ff9840">SAT/SUN</div>
+      <div class="day-content">
+        <b>Weekend project:</b> The "10-phase pipeline" on a completely new dataset you haven't touched yet (Wine Quality from UCI). Zero help from notes — apply everything from memory. If stuck for more than 10 minutes — that topic needs re-study. This is your Phase 1 mock exam.
+      </div>
+    </div>
+
+    <div class="milestone"><b>Week 7 milestone:</b> Can produce a complete model evaluation report (all metrics + all plots + interpretation) in under 30 minutes on a new dataset. The EDA report generator function works on any DataFrame.</div>
+  </div>
+</div>
+
+<div class="wk">
+  <div class="wk-header">
+    <div class="wk-num" style="background:#1a5cb8">W8</div>
+    <div>
+      <div class="wk-title">Week 8 — Databricks Integration + Phase 1 Capstone</div>
+      <div class="wk-sub">Bridge from sklearn to Spark ML — your production environment</div>
+    </div>
+  </div>
+  <div class="wk-body">
+
+    <div class="day-row">
+      <div class="day-label" style="background:#0c1e38;color:#70c0ff">MON</div>
+      <div class="day-content">
+        <b>Spark ML equivalent of every sklearn step</b> — VectorAssembler (= sklearn ColumnTransformer), StringIndexer (= OrdinalEncoder), Pipeline (= sklearn Pipeline), CrossValidator (= GridSearchCV), MLflow autolog.<br>
+        <span class="aws">AWS link:</span> Your PySpark on EMR is the same API as Databricks Spark ML. The pyspark.ml.* namespace is identical. Your EMR experience transfers 100%.<br>
+        <b>Code:</b> Re-implement last week's churn model in Spark ML. train_test_split → randomSplit. StandardScaler → StandardScaler (pyspark.ml). LogisticRegression → LogisticRegression (pyspark.ml). Compare AUC with sklearn version.
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#0c1e38;color:#70c0ff">TUE</div>
+      <div class="day-content">
+        <b>MLflow deep dive</b> — autolog, manual logging, experiment organisation, model registry, model serving. The comparison view in MLflow UI.<br>
+        <span class="aws">AWS link:</span> MLflow = CloudWatch + S3 artifact storage + CodePipeline combined. Experiments = CloudWatch log groups. Runs = individual Lambda invocations. Model Registry = ECR for ML models.<br>
+        <b>Code:</b> Full MLflow workflow — nested runs (hyperparameter search), log figures as artifacts, register best model, transition to Production stage.
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#0c1e38;color:#70c0ff">WED</div>
+      <div class="day-content">
+        <b>Delta Lake as ML data source</b> — read Delta table → pandas/spark DataFrame → ML pipeline. Delta versioning for reproducibility (time travel = use exact training data). Feature store concepts.<br>
+        <span class="aws">AWS link:</span> Delta Lake = S3 + Athena + DMS combined. Your S3 + Parquet knowledge transfers directly. Delta just adds ACID transactions and time travel on top.<br>
+        <b>Code:</b> Create Delta tables for train/val/test splits. Read with spark.table(). Use Delta time travel to ensure reproducibility. Write predictions back to Delta.
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#0c1e38;color:#70c0ff">THU</div>
+      <div class="day-content">
+        <b>Model serving + monitoring</b> — Databricks Model Serving endpoint, batch inference on Delta, detecting data drift (statistical tests on feature distributions), retraining triggers.<br>
+        <span class="aws">AWS link:</span> Model Serving = API Gateway + Lambda. Batch inference = Glue job + S3. Drift detection = CloudWatch anomaly detection but for ML features.<br>
+        <b>Code:</b> Deploy model to Databricks Model Serving. Batch score a Delta table. Compute KL divergence between training and serving feature distributions. Alert if drift > threshold.
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#0c1e38;color:#70c0ff">FRI</div>
+      <div class="day-content">
+        <b>Phase 1 review + gap analysis</b> — go back through all 7 weeks. List every concept. Rate confidence 1-5. Any concept below 3 → schedule re-study in Phase 2 warmup. Write your personal cheat sheet — one A4 page per week.<br>
+        <b>Code:</b> Phase 1 self-test — implement linear regression, logistic regression, and random forest completely from scratch (numpy only) in one sitting. No notes. If you can do this, you are ready for Phase 2.
+      </div>
+    </div>
+
+    <div class="day-row">
+      <div class="day-label" style="background:#0c1e38;color:#70c0ff">SAT/SUN</div>
+      <div class="day-content">
+        <b>PHASE 1 CAPSTONE PROJECT</b> — Complete end-to-end on Databricks. Delta table as source. Full EDA. Complete preprocessing pipeline. Train 5 models in Spark ML + sklearn. Bias-variance analysis. Best model tuned, calibrated, registered in MLflow. Deployed to Model Serving. Batch scoring job. Drift monitoring. Write a 1-page model card: what it does, features used, performance metrics, limitations.
+      </div>
+    </div>
+
+    <div class="milestone"><b>Week 8 milestone — Phase 1 complete:</b> Has a production-grade ML project on Databricks with Delta Lake, MLflow tracking, model registry, and serving endpoint. Can translate any sklearn workflow to Spark ML. Ready for Phase 2: Deep Learning with PyTorch.</div>
+  </div>
+</div>
+</div>
+
+<!-- ══ TAB 6: WEEKEND PROJECTS ══ -->
+<div class="sec" id="S6">
+<div class="badge bg-t">WEEKEND PROJECTS</div>
+<div class="h1">8 Weekend Projects — One Per Week, Escalating Complexity</div>
+<div class="sub">Each project builds on the previous — by Week 8 you have a portfolio</div>
+
+<div class="proj-card">
+  <div class="proj-title">Week 1 Project — Linear Regression from Scratch</div>
+  <div class="proj-body">
+    <b style="color:#70c0ff">Goal:</b> Implement gradient descent and linear regression using numpy only — zero sklearn.<br>
+    <b style="color:#50e880">Dataset:</b> California Housing (fetch_california_housing)<br>
+    <b style="color:#ffc840">Deliverable:</b> Python class LinearRegressionScratch with fit(), predict(), score(). Must match sklearn LinearRegression R² within 0.001.<br>
+    <b style="color:#ff9840">AWS connection:</b> Think of each gradient step as one Kinesis record being processed — one at a time, updating the "state" (weights).<br>
+    <b style="color:#c0a0ff">Success criteria:</b> R² > 0.60. Can explain every line of code without looking at notes.
+  </div>
+</div>
+
+<div class="proj-card">
+  <div class="proj-title">Week 2 Project — Statistical EDA Report</div>
+  <div class="proj-body">
+    <b style="color:#70c0ff">Goal:</b> Full statistical EDA on Titanic — every statistic, every plot, interpretations.<br>
+    <b style="color:#50e880">Dataset:</b> Titanic (fetch_openml)<br>
+    <b style="color:#ffc840">Deliverable:</b> Jupyter notebook: missing values heatmap, distribution plots for all features, correlation heatmap, feature-target analysis, outlier report, written interpretation paragraph for each finding.<br>
+    <b style="color:#ff9840">AWS connection:</b> This is exactly your data quality audit process — systematically find every issue before it breaks the pipeline.<br>
+    <b style="color:#c0a0ff">Success criteria:</b> Can present findings to a non-technical person in 5 minutes. Every plot has a title, axis labels, and a 1-sentence interpretation.
+  </div>
+</div>
+
+<div class="proj-card">
+  <div class="proj-title">Week 3 Project — First End-to-End ML Pipeline</div>
+  <div class="proj-body">
+    <b style="color:#70c0ff">Goal:</b> Complete ML pipeline — data → model → evaluation → MLflow.<br>
+    <b style="color:#50e880">Dataset:</b> Titanic survival prediction<br>
+    <b style="color:#ffc840">Deliverable:</b> sklearn Pipeline with preprocessing + LogisticRegression. Feature engineering (family_size, is_alone, title from name). MLflow experiment with AUC, F1, confusion matrix image logged.<br>
+    <b style="color:#ff9840">AWS connection:</b> Step Functions DAG. Each stage of your Pipeline = one Lambda in a Step Functions workflow. MLflow = CloudWatch for ML.<br>
+    <b style="color:#c0a0ff">Success criteria:</b> AUC > 0.80. MLflow run has all metrics + params logged. Can reproduce any run by its run_id.
+  </div>
+</div>
+
+<div class="proj-card">
+  <div class="proj-title">Week 4 Project — Fraud Detection (Imbalanced)</div>
+  <div class="proj-body">
+    <b style="color:#70c0ff">Goal:</b> Handle class imbalance correctly, diagnose bias-variance, tune hyperparameters.<br>
+    <b style="color:#50e880">Dataset:</b> Credit Card Fraud (Kaggle) or create synthetic with make_classification(weights=[0.99,0.01])<br>
+    <b style="color:#ffc840">Deliverable:</b> 3 models with correct imbalance handling. Learning curve for each. GridSearchCV on best model. Final: AUC-PR + Recall + confusion matrix. Threshold analysis for business decision.<br>
+    <b style="color:#ff9840">AWS connection:</b> VPC flow log anomaly detection — same problem. Most traffic is normal (99%), a tiny fraction is suspicious. Same class imbalance, same metrics.<br>
+    <b style="color:#c0a0ff">Success criteria:</b> AUC-PR > 0.75. Recall > 0.80. Can explain why you chose those threshold values in business terms.
+  </div>
+</div>
+
+<div class="proj-card">
+  <div class="proj-title">Week 5 Project — Algorithm Olympics</div>
+  <div class="proj-body">
+    <b style="color:#70c0ff">Goal:</b> Train ALL algorithm families on the same dataset — build comparison intuition.<br>
+    <b style="color:#50e880">Dataset:</b> Breast Cancer (load_breast_cancer)<br>
+    <b style="color:#ffc840">Deliverable:</b> 8 algorithms (LR, Ridge, DT, RF, GBT, SVM, KNN, NB). Comparison table: AUC, F1, MCC, train time, predict time. Feature importance per model. For each algorithm: one paragraph on WHY it performed the way it did.<br>
+    <b style="color:#c0a0ff">Success criteria:</b> Best model AUC > 0.99. More importantly: can predict BEFORE running which algorithm will rank top-3 and be correct 2/3 times.
+  </div>
+</div>
+
+<div class="proj-card">
+  <div class="proj-title">Week 6 Project — Customer Churn Prediction</div>
+  <div class="proj-body">
+    <b style="color:#70c0ff">Goal:</b> Real-world business problem — complete ML engineering workflow.<br>
+    <b style="color:#50e880">Dataset:</b> IBM Telco Churn (Kaggle) — real, messy, mixed types<br>
+    <b style="color:#ffc840">Deliverable:</b> Complete pipeline with feature engineering, 5 models compared, XGBoost winner with SHAP explanations, calibrated probabilities, business threshold selected, model card written, MLflow model registered.<br>
+    <b style="color:#ff9840">AWS connection:</b> Customer churn = SaaS subscription cancellation. Your company probably has this data in RDS or DynamoDB. This project IS production-ready for your workplace.<br>
+    <b style="color:#c0a0ff">Success criteria:</b> AUC > 0.85. SHAP explanation for 3 individual predictions. Model card explains limitations honestly.
+  </div>
+</div>
+
+<div class="proj-card">
+  <div class="proj-title">Week 7 Project — The Blank Canvas (New Dataset, No Help)</div>
+  <div class="proj-body">
+    <b style="color:#70c0ff">Goal:</b> Prove you can apply all Phase 1 skills independently without notes.<br>
+    <b style="color:#50e880">Dataset:</b> Wine Quality (UCI) — never touched before<br>
+    <b style="color:#ffc840">Deliverable:</b> From raw data to deployed model in one weekend. No looking at notes. If stuck > 10 minutes → that topic needs re-study. Complete 10-phase pipeline. Model card.<br>
+    <b style="color:#c0a0ff">Success criteria:</b> Regression R² > 0.60 on test set. You wrote every line from memory. You can explain every decision made.
+  </div>
+</div>
+
+<div class="proj-card">
+  <div class="proj-title">Week 8 Project — Databricks Production Capstone</div>
+  <div class="proj-body">
+    <b style="color:#70c0ff">Goal:</b> Full production-grade ML system on Databricks — your portfolio centrepiece.<br>
+    <b style="color:#50e880">Dataset:</b> Your choice — pick something relevant to your actual work domain<br>
+    <b style="color:#ffc840">Deliverable:</b> Delta table data source → PySpark + sklearn Pipeline → Spark ML training → MLflow experiment → Model Registry → Databricks Model Serving → Batch scoring job → Drift monitoring → Databricks Job scheduled daily.<br>
+    <b style="color:#ff9840">AWS connection:</b> This is your Databricks equivalent of a complete AWS data + ML pipeline. Show it to your employer — this is production ML engineering.<br>
+    <b style="color:#c0a0ff">Success criteria:</b> The pipeline runs end-to-end without manual intervention. GitHub README explains architecture. You can present it in a 15-minute demo.
+  </div>
+</div>
+</div>
+
+<!-- ══ TAB 7: RESOURCES ══ -->
+<div class="sec" id="S7">
+<div class="badge bg-g">RESOURCES + CHECKLIST</div>
+<div class="h1">Complete Resource List + Phase 1 Checklist</div>
+<div class="sub">Every resource you need — nothing extra, nothing missing</div>
+
+<div class="sl">Primary learning resources (use these, ignore everything else)</div>
+<div class="g3">
+  <div class="card card-b"><div class="t">🎥 Video (Theory)</div><div class="b">
+    <b style="color:#70c0ff">3Blue1Brown</b><br>
+    · Essence of Linear Algebra (16 videos)<br>
+    · Essence of Calculus (12 videos)<br>
+    · Neural Networks series<br>
+    Free on YouTube — visually perfect<br><br>
+    <b style="color:#70c0ff">StatQuest with Josh Starmer</b><br>
+    · Statistics fundamentals<br>
+    · ML algorithms (all of them)<br>
+    · Clearance and depth — best ML YouTuber<br><br>
+    <b style="color:#70c0ff">Andrej Karpathy</b><br>
+    · Neural Networks: Zero to Hero<br>
+    · makemore series (for Phase 2 prep)
+  </div></div>
+  <div class="card card-g"><div class="t">📚 Books (Reference)</div><div class="b">
+    <b style="color:#50e880">Hands-On ML (Aurélien Géron)</b><br>
+    Free online — the best sklearn book. Read Ch1-4 in Week 3-4, Ch5-7 in Week 5-6.<br><br>
+    <b style="color:#50e880">Mathematics for ML (mml-book.github.io)</b><br>
+    Free PDF — covers all Week 1-2 math with ML context.<br><br>
+    <b style="color:#50e880">The Elements of Statistical Learning</b><br>
+    Free PDF (hastie.su.domains) — reference, not cover-to-cover<br><br>
+    <b style="color:#50e880">sklearn User Guide</b><br>
+    docs.scikit-learn.org — read the User Guide, not just API
+  </div></div>
+  <div class="card card-y"><div class="t">💻 Practice Platforms</div><div class="b">
+    <b style="color:#ffd060">Kaggle Learn</b><br>
+    Free micro-courses: Pandas, ML Intro, Intermediate ML, Feature Engineering. Each 4-6 hours. Do them in Weeks 3-4 parallel to theory.<br><br>
+    <b style="color:#ffd060">Kaggle Competitions</b><br>
+    Titanic (Week 3), Housing Prices (Week 5) — start with competitions that have notebooks to learn from<br><br>
+    <b style="color:#ffd060">Databricks Community Edition</b><br>
+    Free Databricks environment. Set up in Week 1, use from Week 3 onward<br><br>
+    <b style="color:#ffd060">Google Colab</b><br>
+    Free GPU for Weeks 6+ when MLP training is slow
+  </div></div>
+</div>
+
+<div class="sl">Phase 1 — complete mastery checklist</div>
+<div class="g2">
+<div>
+<div class="card card-g">
+  <div class="t">✓ Math foundations (Weeks 1-2)</div>
+  <div class="b" style="font-size:11px;line-height:1.8;">
+    ☐ Can implement gradient descent from scratch in numpy<br>
+    ☐ Can compute dot product, matrix multiply without looking it up<br>
+    ☐ Understands eigenvectors and PCA conceptually<br>
+    ☐ Can derive MSE from Gaussian MLE on paper<br>
+    ☐ Can derive BCE from Bernoulli MLE on paper<br>
+    ☐ Can apply Bayes theorem to a new problem<br>
+    ☐ Knows the shape of 5 common distributions<br>
+    ☐ Can interpret p-values correctly (and knows common misinterpretations)<br>
+    ☐ Understands correlation vs mutual information difference<br>
+    ☐ Can explain chain rule using a concrete non-math analogy
+  </div>
+</div>
+</div>
+<div>
+<div class="card card-b">
+  <div class="t">✓ Core ML concepts (Weeks 3-4)</div>
+  <div class="b" style="font-size:11px;line-height:1.8;">
+    ☐ Can build a sklearn Pipeline that prevents data leakage<br>
+    ☐ Can identify and fix 3 types of data leakage<br>
+    ☐ Can read a learning curve and diagnose bias vs variance<br>
+    ☐ Knows the fix for each: high bias (5 options), high variance (5 options)<br>
+    ☐ Can run GridSearchCV and log all results to MLflow<br>
+    ☐ Understands why accuracy is wrong for imbalanced data<br>
+    ☐ Can explain L1 vs L2 regularisation using MAP/Bayes priors<br>
+    ☐ First MLflow model registered in Model Registry<br>
+    ☐ Can do train/val/test split correctly with stratification<br>
+    ☐ Understands cross-validation variants and when to use each
+  </div>
+</div>
+</div>
+<div>
+<div class="card card-p">
+  <div class="t">✓ Algorithms (Weeks 5-6)</div>
+  <div class="b" style="font-size:11px;line-height:1.8;">
+    ☐ Can implement linear regression from scratch<br>
+    ☐ Knows when to use each of 8 algorithm families<br>
+    ☐ Can tune Random Forest and XGBoost with early stopping<br>
+    ☐ Can interpret SHAP values for a business audience<br>
+    ☐ Has built a Stacking ensemble and knows when it helps<br>
+    ☐ Knows the difference between RF feature importance and permutation importance<br>
+    ☐ Can calibrate probabilities and knows why it matters<br>
+    ☐ Can tune classification threshold based on business cost matrix<br>
+    ☐ Has trained MLP on image-like data and understands loss curve<br>
+    ☐ Customer churn project with AUC > 0.85 in portfolio
+  </div>
+</div>
+</div>
+<div>
+<div class="card card-o">
+  <div class="t">✓ Evaluation + Databricks (Weeks 7-8)</div>
+  <div class="b" style="font-size:11px;line-height:1.8;">
+    ☐ Can produce complete evaluation report in 30 min on new data<br>
+    ☐ Knows all 8 classification metrics and when to use each<br>
+    ☐ Can run all 6 feature selection methods and build consensus<br>
+    ☐ Has reusable EDA report generator function<br>
+    ☐ Can translate sklearn Pipeline to Spark ML Pipeline<br>
+    ☐ Has model deployed on Databricks Model Serving<br>
+    ☐ Has Delta table as ML data source pipeline working<br>
+    ☐ Understands data drift monitoring conceptually and has basic implementation<br>
+    ☐ Phase 1 capstone project: end-to-end on Databricks in portfolio<br>
+    ☐ Ready for Phase 2: PyTorch + Deep Learning
+  </div>
+</div>
+</div>
+</div>
+
+<div class="sl">If you fall behind — triage guide</div>
+<div class="g3">
+  <div class="card card-r"><div class="t">Week behind — 1 day catchup plan</div><div class="b">
+    Skip the theory — go straight to code. Read code comments. Understand by running and modifying. Theory can be caught up on weekends. Code practice cannot be skipped.<br><br>
+    Prioritise: gradient descent > bias-variance > loss functions > everything else
+  </div></div>
+  <div class="card card-y"><div class="t">Struggling with math (Week 1-2)</div><div class="b">
+    Don't get blocked on math rigor. Accept the formula, understand what it computes, implement it in numpy, see the result. Deep mathematical proof can wait until you have practical understanding. Use Khan Academy for specific gaps.
+  </div></div>
+  <div class="card card-g"><div class="t">Ahead of schedule</div><div class="b">
+    Start Kaggle competitions early. Enter Titanic, Housing Prices, and Heart Disease. Read top public notebooks. Try to beat the current score. This is the fastest way to go deeper than the study plan covers.
+  </div></div>
+</div>
+
+<div class="note note-g"><b>The single best indicator you are on track:</b> At the end of each week, open a blank Python file and implement that week's core algorithm from scratch in 20 minutes. Week 1 = gradient descent. Week 3 = logistic regression. Week 5 = decision tree. Week 6 = XGBoost forward pass (simplified). If you can do this without notes, you truly understand it. If you cannot, you memorised code without understanding it — that does not survive an interview or production problem.</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const CH={};
+function mk(id,cfg){if(CH[id])CH[id].destroy();CH[id]=new Chart(document.getElementById(id),cfg);}
+
+function goTab(n){
+  for(var i=1;i<=7;i++) document.getElementById('S'+i).className='sec'+(i===n?' on':'');
+  document.querySelectorAll('.tab').forEach(function(t,i){t.className='tab'+(i===n-1?' on':'');});
+  if(n===1) drawOverview();
+}
+
+function drawOverview(){
+  const weeks=['Wk1 Linear Algebra','Wk2 Probability','Wk3 ML Pipeline','Wk4 Overfitting','Wk5 Algorithms','Wk6 Ensembles/NN','Wk7 Evaluation','Wk8 Databricks'];
+  const theory=[75,80,60,55,50,50,40,30];
+  const code=[25,20,40,45,50,50,60,70];
+  const aws_transfer=[40,35,70,65,55,55,70,90];
+  mk('c1plan',{type:'bar',data:{labels:weeks,datasets:[
+    {label:'Theory hours/week',data:theory,backgroundColor:'rgba(64,128,255,0.75)',borderRadius:4,stack:'time'},
+    {label:'Code hours/week',data:code,backgroundColor:'rgba(80,232,128,0.75)',borderRadius:4,stack:'time'},
+    {label:'AWS knowledge transfer (%)',data:aws_transfer,backgroundColor:'rgba(255,152,64,0.6)',borderRadius:4,type:'line',yAxisID:'y2',stack:undefined,fill:false,pointRadius:5,pointBackgroundColor:'rgba(255,152,64,0.9)',borderWidth:2.5}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#c0d4ff',font:{size:10},boxWidth:12}}},scales:{x:{ticks:{color:'#8898b8',font:{size:9},maxRotation:25},grid:{color:'rgba(255,255,255,0.04)'}},y:{stacked:true,title:{display:true,text:'Hours/week',color:'#8898b8'},ticks:{color:'#8898b8',font:{size:9}},grid:{color:'rgba(255,255,255,0.05)'}},y2:{min:0,max:100,title:{display:true,text:'AWS transfer %',color:'#ff9840'},ticks:{color:'#ff9840',font:{size:9}},position:'right',grid:{display:false}}}}});
+}
+
+drawOverview();
+</script>
+</body>
+</html>

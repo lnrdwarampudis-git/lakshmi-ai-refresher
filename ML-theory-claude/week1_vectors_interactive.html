@@ -1,0 +1,82 @@
+
+<style>
+* { box-sizing: border-box; }
+.v-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.v-card { background: var(--color-background-secondary); border-radius: 10px; padding: 14px; border: 0.5px solid var(--color-border-tertiary); }
+.v-title { font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 10px; }
+.feat-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 13px; color: var(--color-text-secondary); }
+.feat-row span { min-width: 80px; }
+.feat-row input[type=range] { flex: 1; }
+.feat-val { min-width: 28px; text-align: right; font-weight: 500; color: var(--color-text-primary); font-size: 13px; }
+.result-row { display: flex; justify-content: space-between; align-items: center; background: var(--color-background-primary); border-radius: 8px; padding: 10px 14px; border: 0.5px solid var(--color-border-tertiary); margin-bottom: 8px; font-size: 13px; }
+.result-label { color: var(--color-text-secondary); }
+.result-val { font-size: 18px; font-weight: 500; color: var(--color-text-primary); }
+.sim-bar-wrap { height: 8px; background: var(--color-background-secondary); border-radius: 4px; overflow: hidden; margin: 4px 0 10px; }
+.sim-bar { height: 8px; border-radius: 4px; background: #1D9E75; transition: width 0.2s; }
+.insight { font-size: 13px; color: var(--color-text-secondary); padding: 10px 14px; border-left: 3px solid var(--color-border-success); border-radius: 0 8px 8px 0; background: var(--color-background-secondary); }
+.insight b { color: var(--color-text-primary); font-weight: 500; }
+.vec-display { font-family: var(--font-mono); font-size: 13px; color: var(--color-text-info); padding: 6px 10px; background: var(--color-background-primary); border-radius: 6px; border: 0.5px solid var(--color-border-tertiary); margin-bottom: 10px; }
+</style>
+
+<div style="font-size:15px;font-weight:500;color:var(--color-text-primary);margin-bottom:14px;">Vectors — a data row is a vector</div>
+
+<div class="v-grid">
+  <div class="v-card">
+    <div class="v-title">User A features</div>
+    <div class="feat-row"><span>Age</span><input type="range" min="18" max="65" value="28" id="a1" oninput="upd()"><span class="feat-val" id="a1v">28</span></div>
+    <div class="feat-row"><span>Income (k)</span><input type="range" min="20" max="150" value="60" id="a2" oninput="upd()"><span class="feat-val" id="a2v">60</span></div>
+    <div class="feat-row"><span>Sessions</span><input type="range" min="1" max="50" value="12" id="a3" oninput="upd()"><span class="feat-val" id="a3v">12</span></div>
+    <div class="vec-display" id="va-display">[28, 60, 12]</div>
+  </div>
+  <div class="v-card">
+    <div class="v-title">User B features</div>
+    <div class="feat-row"><span>Age</span><input type="range" min="18" max="65" value="30" id="b1" oninput="upd()"><span class="feat-val" id="b1v">30</span></div>
+    <div class="feat-row"><span>Income (k)</span><input type="range" min="20" max="150" value="65" id="b2" oninput="upd()"><span class="feat-val" id="b2v">65</span></div>
+    <div class="feat-row"><span>Sessions</span><input type="range" min="1" max="50" value="14" id="b3" oninput="upd()"><span class="feat-val" id="b3v">14</span></div>
+    <div class="vec-display" id="vb-display">[30, 65, 14]</div>
+  </div>
+</div>
+
+<div class="result-row">
+  <span class="result-label">Dot product (A · B)</span>
+  <span class="result-val" id="dot-val">—</span>
+</div>
+<div class="result-row">
+  <span class="result-label">Magnitude |A|</span>
+  <span class="result-val" id="mag-a">—</span>
+</div>
+<div class="result-row">
+  <span class="result-label">Magnitude |B|</span>
+  <span class="result-val" id="mag-b">—</span>
+</div>
+<div class="result-row" style="margin-bottom:6px;">
+  <span class="result-label">Cosine similarity</span>
+  <span class="result-val" id="cos-val">—</span>
+</div>
+<div style="font-size:12px;color:var(--color-text-tertiary);margin-bottom:4px;">Similarity (0 = unrelated, 1 = identical direction)</div>
+<div class="sim-bar-wrap"><div class="sim-bar" id="sim-bar" style="width:0%"></div></div>
+<div class="insight" id="vec-insight">Adjust the sliders to explore.</div>
+
+<script>
+function upd() {
+  const a = [+document.getElementById('a1').value, +document.getElementById('a2').value, +document.getElementById('a3').value];
+  const b = [+document.getElementById('b1').value, +document.getElementById('b2').value, +document.getElementById('b3').value];
+  ['a1','a2','a3'].forEach((id,i)=>document.getElementById(id+'v').textContent=a[i]);
+  ['b1','b2','b3'].forEach((id,i)=>document.getElementById(id+'v').textContent=b[i]);
+  document.getElementById('va-display').textContent = '['+a.join(', ')+']';
+  document.getElementById('vb-display').textContent = '['+b.join(', ')+']';
+  const dot = a.reduce((s,v,i)=>s+v*b[i],0);
+  const magA = Math.sqrt(a.reduce((s,v)=>s+v*v,0));
+  const magB = Math.sqrt(b.reduce((s,v)=>s+v*v,0));
+  const cos = dot/(magA*magB);
+  document.getElementById('dot-val').textContent = dot.toFixed(1);
+  document.getElementById('mag-a').textContent = magA.toFixed(2);
+  document.getElementById('mag-b').textContent = magB.toFixed(2);
+  document.getElementById('cos-val').textContent = cos.toFixed(4);
+  document.getElementById('sim-bar').style.width = Math.max(0, Math.min(100, cos*100)).toFixed(1)+'%';
+  const label = cos>0.99 ? 'nearly identical' : cos>0.95 ? 'very similar' : cos>0.8 ? 'somewhat similar' : 'quite different';
+  document.getElementById('vec-insight').innerHTML =
+    `A · B = ${dot.toFixed(0)} — each feature pair is multiplied and summed. Cosine similarity = <b>${cos.toFixed(3)}</b> → users are <b>${label}</b>. This is exactly how <b>RAG vector search</b> finds similar documents — it computes cosine similarity between your query embedding and every stored chunk.`;
+}
+upd();
+</script>

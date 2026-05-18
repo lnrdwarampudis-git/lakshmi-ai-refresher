@@ -1,0 +1,166 @@
+
+<style>
+* { box-sizing: border-box; }
+.tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+.tab { padding: 5px 16px; border-radius: 16px; border: 0.5px solid var(--color-border-secondary); font-size: 13px; cursor: pointer; color: var(--color-text-secondary); background: var(--color-background-secondary); }
+.tab.active { background: var(--color-background-warning); color: var(--color-text-warning); border-color: var(--color-border-warning); }
+.panel { display: none; }
+.panel.active { display: block; }
+.formula { font-family: var(--font-mono); font-size: 13px; background: var(--color-background-secondary); border-radius: 8px; padding: 10px 14px; margin-bottom: 14px; border: 0.5px solid var(--color-border-tertiary); color: var(--color-text-primary); line-height: 1.8; }
+.ctrl-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-bottom: 12px; font-size: 13px; color: var(--color-text-secondary); }
+.cgrp { display: flex; align-items: center; gap: 8px; }
+.cgrp label { min-width: 140px; }
+.vb { min-width: 42px; font-weight: 500; color: var(--color-text-primary); font-size: 13px; }
+.bayes-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; margin-bottom: 14px; }
+.bc { background: var(--color-background-secondary); border-radius: 8px; padding: 10px 12px; }
+.bc-lbl { font-size: 11px; color: var(--color-text-tertiary); margin-bottom: 3px; }
+.bc-val { font-size: 18px; font-weight: 500; color: var(--color-text-primary); }
+.bc-sub { font-size: 11px; color: var(--color-text-secondary); margin-top: 2px; }
+.bar-wrap { margin-bottom: 14px; }
+.bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; font-size: 13px; }
+.bar-label { min-width: 110px; color: var(--color-text-secondary); }
+.bar-track { flex: 1; height: 18px; background: var(--color-background-secondary); border-radius: 4px; overflow: hidden; }
+.bar-fill { height: 18px; border-radius: 4px; transition: width 0.3s; display: flex; align-items: center; padding-left: 6px; font-size: 11px; font-weight: 500; }
+.insight { font-size: 13px; color: var(--color-text-secondary); padding: 10px 14px; border-left: 3px solid var(--color-border-warning); border-radius: 0 8px 8px 0; background: var(--color-background-secondary); margin-top: 10px; line-height: 1.6; }
+.insight b { color: var(--color-text-primary); font-weight: 500; }
+</style>
+
+<div style="font-size:15px;font-weight:500;color:var(--color-text-primary);margin-bottom:12px;">Bayes theorem — update beliefs with evidence</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showP('fraud',this)">Fraud detection</div>
+  <div class="tab" onclick="showP('churn',this)">Churn prediction</div>
+  <div class="tab" onclick="showP('spam',this)">Spam filter</div>
+</div>
+
+<div class="panel active" id="panel-fraud">
+  <div class="formula">P(fraud | transaction) = P(transaction | fraud) × P(fraud) / P(transaction)</div>
+  <div class="ctrl-row">
+    <div class="cgrp"><label>P(fraud) — base rate</label><input type="range" min="1" max="30" value="5" step="1" id="fr-prior" oninput="updFraud()"><span class="vb" id="fr-prior-v">5%</span></div>
+    <div class="cgrp"><label>P(flag | fraud)</label><input type="range" min="50" max="99" value="90" step="1" id="fr-tpr" oninput="updFraud()"><span class="vb" id="fr-tpr-v">90%</span></div>
+    <div class="cgrp"><label>P(flag | legit)</label><input type="range" min="1" max="40" value="10" step="1" id="fr-fpr" oninput="updFraud()"><span class="vb" id="fr-fpr-v">10%</span></div>
+  </div>
+  <div class="bayes-grid">
+    <div class="bc"><div class="bc-lbl">Prior P(fraud)</div><div class="bc-val" id="fr-p1">5%</div><div class="bc-sub">before seeing data</div></div>
+    <div class="bc"><div class="bc-lbl">P(flag) total</div><div class="bc-val" id="fr-p2">—</div><div class="bc-sub">normalizing factor</div></div>
+    <div class="bc" style="border:1.5px solid var(--color-border-success)"><div class="bc-lbl">Posterior P(fraud|flag)</div><div class="bc-val" id="fr-post" style="color:var(--color-text-success)">—</div><div class="bc-sub">after seeing flag</div></div>
+  </div>
+  <div class="bar-wrap">
+    <div class="bar-row"><span class="bar-label">Prior (before)</span><div class="bar-track"><div class="bar-fill" id="fr-bar-prior" style="background:#378ADD;width:5%">5%</div></div></div>
+    <div class="bar-row"><span class="bar-label">Posterior (after)</span><div class="bar-track"><div class="bar-fill" id="fr-bar-post" style="background:#1D9E75;width:5%">—</div></div></div>
+  </div>
+  <div class="insight" id="fr-insight">Adjust the sliders to see how evidence updates the probability.</div>
+</div>
+
+<div class="panel" id="panel-churn">
+  <div class="formula">P(churn | low_usage) = P(low_usage | churn) × P(churn) / P(low_usage)</div>
+  <div class="ctrl-row">
+    <div class="cgrp"><label>P(churn) — base rate</label><input type="range" min="1" max="50" value="20" step="1" id="ch-prior" oninput="updChurn()"><span class="vb" id="ch-prior-v">20%</span></div>
+    <div class="cgrp"><label>P(low use | churn)</label><input type="range" min="40" max="99" value="80" step="1" id="ch-tpr" oninput="updChurn()"><span class="vb" id="ch-tpr-v">80%</span></div>
+    <div class="cgrp"><label>P(low use | stay)</label><input type="range" min="5" max="60" value="25" step="1" id="ch-fpr" oninput="updChurn()"><span class="vb" id="ch-fpr-v">25%</span></div>
+  </div>
+  <div class="bayes-grid">
+    <div class="bc"><div class="bc-lbl">Prior P(churn)</div><div class="bc-val" id="ch-p1">20%</div><div class="bc-sub">before seeing data</div></div>
+    <div class="bc"><div class="bc-lbl">P(low usage)</div><div class="bc-val" id="ch-p2">—</div><div class="bc-sub">normalizing factor</div></div>
+    <div class="bc" style="border:1.5px solid var(--color-border-success)"><div class="bc-lbl">Posterior P(churn|low use)</div><div class="bc-val" id="ch-post" style="color:var(--color-text-success)">—</div><div class="bc-sub">after seeing signal</div></div>
+  </div>
+  <div class="bar-wrap">
+    <div class="bar-row"><span class="bar-label">Prior (before)</span><div class="bar-track"><div class="bar-fill" id="ch-bar-prior" style="background:#378ADD;width:20%">20%</div></div></div>
+    <div class="bar-row"><span class="bar-label">Posterior (after)</span><div class="bar-track"><div class="bar-fill" id="ch-bar-post" style="background:#1D9E75;width:20%">—</div></div></div>
+  </div>
+  <div class="insight" id="ch-insight">Adjust sliders to explore.</div>
+</div>
+
+<div class="panel" id="panel-spam">
+  <div class="formula">P(spam | word) = P(word | spam) × P(spam) / P(word)</div>
+  <div class="ctrl-row">
+    <div class="cgrp"><label>P(spam) — base rate</label><input type="range" min="5" max="70" value="30" step="1" id="sp-prior" oninput="updSpam()"><span class="vb" id="sp-prior-v">30%</span></div>
+    <div class="cgrp"><label>P(word | spam)</label><input type="range" min="20" max="99" value="70" step="1" id="sp-tpr" oninput="updSpam()"><span class="vb" id="sp-tpr-v">70%</span></div>
+    <div class="cgrp"><label>P(word | legit)</label><input type="range" min="1" max="50" value="15" step="1" id="sp-fpr" oninput="updSpam()"><span class="vb" id="sp-fpr-v">15%</span></div>
+  </div>
+  <div class="bayes-grid">
+    <div class="bc"><div class="bc-lbl">Prior P(spam)</div><div class="bc-val" id="sp-p1">30%</div><div class="bc-sub">before seeing word</div></div>
+    <div class="bc"><div class="bc-lbl">P(word)</div><div class="bc-val" id="sp-p2">—</div><div class="bc-sub">normalizing factor</div></div>
+    <div class="bc" style="border:1.5px solid var(--color-border-success)"><div class="bc-lbl">P(spam | word)</div><div class="bc-val" id="sp-post" style="color:var(--color-text-success)">—</div><div class="bc-sub">after seeing word</div></div>
+  </div>
+  <div class="bar-wrap">
+    <div class="bar-row"><span class="bar-label">Prior (before)</span><div class="bar-track"><div class="bar-fill" id="sp-bar-prior" style="background:#378ADD;width:30%">30%</div></div></div>
+    <div class="bar-row"><span class="bar-label">Posterior (after)</span><div class="bar-track"><div class="bar-fill" id="sp-bar-post" style="background:#1D9E75;width:30%">—</div></div></div>
+  </div>
+  <div class="insight" id="sp-insight">Adjust sliders to explore.</div>
+</div>
+
+<script>
+function bayes(prior, likelihood, falsePos) {
+  const pEvidence = likelihood * prior + falsePos * (1 - prior);
+  const posterior = (likelihood * prior) / pEvidence;
+  return { posterior, pEvidence };
+}
+function pct(v) { return (v * 100).toFixed(1) + '%'; }
+function updFraud() {
+  const prior = +document.getElementById('fr-prior').value / 100;
+  const tpr = +document.getElementById('fr-tpr').value / 100;
+  const fpr = +document.getElementById('fr-fpr').value / 100;
+  document.getElementById('fr-prior-v').textContent = (prior*100).toFixed(0)+'%';
+  document.getElementById('fr-tpr-v').textContent = (tpr*100).toFixed(0)+'%';
+  document.getElementById('fr-fpr-v').textContent = (fpr*100).toFixed(0)+'%';
+  const { posterior, pEvidence } = bayes(prior, tpr, fpr);
+  document.getElementById('fr-p1').textContent = pct(prior);
+  document.getElementById('fr-p2').textContent = pct(pEvidence);
+  document.getElementById('fr-post').textContent = pct(posterior);
+  document.getElementById('fr-bar-prior').style.width = (prior*100)+'%';
+  document.getElementById('fr-bar-prior').textContent = pct(prior);
+  document.getElementById('fr-bar-post').style.width = (posterior*100)+'%';
+  document.getElementById('fr-bar-post').textContent = pct(posterior);
+  const lift = (posterior/prior).toFixed(1);
+  document.getElementById('fr-insight').innerHTML =
+    `Prior was <b>${pct(prior)}</b>. After seeing the flag, posterior = <b>${pct(posterior)}</b> — a <b>${lift}× lift</b>. This is Bayesian updating. <b>In ML:</b> Naive Bayes classifiers do this for every feature independently. <b>In Databricks:</b> <code>NaiveBayes</code> in <code>pyspark.ml.classification</code> — fast, interpretable, great baseline for text classification on Delta tables.`;
+}
+function updChurn() {
+  const prior = +document.getElementById('ch-prior').value / 100;
+  const tpr = +document.getElementById('ch-tpr').value / 100;
+  const fpr = +document.getElementById('ch-fpr').value / 100;
+  document.getElementById('ch-prior-v').textContent = (prior*100).toFixed(0)+'%';
+  document.getElementById('ch-tpr-v').textContent = (tpr*100).toFixed(0)+'%';
+  document.getElementById('ch-fpr-v').textContent = (fpr*100).toFixed(0)+'%';
+  const { posterior, pEvidence } = bayes(prior, tpr, fpr);
+  document.getElementById('ch-p1').textContent = pct(prior);
+  document.getElementById('ch-p2').textContent = pct(pEvidence);
+  document.getElementById('ch-post').textContent = pct(posterior);
+  document.getElementById('ch-bar-prior').style.width = (prior*100)+'%';
+  document.getElementById('ch-bar-prior').textContent = pct(prior);
+  document.getElementById('ch-bar-post').style.width = (posterior*100)+'%';
+  document.getElementById('ch-bar-post').textContent = pct(posterior);
+  const lift = (posterior/prior).toFixed(1);
+  document.getElementById('ch-insight').innerHTML =
+    `Low usage lifts churn probability from <b>${pct(prior)}</b> → <b>${pct(posterior)}</b> (${lift}× lift). <b>Practical tip:</b> Always compute base rates from your Delta table first — <code>df.groupBy("churned").count().show()</code>. A highly imbalanced prior (e.g. 2% churn) means even a strong signal produces low posteriors. You'll need to upsample the minority class.`;
+}
+function updSpam() {
+  const prior = +document.getElementById('sp-prior').value / 100;
+  const tpr = +document.getElementById('sp-tpr').value / 100;
+  const fpr = +document.getElementById('sp-fpr').value / 100;
+  document.getElementById('sp-prior-v').textContent = (prior*100).toFixed(0)+'%';
+  document.getElementById('sp-tpr-v').textContent = (tpr*100).toFixed(0)+'%';
+  document.getElementById('sp-fpr-v').textContent = (fpr*100).toFixed(0)+'%';
+  const { posterior, pEvidence } = bayes(prior, tpr, fpr);
+  document.getElementById('sp-p1').textContent = pct(prior);
+  document.getElementById('sp-p2').textContent = pct(pEvidence);
+  document.getElementById('sp-post').textContent = pct(posterior);
+  document.getElementById('sp-bar-prior').style.width = (prior*100)+'%';
+  document.getElementById('sp-bar-prior').textContent = pct(prior);
+  document.getElementById('sp-bar-post').style.width = (posterior*100)+'%';
+  document.getElementById('sp-bar-post').textContent = pct(posterior);
+  document.getElementById('sp-insight').innerHTML =
+    `Seeing this word updates spam probability from <b>${pct(prior)}</b> to <b>${pct(posterior)}</b>. Naive Bayes does this for <i>every word</i> in the message, multiplying posteriors. It assumes all words are independent (the "naive" assumption) — unrealistic but surprisingly effective for text. <b>In LLM RAG:</b> keyword relevance scoring uses the same Bayesian intuition.`;
+}
+function showP(id, el) {
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  el.classList.add('active');
+  if(id==='fraud') updFraud();
+  if(id==='churn') updChurn();
+  if(id==='spam') updSpam();
+}
+updFraud();
+</script>

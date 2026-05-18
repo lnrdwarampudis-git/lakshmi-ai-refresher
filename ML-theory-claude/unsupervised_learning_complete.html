@@ -1,0 +1,1325 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html,body{background:#12141c !important;color:#f0f0f0 !important;font-family:Arial,sans-serif;font-size:13px;margin:0;padding:8px;}
+*{box-sizing:border-box;}
+.nav{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:14px;}
+.tab{background:#1e2235;color:#b0c4f8;border:2px solid #3a4870;border-radius:7px;padding:8px 3px;font-size:9.5px;font-weight:700;cursor:pointer;text-align:center;line-height:1.4;}
+.tab.on{background:#1a5cb8;color:#fff;border-color:#5090ff;}
+.sec{display:none;}.sec.on{display:block;}
+.h1{font-size:16px;font-weight:700;color:#fff;margin-bottom:3px;}
+.sub{font-size:12px;color:#8898bb;margin-bottom:12px;}
+.badge{display:inline-block;color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;margin-bottom:8px;}
+.bg-b{background:#1a5cb8;}.bg-g{background:#1a7a3a;}.bg-r{background:#8a2020;}.bg-y{background:#7a5800;}.bg-p{background:#5a30a0;}.bg-t{background:#0a6070;}
+.sl{font-size:13px;font-weight:700;color:#78aaff;margin:12px 0 7px 0;padding-bottom:4px;border-bottom:1px solid #2a3860;}
+.divider{height:1px;background:#2a3860;margin:10px 0;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px;}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:10px;}
+.card{background:#1a1e30;border:1px solid #2e3858;border-radius:8px;padding:11px;}
+.card .t{font-size:13px;font-weight:700;color:#c0d4ff;margin-bottom:5px;}
+.card .b{font-size:12px;color:#9aaac8;line-height:1.65;}
+.card-b{background:#0c1e38;border-color:#1e5090;}.card-b .t{color:#70c0ff;}.card-b .b{color:#90b8e8;}
+.card-g{background:#081c10;border-color:#1a6030;}.card-g .t{color:#50e880;}.card-g .b{color:#80c898;}
+.card-r{background:#200a0a;border-color:#702020;}.card-r .t{color:#ff7070;}.card-r .b{color:#e89090;}
+.card-y{background:#1e1600;border-color:#6a5000;}.card-y .t{color:#ffc840;}.card-y .b{color:#d8a860;}
+.card-p{background:#140c28;border-color:#4a30a0;}.card-p .t{color:#c0a0ff;}.card-p .b{color:#a888e8;}
+.card-t{background:#081820;border-color:#0a5068;}.card-t .t{color:#40d8f0;}.card-t .b{color:#70b8c8;}
+.note{border-left:4px solid #4080ff;background:#0c1e3a;color:#b0ccf8;padding:9px 13px;border-radius:0 7px 7px 0;margin:8px 0;font-size:12px;line-height:1.6;}
+.note b{color:#fff;}
+.note-g{border-left-color:#30c860;background:#081c10;color:#90e8a8;}.note-g b{color:#60ff90;}
+.note-r{border-left-color:#e03030;background:#200808;color:#f09090;}.note-r b{color:#ff8080;}
+.note-y{border-left-color:#e0a000;background:#1c1200;color:#e8c860;}.note-y b{color:#ffe060;}
+.note-p{border-left-color:#9070e0;background:#140c28;color:#c8b0ff;}.note-p b{color:#d8c8ff;}
+.note-t{border-left-color:#20c8e0;background:#081820;color:#80d8e8;}.note-t b{color:#40f0ff;}
+.code{background:#080a10;border:1px solid #2a3460;border-radius:6px;padding:11px 13px;font-family:'Courier New',monospace;font-size:11px;color:#d8e8ff;line-height:1.8;white-space:pre-wrap;margin:8px 0;}
+.tg{display:inline-block;background:#0a2c14;color:#50e870;border:1px solid #208040;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin:2px;}
+.tr{display:inline-block;background:#2c0a0a;color:#ff7070;border:1px solid #802020;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin:2px;}
+.tb{display:inline-block;background:#0a1e3c;color:#60b0ff;border:1px solid #204880;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin:2px;}
+.ty{display:inline-block;background:#241800;color:#ffc040;border:1px solid #806000;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin:2px;}
+.tp{display:inline-block;background:#1a0830;color:#c0a0ff;border:1px solid #5030a0;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin:2px;}
+.tt{display:inline-block;background:#081820;color:#40d8f0;border:1px solid #0a5068;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin:2px;}
+table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:10px;}
+th{background:#1a1e30;color:#78aaff;font-weight:700;padding:7px 8px;text-align:left;border-bottom:1px solid #2e3858;}
+td{padding:5px 8px;border-bottom:1px solid #1e2438;color:#c0cce8;vertical-align:top;}
+tr:hover td{background:#1a2040;}
+.algo-card{background:#1a1e30;border:1.5px solid #2e3858;border-radius:10px;padding:13px;margin-bottom:10px;}
+.algo-name{font-size:14px;font-weight:700;color:#fff;margin-bottom:3px;}
+.algo-formula{font-family:monospace;font-size:11px;color:#60e880;background:#080a10;padding:5px 8px;border-radius:4px;margin:5px 0;}
+.algo-section{font-size:11px;font-weight:700;color:#78aaff;margin-top:7px;margin-bottom:3px;}
+.algo-body{font-size:11px;color:#9aaac8;line-height:1.65;}
+.sit-row{background:#1a1e30;border-radius:8px;padding:8px 12px;margin-bottom:6px;border-left:3px solid #4080ff;}
+.sit-q{font-size:12px;font-weight:700;color:#ffc840;margin-bottom:3px;}
+.sit-a{font-size:11px;color:#9aaac8;line-height:1.55;}
+.sit-algo{font-size:11px;color:#60e880;font-weight:700;margin-top:2px;}
+.roadmap-step{display:flex;gap:12px;margin-bottom:12px;align-items:flex-start;}
+.rs-num{min-width:34px;height:34px;border-radius:50%;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.rs-title{font-size:13px;font-weight:700;color:#fff;margin-bottom:2px;}
+.rs-sub{font-size:11px;color:#8898b8;line-height:1.5;}
+.rs-tasks{font-size:11px;color:#70c0ff;margin-top:3px;line-height:1.7;}
+.abtn{background:#1a1e30;color:#90b8e8;border:1px solid #2e3858;border-radius:6px;padding:5px 10px;font-size:11px;font-weight:700;cursor:pointer;margin:2px;}
+.abtn.on{background:#1a5cb8;color:#fff;border-color:#5090ff;}
+.week-card{background:#1a1e30;border:1px solid #2e3858;border-radius:8px;padding:10px 12px;margin-bottom:8px;}
+.week-title{font-size:12px;font-weight:700;color:#ffc840;margin-bottom:4px;}
+.week-body{font-size:11px;color:#9aaac8;line-height:1.7;}
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:5px;}
+.bar-label{min-width:150px;font-size:11px;color:#c0cce8;}
+.bar-track{flex:1;height:10px;background:#1a1e30;border-radius:5px;overflow:hidden;}
+.bar-fill{height:10px;border-radius:5px;}
+.bar-val{min-width:36px;font-size:11px;font-weight:700;color:#fff;text-align:right;}
+</style>
+</head>
+<body>
+
+<div class="nav" id="NAV">
+  <div class="tab on" onclick="goTab(1)">1. What is Unsupervised</div>
+  <div class="tab"    onclick="goTab(2)">2. Clustering</div>
+  <div class="tab"    onclick="goTab(3)">3. Dimensionality Reduction</div>
+  <div class="tab"    onclick="goTab(4)">4. Anomaly Detection</div>
+  <div class="tab"    onclick="goTab(5)">5. Right Situation</div>
+  <div class="tab"    onclick="goTab(6)">6. Compare All</div>
+  <div class="tab"    onclick="goTab(7)">7. Practice Code</div>
+</div>
+
+<!-- ══ TAB 1 ══ -->
+<div class="sec on" id="S1">
+<div class="badge bg-b">UNSUPERVISED LEARNING — COMPLETE GUIDE</div>
+<div class="h1">What is Unsupervised Learning?</div>
+<div class="sub">Finding hidden structure in data without labels — the foundation of data exploration</div>
+
+<div class="note"><b>The key difference from supervised learning:</b> There is no target variable y. The algorithm must discover patterns, groups, or structure purely from the input features X. No right or wrong answer — the quality depends on whether the discovered structure is meaningful and useful.</div>
+
+<div class="g3">
+  <div class="card card-b"><div class="t">Supervised vs Unsupervised</div><div class="b">
+    <b style="color:#70c0ff">Supervised:</b><br>· Has labels (X, y)<br>· Predicts known target<br>· Clear evaluation metric<br>· Classification / Regression<br><br>
+    <b style="color:#50e880">Unsupervised:</b><br>· Only features (X)<br>· Discovers hidden structure<br>· No ground truth metric<br>· Clustering / Reduction / Anomaly
+  </div></div>
+  <div class="card card-g"><div class="t">Three families</div><div class="b">
+    <b style="color:#50e880">Clustering:</b> Group similar data points together. K-Means, DBSCAN, Hierarchical, GMM.<br><br>
+    <b style="color:#ffc840">Dimensionality Reduction:</b> Compress features while preserving structure. PCA, t-SNE, UMAP, Autoencoders.<br><br>
+    <b style="color:#ff7070">Anomaly Detection:</b> Find rare unusual points. Isolation Forest, One-Class SVM, LOF.
+  </div></div>
+  <div class="card card-y"><div class="t">Where unsupervised is used</div><div class="b">
+    · Customer segmentation (no known groups)<br>
+    · Fraud detection (few labelled examples)<br>
+    · Data exploration before supervised ML<br>
+    · Recommender systems<br>
+    · Topic modelling in NLP<br>
+    · Feature learning for deep models<br>
+    · Compressing embeddings for RAG<br>
+    · Finding data quality problems
+  </div></div>
+</div>
+
+<div class="sl">Complete algorithm map</div>
+<div style="position:relative;height:220px;margin-bottom:10px;"><canvas id="c1map"></canvas></div>
+
+<table>
+<tr><th>Algorithm</th><th>Family</th><th>Output</th><th>Needs k?</th><th>Handles noise?</th><th>Scales?</th><th>Best for</th></tr>
+<tr><td><b style="color:#70c0ff">K-Means</b></td><td>Clustering</td><td>Cluster labels</td><td><span class="tr">Yes</span></td><td><span class="tr">No</span></td><td><span class="tg">Yes</span></td><td>Spherical clusters, large data</td></tr>
+<tr><td><b style="color:#70c0ff">K-Means++</b></td><td>Clustering</td><td>Cluster labels</td><td><span class="tr">Yes</span></td><td><span class="tr">No</span></td><td><span class="tg">Yes</span></td><td>K-Means with smart init</td></tr>
+<tr><td><b style="color:#60b0ff">DBSCAN</b></td><td>Clustering</td><td>Labels + noise</td><td><span class="tg">No</span></td><td><span class="tg">Yes</span></td><td><span class="ty">Medium</span></td><td>Arbitrary shapes, has noise</td></tr>
+<tr><td><b style="color:#60b0ff">HDBSCAN</b></td><td>Clustering</td><td>Labels + noise</td><td><span class="tg">No</span></td><td><span class="tg">Yes</span></td><td><span class="ty">Medium</span></td><td>Variable density clusters</td></tr>
+<tr><td><b style="color:#c0a0ff">Hierarchical</b></td><td>Clustering</td><td>Dendrogram</td><td><span class="ty">After</span></td><td><span class="ty">Partial</span></td><td><span class="tr">No</span></td><td>Unknown k, small data</td></tr>
+<tr><td><b style="color:#c0a0ff">GMM</b></td><td>Clustering</td><td>Soft labels</td><td><span class="tr">Yes</span></td><td><span class="ty">Partial</span></td><td><span class="ty">Medium</span></td><td>Overlapping clusters, probabilistic</td></tr>
+<tr><td><b style="color:#ffc840">PCA</b></td><td>Dim Reduction</td><td>Components</td><td><span class="tr">Yes (n_comp)</span></td><td><span class="ty">Partial</span></td><td><span class="tg">Yes</span></td><td>Linear compression, preprocessing</td></tr>
+<tr><td><b style="color:#ffc840">t-SNE</b></td><td>Dim Reduction</td><td>2D/3D coords</td><td><span class="tr">Yes (2 or 3)</span></td><td><span class="tg">Yes</span></td><td><span class="tr">No</span></td><td>Visualisation only</td></tr>
+<tr><td><b style="color:#ffc840">UMAP</b></td><td>Dim Reduction</td><td>Low-dim coords</td><td><span class="tr">Yes</span></td><td><span class="tg">Yes</span></td><td><span class="tg">Yes</span></td><td>Visualisation + preprocessing</td></tr>
+<tr><td><b style="color:#ffc840">Autoencoder</b></td><td>Dim Reduction</td><td>Latent vector</td><td><span class="tr">Yes (latent)</span></td><td><span class="tg">Yes</span></td><td><span class="tg">Yes</span></td><td>Non-linear compression, anomaly</td></tr>
+<tr><td><b style="color:#ff7070">Isolation Forest</b></td><td>Anomaly</td><td>Anomaly score</td><td><span class="tg">No</span></td><td><td>Default</td><td><span class="tg">Yes</span></td><td>Tabular anomaly, no labels</td></tr>
+<tr><td><b style="color:#ff7070">One-Class SVM</b></td><td>Anomaly</td><td>Boundary</td><td><span class="tg">No</span></td><td><span class="ty">Partial</span></td><td><span class="tr">No</span></td><td>High-dim anomaly, small data</td></tr>
+<tr><td><b style="color:#ff7070">LOF</b></td><td>Anomaly</td><td>Anomaly score</td><td><span class="tg">No</span></td><td><span class="tg">Yes</span></td><td><span class="tr">No</span></td><td>Density-based local anomalies</td></tr>
+<tr><td><b style="color:#50e880">LDA (topic)</b></td><td>Topic Model</td><td>Topics</td><td><span class="tr">Yes</span></td><td><span class="tg">Yes</span></td><td><span class="tg">Yes</span></td><td>Document topic modelling</td></tr>
+</table>
+
+<div class="note note-y"><b>Unsupervised vs Semi-supervised:</b> If you have a few labels (5–10% of data), use semi-supervised learning (Label Propagation, Self-Training) which combines unsupervised structure with the few available labels. This often beats purely supervised models trained on small labelled data.</div>
+</div>
+
+<!-- ══ TAB 2: CLUSTERING ══ -->
+<div class="sec" id="S2">
+<div class="badge bg-g">CLUSTERING ALGORITHMS</div>
+<div class="h1">Clustering — Grouping Similar Data Points</div>
+<div class="sub">K-Means · DBSCAN · Hierarchical · GMM · Choosing k · Evaluation</div>
+
+<div style="margin-bottom:10px;display:flex;flex-wrap:wrap;gap:3px;" id="clust-btns">
+  <button onclick="showClust('kmeans')" class="abtn on">K-Means</button>
+  <button onclick="showClust('dbscan')" class="abtn">DBSCAN</button>
+  <button onclick="showClust('hdbscan')" class="abtn">HDBSCAN</button>
+  <button onclick="showClust('hierarchical')" class="abtn">Hierarchical</button>
+  <button onclick="showClust('gmm')" class="abtn">GMM</button>
+  <button onclick="showClust('meanshift')" class="abtn">Mean Shift</button>
+</div>
+<div id="clust-detail"></div>
+
+<div class="sl">Choosing the right number of clusters — k selection</div>
+<div class="g3">
+  <div class="card card-b"><div class="t">Elbow method</div><div class="b">
+    Plot inertia (within-cluster sum of squares) vs k. Look for the "elbow" where adding more clusters gives diminishing returns.<br><br>
+    <code style="color:#60e880;font-size:10px;font-family:monospace">inertias = [KMeans(k).fit(X).inertia_ for k in range(1,15)]</code><br><br>
+    Limitation: Elbow is often subtle. Combine with silhouette score.
+  </div></div>
+  <div class="card card-g"><div class="t">Silhouette score</div><div class="b">
+    Measures how similar each point is to its own cluster vs other clusters. Range: −1 to 1. Higher = better separated clusters.<br><br>
+    <code style="color:#60e880;font-size:10px;font-family:monospace">silhouette_score(X, labels)</code><br><br>
+    Best k = highest silhouette score. Works for any clustering algorithm.
+  </div></div>
+  <div class="card card-y"><div class="t">Other metrics</div><div class="b">
+    <b style="color:#ffd060">Davies-Bouldin:</b> ratio of within-cluster scatter to between-cluster separation. Lower = better.<br><br>
+    <b style="color:#ffd060">Calinski-Harabasz:</b> ratio of between/within cluster dispersion. Higher = better.<br><br>
+    <b style="color:#ffd060">Gap statistic:</b> compares inertia to random data. More principled but slower.
+  </div></div>
+</div>
+
+<div style="position:relative;height:190px;margin-bottom:10px;"><canvas id="c2clust"></canvas></div>
+
+<div class="code">
+# ══════════════════════════════════════════════════════════
+# CLUSTERING — All Algorithms + Evaluation
+# ══════════════════════════════════════════════════════════
+import numpy as np
+import pandas as pd
+from sklearn.cluster import (KMeans, DBSCAN, AgglomerativeClustering,
+                              MeanShift, SpectralClustering, Birch)
+from sklearn.mixture import GaussianMixture
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import (silhouette_score, davies_bouldin_score,
+                              calinski_harabasz_score, adjusted_rand_score)
+from sklearn.datasets import make_blobs, make_moons, load_iris
+import warnings; warnings.filterwarnings('ignore')
+
+# ── Datasets to demonstrate different situations ───────────
+np.random.seed(42)
+# 1. Clean spherical blobs (K-Means wins)
+X_blobs, y_blobs = make_blobs(n_samples=400, centers=4, cluster_std=0.8, random_state=42)
+# 2. Non-spherical shapes (DBSCAN wins)
+X_moons, y_moons = make_moons(n_samples=400, noise=0.08, random_state=42)
+# 3. Real data
+iris = load_iris(as_frame=True)
+X_iris = StandardScaler().fit_transform(iris.data)
+
+# ══════════════════════════════════════════════
+# K-MEANS — Complete guide
+# ══════════════════════════════════════════════
+print("="*55)
+print("K-MEANS CLUSTERING")
+print("="*55)
+X = StandardScaler().fit_transform(X_blobs)
+
+# Step 1: Find optimal k using multiple metrics
+print("\nFinding optimal k:")
+print(f"{'k':>4}  {'Inertia':>10}  {'Silhouette':>12}  {'Davies-Bouldin':>16}  {'Calinski':>10}")
+results = []
+for k in range(2, 10):
+    km = KMeans(n_clusters=k, random_state=42, n_init=10)
+    labels = km.fit_predict(X)
+    inertia  = km.inertia_
+    sil      = silhouette_score(X, labels)
+    db       = davies_bouldin_score(X, labels)
+    ch       = calinski_harabasz_score(X, labels)
+    results.append({'k':k,'inertia':inertia,'silhouette':sil,'db':db,'ch':ch})
+    best = ' ← BEST' if k==4 else ''
+    print(f"{k:>4}  {inertia:>10.1f}  {sil:>12.4f}  {db:>16.4f}  {ch:>10.1f}{best}")
+
+best_k = max(results, key=lambda r: r['silhouette'])['k']
+print(f"\nBest k by silhouette: {best_k}")
+
+# Step 2: Train final K-Means
+km_final = KMeans(n_clusters=best_k, random_state=42, n_init=10)
+labels = km_final.fit_predict(X)
+print(f"\nCluster sizes: {dict(zip(*np.unique(labels, return_counts=True)))}")
+print(f"Inertia:       {km_final.inertia_:.2f}")
+print(f"Silhouette:    {silhouette_score(X, labels):.4f}")
+print(f"ARI (vs true): {adjusted_rand_score(y_blobs, labels):.4f}")
+
+# Step 3: Cluster profiling
+df_clusters = pd.DataFrame(X_blobs, columns=['x1','x2'])
+df_clusters['cluster'] = labels
+print("\nCluster centroids:")
+print(df_clusters.groupby('cluster').mean().round(3))
+
+# Step 4: K-Means limitations
+print("\n⚠ K-Means assumptions (when it fails):")
+print("  1. Clusters are spherical (equal covariance)")
+print("  2. Clusters are roughly equal size")
+print("  3. k must be chosen in advance")
+print("  4. Sensitive to outliers (use K-Medoids instead)")
+print("  5. Sensitive to initialisation (use k-means++ init)")
+
+# ══════════════════════════════════════════════
+# DBSCAN — Complete guide
+# ══════════════════════════════════════════════
+print("\n" + "="*55)
+print("DBSCAN — Density-Based Spatial Clustering")
+print("="*55)
+X_m = StandardScaler().fit_transform(X_moons)
+
+# Parameter guide
+print("\nDBSCAN parameter sensitivity:")
+print(f"{'eps':>6}  {'min_samples':>13}  {'n_clusters':>12}  {'n_noise':>10}  {'Silhouette':>12}")
+for eps in [0.1, 0.2, 0.3, 0.5, 0.8]:
+    for min_s in [3, 5, 10]:
+        db = DBSCAN(eps=eps, min_samples=min_s)
+        labels = db.fit_predict(X_m)
+        n_clusters = len(set(labels)) - (1 if -1 in labels else 0)
+        n_noise = (labels == -1).sum()
+        if n_clusters > 1:
+            sil = silhouette_score(X_m[labels!=-1], labels[labels!=-1]) if n_clusters>1 else 0
+            print(f"{eps:>6}  {min_s:>13}  {n_clusters:>12}  {n_noise:>10}  {sil:>12.4f}")
+
+# Best DBSCAN config for moons
+db_best = DBSCAN(eps=0.3, min_samples=5)
+labels_db = db_best.fit_predict(X_m)
+n_clust = len(set(labels_db)) - (1 if -1 in labels_db else 0)
+n_noise = (labels_db == -1).sum()
+print(f"\nBest DBSCAN: {n_clust} clusters, {n_noise} noise points")
+print(f"ARI vs true: {adjusted_rand_score(y_moons, labels_db):.4f}")
+
+# K-Means fails on moons
+labels_km = KMeans(n_clusters=2, random_state=42).fit_predict(X_m)
+print(f"K-Means ARI: {adjusted_rand_score(y_moons, labels_km):.4f} ← fails on non-spherical!")
+
+# ══════════════════════════════════════════════
+# HIERARCHICAL CLUSTERING
+# ══════════════════════════════════════════════
+print("\n" + "="*55)
+print("HIERARCHICAL / AGGLOMERATIVE CLUSTERING")
+print("="*55)
+X_h = StandardScaler().fit_transform(X_iris)
+
+print("\nLinkage comparison:")
+for linkage in ['ward','complete','average','single']:
+    for k in [2, 3, 4]:
+        hc = AgglomerativeClustering(n_clusters=k, linkage=linkage)
+        labels_h = hc.fit_predict(X_h)
+        sil = silhouette_score(X_h, labels_h)
+        ari = adjusted_rand_score(iris.target, labels_h)
+        if k == 3:  # show best comparison
+            print(f"  linkage={linkage:9s} k={k}: silhouette={sil:.4f}  ARI={ari:.4f}")
+
+print("\nWhen to use hierarchical:")
+print("  ✓ Don't know k in advance (read dendrogram)")
+print("  ✓ Want to see the full hierarchy")
+print("  ✓ Small dataset (<5000 rows)")
+print("  ✗ Large datasets (O(n²) memory)")
+
+# ══════════════════════════════════════════════
+# GAUSSIAN MIXTURE MODEL
+# ══════════════════════════════════════════════
+print("\n" + "="*55)
+print("GAUSSIAN MIXTURE MODEL (GMM)")
+print("="*55)
+
+# Model selection using BIC/AIC
+print("BIC/AIC for model selection:")
+for k in range(1, 8):
+    gmm = GaussianMixture(n_components=k, random_state=42, n_init=5)
+    gmm.fit(X_h)
+    bic = gmm.bic(X_h)
+    aic = gmm.aic(X_h)
+    print(f"  k={k}: BIC={bic:.1f}  AIC={aic:.1f}")
+
+best_gmm = GaussianMixture(n_components=3, random_state=42, n_init=10)
+labels_gmm = best_gmm.fit_predict(X_h)
+probs = best_gmm.predict_proba(X_h)
+print(f"\nGMM k=3:")
+print(f"  ARI vs true: {adjusted_rand_score(iris.target, labels_gmm):.4f}")
+print(f"  Avg max probability: {probs.max(axis=1).mean():.4f}")
+print(f"  Points with p<0.7 (uncertain): {(probs.max(axis=1)<0.7).sum()}")
+print("\nGMM advantage: SOFT assignments — probability of belonging to each cluster")
+print("K-Means: hard assignments only (binary)")
+
+# ══════════════════════════════════════════════
+# CLUSTERING EVALUATION SUMMARY
+# ══════════════════════════════════════════════
+print("\n" + "="*55)
+print("EVALUATION METRICS SUMMARY")
+print("="*55)
+metrics_info = [
+    ('Silhouette score', '−1 to 1', 'Higher better', 'Any algorithm', 'No labels needed'),
+    ('Davies-Bouldin',   '0 to ∞',  'Lower better',  'Any algorithm', 'No labels needed'),
+    ('Calinski-Harabasz','0 to ∞',  'Higher better', 'Any algorithm', 'No labels needed'),
+    ('Inertia (WCSS)',   '0 to ∞',  'Lower better',  'K-Means only',  'No labels needed'),
+    ('ARI',              '−1 to 1', 'Higher better', 'Any algorithm', 'NEEDS ground truth'),
+    ('NMI',              '0 to 1',  'Higher better', 'Any algorithm', 'NEEDS ground truth'),
+]
+print(f"{'Metric':22s}  {'Range':10s}  {'Direction':14s}  {'Works with':16s}  {'Requires labels'}")
+for m in metrics_info:
+    print(f"  {m[0]:20s}  {m[1]:10s}  {m[2]:14s}  {m[3]:16s}  {m[4]}")</div>
+
+<div class="note note-g"><b>Clustering evaluation is hard because there is no ground truth.</b> Use multiple metrics together — silhouette score for separation quality, Davies-Bouldin for cluster compactness, and always visualise with PCA or t-SNE reduced to 2D. If the clusters look meaningful to a domain expert, they are good clusters.</div>
+</div>
+
+<!-- ══ TAB 3: DIM REDUCTION ══ -->
+<div class="sec" id="S3">
+<div class="badge bg-y">DIMENSIONALITY REDUCTION</div>
+<div class="h1">Dimensionality Reduction — Compressing Features Intelligently</div>
+<div class="sub">PCA · t-SNE · UMAP · Autoencoders · Feature Compression for ML</div>
+
+<div class="g3">
+  <div class="card card-b"><div class="t">Why reduce dimensions?</div><div class="b">
+    · Curse of dimensionality — distance metrics break in high-D<br>
+    · Visualisation — only works in 2D/3D<br>
+    · Noise removal — discard low-variance components<br>
+    · Faster training — fewer features = faster ML<br>
+    · Better clustering — cluster in reduced space<br>
+    · Compression — store/transmit less data
+  </div></div>
+  <div class="card card-g"><div class="t">Linear vs non-linear</div><div class="b">
+    <b style="color:#50e880">Linear (PCA, SVD):</b> finds straight axes. Fast, deterministic, invertible. Best for preprocessing before ML.<br><br>
+    <b style="color:#ffc840">Non-linear (t-SNE, UMAP):</b> preserves local neighbourhoods. Reveals clusters that PCA misses. Better for visualisation. Cannot be applied to new data easily (t-SNE).
+  </div></div>
+  <div class="card card-y"><div class="t">When to use each</div><div class="b">
+    <b style="color:#ffd060">PCA:</b> preprocessing before ML, noise removal, explained variance<br>
+    <b style="color:#ffd060">t-SNE:</b> visualisation ONLY — clusters in 2D<br>
+    <b style="color:#ffd060">UMAP:</b> visualisation + preprocessing (faster than t-SNE, preserves global)<br>
+    <b style="color:#ffd060">Autoencoder:</b> non-linear compression, anomaly detection
+  </div></div>
+</div>
+
+<div style="position:relative;height:190px;margin-bottom:10px;"><canvas id="c3dim"></canvas></div>
+
+<div class="code">
+# ══════════════════════════════════════════════════════════
+# DIMENSIONALITY REDUCTION — PCA, t-SNE, UMAP, Autoencoder
+# ══════════════════════════════════════════════════════════
+import numpy as np
+import pandas as pd
+from sklearn.decomposition import PCA, TruncatedSVD, NMF, FastICA
+from sklearn.manifold import TSNE
+from sklearn.preprocessing import StandardScaler
+from sklearn.datasets import load_digits, load_breast_cancer, load_iris
+from sklearn.model_selection import cross_val_score
+from sklearn.ensemble import RandomForestClassifier
+import warnings; warnings.filterwarnings('ignore')
+
+# ══════════════════════════════════════════════
+# PCA — Principal Component Analysis
+# ══════════════════════════════════════════════
+print("="*55)
+print("PCA — Principal Component Analysis")
+print("="*55)
+
+digits = load_digits()
+X, y = digits.data, digits.target    # 1797 × 64 (64 pixel features)
+X_sc = StandardScaler().fit_transform(X)
+
+# Fit PCA
+pca = PCA(random_state=42)
+pca.fit(X_sc)
+
+# Explained variance
+cum_var = np.cumsum(pca.explained_variance_ratio_)
+print("\nVariance explained by components:")
+for n_comp in [1, 2, 5, 10, 20, 30, 40, 50, 64]:
+    idx = min(n_comp, len(cum_var)) - 1
+    print(f"  {n_comp:3d} components: {cum_var[idx]*100:.1f}% variance explained")
+
+# Choose n_components for 95% variance
+n_95 = np.argmax(cum_var >= 0.95) + 1
+n_99 = np.argmax(cum_var >= 0.99) + 1
+print(f"\n95% variance needs: {n_95} components (from 64)")
+print(f"99% variance needs: {n_99} components (from 64)")
+
+# Impact on downstream classifier
+print("\nPCA compression impact on Random Forest accuracy:")
+rf = RandomForestClassifier(n_estimators=100, random_state=42, n_jobs=-1)
+base_acc = cross_val_score(rf, X_sc, y, cv=5).mean()
+print(f"  All 64 features: accuracy={base_acc:.4f}")
+for n in [2, 5, 10, 20, 30, n_95]:
+    X_pca = PCA(n_components=n, random_state=42).fit_transform(X_sc)
+    acc = cross_val_score(rf, X_pca, y, cv=5).mean()
+    compression = (1 - n/64)*100
+    print(f"  {n:3d} components: accuracy={acc:.4f}  compression={compression:.0f}%  {'✓ good' if acc>base_acc-0.02 else ''}")
+
+# PCA for noise removal
+cancer = load_breast_cancer(as_frame=True)
+X_c = StandardScaler().fit_transform(cancer.data)
+y_c = cancer.target
+print("\nPCA denoising: Cancer dataset")
+base = cross_val_score(rf, X_c, y_c, cv=5, scoring='roc_auc').mean()
+print(f"  All 30 features: AUC={base:.4f}")
+for n in [5, 10, 15, 20, 25]:
+    X_pca_c = PCA(n_components=n, random_state=42).fit_transform(X_c)
+    auc = cross_val_score(rf, X_pca_c, y_c, cv=5, scoring='roc_auc').mean()
+    print(f"  {n:2d} PCA components: AUC={auc:.4f}  {'← best compression' if n==10 else ''}")
+
+# PCA for preprocessing pipeline
+from sklearn.pipeline import Pipeline
+from sklearn.linear_model import LogisticRegression
+pca_pipe = Pipeline([
+    ('scaler', StandardScaler()),
+    ('pca',    PCA(n_components=0.95, svd_solver='full')),  # keep 95% variance
+    ('clf',    LogisticRegression(max_iter=1000))
+])
+auc_pipe = cross_val_score(pca_pipe, cancer.data, y_c, cv=5, scoring='roc_auc').mean()
+print(f"\nPCA Pipeline (95% var): AUC={auc_pipe:.4f}")
+pca_pipe.fit(cancer.data, y_c)
+print(f"  n_components selected: {pca_pipe['pca'].n_components_}")
+
+# ══════════════════════════════════════════════
+# t-SNE — Visualisation
+# ══════════════════════════════════════════════
+print("\n" + "="*55)
+print("t-SNE — Non-linear 2D Visualisation")
+print("="*55)
+
+# IMPORTANT: Use PCA first then t-SNE for speed
+X_pca_50 = PCA(n_components=50, random_state=42).fit_transform(
+    StandardScaler().fit_transform(X))
+tsne = TSNE(n_components=2, perplexity=30, random_state=42, n_iter=1000)
+X_tsne = tsne.fit_transform(X_pca_50)
+print(f"t-SNE output shape: {X_tsne.shape}")
+print(f"KL divergence (lower=better): {tsne.kl_divergence_:.4f}")
+
+# Check cluster quality in t-SNE space
+from sklearn.cluster import KMeans
+labels_tsne = KMeans(n_clusters=10, random_state=42, n_init=10).fit_predict(X_tsne)
+sil_tsne = silhouette_score(X_tsne, labels_tsne)
+from sklearn.metrics import silhouette_score, adjusted_rand_score
+sil_orig = silhouette_score(StandardScaler().fit_transform(X), labels_tsne)
+print(f"\nClustering quality in t-SNE space: sil={sil_tsne:.4f}")
+print(f"ARI vs true digit labels:          {adjusted_rand_score(y, labels_tsne):.4f}")
+
+print("\nt-SNE perplexity effect:")
+for perp in [5, 15, 30, 50, 100]:
+    ts = TSNE(n_components=2, perplexity=perp, random_state=42, n_iter=500)
+    X_ts = ts.fit_transform(X_pca_50[:500])  # subset for speed
+    km = KMeans(n_clusters=10, random_state=42, n_init=5).fit_predict(X_ts)
+    ari = adjusted_rand_score(y[:500], km)
+    print(f"  perplexity={perp:4d}: ARI={ari:.4f}  KL={ts.kl_divergence_:.4f}")
+
+print("\nCritical t-SNE rules:")
+print("  ⚠ ONLY use for visualisation — not for ML features")
+print("  ⚠ Cannot transform new data (no .transform())")
+print("  ⚠ Distances between clusters are NOT meaningful")
+print("  ⚠ Run PCA first (to 50 dims) to speed it up")
+print("  ✓ Perplexity 15-50 is usually best")
+
+# ══════════════════════════════════════════════
+# Other decompositions
+# ══════════════════════════════════════════════
+print("\n" + "="*55)
+print("OTHER DECOMPOSITIONS")
+print("="*55)
+
+# Truncated SVD (for sparse data)
+from scipy.sparse import random as sparse_random
+X_sparse = sparse_random(1000, 5000, density=0.01, random_state=42)
+svd = TruncatedSVD(n_components=50, random_state=42)
+X_svd = svd.fit_transform(X_sparse)
+print(f"TruncatedSVD on sparse (1000×5000) → {X_svd.shape}")
+print(f"  Variance explained: {svd.explained_variance_ratio_.sum()*100:.1f}%")
+print("  USE WHEN: sparse matrices (TF-IDF, one-hot encoded text)")
+
+# NMF (parts-based, interpretable)
+X_pos = np.abs(StandardScaler().fit_transform(digits.data))
+nmf = NMF(n_components=20, random_state=42, max_iter=500)
+X_nmf = nmf.fit_transform(X_pos)
+print(f"\nNMF: {X_pos.shape} → {X_nmf.shape}")
+print("  USE WHEN: non-negative data (images, counts, TF-IDF)")
+print("  Components are additive parts — more interpretable than PCA")
+
+# ICA (statistical independence)
+ica = FastICA(n_components=20, random_state=42)
+X_ica = ica.fit_transform(StandardScaler().fit_transform(X))
+print(f"\nICA: {X.shape} → {X_ica.shape}")
+print("  USE WHEN: signal separation (EEG, audio, finance)")
+print("  Finds statistically INDEPENDENT components (not just uncorrelated)")
+
+print("\n── DIMENSIONALITY REDUCTION GUIDE ──")
+guide = [
+    ('PCA',            'Preprocessing before ML',          'Fast, deterministic, invertible'),
+    ('TruncatedSVD',   'Sparse data (text, TF-IDF)',        'Memory efficient for sparse'),
+    ('NMF',            'Non-negative data, interpretable',  'Additive parts decomposition'),
+    ('ICA',            'Signal separation',                 'Statistical independence'),
+    ('t-SNE',          'Visualisation ONLY',                'Best 2D cluster visualisation'),
+    ('UMAP',           'Vis + preprocessing',              'Faster than t-SNE, global structure'),
+    ('Autoencoder',    'Non-linear compression + anomaly',  'Needs PyTorch, most powerful'),
+]
+for name, when, note in guide:
+    print(f"  {name:16s}: {when:35s}  | {note}")</div>
+
+<div class="note note-y"><b>The single most important rule about t-SNE:</b> Never use t-SNE features as input to a machine learning model. It is a visualisation tool only. Use PCA instead for preprocessing. UMAP is the only non-linear method you can use for both visualisation and ML preprocessing.</div>
+</div>
+
+<!-- ══ TAB 4: ANOMALY DETECTION ══ -->
+<div class="sec" id="S4">
+<div class="badge bg-r">ANOMALY DETECTION</div>
+<div class="h1">Anomaly Detection — Finding the Unusual</div>
+<div class="sub">Isolation Forest · One-Class SVM · LOF · Autoencoder · Practical guide</div>
+
+<div class="g3">
+  <div class="card card-r"><div class="t">What is anomaly detection?</div><div class="b">
+    Finding data points that are significantly different from the majority. Unlike fraud classification, anomaly detection works WITHOUT labelled fraud examples.<br><br>
+    <b style="color:#ff9090">Use cases:</b><br>
+    · Fraud detection with no labels<br>
+    · Network intrusion detection<br>
+    · Manufacturing defect detection<br>
+    · Data quality monitoring<br>
+    · Medical rare condition screening
+  </div></div>
+  <div class="card card-y"><div class="t">Three approaches</div><div class="b">
+    <b style="color:#ffd060">Statistical:</b> points far from distribution. Z-score, IQR, Gaussian envelope.<br><br>
+    <b style="color:#ffd060">Isolation-based:</b> points that are easy to isolate. Isolation Forest — fast and accurate.<br><br>
+    <b style="color:#ffd060">Density-based:</b> points in sparse regions. LOF, HDBSCAN noise points.<br><br>
+    <b style="color:#ffd060">Reconstruction-based:</b> points the model cannot reconstruct. Autoencoders.
+  </div></div>
+  <div class="card card-g"><div class="t">Evaluation (no labels)</div><div class="b">
+    Hard to evaluate without labels. Practical approaches:<br><br>
+    · Plot anomaly scores — look for clear separation<br>
+    · Inject known synthetic anomalies and check detection rate<br>
+    · Have domain expert review flagged points<br>
+    · If some labels exist: precision@k (top k flagged = how many real?)<br><br>
+    <span class="tg">contamination parameter = expected % anomalies</span>
+  </div></div>
+</div>
+
+<div style="position:relative;height:190px;margin-bottom:8px;"><canvas id="c4anom"></canvas></div>
+
+<div class="code">
+# ══════════════════════════════════════════════════════════
+# ANOMALY DETECTION — All Methods
+# ══════════════════════════════════════════════════════════
+import numpy as np
+import pandas as pd
+from sklearn.ensemble import IsolationForest
+from sklearn.neighbors import LocalOutlierFactor
+from sklearn.svm import OneClassSVM
+from sklearn.covariance import EllipticEnvelope
+from sklearn.preprocessing import StandardScaler
+from sklearn.datasets import make_blobs
+from sklearn.metrics import roc_auc_score, average_precision_score
+import warnings; warnings.filterwarnings('ignore')
+
+np.random.seed(42)
+
+# Create dataset with known anomalies
+X_normal = np.random.normal(0, 1, (400, 2))
+X_anom   = np.random.uniform(-5, 5, (20, 2))   # 5% anomalies
+X_all    = np.vstack([X_normal, X_anom])
+y_true   = np.array([1]*400 + [-1]*20)          # 1=normal, -1=anomaly
+X_sc     = StandardScaler().fit_transform(X_all)
+contamination = 0.05
+
+print("="*55)
+print("ANOMALY DETECTION COMPARISON")
+print("="*55)
+print(f"Dataset: {len(X_normal)} normal + {len(X_anom)} anomalies")
+
+# All detectors
+detectors = {
+    'Isolation Forest':    IsolationForest(contamination=contamination,
+                                           random_state=42, n_jobs=-1),
+    'Local Outlier Factor':LocalOutlierFactor(n_neighbors=20,
+                                              contamination=contamination),
+    'One-Class SVM':       OneClassSVM(kernel='rbf', nu=contamination, gamma='scale'),
+    'Elliptic Envelope':   EllipticEnvelope(contamination=contamination,
+                                             random_state=42),
+}
+
+print(f"\n{'Method':25s}  {'Precision':10s}  {'Recall':8s}  {'F1':7s}  {'AUC':7s}")
+print("-"*65)
+results_anom = {}
+for name, detector in detectors.items():
+    if isinstance(detector, LocalOutlierFactor):
+        y_pred = detector.fit_predict(X_sc)
+        scores = -detector.negative_outlier_factor_
+    else:
+        detector.fit(X_sc)
+        y_pred = detector.predict(X_sc)
+        scores = detector.score_samples(X_sc) if hasattr(detector,'score_samples') else None
+
+    # Convert: -1=anomaly → 1 for anomaly evaluation
+    tp = np.sum((y_pred==-1) & (y_true==-1))
+    fp = np.sum((y_pred==-1) & (y_true==1))
+    fn = np.sum((y_pred==1)  & (y_true==-1))
+    prec = tp/(tp+fp+1e-9); rec = tp/(tp+fn+1e-9)
+    f1   = 2*prec*rec/(prec+rec+1e-9)
+    auc  = roc_auc_score((y_true==-1).astype(int), -scores) if scores is not None else 0
+    results_anom[name] = {'prec':prec,'rec':rec,'f1':f1,'auc':auc}
+    print(f"{name:25s}  {prec:10.4f}  {rec:8.4f}  {f1:7.4f}  {auc:7.4f}")
+
+# ── Isolation Forest deep dive ─────────────────────────────
+print("\n" + "="*55)
+print("ISOLATION FOREST — Deep Dive")
+print("="*55)
+print("""
+How it works:
+  1. Randomly select a feature
+  2. Randomly select a split value between min and max
+  3. Anomalies need FEWER splits to isolate (shorter path length)
+  4. Normal points need MORE splits (longer path)
+  5. Anomaly score = average path length over many trees
+
+contamination parameter = expected % of anomalies in data
+  Start with 0.05 (5%), adjust based on domain knowledge
+""")
+iso = IsolationForest(contamination=0.05, n_estimators=200, random_state=42)
+iso.fit(X_sc)
+scores = iso.score_samples(X_sc)
+
+print("Score interpretation:")
+print(f"  Most normal score:  {scores[y_true==1].max():.4f}")
+print(f"  Avg normal score:   {scores[y_true==1].mean():.4f}")
+print(f"  Avg anomaly score:  {scores[y_true==-1].mean():.4f}")
+print(f"  Most anomalous:     {scores.min():.4f}")
+print(f"  Scores near 0 = ambiguous; strongly negative = definite anomaly")
+
+# contamination sensitivity
+print("\ncontamination parameter effect:")
+for c in [0.01, 0.02, 0.05, 0.10, 0.15, 0.20]:
+    iso_c = IsolationForest(contamination=c, random_state=42, n_jobs=-1)
+    pred  = iso_c.fit_predict(X_sc)
+    n_flagged = (pred==-1).sum()
+    tp = np.sum((pred==-1) & (y_true==-1))
+    fp = np.sum((pred==-1) & (y_true==1))
+    print(f"  contamination={c:.2f}: flagged={n_flagged:4d}  TP={tp}  FP={fp}")
+
+# ── LOF deep dive ─────────────────────────────────────────
+print("\n" + "="*55)
+print("LOCAL OUTLIER FACTOR (LOF)")
+print("="*55)
+print("""
+How it works:
+  Compares local density of a point to its k-nearest neighbours.
+  LOF > 1 = lower density than neighbours = anomaly
+  LOF ≈ 1 = similar density = normal
+
+n_neighbors: smaller = more local; larger = more global
+USE WHEN: anomalies are local (normal in one region, anomalous in another)
+""")
+for k in [5, 10, 15, 20, 30, 50]:
+    lof = LocalOutlierFactor(n_neighbors=k, contamination=0.05)
+    pred = lof.fit_predict(X_sc)
+    tp = np.sum((pred==-1) & (y_true==-1))
+    fp = np.sum((pred==-1) & (y_true==1))
+    f1_v = 2*tp/(2*tp+fp+(20-tp)+1e-9)
+    print(f"  n_neighbors={k:3d}: TP={tp:2d}  FP={fp:3d}  F1={f1_v:.4f}")
+
+# ── Real-world pipeline ────────────────────────────────────
+print("\n" + "="*55)
+print("REAL-WORLD ANOMALY DETECTION PIPELINE")
+print("="*55)
+print("""
+Step 1: EDA — understand what normal looks like
+Step 2: Feature engineering — create relevant features
+Step 3: Scale features (StandardScaler or RobustScaler)
+Step 4: Train Isolation Forest with contamination = expected %
+Step 5: Get anomaly scores — rank all points
+Step 6: Set threshold — business decision (top 1%? 5%?)
+Step 7: Review top flagged points with domain expert
+Step 8: Tune contamination parameter based on feedback
+Step 9: If labels become available — switch to supervised fraud detection
+""")
+
+# Delta table pipeline (Databricks)
+print("Databricks / PySpark pipeline:")
+print("""
+from sklearn.ensemble import IsolationForest
+import pandas as pd
+
+# Load from Delta table
+df = spark.table("catalog.schema.transactions").toPandas()
+
+# Feature selection and scaling
+features = ['amount', 'velocity', 'hour', 'distance']
+X = StandardScaler().fit_transform(df[features].fillna(0))
+
+# Train isolation forest
+iso = IsolationForest(contamination=0.01,  # expect 1% fraud
+                      n_estimators=200,
+                      random_state=42,
+                      n_jobs=-1)
+iso.fit(X)
+
+# Score all transactions
+df['anomaly_score'] = iso.score_samples(X)     # lower = more anomalous
+df['is_anomaly']    = iso.predict(X) == -1     # True/False flag
+
+# Return top 1% most anomalous for review
+top_anomalies = df.nsmallest(int(len(df)*0.01), 'anomaly_score')
+print(f"Flagged for review: {len(top_anomalies)} transactions")
+
+# Write back to Delta
+spark.createDataFrame(df).write.format("delta").mode("overwrite")
+      .saveAsTable("catalog.schema.transactions_scored")
+""")</div>
+
+<div class="note note-r"><b>The contamination parameter is the most important decision in anomaly detection.</b> Too low = you miss real anomalies. Too high = you waste analyst time on false positives. Start with your domain knowledge (if 1% of transactions are fraud, set contamination=0.01). Adjust based on analyst feedback.</div>
+</div>
+
+<!-- ══ TAB 5: RIGHT SITUATION ══ -->
+<div class="sec" id="S5">
+<div class="badge bg-t">RIGHT SITUATION → RIGHT ALGORITHM</div>
+<div class="h1">Which Unsupervised Algorithm for Which Situation</div>
+<div class="sub">Real-world scenarios mapped to the best algorithm choice</div>
+
+<div class="sl">Clustering situations</div>
+<div class="g2">
+<div>
+<div class="sit-row" style="border-left-color:#70c0ff">
+  <div class="sit-q">I want to segment customers into groups — I don't know how many groups exist</div>
+  <div class="sit-a">Use K-Means. Try k from 2 to 10, plot silhouette score vs k, pick the k where silhouette is highest. Then profile each cluster — what makes them different? Those differences are your customer segments.</div>
+  <div class="sit-algo">→ K-Means + elbow + silhouette score + cluster profiling</div>
+</div>
+<div class="sit-row" style="border-left-color:#50e880">
+  <div class="sit-q">My clusters are irregular shapes — not round blobs</div>
+  <div class="sit-a">K-Means assumes spherical clusters. Use DBSCAN instead — it finds arbitrarily shaped clusters. Set eps (neighbourhood radius) and min_samples. Points that don't fit any cluster are labelled as noise (-1).</div>
+  <div class="sit-algo">→ DBSCAN → HDBSCAN (more robust, auto-eps)</div>
+</div>
+<div class="sit-row" style="border-left-color:#ffc840">
+  <div class="sit-q">I don't know k at all — I want to discover the natural hierarchy</div>
+  <div class="sit-a">Hierarchical/Agglomerative clustering builds a full tree (dendrogram) from individual points up to one big cluster. You choose k by cutting the dendrogram at any level — no need to decide k before training.</div>
+  <div class="sit-algo">→ AgglomerativeClustering + dendrogram + ward linkage</div>
+</div>
+<div class="sit-row" style="border-left-color:#c0a0ff">
+  <div class="sit-q">I need soft cluster assignments — probability of belonging to each cluster</div>
+  <div class="sit-a">K-Means gives hard assignments only. Use Gaussian Mixture Model (GMM) — every point gets a probability for each cluster. Useful when points naturally overlap between clusters (e.g. customers in transition between segments).</div>
+  <div class="sit-algo">→ GaussianMixture + predict_proba() + BIC for k selection</div>
+</div>
+<div class="sit-row" style="border-left-color:#ff7070">
+  <div class="sit-q">My data has very different densities in different regions</div>
+  <div class="sit-a">K-Means and DBSCAN with a single eps parameter fail on variable-density data. Use HDBSCAN which adapts to local density automatically. It is DBSCAN with a minimum spanning tree-based approach.</div>
+  <div class="sit-algo">→ HDBSCAN (pip install hdbscan)</div>
+</div>
+</div>
+<div>
+<div class="sit-row" style="border-left-color:#70c0ff">
+  <div class="sit-q">I have millions of rows — clustering is too slow</div>
+  <div class="sit-a">K-Means scales linearly with data. For very large datasets use MiniBatchKMeans which processes random mini-batches instead of full data. 10-100x faster with small accuracy trade-off. Works in Spark MLlib too.</div>
+  <div class="sit-algo">→ MiniBatchKMeans → Spark MLlib KMeans</div>
+</div>
+<div class="sit-row" style="border-left-color:#50e880">
+  <div class="sit-q">I want to cluster documents or text</div>
+  <div class="sit-a">Convert text to TF-IDF or embeddings first. Then cluster. K-Means on TF-IDF vectors works well for topic discovery. Use cosine distance not euclidean for TF-IDF. LDA gives interpretable topic-word distributions.</div>
+  <div class="sit-algo">→ TF-IDF + K-Means (cosine) → LDA topic model → BERT embeddings + K-Means</div>
+</div>
+<div class="sit-row" style="border-left-color:#ffc840">
+  <div class="sit-q">I want to improve my supervised model using cluster labels as features</div>
+  <div class="sit-a">Train K-Means first, then add the cluster label as a new feature to your supervised model. This gives the model information about which "region" of the feature space each sample belongs to — often improves accuracy.</div>
+  <div class="sit-algo">→ K-Means → add cluster_id as feature → XGBoost</div>
+</div>
+</div>
+</div>
+
+<div class="sl">Dimensionality reduction situations</div>
+<div class="g2">
+<div>
+<div class="sit-row" style="border-left-color:#ffc840">
+  <div class="sit-q">I have 100+ features and want to reduce before ML training</div>
+  <div class="sit-a">Use PCA. Set n_components to keep 95% of variance. This removes noise, reduces training time, and can improve accuracy by eliminating irrelevant components. Always scale features first.</div>
+  <div class="sit-algo">→ StandardScaler → PCA(n_components=0.95) → ML model</div>
+</div>
+<div class="sit-row" style="border-left-color:#c0a0ff">
+  <div class="sit-q">I want to visualise my high-dimensional data in 2D</div>
+  <div class="sit-a">Use t-SNE for the best cluster visualisation. First reduce to 50 dimensions with PCA (faster), then apply t-SNE to get 2D. Color points by known labels to check if clusters align with reality.</div>
+  <div class="sit-algo">→ PCA(50 dims) → t-SNE(2D) → scatter plot colored by class</div>
+</div>
+<div class="sit-row" style="border-left-color:#50e880">
+  <div class="sit-q">I have sparse text/TF-IDF data (many zero values)</div>
+  <div class="sit-a">PCA does not work on sparse matrices efficiently. Use TruncatedSVD (also called LSA — Latent Semantic Analysis) which works directly on sparse matrices without centering the data first.</div>
+  <div class="sit-algo">→ TruncatedSVD(n_components=100) → downstream ML</div>
+</div>
+</div>
+<div>
+<div class="sit-row" style="border-left-color:#ff7070">
+  <div class="sit-q">I suspect my model is missing non-linear structure in high dimensions</div>
+  <div class="sit-a">PCA only finds linear structure. Use UMAP for non-linear reduction that preserves both local and global structure. Unlike t-SNE, UMAP can transform new data and is much faster.</div>
+  <div class="sit-algo">→ UMAP(n_components=20) → ML model (treats as preprocessing)</div>
+</div>
+<div class="sit-row" style="border-left-color:#70c0ff">
+  <div class="sit-q">I want to understand which original features explain the most variance</div>
+  <div class="sit-a">PCA components are linear combinations of original features. Plot PCA loadings — high absolute loading on a component means that feature strongly drives that component. Use explained_variance_ratio_ to rank components.</div>
+  <div class="sit-algo">→ PCA → plot loadings heatmap → interpret components</div>
+</div>
+</div>
+</div>
+
+<div class="sl">Anomaly detection situations</div>
+<div class="g2">
+<div>
+<div class="sit-row" style="border-left-color:#ff7070">
+  <div class="sit-q">I need to detect fraud but I have NO labelled fraud examples</div>
+  <div class="sit-a">This is the classic unsupervised anomaly detection problem. Use Isolation Forest with contamination = expected fraud rate. Get anomaly scores for all transactions, rank them, review the top k% with analysts.</div>
+  <div class="sit-algo">→ IsolationForest(contamination=0.01) → rank by score → review top 1%</div>
+</div>
+<div class="sit-row" style="border-left-color:#ffc840">
+  <div class="sit-q">I have some labelled anomalies (10-50 examples) — mostly normal data</div>
+  <div class="sit-a">Semi-supervised: train One-Class SVM on normal data only (exclude anomalies). Or use the few labels to set a better threshold for Isolation Forest scores. If enough labels, switch to supervised fraud detection.</div>
+  <div class="sit-algo">→ OneClassSVM on normal data → threshold using labelled examples</div>
+</div>
+</div>
+<div>
+<div class="sit-row" style="border-left-color:#50e880">
+  <div class="sit-q">I want to monitor data quality in my Delta table pipeline</div>
+  <div class="sit-a">Train Isolation Forest on historical clean data. Score each new batch as it arrives. Flag rows with scores below threshold for investigation. This catches data drift, schema changes, and upstream data quality issues automatically.</div>
+  <div class="sit-algo">→ IsolationForest on historical → score new batches → alert on low scores</div>
+</div>
+<div class="sit-row" style="border-left-color:#c0a0ff">
+  <div class="sit-q">My anomalies are local — normal globally but anomalous in their neighbourhood</div>
+  <div class="sit-a">Isolation Forest is a global method. Use Local Outlier Factor (LOF) which compares local density. A point with much lower density than its neighbours is flagged — even if it looks normal globally.</div>
+  <div class="sit-algo">→ LocalOutlierFactor(n_neighbors=20) → score_samples()</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ══ TAB 6: COMPARE ALL ══ -->
+<div class="sec" id="S6">
+<div class="badge bg-p">COMPARE ALL ALGORITHMS</div>
+<div class="h1">All Unsupervised Algorithms — Side by Side</div>
+<div class="sub">Scores across key dimensions — choose the right one at a glance</div>
+
+<div style="position:relative;height:220px;margin-bottom:12px;"><canvas id="c6compare"></canvas></div>
+
+<div id="c6bars"></div>
+
+<div class="sl">Complete comparison table</div>
+<table>
+<tr><th>Algorithm</th><th>Family</th><th>Needs k/params</th><th>Handles noise</th><th>Scales to large data</th><th>Shape assumption</th><th>Typical use case</th></tr>
+<tr><td><b style="color:#70c0ff">K-Means</b></td><td>Clustering</td><td><span class="tr">k required</span></td><td><span class="tr">No</span></td><td><span class="tg">Yes (MiniBatch)</span></td><td>Spherical, equal size</td><td>Customer segmentation</td></tr>
+<tr><td><b style="color:#70c0ff">K-Means++</b></td><td>Clustering</td><td><span class="tr">k required</span></td><td><span class="tr">No</span></td><td><span class="tg">Yes</span></td><td>Spherical</td><td>Better init than K-Means</td></tr>
+<tr><td><b style="color:#60b0ff">DBSCAN</b></td><td>Clustering</td><td><span class="tg">No k needed</span></td><td><span class="tg">Yes</span></td><td><span class="ty">Medium</span></td><td>Any shape</td><td>Geospatial, irregular shapes</td></tr>
+<tr><td><b style="color:#60b0ff">HDBSCAN</b></td><td>Clustering</td><td><span class="tg">min_cluster only</span></td><td><span class="tg">Yes</span></td><td><span class="ty">Medium</span></td><td>Any shape + density</td><td>Variable density data</td></tr>
+<tr><td><b style="color:#c0a0ff">Hierarchical</b></td><td>Clustering</td><td><span class="ty">After training</span></td><td><span class="ty">Partial</span></td><td><span class="tr">No (O(n²))</span></td><td>Any</td><td>Biology, phylogenetics, small data</td></tr>
+<tr><td><b style="color:#c0a0ff">GMM</b></td><td>Clustering</td><td><span class="tr">k required</span></td><td><span class="ty">Partial</span></td><td><span class="ty">Medium</span></td><td>Elliptical (Gaussian)</td><td>Soft assignments, overlapping clusters</td></tr>
+<tr><td><b style="color:#ffc840">PCA</b></td><td>Dim Reduction</td><td><span class="ty">n_components</span></td><td><span class="tg">Yes</span></td><td><span class="tg">Yes</span></td><td>Linear</td><td>Preprocessing, noise removal</td></tr>
+<tr><td><b style="color:#ffc840">TruncatedSVD</b></td><td>Dim Reduction</td><td><span class="ty">n_components</span></td><td><span class="tg">Yes</span></td><td><span class="tg">Yes (sparse)</span></td><td>Linear</td><td>TF-IDF, sparse text data</td></tr>
+<tr><td><b style="color:#ffc840">t-SNE</b></td><td>Visualisation</td><td><span class="tr">2 or 3 only</span></td><td><span class="tg">Yes</span></td><td><span class="tr">No (&lt;10k rows)</span></td><td>Non-linear</td><td>Visualisation ONLY</td></tr>
+<tr><td><b style="color:#ffc840">UMAP</b></td><td>Dim Reduction</td><td><span class="ty">n_components</span></td><td><span class="tg">Yes</span></td><td><span class="tg">Yes</span></td><td>Non-linear</td><td>Visualisation + preprocessing</td></tr>
+<tr><td><b style="color:#ff7070">Isolation Forest</b></td><td>Anomaly</td><td><span class="tg">contamination</span></td><td><td>n/a</td><td><span class="tg">Yes</span></td><td>None</td><td>Fraud, data quality, monitoring</td></tr>
+<tr><td><b style="color:#ff7070">One-Class SVM</b></td><td>Anomaly</td><td><span class="ty">nu, kernel</span></td><td><td>n/a</td><td><span class="tr">No</span></td><td>Boundary-based</td><td>Small data, high-dim anomaly</td></tr>
+<tr><td><b style="color:#ff7070">LOF</b></td><td>Anomaly</td><td><span class="tg">n_neighbors</span></td><td><td>n/a</td><td><span class="tr">No</span></td><td>Local density</td><td>Local anomalies</td></tr>
+<tr><td><b style="color:#50e880">LDA (topics)</b></td><td>Topic Model</td><td><span class="tr">n_topics</span></td><td><span class="tg">Yes</span></td><td><span class="tg">Yes</span></td><td>Dirichlet</td><td>Document topic discovery</td></tr>
+</table>
+
+<div class="note note-g"><b>The 3 algorithms you will use 90% of the time:</b> K-Means for customer segmentation and general clustering, PCA for preprocessing before supervised ML, and Isolation Forest for anomaly/fraud detection without labels. Master these three deeply before exploring the others.</div>
+</div>
+
+<!-- ══ TAB 7: PRACTICE CODE ══ -->
+<div class="sec" id="S7">
+<div class="badge bg-b">COMPLETE PRACTICE CODE</div>
+<div class="h1">All Unsupervised Algorithms — One Complete Script</div>
+<div class="sub">Runs every algorithm on real data — copy into Databricks notebook</div>
+<div class="code">
+# ══════════════════════════════════════════════════════════════
+# COMPLETE UNSUPERVISED LEARNING WORKFLOW
+# K-Means + DBSCAN + PCA + t-SNE + Isolation Forest + LDA
+# Datasets: Iris, Digits, 20Newsgroups, California Housing
+# ══════════════════════════════════════════════════════════════
+import numpy as np
+import pandas as pd
+from sklearn.datasets import (load_iris, load_digits,
+                               fetch_california_housing,
+                               fetch_20newsgroups)
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
+import warnings; warnings.filterwarnings('ignore')
+
+# ══════════════════════════════════════════════
+# PHASE 1: CLUSTERING — Customer Segmentation
+# ══════════════════════════════════════════════
+print("▶ PHASE 1: CLUSTERING")
+from sklearn.cluster import (KMeans, DBSCAN, AgglomerativeClustering,
+                              MiniBatchKMeans)
+from sklearn.mixture import GaussianMixture
+from sklearn.metrics import silhouette_score, davies_bouldin_score
+from sklearn.metrics import adjusted_rand_score
+
+# Using Iris as customer data analogy
+iris = load_iris(as_frame=True)
+X = StandardScaler().fit_transform(iris.data)
+y_true = iris.target.values
+
+# Step 1: Find optimal k for K-Means
+print("\nStep 1: K selection")
+best_sil, best_k = 0, 2
+for k in range(2, 8):
+    labels = KMeans(n_clusters=k, random_state=42, n_init=10).fit_predict(X)
+    sil = silhouette_score(X, labels)
+    db  = davies_bouldin_score(X, labels)
+    ari = adjusted_rand_score(y_true, labels)
+    marker = '← BEST' if sil > best_sil else ''
+    print(f"  k={k}: silhouette={sil:.4f}  DB={db:.4f}  ARI={ari:.4f}  {marker}")
+    if sil > best_sil: best_sil, best_k = sil, k
+print(f"  Best k = {best_k}")
+
+# Step 2: Train best K-Means
+km = KMeans(n_clusters=best_k, random_state=42, n_init=20)
+labels_km = km.fit_predict(X)
+print(f"\nK-Means (k={best_k}):")
+print(f"  Cluster sizes: {dict(zip(*np.unique(labels_km,return_counts=True)))}")
+print(f"  ARI vs true:   {adjusted_rand_score(y_true, labels_km):.4f}")
+
+# Step 3: Profile clusters
+df_cluster = iris.data.copy()
+df_cluster['cluster'] = labels_km
+print("\nCluster profiles (mean values):")
+print(df_cluster.groupby('cluster').mean().round(3))
+
+# Step 4: Compare all clustering algorithms
+print("\nClustering algorithm comparison:")
+algorithms = {
+    'K-Means':        KMeans(n_clusters=3, random_state=42, n_init=10),
+    'MiniBatchKMeans':MiniBatchKMeans(n_clusters=3, random_state=42, n_init=10),
+    'Agglomerative':  AgglomerativeClustering(n_clusters=3, linkage='ward'),
+    'GMM':            GaussianMixture(n_components=3, random_state=42),
+    'DBSCAN':         DBSCAN(eps=0.5, min_samples=5),
+}
+for name, alg in algorithms.items():
+    labels = alg.fit_predict(X)
+    n_clust = len(set(labels)) - (1 if -1 in labels else 0)
+    if n_clust > 1 and len(set(labels[labels!=-1])) > 1:
+        noise = (labels==-1).sum()
+        valid = labels != -1
+        sil = silhouette_score(X[valid], labels[valid]) if valid.sum()>1 else 0
+        ari = adjusted_rand_score(y_true, labels)
+        print(f"  {name:18s}: k={n_clust}  sil={sil:.4f}  ARI={ari:.4f}  noise={noise}")
+
+# ══════════════════════════════════════════════
+# PHASE 2: DIMENSIONALITY REDUCTION
+# ══════════════════════════════════════════════
+print("\n▶ PHASE 2: DIMENSIONALITY REDUCTION")
+from sklearn.decomposition import PCA, TruncatedSVD, NMF
+from sklearn.manifold import TSNE
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import cross_val_score
+
+digits = load_digits()
+X_d = StandardScaler().fit_transform(digits.data)  # 1797 × 64
+y_d = digits.target
+
+# Step 1: PCA explained variance
+pca_full = PCA(random_state=42).fit(X_d)
+cum_var = np.cumsum(pca_full.explained_variance_ratio_)
+print("\nPCA variance thresholds:")
+for threshold in [0.80, 0.90, 0.95, 0.99]:
+    n = np.argmax(cum_var >= threshold) + 1
+    print(f"  {threshold*100:.0f}% variance → {n:3d}/{X_d.shape[1]} components")
+
+# Step 2: PCA impact on ML
+print("\nPCA impact on Logistic Regression (digits 10-class):")
+lr = LogisticRegression(max_iter=500, random_state=42)
+base = cross_val_score(lr, X_d, y_d, cv=5).mean()
+print(f"  All {X_d.shape[1]} features: acc={base:.4f}")
+for n_comp in [5, 10, 20, 30, 40, 50]:
+    X_pca = PCA(n_components=n_comp, random_state=42).fit_transform(X_d)
+    acc = cross_val_score(lr, X_pca, y_d, cv=5).mean()
+    delta = acc - base
+    print(f"  {n_comp:3d} components: acc={acc:.4f}  delta={delta:+.4f}")
+
+# Step 3: t-SNE visualisation quality
+print("\nt-SNE cluster quality check:")
+X_pca50 = PCA(n_components=50, random_state=42).fit_transform(X_d)
+tsne = TSNE(n_components=2, perplexity=30, random_state=42, n_iter=1000)
+X_tsne = tsne.fit_transform(X_pca50)
+# Check how well classes separate in 2D
+from sklearn.cluster import KMeans as KM
+labels_tsne = KM(n_clusters=10,random_state=42,n_init=10).fit_predict(X_tsne)
+ari_tsne = adjusted_rand_score(y_d, labels_tsne)
+print(f"  t-SNE 2D → K-Means ARI vs true labels: {ari_tsne:.4f}")
+print(f"  (ARI close to 1 = clusters are well separated in 2D)")
+
+# Step 4: PCA for preprocessing pipeline
+print("\nPCA preprocessing pipeline:")
+pca_pipe = Pipeline([
+    ('pca', PCA(n_components=0.95, random_state=42)),
+    ('clf', LogisticRegression(max_iter=500, random_state=42))
+])
+acc_pipe = cross_val_score(pca_pipe, X_d, y_d, cv=5).mean()
+pca_pipe.fit(X_d, y_d)
+n_selected = pca_pipe['pca'].n_components_
+print(f"  PCA (95% var) → {n_selected} components → LR accuracy: {acc_pipe:.4f}")
+
+# ══════════════════════════════════════════════
+# PHASE 3: ANOMALY DETECTION
+# ══════════════════════════════════════════════
+print("\n▶ PHASE 3: ANOMALY DETECTION")
+from sklearn.ensemble import IsolationForest
+from sklearn.neighbors import LocalOutlierFactor
+from sklearn.covariance import EllipticEnvelope
+
+# Simulate transaction data with anomalies
+np.random.seed(42)
+n_normal, n_anom = 1000, 50
+X_normal = np.random.multivariate_normal(
+    mean=[0,0,0,0],
+    cov=[[1,0.5,0.2,0.1],[0.5,1,0.3,0.2],[0.2,0.3,1,0.4],[0.1,0.2,0.4,1]],
+    size=n_normal)
+X_anom = np.random.uniform(-4, 4, (n_anom, 4))
+X_all = np.vstack([X_normal, X_anom])
+y_true_anom = np.array([1]*n_normal + [-1]*n_anom)
+X_all_sc = StandardScaler().fit_transform(X_all)
+
+print(f"\nDataset: {n_normal} normal + {n_anom} anomalies ({n_anom/(n_normal+n_anom)*100:.1f}%)")
+contamination = n_anom / (n_normal + n_anom)
+
+detectors = {
+    'Isolation Forest':    IsolationForest(contamination=contamination,n_estimators=200,random_state=42),
+    'LOF':                 LocalOutlierFactor(n_neighbors=20,contamination=contamination),
+    'Elliptic Envelope':   EllipticEnvelope(contamination=contamination,random_state=42),
+}
+from sklearn.metrics import f1_score, precision_score, recall_score
+print(f"\n{'Method':22s}  {'Precision':10s}  {'Recall':8s}  {'F1':7s}")
+for name, det in detectors.items():
+    if isinstance(det, LocalOutlierFactor):
+        pred = det.fit_predict(X_all_sc)
+    else:
+        pred = det.fit(X_all_sc).predict(X_all_sc)
+    # Convert: sklearn uses -1=anomaly; we need 1=anomaly for metrics
+    y_pred_binary = (pred == -1).astype(int)
+    y_true_binary = (y_true_anom == -1).astype(int)
+    p = precision_score(y_true_binary, y_pred_binary, zero_division=0)
+    r = recall_score(y_true_binary, y_pred_binary, zero_division=0)
+    f = f1_score(y_true_binary, y_pred_binary, zero_division=0)
+    print(f"  {name:22s}  {p:10.4f}  {r:8.4f}  {f:7.4f}")
+
+# Isolation Forest score analysis
+iso = IsolationForest(contamination=contamination, n_estimators=300, random_state=42)
+iso.fit(X_all_sc)
+scores = iso.score_samples(X_all_sc)
+print(f"\nAnomaly score analysis:")
+print(f"  Normal mean score:    {scores[:n_normal].mean():.4f}")
+print(f"  Anomaly mean score:   {scores[n_normal:].mean():.4f}")
+print(f"  Score gap:            {scores[:n_normal].mean()-scores[n_normal:].mean():.4f}")
+print(f"  Threshold at 95th pct normal: {np.percentile(scores[:n_normal],5):.4f}")
+
+# Top 10 most anomalous
+top_idx = scores.argsort()[:10]
+print(f"\nTop 10 most anomalous points:")
+for rank, idx in enumerate(top_idx):
+    true_label = 'ANOMALY' if y_true_anom[idx]==-1 else 'normal'
+    print(f"  #{rank+1:2d}  idx={idx:4d}  score={scores[idx]:.4f}  true={true_label}")
+
+# ══════════════════════════════════════════════
+# PHASE 4: TOPIC MODELLING (NLP)
+# ══════════════════════════════════════════════
+print("\n▶ PHASE 4: TOPIC MODELLING")
+from sklearn.decomposition import LatentDirichletAllocation
+from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
+
+cats = ['alt.atheism','comp.graphics','sci.med','soc.religion.christian']
+news = fetch_20newsgroups(subset='train', categories=cats,
+                           remove=('headers','footers','quotes'))
+print(f"\n20 Newsgroups: {len(news.data)} documents, {len(cats)} true categories")
+
+# LDA topic modelling
+cv = CountVectorizer(max_features=2000, stop_words='english', min_df=5)
+X_text = cv.fit_transform(news.data)
+
+lda = LatentDirichletAllocation(n_components=4, random_state=42,
+                                  max_iter=20, learning_method='batch')
+lda.fit(X_text)
+
+# Show top words per topic
+feature_names = cv.get_feature_names_out()
+print("\nTop 8 words per LDA topic:")
+for i, topic in enumerate(lda.components_):
+    top_words = [feature_names[j] for j in topic.argsort()[-8:][::-1]]
+    print(f"  Topic {i}: {' | '.join(top_words)}")
+
+# Evaluate topic quality
+doc_topics = lda.transform(X_text)
+assigned_topics = doc_topics.argmax(axis=1)
+ari_lda = adjusted_rand_score(news.target, assigned_topics)
+print(f"\nLDA topic-to-class ARI: {ari_lda:.4f}")
+print("  (ARI near 1 = topics match true categories well)")
+
+# Topic coherence (simple word co-occurrence check)
+print("\nDocument-topic distribution sample (first 5 docs):")
+for i in range(5):
+    top_topic = doc_topics[i].argmax()
+    print(f"  Doc {i}: most likely Topic {top_topic} ({doc_topics[i][top_topic]:.3f})")
+
+print("\n✅ Complete unsupervised learning workflow done!")
+print("\n── KEY TAKEAWAYS ──")
+print("  Clustering:  K-Means + silhouette for k selection + cluster profiling")
+print("  Dim reduce:  PCA (95% variance) before ML + t-SNE for visualisation only")
+print("  Anomaly:     Isolation Forest with contamination = expected anomaly rate")
+print("  NLP:         LDA topics → compare with domain knowledge")</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const CH={};
+function mk(id,cfg){if(CH[id])CH[id].destroy();CH[id]=new Chart(document.getElementById(id),cfg);}
+function rn(mu,sd,n){return Array.from({length:n},()=>mu+sd*(()=>{let u=0,v=0;while(!u)u=Math.random();while(!v)v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);})());}
+
+function goTab(n){
+  for(var i=1;i<=7;i++) document.getElementById('S'+i).className='sec'+(i===n?' on':'');
+  document.querySelectorAll('.tab').forEach(function(t,i){t.className='tab'+(i===n-1?' on':'');});
+  if(n===1) drawMap();
+  if(n===2){showClust('kmeans');drawClustChart();}
+  if(n===3) drawDimChart();
+  if(n===4) drawAnomChart();
+  if(n===6) drawCompare();
+}
+
+function drawMap(){
+  const algos=['K-Means','DBSCAN','HDBSCAN','Hierarchical','GMM','PCA','t-SNE','UMAP','Autoenc.','Iso Forest','One-Cls SVM','LOF','LDA Topics'];
+  const ease=[90,60,65,50,70,85,70,75,40,85,50,65,70];
+  const scalable=[95,55,55,20,65,95,15,85,80,90,20,20,85];
+  const flexible=[50,90,95,85,70,30,90,85,95,80,70,85,75];
+  mk('c1map',{type:'bar',data:{labels:algos,datasets:[
+    {label:'Ease of use',data:ease,backgroundColor:'rgba(64,128,255,0.7)',borderRadius:3},
+    {label:'Scalability',data:scalable,backgroundColor:'rgba(80,232,128,0.7)',borderRadius:3},
+    {label:'Flexibility',data:flexible,backgroundColor:'rgba(255,200,64,0.65)',borderRadius:3}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#c0d4ff',font:{size:10},boxWidth:12}}},scales:{x:{ticks:{color:'#8898b8',font:{size:8},maxRotation:30},grid:{color:'rgba(255,255,255,0.04)'}},y:{min:0,max:105,ticks:{color:'#8898b8',font:{size:9}},grid:{color:'rgba(255,255,255,0.05)'}}}}});
+}
+
+// Clustering deep dive data
+const clustDefs={
+  kmeans:{name:'K-Means',color:'#70c0ff',
+    formula:'Minimise: Σᵢ Σₓ∈Cᵢ ||x − μᵢ||²   Algorithm: assign → update centroids → repeat',
+    how:'Randomly initialises k centroids. Each point assigned to nearest centroid. Centroids updated to cluster mean. Repeat until convergence. K-Means++ improves initialisation by placing centroids far apart.',
+    when:'Spherical clusters of similar size. Large data (scales linearly). Customer segmentation. When k is known or can be estimated.',
+    notwhen:'Non-spherical clusters. Very different cluster sizes. Data with many outliers. When k is completely unknown.',
+    hyper:'n_clusters k (most important), init=k-means++ (default, better than random), n_init=10 (run multiple times), max_iter=300',
+    strengths:['Very fast O(nkd)','Simple and interpretable','Works on large data','Easy to profile cluster centroids'],
+    weaknesses:['Must specify k','Assumes spherical clusters','Sensitive to outliers','Different runs may give different results'],
+    code:`km = KMeans(n_clusters=4, init='k-means++', n_init=10, random_state=42)\nlabels = km.fit_predict(X_scaled)\nprint(f"Silhouette: {silhouette_score(X_scaled, labels):.4f}")`},
+  dbscan:{name:'DBSCAN',color:'#60b0ff',
+    formula:'Core point: has ≥ min_samples within eps radius. Cluster: connected core points. Noise: points not reachable from any core point.',
+    how:'Classifies points as core (dense neighbourhood), border (near core), or noise. Connects core points that are within eps of each other into clusters. Never needs k — discovers number of clusters automatically.',
+    when:'Arbitrarily shaped clusters. Data has meaningful noise/outliers. Geospatial data. When k is completely unknown.',
+    notwhen:'Very different cluster densities. High-dimensional data (distance metrics degrade). Large data (slow without spatial index).',
+    hyper:'eps (neighbourhood radius — most important, use k-distance graph to find), min_samples (minimum core point neighbours, default 5)',
+    strengths:['No need to specify k','Finds arbitrary shapes','Noise/outlier handling built-in','No cluster shape assumption'],
+    weaknesses:['Two parameters to tune','Fails on variable density','Slow on large data','Sensitive to eps'],
+    code:`db = DBSCAN(eps=0.5, min_samples=5)\nlabels = db.fit_predict(X_scaled)\nn_clusters = len(set(labels)) - (1 if -1 in labels else 0)\nnoise = (labels==-1).sum()\nprint(f"Clusters: {n_clusters}, Noise: {noise}")`},
+  hdbscan:{name:'HDBSCAN',color:'#60b0ff',
+    formula:'Builds minimum spanning tree over mutual reachability distances. Extracts stable clusters from condensed cluster tree.',
+    how:'Hierarchical version of DBSCAN. Builds a hierarchy of density-based clusters, then extracts the most stable ones. Automatically handles variable density — different clusters can have different densities.',
+    when:'Variable density clusters. When DBSCAN fails. When you want a more robust density-based approach. pip install hdbscan.',
+    notwhen:'When you specifically know k. Very large high-dimensional data without GPU.',
+    hyper:'min_cluster_size (minimum points per cluster, main parameter), min_samples (core point strictness), cluster_selection_epsilon',
+    strengths:['No eps parameter','Handles variable density','More robust than DBSCAN','Auto cluster count'],
+    weaknesses:['External package (pip install hdbscan)','Slower than DBSCAN','Complex internal algorithm'],
+    code:`import hdbscan\nhdb = hdbscan.HDBSCAN(min_cluster_size=15, min_samples=5)\nlabels = hdb.fit_predict(X_scaled)\nprint(f"Clusters: {len(set(labels))-(1 if -1 in labels else 0)}")\nprint(f"Noise: {(labels==-1).sum()}")`},
+  hierarchical:{name:'Hierarchical / Agglomerative',color:'#c0a0ff',
+    formula:'Agglomerative (bottom-up): start with n clusters, merge closest pair repeatedly until 1 cluster. Cut dendrogram at desired level for k clusters.',
+    how:'Bottom-up approach: each data point starts as its own cluster. Iteratively merges the two closest clusters based on linkage criterion (ward=minimize variance, complete=max distance, average=mean distance).',
+    when:'Do not know k in advance — read dendrogram. Small dataset (<5000 rows). Want to understand full hierarchy. Biology, phylogenetics.',
+    notwhen:'Large datasets (O(n²) memory). When speed is needed. Production systems.',
+    hyper:'n_clusters (or distance_threshold for auto), linkage (ward/complete/average/single)',
+    strengths:['No need to specify k beforehand','Full hierarchy visible','Different linkages for different shapes','Dendrogram shows structure'],
+    weaknesses:['O(n²) memory — cannot scale','No transform for new data','Once merged, cannot undo'],
+    code:`from scipy.cluster.hierarchy import dendrogram, linkage\nhc = AgglomerativeClustering(n_clusters=3, linkage='ward')\nlabels = hc.fit_predict(X_scaled)\nprint(f"Silhouette: {silhouette_score(X_scaled, labels):.4f}")`},
+  gmm:{name:'Gaussian Mixture Model (GMM)',color:'#c0a0ff',
+    formula:'P(x) = Σₖ πₖ N(x | μₖ, Σₖ)   Fit with EM algorithm: E-step (assign probabilities) + M-step (update parameters)',
+    how:'Models data as mixture of k Gaussian distributions. EM algorithm iterates: E-step assigns soft probabilities of each point belonging to each Gaussian. M-step updates Gaussian parameters to maximise likelihood.',
+    when:'Need soft/probabilistic cluster assignments. Clusters can overlap. Gaussian shape is appropriate. Use BIC/AIC for k selection.',
+    notwhen:'Non-Gaussian shapes. When hard assignments are sufficient (use K-Means). Very large data.',
+    hyper:'n_components k (use BIC/AIC to select), covariance_type (full/tied/diagonal/spherical), n_init=5',
+    strengths:['Soft probabilistic assignments','Handles elliptical clusters','BIC/AIC for model selection','More flexible than K-Means'],
+    weaknesses:['Assumes Gaussian shape','Needs k in advance','Slower than K-Means (EM iterations)','Can converge to local optima'],
+    code:`gmm = GaussianMixture(n_components=3, n_init=5, random_state=42)\ngmm.fit(X_scaled)\nlabels = gmm.predict(X_scaled)\nprobs = gmm.predict_proba(X_scaled)  # SOFT assignments!\nprint(f"BIC: {gmm.bic(X_scaled):.1f}")\nprint(f"Avg max probability: {probs.max(axis=1).mean():.4f}")`},
+  meanshift:{name:'Mean Shift',color:'#50e880',
+    formula:'Shift each point toward local density maximum: xₜ₊₁ = Σ K(xᵢ-xₜ)xᵢ / Σ K(xᵢ-xₜ)  until convergence',
+    how:'Each point iteratively shifts toward the local mean of nearby points. Points converging to the same mode form a cluster. Automatically discovers number of clusters — no k needed. bandwidth parameter controls mode detection scale.',
+    when:'Do not know k. Clusters are roughly circular/Gaussian. bandwidth can be estimated automatically.',
+    notwhen:'Large datasets (very slow). High-dimensional data. When speed is critical.',
+    hyper:'bandwidth (bandwidth of RBF kernel — use estimate_bandwidth() for auto)',
+    strengths:['No k needed','Finds arbitrary number of clusters','Mode-seeking is principled','Bandwidth can be estimated'],
+    weaknesses:['Very slow O(n²)','Sensitive to bandwidth','Not suitable for large data'],
+    code:`from sklearn.cluster import MeanShift, estimate_bandwidth\nbw = estimate_bandwidth(X_scaled, quantile=0.2, n_samples=200)\nms = MeanShift(bandwidth=bw, bin_seeding=True)\nlabels = ms.fit_predict(X_scaled)\nprint(f"Discovered {len(set(labels))} clusters automatically")`}
+};
+
+function showClust(key){
+  document.querySelectorAll('#clust-btns .abtn').forEach(b=>b.classList.remove('on'));
+  event&&event.target&&event.target.classList.add('on');
+  const a=clustDefs[key];
+  if(!a) return;
+  document.getElementById('clust-detail').innerHTML=`
+    <div class="algo-card" style="border-color:${a.color}44;margin-bottom:10px;">
+      <div class="algo-name" style="color:${a.color}">${a.name}</div>
+      <div class="algo-formula">${a.formula}</div>
+      <div class="g2" style="margin-bottom:6px;">
+        <div>
+          <div class="algo-section">How it works</div>
+          <div class="algo-body">${a.how}</div>
+          <div class="algo-section" style="margin-top:6px;color:#60e880">✓ Use when</div>
+          <div class="algo-body" style="color:#80c898">${a.when}</div>
+          <div class="algo-section" style="margin-top:6px;color:#ff7070">✗ Do NOT use when</div>
+          <div class="algo-body" style="color:#e89090">${a.notwhen}</div>
+          <div class="algo-section" style="margin-top:6px;">Key hyperparameters</div>
+          <div class="algo-body" style="color:#d8a860">${a.hyper}</div>
+        </div>
+        <div>
+          <div class="algo-section">Strengths</div>
+          ${a.strengths.map(s=>`<div class="algo-body" style="color:#80c898;margin-bottom:2px;">✓ ${s}</div>`).join('')}
+          <div class="algo-section" style="margin-top:6px;">Weaknesses</div>
+          ${a.weaknesses.map(w=>`<div class="algo-body" style="color:#e89090;margin-bottom:2px;">✗ ${w}</div>`).join('')}
+          <div class="algo-section" style="margin-top:6px;">Quick code</div>
+          <div class="code" style="font-size:10px;padding:8px;">${a.code}</div>
+        </div>
+      </div>
+    </div>`;
+}
+
+function drawClustChart(){
+  const ks=[2,3,4,5,6,7,8,9];
+  const sil=[0.42,0.55,0.70,0.68,0.61,0.58,0.52,0.48];
+  const inertia=[320,210,140,120,105,95,88,82];
+  mk('c2clust',{type:'line',data:{labels:ks,datasets:[
+    {label:'Silhouette score (higher=better)',data:sil,borderColor:'#50e880',borderWidth:2.5,pointRadius:5,pointBackgroundColor:'#50e880',yAxisID:'y',fill:false},
+    {label:'Inertia (lower=better)',data:inertia,borderColor:'#ff6040',borderWidth:2,pointRadius:4,pointBackgroundColor:'#ff6040',yAxisID:'y2',borderDash:[5,3],fill:false}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#c0d4ff',font:{size:10},boxWidth:12}},annotation:{annotations:{opt:{type:'line',xMin:3,xMax:3,borderColor:'#ffcc40',borderWidth:2,borderDash:[3,3]}}}},scales:{x:{title:{display:true,text:'Number of clusters k',color:'#8898b8'},ticks:{color:'#8898b8'},grid:{color:'rgba(255,255,255,0.05)'}},y:{title:{display:true,text:'Silhouette',color:'#50e880'},ticks:{color:'#50e880'},position:'left',grid:{color:'rgba(255,255,255,0.05)'}},y2:{title:{display:true,text:'Inertia',color:'#ff6040'},ticks:{color:'#ff6040'},position:'right',grid:{display:false}}}}});
+}
+
+function drawDimChart(){
+  const components=[1,2,5,10,20,30,40,50,64];
+  const variance=[12,22,45,62,78,87,93,97,100];
+  const acc=[35,52,75,88,93,95,95,94,92];
+  mk('c3dim',{type:'line',data:{labels:components,datasets:[
+    {label:'Cumulative variance explained (%)',data:variance,borderColor:'#ffc840',borderWidth:2.5,pointRadius:4,fill:true,backgroundColor:'rgba(255,200,64,0.1)',yAxisID:'y'},
+    {label:'Classifier accuracy (%)',data:acc,borderColor:'#4080ff',borderWidth:2.5,pointRadius:4,fill:false,yAxisID:'y'}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#c0d4ff',font:{size:10},boxWidth:12}}},scales:{x:{title:{display:true,text:'Number of PCA components',color:'#8898b8'},ticks:{color:'#8898b8'},grid:{color:'rgba(255,255,255,0.05)'}},y:{min:0,max:105,title:{display:true,text:'Score (%)',color:'#8898b8'},ticks:{color:'#8898b8'},grid:{color:'rgba(255,255,255,0.05)'}}}}});
+}
+
+function drawAnomChart(){
+  const contaminations=[0.01,0.02,0.05,0.10,0.15,0.20,0.25,0.30];
+  const precision=[0.95,0.92,0.88,0.80,0.72,0.65,0.60,0.55];
+  const recall=[0.40,0.60,0.80,0.90,0.95,0.97,0.98,0.99];
+  const f1=precision.map((p,i)=>2*p*recall[i]/(p+recall[i]));
+  mk('c4anom',{type:'line',data:{labels:contaminations,datasets:[
+    {label:'Precision',data:precision,borderColor:'#4080ff',borderWidth:2.5,pointRadius:4,fill:false},
+    {label:'Recall',data:recall,borderColor:'#ff6040',borderWidth:2.5,pointRadius:4,fill:false},
+    {label:'F1 Score',data:f1,borderColor:'#50e880',borderWidth:2.5,pointRadius:4,fill:true,backgroundColor:'rgba(80,232,128,0.1)'}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#c0d4ff',font:{size:10},boxWidth:12}},title:{display:true,text:'Isolation Forest: contamination parameter effect on Precision vs Recall',color:'#c0d4ff',font:{size:10}}},scales:{x:{title:{display:true,text:'contamination parameter',color:'#8898b8'},ticks:{color:'#8898b8'},grid:{color:'rgba(255,255,255,0.05)'}},y:{min:0,max:1.05,title:{display:true,text:'Score',color:'#8898b8'},ticks:{color:'#8898b8'},grid:{color:'rgba(255,255,255,0.05)'}}}}});
+}
+
+function drawCompare(){
+  const algos=['K-Means','DBSCAN','Hierarchical','GMM','PCA','t-SNE','UMAP','Iso Forest','LOF','One-Cls SVM','LDA Topics'];
+  const ease=[90,58,50,65,88,72,70,85,55,45,65];
+  const scale=[95,55,15,60,95,15,88,92,20,18,85];
+  const flex=[48,92,85,70,28,88,85,78,85,72,70];
+  mk('c6compare',{type:'bar',data:{labels:algos,datasets:[
+    {label:'Ease of use',data:ease,backgroundColor:'rgba(64,128,255,0.7)',borderRadius:3},
+    {label:'Scalability',data:scale,backgroundColor:'rgba(80,232,128,0.7)',borderRadius:3},
+    {label:'Flexibility',data:flex,backgroundColor:'rgba(255,200,64,0.65)',borderRadius:3}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#c0d4ff',font:{size:10},boxWidth:12}}},scales:{x:{ticks:{color:'#8898b8',font:{size:8},maxRotation:30},grid:{color:'rgba(255,255,255,0.04)'}},y:{min:0,max:105,ticks:{color:'#8898b8',font:{size:9}},grid:{color:'rgba(255,255,255,0.05)'}}}}});
+
+  const top3=[
+    {n:'K-Means',vals:[90,95,48],color:'#70c0ff',labels:['Ease','Scalability','Flexibility']},
+    {n:'Isolation Forest',vals:[85,92,78],color:'#ff7070',labels:['Ease','Scalability','Flexibility']},
+    {n:'PCA',vals:[88,95,28],color:'#ffc840',labels:['Ease','Scalability','Flexibility']},
+  ];
+  let html='<div class="sl">Top 3 most used — detailed scores</div>';
+  top3.forEach(m=>{
+    html+=`<div style="margin-bottom:10px;"><div style="font-size:12px;font-weight:700;color:${m.color};margin-bottom:4px;">${m.n}</div>`;
+    m.vals.forEach((v,i)=>{
+      const colors=['#4080ff','#50e880','#ffc040'];
+      html+=`<div class="bar-row"><span class="bar-label">${m.labels[i]}</span><div class="bar-track"><div class="bar-fill" style="width:${v}%;background:${colors[i]};"></div></div><span class="bar-val">${v}</span></div>`;
+    });
+    html+='</div>';
+  });
+  document.getElementById('c6bars').innerHTML=html;
+}
+
+drawMap();
+</script>
+</body>
+</html>

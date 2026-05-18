@@ -1,0 +1,549 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:sans-serif;}
+.nav{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:18px;}
+.ntab{padding:10px 4px;border-radius:8px;border:2px solid #ccc;font-size:11px;font-weight:600;cursor:pointer;text-align:center;line-height:1.4;background:#f5f5f5;color:#555;transition:all 0.15s;}
+.ntab.on{background:#1a6fb5;color:#fff;border-color:#1a6fb5;}
+.panel{display:none;}
+.panel.on{display:block;}
+.h1{font-size:15px;font-weight:600;color:#111;margin-bottom:4px;}
+.sub{font-size:12px;color:#888;margin-bottom:14px;}
+.box{background:#f0f4f8;border-radius:10px;padding:12px 14px;margin-bottom:10px;border:1px solid #dde3ea;}
+.box-b{background:#e8f0fb;border:1px solid #b3cdf5;}
+.box-g{background:#e6f7ed;border:1px solid #8ed4a8;}
+.box-r{background:#fdecea;border:1px solid #f5b3b3;}
+.box-y{background:#fef9e7;border:1px solid #f5e0a0;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+.row3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:10px;}
+.row4{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:10px;}
+.ct{font-size:13px;font-weight:600;color:#222;margin-bottom:5px;}
+.cb{font-size:12px;color:#444;line-height:1.6;}
+.note{font-size:13px;color:#444;padding:10px 14px;border-left:4px solid #1a6fb5;background:#e8f0fb;margin:10px 0;line-height:1.6;border-radius:0 8px 8px 0;}
+.note b{color:#111;}
+.note-g{border-left-color:#1a9e5f;background:#e6f7ed;}
+.note-r{border-left-color:#c0392b;background:#fdecea;}
+.note-y{border-left-color:#d4a017;background:#fef9e7;}
+.code{font-family:monospace;font-size:11px;background:#1e1e2e;border-radius:6px;padding:12px;line-height:1.8;color:#cdd6f4;margin:10px 0;white-space:pre;}
+.ctrl{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:10px;font-size:12px;color:#555;}
+.cg{display:flex;align-items:center;gap:6px;}
+.cg label{min-width:80px;font-size:12px;}
+.vb{min-width:44px;font-weight:600;color:#111;font-size:13px;}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px;}
+.stats3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;}
+.sc{background:#f0f4f8;border-radius:8px;padding:10px 12px;border:1px solid #dde3ea;}
+.sc-l{font-size:10px;color:#888;margin-bottom:3px;}
+.sc-v{font-size:17px;font-weight:600;color:#111;}
+.tag{display:inline-block;font-size:10px;padding:2px 7px;border-radius:6px;font-weight:600;margin:2px;}
+.tg{background:#d4edda;color:#155724;}
+.tr{background:#f8d7da;color:#721c24;}
+.tb{background:#d1ecf1;color:#0c5460;}
+.ty{background:#fff3cd;color:#856404;}
+.divider{height:1px;background:#e0e0e0;margin:14px 0;}
+.btn{padding:6px 16px;border-radius:8px;border:1px solid #bbb;font-size:12px;cursor:pointer;background:#f5f5f5;color:#444;margin-right:6px;}
+.btn:hover{background:#e8e8e8;}
+.tbl{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:12px;}
+.tbl th{padding:7px 8px;background:#f0f4f8;color:#555;font-weight:600;text-align:left;border-bottom:1px solid #dde3ea;}
+.tbl td{padding:6px 8px;border-bottom:1px solid #eee;color:#333;vertical-align:top;}
+.tbl tr:last-child td{border-bottom:none;}
+.vbtn{padding:5px 12px;border-radius:8px;border:1px solid #bbb;font-size:12px;cursor:pointer;color:#555;background:#f5f5f5;margin:3px;}
+.vbtn.on{background:#d4a017;color:#fff;border-color:#d4a017;}
+.pbtn{padding:5px 12px;border-radius:8px;border:1px solid #bbb;font-size:12px;cursor:pointer;color:#555;background:#f5f5f5;margin:3px;}
+.pbtn.on{background:#c0392b;color:#fff;border-color:#c0392b;}
+</style>
+
+<div class="nav" id="main-nav">
+  <div class="ntab on" data-panel="p1">1. What Is It?</div>
+  <div class="ntab" data-panel="p2">2. How It Works</div>
+  <div class="ntab" data-panel="p3">3. Variants</div>
+  <div class="ntab" data-panel="p4">4. Problems + Fixes</div>
+  <div class="ntab" data-panel="p5">5. When Useful</div>
+</div>
+
+<!-- PANEL 1 -->
+<div class="panel on" id="p1">
+  <div class="h1">What is Gradient Descent?</div>
+  <div class="sub">The single most important algorithm in ML — the engine behind every model that learns</div>
+  <div class="note"><b>One sentence:</b> Gradient descent finds the minimum of a loss function by repeatedly moving in the direction of steepest descent — like a blindfolded person walking downhill by feeling the slope under their feet at each step.</div>
+  <div class="row2">
+    <div class="box box-b">
+      <div class="ct">The hill-walking analogy</div>
+      <div class="cb">
+        Imagine you are blindfolded on hilly terrain and want to reach the lowest valley.<br><br>
+        <b>Your position</b> = model weights w<br>
+        <b>Your altitude</b> = current loss L(w)<br>
+        <b>Slope under feet</b> = gradient ∇L<br>
+        <b>Step size</b> = learning rate α<br><br>
+        Each step: feel slope → step downhill → repeat until flat ground (minimum).
+      </div>
+    </div>
+    <div class="box box-y">
+      <div class="ct">The mathematical core</div>
+      <div class="cb">
+        The update rule — the only formula you need:<br><br>
+        <code style="background:#fff;padding:4px 8px;border-radius:4px;font-size:12px;display:block;margin:6px 0;">w = w − α × ∇L(w)</code><br>
+        <b>w</b> = weights (what we optimise)<br>
+        <b>α</b> = learning rate (step size)<br>
+        <b>∇L</b> = gradient (which way is uphill)<br>
+        <b>−</b> = subtract = move downhill = reduce loss
+      </div>
+    </div>
+  </div>
+
+  <div class="ctrl">
+    <div class="cg"><label>Start position</label><input type="range" min="-40" max="40" value="-35" step="1" id="w1-start"><span class="vb" id="w1s-v">-3.5</span></div>
+    <div class="cg"><label>Learning rate</label><input type="range" min="1" max="40" value="10" step="1" id="w1-lr"><span class="vb" id="w1lr-v">0.10</span></div>
+  </div>
+  <div class="stats">
+    <div class="sc"><div class="sc-l">Weight w</div><div class="sc-v" id="w1-w">-3.5</div></div>
+    <div class="sc"><div class="sc-l">Loss L(w)</div><div class="sc-v" id="w1-l">12.25</div></div>
+    <div class="sc"><div class="sc-l">Gradient ∇L</div><div class="sc-v" id="w1-g">-7.0</div></div>
+    <div class="sc"><div class="sc-l">Steps</div><div class="sc-v" id="w1-s">0</div></div>
+  </div>
+  <div style="margin-bottom:10px;">
+    <button class="btn" id="btn-step1">Step once</button>
+    <button class="btn" id="btn-auto1">Auto run</button>
+    <button class="btn" id="btn-reset1">Reset</button>
+  </div>
+  <div style="position:relative;width:100%;height:190px;margin-bottom:8px;"><canvas id="c1"></canvas></div>
+  <div class="note" id="n1-insight">Press Step once to take one gradient descent step.</div>
+
+  <div class="divider"></div>
+  <div class="row3">
+    <div class="box">
+      <div class="ct">Why the gradient points uphill</div>
+      <div class="cb">The gradient ∇L is the direction of steepest INCREASE in loss. Subtracting it always moves you downhill. This is guaranteed by calculus — no guesswork.</div>
+    </div>
+    <div class="box">
+      <div class="ct">Why small steps matter</div>
+      <div class="cb">The gradient only tells you the local slope. A giant step might overshoot the valley entirely. Small α = follow the curved surface accurately.</div>
+    </div>
+    <div class="box">
+      <div class="ct">Convergence condition</div>
+      <div class="cb">When ∇L ≈ 0, slope is flat — you are at a minimum. Training stops. In practice: stop when val loss stops improving (early stopping).</div>
+    </div>
+  </div>
+</div>
+
+<!-- PANEL 2 -->
+<div class="panel" id="p2">
+  <div class="h1">How Gradient Descent Works — step by step</div>
+  <div class="sub">The complete forward → loss → backward → update cycle</div>
+  <div class="box" style="font-family:monospace;font-size:12px;line-height:2;background:#f0f4f8;">
+    Step 1 — Forward pass:   ŷ = model(X, w)      compute prediction<br>
+    Step 2 — Compute loss:   L = loss_fn(ŷ, y)    measure how wrong<br>
+    Step 3 — Backward pass:  ∇L = ∂L/∂w           chain rule (backprop)<br>
+    Step 4 — Update:         w = w − α × ∇L        descend one step<br>
+    Step 5 — Repeat for next batch until convergence
+  </div>
+  <div class="ctrl">
+    <div class="cg"><label>Learning rate</label><input type="range" min="1" max="50" value="10" step="1" id="w2-lr"><span class="vb" id="w2lr-v">0.10</span></div>
+    <div class="cg"><label>Noise (SGD sim)</label><input type="range" min="0" max="40" value="0" step="1" id="w2-noise"><span class="vb" id="w2n-v">0.0</span></div>
+    <div class="cg"><label>Loss surface</label>
+      <select id="w2-surf" style="font-size:12px;">
+        <option value="bowl">x² bowl — convex (MSE loss)</option>
+        <option value="nc">Non-convex — local minima</option>
+        <option value="plateau">Plateau — vanishing gradient</option>
+      </select>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="sc"><div class="sc-l">Weight</div><div class="sc-v" id="w2-w">—</div></div>
+    <div class="sc"><div class="sc-l">Loss</div><div class="sc-v" id="w2-l">—</div></div>
+    <div class="sc"><div class="sc-l">Gradient</div><div class="sc-v" id="w2-g">—</div></div>
+    <div class="sc"><div class="sc-l">Steps</div><div class="sc-v" id="w2-s">0</div></div>
+  </div>
+  <div style="margin-bottom:10px;">
+    <button class="btn" id="btn-step2">Step once</button>
+    <button class="btn" id="btn-auto2">Auto run</button>
+    <button class="btn" id="btn-reset2">Reset</button>
+  </div>
+  <div style="position:relative;width:100%;height:190px;margin-bottom:8px;"><canvas id="c2"></canvas></div>
+  <div class="note" id="n2-insight">Try non-convex — watch it get stuck in a local minimum.</div>
+  <div class="divider"></div>
+  <div class="row3">
+    <div class="box box-b">
+      <div class="ct">Forward pass</div>
+      <div class="cb">Data flows left→right. Each layer: output = activation(W·input + b). Final output = prediction. Loss measures error. No weights updated yet.</div>
+    </div>
+    <div class="box box-y">
+      <div class="ct">Backward pass</div>
+      <div class="cb">Error flows right→left. Chain rule computes ∂L/∂w for every weight. PyTorch tracks all ops during forward and uses them automatically in loss.backward().</div>
+    </div>
+    <div class="box box-g">
+      <div class="ct">Weight update</div>
+      <div class="cb">optimizer.step() applies w = w − α×∇L to ALL weights simultaneously. Adam makes it smarter by adapting α per weight. This = one iteration.</div>
+    </div>
+  </div>
+  <div class="code">
+# PyTorch training loop — runs this for every batch, every epoch
+optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
+
+for epoch in range(100):
+    for X_batch, y_batch in dataloader:
+        y_pred = model(X_batch)          # Step 1: forward pass
+        loss   = loss_fn(y_pred, y_batch) # Step 2: compute loss
+        optimizer.zero_grad()             # clear old gradients
+        loss.backward()                   # Step 3: backprop (chain rule)
+        optimizer.step()                  # Step 4: update all weights
+    mlflow.log_metric("loss", loss.item(), step=epoch)</div>
+</div>
+
+<!-- PANEL 3 -->
+<div class="panel" id="p3">
+  <div class="h1">Gradient Descent Variants</div>
+  <div class="sub">4 main variants — each trades off speed, noise, and gradient accuracy</div>
+  <div style="margin-bottom:12px;" id="var-btns">
+    <button class="vbtn on" data-var="batch">Batch GD</button>
+    <button class="vbtn" data-var="sgd">SGD</button>
+    <button class="vbtn" data-var="mini">Mini-batch GD</button>
+    <button class="vbtn" data-var="adam">Adam</button>
+  </div>
+  <div style="position:relative;width:100%;height:185px;margin-bottom:8px;"><canvas id="c3"></canvas></div>
+  <div class="note" id="n3-insight"></div>
+  <div class="divider"></div>
+  <table class="tbl">
+    <tr><th>Variant</th><th>Gradient on</th><th>Noise</th><th>Memory</th><th>Best for</th></tr>
+    <tr><td><b>Batch GD</b></td><td>All data</td><td><span class="tag tg">None</span></td><td><span class="tag tr">High</span></td><td>Small data, convex problems</td></tr>
+    <tr><td><b>SGD</b></td><td>1 sample</td><td><span class="tag tr">Very high</span></td><td><span class="tag tg">Minimal</span></td><td>Online learning, very large data</td></tr>
+    <tr><td><b>Mini-batch</b></td><td>Batch 32–256</td><td><span class="tag ty">Moderate</span></td><td><span class="tag tg">Low</span></td><td>Default for ALL deep learning</td></tr>
+    <tr><td><b>Adam</b></td><td>Batch + history</td><td><span class="tag tg">Low</span></td><td><span class="tag ty">Medium</span></td><td>Default for neural networks</td></tr>
+    <tr><td><b>Momentum</b></td><td>Batch + velocity</td><td><span class="tag tg">Low</span></td><td><span class="tag tg">Low</span></td><td>Faster than plain SGD</td></tr>
+    <tr><td><b>AdaGrad</b></td><td>Batch + history</td><td><span class="tag tg">Low</span></td><td><span class="tag ty">Medium</span></td><td>Sparse features, NLP</td></tr>
+    <tr><td><b>RMSProp</b></td><td>Batch + decay</td><td><span class="tag tg">Low</span></td><td><span class="tag ty">Medium</span></td><td>RNNs, non-stationary problems</td></tr>
+  </table>
+  <div class="note note-g"><b>Practical rule:</b> Always start with <b>Adam (lr=1e-3)</b> for neural networks. For Spark ML use the default solver. You rarely need to change optimizer — Adam first, always.</div>
+  <div class="code">
+# All PyTorch optimizers
+optim.SGD(model.parameters(), lr=0.01)                          # plain SGD
+optim.SGD(model.parameters(), lr=0.01, momentum=0.9)            # + momentum
+optim.Adam(model.parameters(), lr=1e-3)                         # default choice
+optim.AdamW(model.parameters(), lr=1e-3, weight_decay=1e-4)     # Adam + L2 reg
+
+# Learning rate scheduler — reduce lr over time
+scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=100)
+for epoch in range(100):
+    train(...)
+    scheduler.step()
+    mlflow.log_metric("lr", scheduler.get_last_lr()[0], step=epoch)</div>
+</div>
+
+<!-- PANEL 4 -->
+<div class="panel" id="p4">
+  <div class="h1">Problems with Gradient Descent + Fixes</div>
+  <div class="sub">Every one of these will happen in production — knowing the fix saves days of debugging</div>
+  <div style="margin-bottom:12px;" id="prob-btns">
+    <button class="pbtn on" data-prob="good">Ideal</button>
+    <button class="pbtn" data-prob="lr_high">LR too high</button>
+    <button class="pbtn" data-prob="lr_low">LR too low</button>
+    <button class="pbtn" data-prob="local">Local minimum</button>
+    <button class="pbtn" data-prob="plateau">Vanishing gradient</button>
+    <button class="pbtn" data-prob="explode">Exploding gradient</button>
+  </div>
+  <div style="position:relative;width:100%;height:185px;margin-bottom:8px;"><canvas id="c4"></canvas></div>
+  <div class="note note-r" id="n4-insight"></div>
+  <div class="divider"></div>
+  <div class="row2">
+    <div class="box box-r">
+      <div class="ct">Vanishing gradient</div>
+      <div class="cb">Gradients shrink to 0 as they flow back through layers. Early layers learn nothing.<br><br><b>Cause:</b> Sigmoid/tanh in hidden layers. Deep networks.<br><b>Fix:</b> Use ReLU. Add BatchNorm. Use residual connections (ResNet).</div>
+    </div>
+    <div class="box box-r">
+      <div class="ct">Exploding gradient</div>
+      <div class="cb">Gradients become huge. Loss spikes to NaN.<br><br><b>Cause:</b> LR too high. RNNs with long sequences.<br><b>Fix:</b> Gradient clipping:<br><code style="font-size:11px;">nn.utils.clip_grad_norm_(model.parameters(), 1.0)</code></div>
+    </div>
+    <div class="box box-y">
+      <div class="ct">Local minima + saddle points</div>
+      <div class="cb">GD gets stuck where gradient ≈ 0 but not at global minimum.<br><br><b>Fix:</b> SGD noise escapes them. Momentum powers through. Random restarts. Less of a problem than theory suggests.</div>
+    </div>
+    <div class="box box-y">
+      <div class="ct">Wrong learning rate</div>
+      <div class="cb">Too high → oscillates/diverges. Too low → never converges.<br><br><b>Fix:</b> Start with 1e-3 for Adam. Use LR finder. Use ReduceLROnPlateau scheduler to adapt automatically.</div>
+    </div>
+  </div>
+  <div class="code">
+# Fixes for common problems
+
+# Vanishing gradient → ReLU + BatchNorm
+nn.Sequential(nn.Linear(128,64), nn.BatchNorm1d(64), nn.ReLU())
+
+# Exploding gradient → clip gradients
+loss.backward()
+nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
+optimizer.step()
+
+# Wrong LR → adaptive scheduler
+scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
+    optimizer, patience=5, factor=0.5)  # halve lr if stuck for 5 epochs
+scheduler.step(val_loss)
+
+# Local minima → SGD with momentum (noise helps escape)
+optim.SGD(model.parameters(), lr=0.01, momentum=0.9)</div>
+</div>
+
+<!-- PANEL 5 -->
+<div class="panel" id="p5">
+  <div class="h1">When Is Gradient Descent Useful?</div>
+  <div class="sub">Where GD is used, where it isn't, and how it maps to your Databricks + Azure stack</div>
+  <div class="note"><b>Short answer:</b> GD is useful whenever you need to minimise a differentiable loss function over many parameters. That covers almost ALL of modern ML and AI. The only exceptions are problems with closed-form solutions or combinatorial (discrete) problems.</div>
+  <div class="divider"></div>
+  <div class="row4">
+    <div class="box box-g">
+      <div class="ct">Linear + logistic regression</div>
+      <div class="cb">GD minimises MSE (linear) or cross-entropy (logistic).<br><br><b>When GD used:</b> Large data — Spark MLlib always uses GD internally when you call model.fit().<br><b>When NOT:</b> Small data → normal equation gives exact solution without iterations.<br><br><span class="tag tb">LinearRegression(maxIter=100)</span></div>
+    </div>
+    <div class="box box-g">
+      <div class="ct">Neural networks — all types</div>
+      <div class="cb">The ONLY practical way to train networks with millions of parameters. No closed-form exists.<br><br><b>MLPs, CNNs, RNNs, Transformers, LLMs</b> — all trained with GD + backprop.<br><br>GPT-4 trained with GD across thousands of GPUs.<br><br><span class="tag tb">PyTorch on Databricks GPU clusters</span></div>
+    </div>
+    <div class="box box-g">
+      <div class="ct">Gradient Boosted Trees (XGBoost)</div>
+      <div class="cb">XGBoost / Spark GBT use <b>functional gradient descent</b> — each new tree fits the gradient (residuals) of the current ensemble. Each tree = one GD step in function space.<br><br><span class="tag tb">GBTClassifier(stepSize=0.1)</span></div>
+    </div>
+    <div class="box box-g">
+      <div class="ct">LLM pre-training + fine-tuning</div>
+      <div class="cb">Pre-training: GD on next-token prediction loss over trillions of tokens.<br><br>Fine-tuning: GD with very small lr (2e-5) to adapt to your domain. Azure OpenAI fine-tuning runs GD on your uploaded data automatically.<br><br><span class="tag tb">HuggingFace Trainer + Databricks</span></div>
+    </div>
+    <div class="box box-g">
+      <div class="ct">Embeddings + RAG</div>
+      <div class="cb">Word2Vec, sentence transformers, LLM embeddings all trained by GD. Embedding vectors are model parameters updated via GD.<br><br>When you use Azure OpenAI embeddings in RAG, those vectors were shaped by GD during pre-training.<br><br><span class="tag tb">Foundation of every RAG pipeline</span></div>
+    </div>
+    <div class="box box-y">
+      <div class="ct">When NOT to use GD</div>
+      <div class="cb">
+        <b>Decision trees / Random Forest</b> → greedy splitting, not GD<br>
+        <b>K-Means clustering</b> → Lloyd's algorithm, not GD<br>
+        <b>Naive Bayes</b> → MLE closed form, not GD<br>
+        <b>KNN</b> → no training at all<br>
+        <b>Small linear regression</b> → normal equation is faster<br><br>
+        <span class="tag ty">Simpler problems → simpler solutions</span>
+      </div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div style="position:relative;width:100%;height:185px;margin-bottom:8px;"><canvas id="c5"></canvas></div>
+  <div class="note note-g">
+    <b>Your Databricks + Azure ML stack — GD is everywhere:</b><br><br>
+    <code style="font-size:11px;">model.fit(train_df)</code> in Spark ML → GD distributed across cluster nodes<br>
+    <code style="font-size:11px;">loss.backward() + optimizer.step()</code> in PyTorch → GD updating weights<br>
+    Azure OpenAI fine-tuning → GD adjusting pre-trained weights on your data<br>
+    XGBoost / GBT adding a tree → one step of functional GD on residuals<br><br>
+    <b>GD is not optional — it IS the mechanism of learning in modern ML.</b>
+  </div>
+  <div class="code">
+# GD across your complete stack
+
+# 1. Spark MLlib — GD runs distributed across cluster
+lr = LinearRegression(maxIter=100, regParam=0.01)
+fitted = lr.fit(train_df)   # GD on each partition, gradients aggregated
+
+# 2. PyTorch — explicit GD loop
+for epoch in range(epochs):
+    loss = loss_fn(model(X), y)
+    optimizer.zero_grad(); loss.backward(); optimizer.step()
+
+# 3. LLM fine-tuning (HuggingFace on Databricks)
+training_args = TrainingArguments(learning_rate=2e-5, num_train_epochs=3)
+trainer = Trainer(model=model, args=training_args)
+trainer.train()   # GD with warmup scheduler on your domain data
+
+# 4. XGBoost functional GD
+gbt = GBTClassifier(maxIter=100, stepSize=0.1, maxDepth=6)
+fitted = gbt.fit(train_df)  # 100 trees = 100 GD steps on residuals</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const charts={};
+function mkChart(id,cfg){if(charts[id])charts[id].destroy();charts[id]=new Chart(document.getElementById(id),cfg);}
+function randn(){let u=0,v=0;while(!u)u=Math.random();while(!v)v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
+
+// ── Tab switching ──────────────────────────────────────────────
+document.getElementById('main-nav').addEventListener('click',function(e){
+  const t=e.target.closest('.ntab');
+  if(!t) return;
+  document.querySelectorAll('.ntab').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('.panel').forEach(x=>x.classList.remove('on'));
+  t.classList.add('on');
+  document.getElementById(t.dataset.panel).classList.add('on');
+  setTimeout(()=>{ initPanel(t.dataset.panel); },50);
+});
+
+function initPanel(id){
+  if(id==='p1') drawP1();
+  if(id==='p2') resetP2();
+  if(id==='p3') drawVariant('batch');
+  if(id==='p4') drawProblem('good');
+  if(id==='p5') drawP5();
+}
+
+// ── Panel 1 ────────────────────────────────────────────────────
+let p1={x:-3.5,steps:0,hist:[],timer:null};
+function resetP1(){
+  if(p1.timer){clearInterval(p1.timer);p1.timer=null;}
+  p1={x:+document.getElementById('w1-start').value/10,steps:0,hist:[],timer:null};
+  p1.hist=[p1.x]; drawP1();
+}
+function drawP1(){
+  const lr=+document.getElementById('w1-lr').value/100;
+  document.getElementById('w1s-v').textContent=(+document.getElementById('w1-start').value/10).toFixed(1);
+  document.getElementById('w1lr-v').textContent=lr.toFixed(2);
+  document.getElementById('w1-w').textContent=p1.x.toFixed(3);
+  document.getElementById('w1-l').textContent=(p1.x*p1.x).toFixed(3);
+  document.getElementById('w1-g').textContent=(2*p1.x).toFixed(3);
+  document.getElementById('w1-s').textContent=p1.steps;
+  const xs=Array.from({length:81},(_,i)=>-4+i*0.1);
+  const hpts=p1.hist.map(hx=>({x:+hx.toFixed(3),y:+(hx*hx).toFixed(4)}));
+  mkChart('c1',{type:'line',data:{labels:xs.map(v=>v.toFixed(1)),datasets:[
+    {data:xs.map(x=>x*x),borderColor:'#1a6fb5',borderWidth:2,pointRadius:0,fill:true,backgroundColor:'rgba(26,111,181,0.07)'},
+    {type:'scatter',data:hpts,backgroundColor:hpts.map((_,i)=>i===hpts.length-1?'#c0392b':'rgba(192,57,43,0.25)'),pointRadius:hpts.map((_,i)=>i===hpts.length-1?10:4)}
+  ]},options:{responsive:true,maintainAspectRatio:false,parsing:{xAxisKey:'x',yAxisKey:'y'},plugins:{legend:{display:false}},scales:{x:{type:'linear',ticks:{font:{size:11},color:'#888',maxTicksLimit:7},grid:{color:'rgba(0,0,0,0.05)'}},y:{ticks:{font:{size:11},color:'#888',maxTicksLimit:5},grid:{color:'rgba(0,0,0,0.05)'}}}}});
+  const g=2*p1.x, next=(p1.x-lr*g).toFixed(4), conv=Math.abs(g)<0.005;
+  document.getElementById('n1-insight').innerHTML=conv
+    ?`<b style="color:green">Converged!</b> w=${p1.x.toFixed(4)}, gradient≈0, loss≈0. Took ${p1.steps} steps.`
+    :`w=<b>${p1.x.toFixed(3)}</b>, gradient=<b>${g.toFixed(3)}</b>. Next: ${p1.x.toFixed(3)} − ${lr}×${g.toFixed(3)} = <b>${next}</b>. Loss: ${(p1.x*p1.x).toFixed(3)} → ${(+next**2).toFixed(3)}.`;
+}
+document.getElementById('w1-start').addEventListener('input',resetP1);
+document.getElementById('w1-lr').addEventListener('input',drawP1);
+document.getElementById('btn-step1').addEventListener('click',function(){
+  const lr=+document.getElementById('w1-lr').value/100;
+  p1.x=p1.x-lr*2*p1.x; p1.steps++;
+  p1.hist.push(p1.x); if(p1.hist.length>40)p1.hist=p1.hist.slice(-40);
+  drawP1();
+});
+document.getElementById('btn-auto1').addEventListener('click',function(){
+  if(p1.timer){clearInterval(p1.timer);p1.timer=null;return;}
+  p1.timer=setInterval(()=>{
+    document.getElementById('btn-step1').click();
+    if(Math.abs(2*p1.x)<0.005||p1.steps>120){clearInterval(p1.timer);p1.timer=null;}
+  },130);
+});
+document.getElementById('btn-reset1').addEventListener('click',resetP1);
+
+// ── Panel 2 ────────────────────────────────────────────────────
+const surfs={
+  bowl:{f:x=>x*x,df:x=>2*x},
+  nc:{f:x=>0.1*x**4-x*x,df:x=>0.4*x**3-2*x},
+  plateau:{f:x=>Math.tanh(x*0.5)*3,df:x=>3*0.5*(1-Math.tanh(x*0.5)**2)}
+};
+let p2={x:3.5,steps:0,hist:[],timer:null};
+function resetP2(){
+  if(p2.timer){clearInterval(p2.timer);p2.timer=null;}
+  const key=document.getElementById('w2-surf').value;
+  p2={x:key==='nc'?3.2:3.5,steps:0,hist:[],timer:null};
+  p2.hist=[p2.x]; drawP2();
+}
+function drawP2(){
+  const lr=+document.getElementById('w2-lr').value/100;
+  const noise=+document.getElementById('w2-noise').value/100;
+  const key=document.getElementById('w2-surf').value;
+  const sf=surfs[key];
+  document.getElementById('w2lr-v').textContent=lr.toFixed(2);
+  document.getElementById('w2n-v').textContent=noise.toFixed(2);
+  document.getElementById('w2-w').textContent=p2.x.toFixed(4);
+  document.getElementById('w2-l').textContent=sf.f(p2.x).toFixed(4);
+  document.getElementById('w2-g').textContent=sf.df(p2.x).toFixed(4);
+  document.getElementById('w2-s').textContent=p2.steps;
+  const xs=Array.from({length:81},(_,i)=>-4+i*0.1);
+  const hpts=p2.hist.map(hx=>({x:+hx.toFixed(3),y:+sf.f(hx).toFixed(4)}));
+  mkChart('c2',{type:'line',data:{labels:xs.map(v=>v.toFixed(1)),datasets:[
+    {data:xs.map(x=>sf.f(x)),borderColor:'#1a6fb5',borderWidth:2,pointRadius:0,fill:false,tension:0.2},
+    {type:'scatter',data:hpts,backgroundColor:hpts.map((_,i)=>i===hpts.length-1?'#c0392b':'rgba(192,57,43,0.25)'),pointRadius:hpts.map((_,i)=>i===hpts.length-1?10:4)}
+  ]},options:{responsive:true,maintainAspectRatio:false,parsing:{xAxisKey:'x',yAxisKey:'y'},plugins:{legend:{display:false}},scales:{x:{type:'linear',ticks:{font:{size:11},color:'#888',maxTicksLimit:7},grid:{color:'rgba(0,0,0,0.05)'}},y:{ticks:{font:{size:11},color:'#888',maxTicksLimit:5},grid:{color:'rgba(0,0,0,0.05)'}}}}});
+  const msgs={bowl:'Convex bowl — guaranteed to reach the global minimum. This is the loss surface of linear regression.',nc:'Non-convex surface — GD may get trapped in a local minimum depending on starting point. This is what neural net loss surfaces look like.',plateau:'Plateau + steep region — gradient is near zero on the flat part (vanishing gradient). GD barely moves here. Fix: use ReLU instead of sigmoid.'};
+  document.getElementById('n2-insight').textContent=msgs[key]||'';
+}
+document.getElementById('w2-lr').addEventListener('input',drawP2);
+document.getElementById('w2-noise').addEventListener('input',drawP2);
+document.getElementById('w2-surf').addEventListener('change',resetP2);
+document.getElementById('btn-step2').addEventListener('click',function(){
+  const lr=+document.getElementById('w2-lr').value/100;
+  const noise=+document.getElementById('w2-noise').value/100;
+  const sf=surfs[document.getElementById('w2-surf').value];
+  p2.x=p2.x-lr*(sf.df(p2.x)+randn()*noise);
+  p2.steps++; p2.hist.push(p2.x); if(p2.hist.length>50)p2.hist=p2.hist.slice(-50);
+  drawP2();
+});
+document.getElementById('btn-auto2').addEventListener('click',function(){
+  if(p2.timer){clearInterval(p2.timer);p2.timer=null;return;}
+  p2.timer=setInterval(()=>{
+    document.getElementById('btn-step2').click();
+    if(p2.steps>120){clearInterval(p2.timer);p2.timer=null;}
+  },120);
+});
+document.getElementById('btn-reset2').addEventListener('click',resetP2);
+
+// ── Panel 3 ────────────────────────────────────────────────────
+function drawVariant(key){
+  document.querySelectorAll('#var-btns .vbtn').forEach(b=>{
+    b.classList.toggle('on', b.dataset.var===key);
+  });
+  const n=60,x0=4;
+  const gens={
+    batch:()=>{let x=x0,r=[];for(let i=0;i<n;i++){x-=0.12*2*x;r.push(+(x*x).toFixed(4));}return r;},
+    sgd:  ()=>{let x=x0,r=[];for(let i=0;i<n;i++){x-=0.08*(2*x+randn()*3);r.push(+Math.max(0,x*x).toFixed(4));}return r;},
+    mini: ()=>{let x=x0,r=[];for(let i=0;i<n;i++){x-=0.1*(2*x+randn()*0.8);r.push(+Math.max(0,x*x).toFixed(4));}return r;},
+    adam: ()=>{let x=x0,m=0,v=0,r=[];for(let i=0;i<n;i++){const g=2*x+randn()*0.4;m=0.9*m+0.1*g;v=0.999*v+0.001*g*g;const mh=m/(1-Math.pow(0.9,i+1)),vh=v/(1-Math.pow(0.999,i+1));x-=0.3*mh/(Math.sqrt(vh)+1e-8);r.push(+Math.max(0,x*x).toFixed(4));}return r;}
+  };
+  const colors={batch:'#1a6fb5',sgd:'#c0392b',mini:'#1a9e5f',adam:'#7f77dd'};
+  const descs={
+    batch:'<b>Batch GD</b> — uses ALL training data per step. Exact gradient. Smooth curve. Too slow for large datasets — one update per full epoch.',
+    sgd:'<b>SGD</b> — uses ONE sample per step. Very noisy (see the jagged curve). Fast per update. Noise actually helps escape local minima. Use for very large datasets.',
+    mini:'<b>Mini-batch GD</b> — uses a BATCH of 32–256 samples. Best of both worlds. Moderate noise = good regularisation. This is the default for all PyTorch training.',
+    adam:'<b>Adam</b> — adaptive per-weight learning rate using momentum + variance tracking. Fastest and smoothest convergence. Most robust. Default for neural networks — always use Adam first.'
+  };
+  mkChart('c3',{type:'line',data:{labels:Array.from({length:n},(_,i)=>i+1),datasets:[{data:gens[key](),borderColor:colors[key],borderWidth:2,pointRadius:0,fill:true,backgroundColor:colors[key]+'18'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{title:{display:true,text:'iteration →',font:{size:10}},ticks:{font:{size:11},color:'#888'},grid:{color:'rgba(0,0,0,0.05)'}},y:{title:{display:true,text:'loss',font:{size:10}},ticks:{font:{size:11},color:'#888',maxTicksLimit:5},grid:{color:'rgba(0,0,0,0.05)'}}}}});
+  document.getElementById('n3-insight').innerHTML=descs[key];
+}
+document.getElementById('var-btns').addEventListener('click',function(e){
+  const b=e.target.closest('.vbtn'); if(b) drawVariant(b.dataset.var);
+});
+
+// ── Panel 4 ────────────────────────────────────────────────────
+function drawProblem(key){
+  document.querySelectorAll('#prob-btns .pbtn').forEach(b=>{
+    b.classList.toggle('on', b.dataset.prob===key);
+  });
+  const n=60;
+  const gens={
+    good:    ()=>Array.from({length:n},(_,i)=>+(4*Math.exp(-i*0.09)+0.05+randn()*0.02).toFixed(4)),
+    lr_high: ()=>Array.from({length:n},(_,i)=>{let x=3;for(let j=0;j<i;j++)x=x-0.9*2*x;return +Math.min(25,Math.abs(x*x+randn()*0.5)).toFixed(4);}),
+    lr_low:  ()=>Array.from({length:n},(_,i)=>+(4*Math.exp(-i*0.004)+randn()*0.1).toFixed(4)),
+    local:   ()=>Array.from({length:n},(_,i)=>+(i<20?4*Math.exp(-i*0.15):0.8+0.04*Math.cos(i*0.3)+randn()*0.03).toFixed(4)),
+    plateau: ()=>Array.from({length:n},(_,i)=>+(i<30?3.5-i*0.015+randn()*0.05:3.1-0.001*(i-30)+randn()*0.02).toFixed(4)),
+    explode: ()=>Array.from({length:n},(_,i)=>+(i<15?4*Math.exp(-i*0.05):Math.min(30,4*Math.exp(-i*0.05)+Math.pow(1.3,i-15)*0.01+randn())).toFixed(4))
+  };
+  const colors={good:'#1a9e5f',lr_high:'#c0392b',lr_low:'#d4a017',local:'#7f77dd',plateau:'#1a6fb5',explode:'#c0392b'};
+  const msgs={
+    good:'<b>Ideal convergence</b> — loss decreases smoothly and stabilises. Learning rate is well chosen. Model is learning correctly.',
+    lr_high:'<b>Learning rate too high</b> — loss oscillates wildly or diverges. Steps are so large they overshoot the minimum repeatedly. Fix: reduce lr by 10× (e.g. 0.1 → 0.01). Use ReduceLROnPlateau scheduler.',
+    lr_low:'<b>Learning rate too low</b> — loss barely decreases. Will converge eventually but wastes compute. Fix: increase lr by 10×. Use a learning rate finder tool.',
+    local:'<b>Stuck in local minimum</b> — loss drops quickly then plateaus at a non-zero value. GD found a shallow valley. Fix: random restarts, SGD noise to escape, momentum, different initialisation.',
+    plateau:'<b>Vanishing gradient / plateau</b> — loss barely moves despite many epochs. Gradient is near zero. Fix: use ReLU instead of sigmoid, add BatchNorm layers, reduce network depth.',
+    explode:'<b>Exploding gradient</b> — loss suddenly shoots upward, often to NaN. Gradient becomes enormous. Fix: gradient clipping — nn.utils.clip_grad_norm_(model.parameters(), 1.0). Reduce learning rate.'
+  };
+  mkChart('c4',{type:'line',data:{labels:Array.from({length:n},(_,i)=>i+1),datasets:[{data:gens[key](),borderColor:colors[key],borderWidth:2,pointRadius:0,fill:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{title:{display:true,text:'epoch',font:{size:10}},ticks:{font:{size:11},color:'#888'},grid:{color:'rgba(0,0,0,0.05)'}},y:{ticks:{font:{size:11},color:'#888',maxTicksLimit:5},grid:{color:'rgba(0,0,0,0.05)'}}}}});
+  document.getElementById('n4-insight').innerHTML=msgs[key];
+}
+document.getElementById('prob-btns').addEventListener('click',function(e){
+  const b=e.target.closest('.pbtn'); if(b) drawProblem(b.dataset.prob);
+});
+
+// ── Panel 5 ────────────────────────────────────────────────────
+function drawP5(){
+  const n=50;
+  const lr=Array.from({length:n},(_,i)=>+(5*Math.exp(-i*0.12)+0.1).toFixed(4));
+  const nn=Array.from({length:n},(_,i)=>+(4.5*Math.exp(-i*0.08)+0.05+randn()*0.12).toFixed(4));
+  const gbt=Array.from({length:n},(_,i)=>+(4*Math.exp(-i*0.1)+0.08+randn()*0.06).toFixed(4));
+  const llm=Array.from({length:n},(_,i)=>+(3.8-i*0.04+randn()*0.15).toFixed(4));
+  mkChart('c5',{type:'line',data:{labels:Array.from({length:n},(_,i)=>i+1),datasets:[
+    {label:'Linear Reg (Spark)',data:lr,borderColor:'#1a6fb5',borderWidth:2,pointRadius:0,fill:false},
+    {label:'Neural Net (PyTorch)',data:nn,borderColor:'#1a9e5f',borderWidth:2,pointRadius:0,fill:false},
+    {label:'GBT/XGBoost',data:gbt,borderColor:'#c0392b',borderWidth:2,pointRadius:0,fill:false,borderDash:[4,3]},
+    {label:'LLM Fine-tune',data:llm,borderColor:'#7f77dd',borderWidth:1.5,pointRadius:0,fill:false,borderDash:[2,2]}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:10},color:'#555',boxWidth:20}}},scales:{x:{title:{display:true,text:'iteration / epoch',font:{size:10}},ticks:{font:{size:11},color:'#888'},grid:{color:'rgba(0,0,0,0.05)'}},y:{title:{display:true,text:'loss',font:{size:10}},ticks:{font:{size:11},color:'#888',maxTicksLimit:5},grid:{color:'rgba(0,0,0,0.05)'}}}}});
+}
+
+// ── Init ───────────────────────────────────────────────────────
+drawP1();
+</script>

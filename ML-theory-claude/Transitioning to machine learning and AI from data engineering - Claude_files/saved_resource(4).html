@@ -1,0 +1,3895 @@
+<!DOCTYPE html>
+<!-- saved from url=(0357)https://2302c1fa0c5ed127688374cff3325afc.claudemcpcontent.com/mcp_apps?connect-src=https%3A%2F%2Fesm.sh+https%3A%2F%2Fcdnjs.cloudflare.com+https%3A%2F%2Fcdn.jsdelivr.net+https%3A%2F%2Funpkg.com&resource-src=https%3A%2F%2Fesm.sh+https%3A%2F%2Fcdnjs.cloudflare.com+https%3A%2F%2Fcdn.jsdelivr.net+https%3A%2F%2Funpkg.com+https%3A%2F%2Fassets.claude.ai&dev=true -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visualize Widget</title>
+  <style id="mcp-host-fonts">
+@font-face {
+  font-family: "Anthropic Sans";
+  src: url("https://assets.claude.ai/Fonts/AnthropicSans-Text-Regular-Static.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Sans";
+  src: url("https://assets.claude.ai/Fonts/AnthropicSans-Text-RegularItalic-Static.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Sans";
+  src: url("https://assets.claude.ai/Fonts/AnthropicSans-Text-Medium-Static.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Sans";
+  src: url("https://assets.claude.ai/Fonts/AnthropicSans-Text-MediumItalic-Static.otf") format("opentype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Sans";
+  src: url("https://assets.claude.ai/Fonts/AnthropicSans-Text-Semibold-Static.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Sans";
+  src: url("https://assets.claude.ai/Fonts/AnthropicSans-Text-SemiboldItalic-Static.otf") format("opentype");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Sans";
+  src: url("https://assets.claude.ai/Fonts/AnthropicSans-Text-Bold-Static.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Sans";
+  src: url("https://assets.claude.ai/Fonts/AnthropicSans-Text-BoldItalic-Static.otf") format("opentype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+</style>
+  <style>@font-face {
+  font-family: "Anthropic Serif";
+  src: url("https://assets.claude.ai/Fonts/AnthropicSerif-Text-Regular-Static.otf")
+    format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Serif";
+  src: url("https://assets.claude.ai/Fonts/AnthropicSerif-Text-RegularItalic-Static.otf")
+    format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Serif";
+  src: url("https://assets.claude.ai/Fonts/AnthropicSerif-Text-Medium-Static.otf")
+    format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Serif";
+  src: url("https://assets.claude.ai/Fonts/AnthropicSerif-Text-MediumItalic-Static.otf")
+    format("opentype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Serif";
+  src: url("https://assets.claude.ai/Fonts/AnthropicSerif-Text-Semibold-Static.otf")
+    format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Serif";
+  src: url("https://assets.claude.ai/Fonts/AnthropicSerif-Text-SemiboldItalic-Static.otf")
+    format("opentype");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Serif";
+  src: url("https://assets.claude.ai/Fonts/AnthropicSerif-Text-Bold-Static.otf")
+    format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Serif";
+  src: url("https://assets.claude.ai/Fonts/AnthropicSerif-Text-BoldItalic-Static.otf")
+    format("opentype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}</style>
+  <style>:root {
+  color-scheme: light dark;
+  --font-serif: "Anthropic Serif", Georgia, "Times New Roman", serif;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+input,
+select,
+textarea,
+button {
+  font-family: inherit;
+}
+body {
+  font-family:
+    "Anthropic Sans",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  background: transparent;
+}
+/* Iframe height is externally managed — host sets iframe.style.height to
+ * match body.getBoundingClientRect().height via postMessage. During the
+ * 1-frame lag (and the 0.25s initial transition), body > viewport triggers
+ * a transient scrollbar that steals ~15px width, reflowing flex content.
+ * Zero-width scrollbar = zero layout shift. Wheel/keyboard scroll still
+ * work if ever needed. */
+html,
+body {
+  scrollbar-width: none;
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+/* Short var aliases — saves ~5 tokens per reference */
+:root {
+  --p: var(--color-text-primary);
+  --s: var(--color-text-secondary);
+  --t: var(--color-text-tertiary);
+  --bg2: var(--color-background-secondary);
+  --b: var(--color-border-secondary);
+}
+
+/* SVG utility classes — use class="t" instead of repeating font/fill attrs */
+.t {
+  font-size: 14px;
+  fill: var(--p);
+}
+.ts {
+  font-size: 12px;
+  fill: var(--s);
+}
+.th {
+  font-size: 14px;
+  fill: var(--p);
+  font-weight: 500;
+}
+.box {
+  fill: var(--bg2);
+  stroke: var(--b);
+}
+.arr {
+  stroke: var(--t);
+  fill: none;
+  stroke-width: 1.5;
+}
+.node {
+  cursor: pointer;
+}
+.node:hover rect,
+.node:hover .box {
+  filter: brightness(0.97);
+}
+.node:hover text {
+  opacity: 0.8;
+}
+
+/* Form element defaults — model writes bare <input>, styling is automatic */
+/* :not(form.elicit *) — elicitation form provides its own
+ * input/button styling at (0,1,0). Without this exclusion, these
+ * generic rules at (0,3,1) / (1,0,2) clobber every .elicit-* class. */
+input:not([type="range"]):not([type="checkbox"]):not([type="radio"]):not(
+    form.elicit *
+  ),
+select:not(form.elicit *),
+textarea:not(form.elicit *) {
+  width: 100%;
+  height: 36px;
+  padding: 8px 12px;
+  font-size: 16px;
+  background: var(--color-background-primary);
+  color: var(--color-text-primary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: 6px;
+  outline: none;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+textarea {
+  height: auto;
+  min-height: 80px;
+  resize: vertical;
+}
+input:not([type="range"]):not([type="checkbox"]):not([type="radio"]):not(
+    form.elicit *
+  ):hover,
+select:not(form.elicit *):hover,
+textarea:not(form.elicit *):hover {
+  border-color: var(--color-border-secondary);
+}
+input:not([type="range"]):not([type="checkbox"]):not([type="radio"]):not(
+    form.elicit *
+  ):focus,
+select:not(form.elicit *):focus,
+textarea:not(form.elicit *):focus {
+  border-color: var(--color-border-info);
+  box-shadow: 0 0 0 3px var(--color-background-info);
+}
+select {
+  cursor: pointer;
+}
+
+/* Range slider — model writes bare <input type="range">, styling automatic */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  background: light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.1));
+  border-radius: 2px;
+  outline: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-background-primary);
+  border: 1px solid var(--color-border-secondary);
+  cursor: pointer;
+  transition:
+    border-color 0.15s,
+    transform 0.15s;
+}
+input[type="range"]:hover::-webkit-slider-thumb {
+  border-color: var(--color-border-primary);
+  transform: scale(1.1);
+}
+input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-background-primary);
+  border: 1px solid var(--color-border-secondary);
+  cursor: pointer;
+}
+
+/* Button defaults — model writes bare <button>, interaction states automatic */
+button:not(#action-btns button):not(form.elicit button) {
+  padding: 8px 16px;
+  font-size: 14px;
+  background: transparent;
+  color: var(--color-text-primary);
+  border: 0.5px solid var(--color-border-secondary);
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    transform 0.1s;
+}
+button:not(#action-btns button):not(form.elicit button):hover {
+  background: var(--color-background-secondary);
+}
+button:not(#action-btns button):not(form.elicit button):active {
+  background: var(--color-border-tertiary);
+  transform: scale(0.98);
+}
+
+/* ===== Elicitation form — EA-878 =====
+ * Inert unless Claude writes <form class="elicit">.
+ * Figma: AaGSDTRrOCNVhNa7LZaJVr node 5340:3930
+ * Conversational question prompts ("Which side are you on?"),
+ * pills for all choices.
+ */
+
+form.elicit {
+  background: var(--color-background-primary, #fff);
+  border: 0.5px solid var(--color-border-tertiary, rgba(31, 30, 29, 0.15));
+  border-radius: 16px;
+  /* Figma 5340:3930 — soft diffuse shadow, lighter than DS --shadow-md.
+   * Margin keeps the shadow from clipping at #vis-container's overflow:hidden
+   * edge: y-offset 4px + blur 20px ≈ 24px below, 20px sides. */
+  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.04);
+  margin: 4px 20px 24px;
+  overflow: hidden;
+  /* font-base = 14/1.4 sans — descendants inherit; only .elicit-question
+   * (serif 16/1.7), .name (12), .badge (9) override. */
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 14px;
+  line-height: 1.4;
+  /* Match host rendering — without this the iframe uses subpixel AA and
+   * everything (notably weight-500 buttons) reads ~100 heavier on Retina
+   * than the same tokens outside the iframe. */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Chrome props animate on the form→submitted-summary swap. */
+  transition:
+    background-color 200ms ease-out,
+    box-shadow 200ms ease-out,
+    border-radius 200ms ease-out,
+    padding 200ms ease-out,
+    margin 200ms ease-out;
+  /* Shared FileThumbnail tokens (border-border-300/25, shadow-sm/5). */
+  --elicit-border-faint: color-mix(
+    in srgb,
+    var(--color-border-tertiary, rgba(31, 30, 29, 0.15)) 25%,
+    transparent
+  );
+  --elicit-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+/* Form controls don't inherit font props from the UA sheet — pull from root.
+ * `font: inherit` shorthand so font-weight comes too; the individual-prop
+ * version left weight at the UA <button> default (bold-ish on some
+ * platforms) for any control that doesn't set its own weight. */
+form.elicit :is(button, input, textarea) {
+  font: inherit;
+}
+
+/* Header title and question prompts share Claude's chat-output voice
+ * (p.font-claude-response-body = Anthropic Serif 16 / 400 / 1.7) so both
+ * read as Claude speaking, not form chrome. */
+form.elicit .elicit-header,
+form.elicit .elicit-question {
+  font-family: var(--font-serif, "Anthropic Serif", Georgia, serif);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--color-text-primary, #131313);
+}
+
+/* 44px total to match the suggested-connector widget spec.
+ * Fixed height + zero vertical padding lets align-items:center handle the rest;
+ * avoids the icon/text line-height arithmetic. */
+form.elicit .elicit-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 16px;
+  border-bottom: 0.5px solid
+    var(--color-border-tertiary, rgba(31, 30, 29, 0.15));
+}
+form.elicit .elicit-header > svg {
+  /* IconBase vectorSizeMap[16] = 20 — anthropicons render in a 20px box. */
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  fill: currentColor;
+}
+form.elicit .elicit-header > span {
+  flex: 1;
+}
+
+form.elicit .elicit-body {
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+form.elicit .elicit-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+form.elicit .elicit-question {
+  margin: 0;
+}
+
+/* Pills container — no horizontal padding. Previously had 0 8px which pushed
+ * pills 8px right of the question/textarea/date in the same .elicit-group. */
+form.elicit .elicit-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+form.elicit .elicit-pill {
+  /* Fully rounded + tighter padding — visually distinct from the rectangular
+   * text inputs (textarea/other/date stay at 8-12px radius). Pills and inputs
+   * don't match in height so the shape difference reads as intentional. */
+  padding: 8px 12px;
+  border: 0.5px solid var(--color-border-tertiary, rgba(31, 30, 29, 0.15));
+  border-radius: 9999px;
+  background: transparent;
+  color: var(--color-text-secondary, #383835);
+  cursor: pointer;
+  transition:
+    border-color 120ms ease,
+    background-color 120ms ease;
+}
+form.elicit .elicit-pill:hover {
+  border-color: var(--color-border-secondary, rgba(30, 30, 29, 0.3));
+}
+/* Semantic accents — same light-fill+soft-border recipe as the blue selected
+ * state, applied via attribute so inline style doesn't fight aria-pressed.
+ * Single-attr specificity; the [aria-pressed="true"] rule below wins on
+ * border+bg so selection remains visible on accented pills. */
+form.elicit .elicit-pill[data-accent="warning"] {
+  border-color: var(--color-text-warning, #5a4815);
+  background: color-mix(
+    in srgb,
+    var(--color-text-warning, #5a4815) 15%,
+    transparent
+  );
+  color: var(--color-text-warning, #5a4815);
+}
+form.elicit .elicit-pill[data-accent="danger"] {
+  border-color: var(--color-text-danger, #7f2c28);
+  background: color-mix(
+    in srgb,
+    var(--color-text-danger, #7f2c28) 15%,
+    transparent
+  );
+  color: var(--color-text-danger, #7f2c28);
+}
+form.elicit .elicit-pill[data-accent="success"] {
+  border-color: var(--color-text-success, #265b19);
+  background: color-mix(
+    in srgb,
+    var(--color-text-success, #265b19) 15%,
+    transparent
+  );
+  color: var(--color-text-success, #265b19);
+}
+form.elicit .elicit-pill[aria-pressed="true"] {
+  /* Figma: 0.5px #184f95 border + rgba(205,226,251,0.5) fill (approx via color-mix). */
+  border: 0.5px solid var(--color-text-info, #184f95);
+  background: color-mix(
+    in srgb,
+    var(--color-text-info, #184f95) 15%,
+    transparent
+  );
+  /* accent-000 — host bridge maps DS accent to --color-text-info (no
+   * --accent-* var injected into the iframe). Matches border + fill. */
+  color: var(--color-text-info, #184f95);
+}
+
+/* "Other" conditional text input.
+ * background/color explicit — generic input rule no longer provides
+ * these post-specificity-fix, UA Canvas/CanvasText mismatch in dark mode. */
+form.elicit .elicit-other {
+  margin-top: 8px;
+  height: 40px;
+  padding: 0 12px;
+  border: 0.5px solid var(--color-border-tertiary, rgba(31, 30, 29, 0.15));
+  border-radius: 8px;
+  background: var(--color-background-primary, #fff);
+  color: var(--color-text-primary, #131313);
+  width: 100%;
+  box-sizing: border-box;
+}
+form.elicit .elicit-other[hidden] {
+  display: none;
+}
+
+/* Textarea.
+ * background/color explicit — generic textarea rule no longer provides
+ * these post-specificity-fix, UA Canvas/CanvasText mismatch in dark mode. */
+form.elicit .elicit-textarea {
+  min-height: 84px;
+  padding: 12px;
+  border: 0.5px solid var(--color-border-tertiary, rgba(31, 30, 29, 0.15));
+  border-radius: 8px;
+  background: var(--color-background-primary, #fff);
+  color: var(--color-text-primary, #131313);
+  resize: vertical;
+  box-sizing: border-box;
+  width: 100%;
+}
+form.elicit .elicit-textarea::placeholder {
+  color: var(--color-text-tertiary, #7b7974);
+}
+
+/* Date input — pill-shaped, hugs content */
+form.elicit .elicit-date {
+  padding: 12px 16px;
+  border: 0.5px solid var(--color-border-tertiary, rgba(31, 30, 29, 0.15));
+  border-radius: 12px;
+  background: transparent;
+  color: var(--color-text-primary, #131313);
+  width: fit-content;
+  cursor: pointer;
+}
+/* Shared focus ring for all text inputs — info-blue border + soft glow */
+form.elicit .elicit-other:focus,
+form.elicit .elicit-textarea:focus,
+form.elicit .elicit-date:focus {
+  outline: none;
+  border-color: var(--color-border-info, #2a78d6);
+  box-shadow: 0 0 0 3px var(--color-background-info, rgba(42, 120, 214, 0.2));
+}
+
+/* File upload — dashed dropzone + filled tiles.
+ * Tile styling mirrors packages/chat/components/FileThumbnail.tsx (the
+ * thumbnail users already see in the chat input row) so a file picked here
+ * reads as the same object it becomes once attached. Dropzone is the first
+ * flex child; tiles append after it (flow right). */
+form.elicit .elicit-files {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 12px;
+}
+form.elicit .elicit-dropzone {
+  /* 120×120 = FileThumbnail SIZE_MAP.normal. Dashed stays 1px — 0.5px
+   * dashed rasterizes to invisible gaps on non-retina. */
+  width: 120px;
+  height: 120px;
+  border: 1px dashed var(--color-border-tertiary, rgba(31, 30, 29, 0.15));
+  border-radius: 10px;
+  box-shadow: var(--elicit-shadow-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  /* Figma 5340:4071 — 2% text-000 wash over bg-000 */
+  background: color-mix(
+    in srgb,
+    var(--color-text-primary, #131313) 2%,
+    var(--color-background-primary, #fff)
+  );
+  color: var(--color-text-tertiary, #7b7974);
+  transition:
+    border-color 120ms ease,
+    background-color 120ms ease;
+}
+form.elicit .elicit-dropzone:hover {
+  border-color: var(--color-text-info, #184f95);
+  background: color-mix(
+    in srgb,
+    var(--color-text-info, #184f95) 4%,
+    transparent
+  );
+}
+form.elicit .elicit-dropzone svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+form.elicit .elicit-dropzone input[type="file"] {
+  display: none;
+}
+
+form.elicit .elicit-file-tile {
+  /* FileThumbnail ThumbnailInteractionContainer:
+   * rounded-lg border-0.5 border-border-300/25 shadow-sm shadow-always-black/5
+   * bg-bg-000 px-2.5 py-2 gap-2.5 → 8px radius, 0.5px border, 8/10px pad */
+  width: 120px;
+  height: 120px;
+  border: 0.5px solid var(--elicit-border-faint);
+  border-radius: 8px;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  background: var(--color-background-primary, #fff);
+  box-shadow: var(--elicit-shadow-sm);
+  box-sizing: border-box;
+  position: relative;
+}
+form.elicit .elicit-file-tile .name {
+  /* FileThumbnail title: text-[12px] text-text-100 break-words line-clamp-3 */
+  font-size: 12px;
+  color: var(--color-text-primary, #131313);
+  word-break: break-word;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+form.elicit .elicit-file-tile .badge {
+  /* FileThumbnail ThumbnailTagContainer:
+   * h-[18px] px-1 border-0.5 border-border-300/25 shadow-sm rounded
+   * bg-bg-000/70 font-medium + inner text-[9px] uppercase font-bold */
+  align-self: flex-start;
+  height: 18px;
+  padding: 0 4px;
+  display: inline-flex;
+  align-items: center;
+  border: 0.5px solid var(--elicit-border-faint);
+  border-radius: 4px;
+  background: color-mix(
+    in srgb,
+    var(--color-background-primary, #fff) 70%,
+    transparent
+  );
+  box-shadow: var(--elicit-shadow-sm);
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--color-text-tertiary, #7b7974);
+  text-transform: uppercase;
+}
+/* FileThumbnail RemoveButton: w-5 h-5 -top-2 -left-2 rounded-full
+ * border-0.5 border-border-300/25 bg-bg-000/90 backdrop-blur-sm.
+ * Always visible (no group-hover in iframe — touch + no Tailwind group). */
+form.elicit .elicit-file-tile .remove {
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 0.5px solid var(--elicit-border-faint);
+  border-radius: 9999px;
+  background: color-mix(
+    in srgb,
+    var(--color-background-primary, #fff) 90%,
+    transparent
+  );
+  backdrop-filter: blur(4px);
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  color: var(--color-text-tertiary, #7b7974);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    color 120ms ease,
+    background-color 120ms ease;
+}
+form.elicit .elicit-file-tile .remove:hover {
+  color: var(--color-text-secondary, #383835);
+  background: color-mix(
+    in srgb,
+    var(--color-background-primary, #fff) 50%,
+    transparent
+  );
+}
+
+/* Footer — DS Button tokens transcribed (variant=secondary / variant=primary,
+ * size=default: h-9 px-4 rounded-lg min-w-[5rem] font-base-bold). */
+form.elicit .elicit-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  /* Explicit height (mirrors .elicit-header) so the submitted-state height:0
+   * transition can interpolate — auto→0 snaps. 36px buttons + 32px breathing room. */
+  height: 68px;
+  padding: 0 24px;
+  border-top: 0.5px solid var(--color-border-tertiary, rgba(31, 30, 29, 0.15));
+}
+form.elicit .elicit-skip,
+form.elicit .elicit-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  min-width: 80px;
+  padding: 0 16px;
+  border-radius: 8px;
+  /* DS Button primary/secondary = font-base-bold (tw-typography.js:26) */
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background-color 100ms ease-out,
+    border-color 100ms ease-out,
+    transform 150ms cubic-bezier(0.165, 0.85, 0.45, 1);
+}
+form.elicit .elicit-skip:active,
+form.elicit .elicit-submit:active {
+  transform: scale(0.96);
+}
+/* secondary */
+form.elicit .elicit-skip {
+  border: 0.5px solid
+    color-mix(
+      in srgb,
+      var(--color-border-secondary, rgba(30, 30, 29, 0.3)) 30%,
+      transparent
+    );
+  background: transparent;
+  color: var(--color-text-primary, #131313);
+}
+form.elicit .elicit-skip:hover {
+  background: var(--color-background-secondary, #f9f9f7);
+  border-color: transparent;
+}
+/* primary */
+form.elicit .elicit-submit {
+  border: none;
+  background: var(--color-text-primary, #131313);
+  color: var(--color-background-primary, #fff);
+}
+form.elicit .elicit-submit:hover {
+  transform: scaleX(1.005) scaleY(1.015);
+}
+/* :hover and :active are both true during a mouse click; equal specificity →
+ * source order wins, so without this the hover-grow above masks the press-down. */
+form.elicit .elicit-submit:hover:active {
+  transform: scale(0.96);
+}
+
+/* Post-submit — submitElicitation() adds .elicit-transitioning (body fades
+ * out), then after 150ms swaps the body for the Q/A summary and adds
+ * .elicit-submitted (chrome transitions to the bare card while body fades
+ * back in). Mirrors AskUserQuestion: outer card = AskUserQuestionToolUseCell
+ * .tsx:177 (rounded-xl border-0.5 border-border-300 p-4, no bg-bg-000 when
+ * submitted), rows = SubmittedResponses.tsx:14-36. */
+form.elicit .elicit-body {
+  transition: opacity 150ms ease-out;
+}
+form.elicit.elicit-transitioning .elicit-body {
+  opacity: 0;
+}
+form.elicit.elicit-submitted {
+  background: transparent;
+  border-radius: 12px;
+  box-shadow: none;
+  padding: 16px;
+  margin: 4px;
+}
+/* `display: none` can't transition — collapse to zero so the chrome animates
+ * away with the form's 200ms transition instead of snapping. */
+form.elicit .elicit-header,
+form.elicit .elicit-footer {
+  transition:
+    opacity 200ms ease-out,
+    height 200ms ease-out,
+    padding 200ms ease-out,
+    border-width 200ms ease-out,
+    /* step to hidden after the collapse so Skip/Submit leave the tab order +
+     * a11y tree (pointer-events:none alone doesn't). */
+    visibility 0s linear 200ms;
+}
+form.elicit.elicit-submitted .elicit-header,
+form.elicit.elicit-submitted .elicit-footer {
+  opacity: 0;
+  height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  border-width: 0;
+  overflow: hidden;
+  pointer-events: none;
+  visibility: hidden;
+}
+form.elicit.elicit-submitted .elicit-body {
+  padding: 0;
+}
+/* Quota-fallback "1" sentinel restore: shape check skips renderSubmittedSummary
+ * so the body still has live inputs — dim them so the locked state reads. */
+form.elicit.elicit-submitted .elicit-body:not(:has(.elicit-summary)) {
+  pointer-events: none;
+  opacity: 0.5;
+}
+/* sessionStorage restore path adds this alongside .elicit-submitted so
+ * scroll-back/reload shows the summary immediately (no replayed crossfade). */
+form.elicit.elicit-restored,
+form.elicit.elicit-restored .elicit-body,
+form.elicit.elicit-restored .elicit-header,
+form.elicit.elicit-restored .elicit-footer {
+  transition: none;
+}
+form.elicit .elicit-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+form.elicit .elicit-summary-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+/* SubmittedResponses question: text-text-300 font-claude-response-small-bold
+ * (serif 14 / 600 / 1.5) */
+form.elicit .elicit-summary-q {
+  font-family: var(--font-serif, "Anthropic Serif", Georgia, serif);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--color-text-secondary, #383835);
+}
+/* SubmittedResponses answer: text-text-500 font-base (sans 14 / 430 / 1.4) */
+form.elicit .elicit-summary-a {
+  font-weight: 430;
+  color: var(--color-text-tertiary, #7b7974);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Headings — bare tags get correct color in both modes */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--color-text-primary);
+}
+
+.leader {
+  stroke: var(--t);
+  stroke-width: 0.5;
+  stroke-dasharray: 4 3;
+  fill: none;
+}
+
+/* Color ramp classes — apply to <g> or shape element (rect/ellipse/circle/polygon), never <path>.
+   light-dark() responds to ancestor color-scheme, not just OS preference. */
+g.c-purple > rect,
+g.c-purple > ellipse,
+g.c-purple > circle,
+g.c-purple > polygon,
+rect.c-purple,
+ellipse.c-purple,
+circle.c-purple,
+polygon.c-purple {
+  fill: light-dark(#eeedfe, #3c3489);
+  stroke: light-dark(#534ab7, #afa9ec);
+}
+.c-purple > .th,
+.c-purple > .t {
+  fill: light-dark(#3c3489, #cecbf6);
+}
+.c-purple > .ts {
+  fill: light-dark(#534ab7, #afa9ec);
+}
+g.c-teal > rect,
+g.c-teal > ellipse,
+g.c-teal > circle,
+g.c-teal > polygon,
+rect.c-teal,
+ellipse.c-teal,
+circle.c-teal,
+polygon.c-teal {
+  fill: light-dark(#e1f5ee, #085041);
+  stroke: light-dark(#0f6e56, #5dcaa5);
+}
+.c-teal > .th,
+.c-teal > .t {
+  fill: light-dark(#085041, #9fe1cb);
+}
+.c-teal > .ts {
+  fill: light-dark(#0f6e56, #5dcaa5);
+}
+g.c-coral > rect,
+g.c-coral > ellipse,
+g.c-coral > circle,
+g.c-coral > polygon,
+rect.c-coral,
+ellipse.c-coral,
+circle.c-coral,
+polygon.c-coral {
+  fill: light-dark(#faece7, #712b13);
+  stroke: light-dark(#993c1d, #f0997b);
+}
+.c-coral > .th,
+.c-coral > .t {
+  fill: light-dark(#712b13, #f5c4b3);
+}
+.c-coral > .ts {
+  fill: light-dark(#993c1d, #f0997b);
+}
+g.c-pink > rect,
+g.c-pink > ellipse,
+g.c-pink > circle,
+g.c-pink > polygon,
+rect.c-pink,
+ellipse.c-pink,
+circle.c-pink,
+polygon.c-pink {
+  fill: light-dark(#fbeaf0, #72243e);
+  stroke: light-dark(#993556, #ed93b1);
+}
+.c-pink > .th,
+.c-pink > .t {
+  fill: light-dark(#72243e, #f4c0d1);
+}
+.c-pink > .ts {
+  fill: light-dark(#993556, #ed93b1);
+}
+g.c-gray > rect,
+g.c-gray > ellipse,
+g.c-gray > circle,
+g.c-gray > polygon,
+rect.c-gray,
+ellipse.c-gray,
+circle.c-gray,
+polygon.c-gray {
+  fill: light-dark(#f1efe8, #444441);
+  stroke: light-dark(#5f5e5a, #b4b2a9);
+}
+.c-gray > .th,
+.c-gray > .t {
+  fill: light-dark(#444441, #d3d1c7);
+}
+.c-gray > .ts {
+  fill: light-dark(#5f5e5a, #b4b2a9);
+}
+g.c-blue > rect,
+g.c-blue > ellipse,
+g.c-blue > circle,
+g.c-blue > polygon,
+rect.c-blue,
+ellipse.c-blue,
+circle.c-blue,
+polygon.c-blue {
+  fill: light-dark(#e6f1fb, #0c447c);
+  stroke: light-dark(#185fa5, #85b7eb);
+}
+.c-blue > .th,
+.c-blue > .t {
+  fill: light-dark(#0c447c, #b5d4f4);
+}
+.c-blue > .ts {
+  fill: light-dark(#185fa5, #85b7eb);
+}
+g.c-green > rect,
+g.c-green > ellipse,
+g.c-green > circle,
+g.c-green > polygon,
+rect.c-green,
+ellipse.c-green,
+circle.c-green,
+polygon.c-green {
+  fill: light-dark(#eaf3de, #27500a);
+  stroke: light-dark(#3b6d11, #97c459);
+}
+.c-green > .th,
+.c-green > .t {
+  fill: light-dark(#27500a, #c0dd97);
+}
+.c-green > .ts {
+  fill: light-dark(#3b6d11, #97c459);
+}
+g.c-amber > rect,
+g.c-amber > ellipse,
+g.c-amber > circle,
+g.c-amber > polygon,
+rect.c-amber,
+ellipse.c-amber,
+circle.c-amber,
+polygon.c-amber {
+  fill: light-dark(#faeeda, #633806);
+  stroke: light-dark(#854f0b, #ef9f27);
+}
+.c-amber > .th,
+.c-amber > .t {
+  fill: light-dark(#633806, #fac775);
+}
+.c-amber > .ts {
+  fill: light-dark(#854f0b, #ef9f27);
+}
+g.c-red > rect,
+g.c-red > ellipse,
+g.c-red > circle,
+g.c-red > polygon,
+rect.c-red,
+ellipse.c-red,
+circle.c-red,
+polygon.c-red {
+  fill: light-dark(#fcebeb, #791f1f);
+  stroke: light-dark(#a32d2d, #f09595);
+}
+.c-red > .th,
+.c-red > .t {
+  fill: light-dark(#791f1f, #f7c1c1);
+}
+.c-red > .ts {
+  fill: light-dark(#a32d2d, #f09595);
+}
+
+/* Mermaid class/ER diagrams — match house aesthetic.
+   Mermaid v11 class/ER renderers use <path> (not <rect>) with inline stroke/fill
+   attrs that IGNORE themeVariables mainBkg/nodeBorder. Labels are
+   <foreignObject><div><span class="nodeLabel"><p>text</p> — NOT <text>. All style
+   fixes require !important to beat inline attrs + mermaid's inline <style>.
+   Selectors target .classDiagram/.erDiagram SVG root classes (always present)
+   rather than a .mermaid wrapper (which the model sometimes omits). */
+svg.classDiagram,
+svg.erDiagram {
+  font-size: 13px;
+  max-width: 100%;
+  height: auto;
+}
+/* Mermaid sizes foreignObject to fit measured text width. If we upsize post-render,
+   text clips. So: overflow visible on FO, and widen inner div past its max-width. */
+svg.classDiagram foreignObject,
+svg.erDiagram foreignObject {
+  overflow: visible;
+}
+svg.classDiagram foreignObject > div,
+svg.erDiagram foreignObject > div {
+  max-width: none !important;
+}
+/* Body text: members, methods, attribute rows */
+svg.classDiagram .nodeLabel,
+svg.erDiagram .nodeLabel,
+svg.classDiagram .label foreignObject div,
+svg.erDiagram .label foreignObject div {
+  font-family: var(--font-sans) !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  color: var(--color-text-secondary) !important;
+}
+/* Titles: classDiagram wraps in .label-group; erDiagram wraps in .name */
+svg.classDiagram .label-group .nodeLabel,
+svg.erDiagram .name .nodeLabel {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  color: var(--color-text-primary) !important;
+}
+/* Kill mermaid's inline style="font-weight: bolder" on the .label wrapper */
+svg.classDiagram .label-group .label {
+  font-weight: 500 !important;
+}
+/* Edge labels (relationship verbs + cardinality) */
+svg.classDiagram .edgeLabel,
+svg.classDiagram .edgeLabel span,
+svg.classDiagram .edgeTerminals foreignObject div,
+svg.erDiagram .edgeLabel,
+svg.erDiagram .edgeLabel span {
+  font-size: 11px !important;
+  color: var(--color-text-tertiary) !important;
+}
+/* Box outlines, row stripes, dividers — all rendered as <path> with inline attrs.
+   Mermaid's '#id .node path { fill:... }' CSS beats fill="none" attr — force fill:none. */
+svg.classDiagram .node path[stroke]:not([stroke="none"]),
+svg.classDiagram .divider path,
+svg.erDiagram .node path[stroke]:not([stroke="none"]),
+svg.erDiagram .divider path {
+  stroke: var(--color-border-tertiary) !important;
+  stroke-width: 0.5px !important;
+  fill: none !important;
+}
+/* classDiagram: box fill (inside .basic.label-container). Mermaid's inline CSS
+   '#id .node path { stroke:... }' beats the stroke="none" attr (SVG attrs have
+   lowest specificity), and the fill path is open (no Z) so the phantom stroke
+   only paints top/right/bottom — left edge looks darker. Kill the stroke. */
+svg.classDiagram .node .basic path[fill]:not([fill="none"]) {
+  fill: var(--color-background-primary) !important;
+  stroke: none !important;
+  stroke-width: 0 !important;
+}
+/* erDiagram: header row (anonymous first-child <g>) uses secondary bg */
+svg.erDiagram .node > g:first-child > path[fill]:not([fill="none"]) {
+  fill: var(--color-background-secondary) !important;
+}
+/* erDiagram: row stripes */
+svg.erDiagram .row-rect-odd path[fill]:not([fill="none"]) {
+  fill: var(--color-background-primary) !important;
+}
+svg.erDiagram .row-rect-even path[fill]:not([fill="none"]) {
+  fill: var(--color-background-secondary) !important;
+}
+/* Connector lines */
+svg.erDiagram .relationshipLine,
+svg.classDiagram .relation {
+  stroke: var(--color-text-tertiary) !important;
+  stroke-width: 1px !important;
+}
+svg.classDiagram .marker,
+svg.classDiagram marker path,
+svg.erDiagram .marker,
+svg.erDiagram marker path {
+  stroke: var(--color-text-tertiary) !important;
+  stroke-width: 1px !important;
+}
+svg.classDiagram marker path[fill]:not([fill="none"]):not([fill="transparent"]),
+svg.erDiagram marker path[fill]:not([fill="none"]):not([fill="transparent"]) {
+  fill: var(--color-text-tertiary) !important;
+}
+/* Relationship label background — kill default 0.7 opacity */
+svg.classDiagram .labelBkg,
+svg.erDiagram .labelBkg {
+  background-color: var(--color-background-primary) !important;
+  opacity: 1 !important;
+}
+
+body {
+  position: relative;
+}
+#vis-container {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+#vis-container > svg {
+  display: block;
+  margin-inline: auto;
+  max-width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+/* Action buttons group.
+   hidden attr is removed on tool-input (final) so buttons never show during streaming.
+   Popover items: Copy to clipboard, Download file. */
+#action-btns {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2147483647;
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+/* display:flex above would override UA [hidden] — restore it */
+#action-btns[hidden] {
+  display: none;
+}
+body:hover #action-btns {
+  opacity: 1;
+}
+/* Hide on touch-primary (mobile) devices — both the reveal above
+   (body:hover) and the popover open (#more-btn:hover) are hover-driven,
+   so on a device without hover the ⋯ trigger either never appears or
+   sticks visible after a stray tap with no way to open the menu. */
+@media (hover: none) and (pointer: coarse) {
+  #action-btns {
+    display: none;
+  }
+}
+/* 28×28 chip style for the ⋯ trigger.
+   bg-100 at rest (visible over widget content), bg-300 on hover.
+   No border — bg change is enough hover feedback. Transparent border stays
+   for layout stability. Fallback light-dark() values match the design-system
+   --bg-100/--bg-300 tokens (widget iframe doesn't receive them via host
+   context, only --color-background-* semantic vars). */
+#action-btns > button {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius-sm, 6px);
+  background: var(--bg-100, light-dark(#faf9f5, #262624));
+  border: 1px solid transparent;
+  color: var(--color-text-secondary, #3d3d3a);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+#action-btns > button:hover {
+  background: var(--bg-300, light-dark(#f0eee6, #141413));
+}
+/* Popover — drops down-left from the trigger.
+   Styled to match the native claude.ai Radix dropdown: white bg, backdrop
+   blur, 0.5px border, subtle shadow. Items are single-line icon + label,
+   matching the conversation menu (Star/Rename/Add to project). */
+#more-popover {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  min-width: 8rem;
+  padding: 6px;
+  border-radius: 12px;
+  background: var(--color-background-primary, #fff);
+  border: 0.5px solid var(--color-border-secondary, rgba(0, 0, 0, 0.1));
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 2px 8px light-dark(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.24));
+  font-family: var(--font-sans, system-ui);
+  color: var(--color-text-secondary, #3d3d3a);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease,
+    visibility 0s linear 0.15s;
+}
+/* Reveal only when hovering the ⋯ trigger or the popover itself. A 4px
+   dead-zone between trigger and popover would close it, so
+   #more-popover:hover keeps it open during the crossing. */
+#more-btn:hover ~ #more-popover,
+#more-popover:hover {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease,
+    visibility 0s;
+}
+/* Popover items — single-line icon + label, matching native dropdown menu */
+.more-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-sans, system-ui) !important;
+  color: inherit;
+  transition: background 0.1s ease;
+  white-space: nowrap;
+}
+.more-item:hover {
+  background: var(--color-background-secondary, #f5f4ed);
+  color: var(--color-text-primary, #141413);
+}
+.more-item-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.more-item-icon svg {
+  width: 20px;
+  height: 20px;
+}
+.more-item-label {
+  font-family: var(--font-sans, system-ui) !important;
+  font-size: 14px;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+#copy-toast {
+  position: fixed;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  background: var(--color-background-danger, #f7ecec);
+  color: var(--color-text-danger, #7f2c28);
+  border: 1px solid var(--color-border-danger, #a73d39);
+  font-family: var(--font-sans, system-ui);
+  font-size: 13px;
+  padding: 8px 14px;
+  border-radius: var(--border-radius-md, 8px);
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+  z-index: 2147483647;
+  white-space: nowrap;
+}
+#copy-toast.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* HTML scripts-loading shimmer */
+#vis-container.scripts-loading {
+  pointer-events: none;
+  opacity: 0.7;
+}
+#vis-container.scripts-loading::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 10000;
+  overflow: hidden;
+}
+#vis-container.scripts-loading::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: 0;
+  width: 60%;
+  height: 200%;
+  z-index: 10001;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    light-dark(rgba(0, 0, 0, 0.06), rgba(255, 255, 255, 0.08)) 50%,
+    transparent 100%
+  );
+  animation: scriptsShimmer 2s ease-in-out infinite;
+}
+@keyframes scriptsShimmer {
+  0% {
+    transform: translateX(-100%) rotate(25deg);
+  }
+  100% {
+    transform: translateX(200%) rotate(25deg);
+  }
+}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}</style>
+  <style id="entry-animation">/* Entry animation for streaming SVG elements.
+   Scoped to #vis-container.streaming — widget-main.ts adds the class on first
+   tool-input-partial and removes it on tool-input. After streaming, scripts
+   that rebuild SVG via innerHTML (e.g. slider-driven charts) won't trigger this.
+   Uses CSS individual transform property (scale) to avoid conflicts with SVG transform attribute.
+   Excludes elements with transform/opacity attributes to prevent CSS overriding SVG values. */
+@keyframes svgFadeInScale {
+  from {
+    opacity: 0;
+    scale: 0.95;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+#vis-container.streaming
+  :where(
+    svg,
+    circle,
+    rect,
+    path,
+    polygon,
+    polyline,
+    line,
+    ellipse,
+    g,
+    text
+  ):not([transform]):not([opacity]) {
+  transition:
+    fill 0.4s ease-out,
+    stroke 0.4s ease-out,
+    opacity 0.4s ease-out;
+  animation: svgFadeInScale 0.5s ease-out;
+  transform-origin: center;
+}</style>
+  <link rel="stylesheet" href="./tabler-icons.min.css" media="all" onload="this.media=&#39;all&#39;">
+<style id="mcp-host-variables">:root {
+  --color-background-primary: light-dark(rgba(255, 255, 255, 1), rgba(48, 48, 46, 1));
+  --color-background-secondary: light-dark(rgba(245, 244, 237, 1), rgba(38, 38, 36, 1));
+  --color-background-tertiary: light-dark(rgba(250, 249, 245, 1), rgba(20, 20, 19, 1));
+  --color-background-inverse: light-dark(rgba(20, 20, 19, 1), rgba(250, 249, 245, 1));
+  --color-background-ghost: light-dark(rgba(255, 255, 255, 0), rgba(48, 48, 46, 0));
+  --color-background-info: light-dark(rgba(214, 228, 246, 1), rgba(37, 62, 95, 1));
+  --color-background-danger: light-dark(rgba(247, 236, 236, 1), rgba(96, 42, 40, 1));
+  --color-background-success: light-dark(rgba(233, 241, 220, 1), rgba(27, 70, 20, 1));
+  --color-background-warning: light-dark(rgba(246, 238, 223, 1), rgba(72, 58, 15, 1));
+  --color-background-disabled: light-dark(rgba(255, 255, 255, 0.5), rgba(48, 48, 46, 0.5));
+  --color-text-primary: light-dark(rgba(20, 20, 19, 1), rgba(250, 249, 245, 1));
+  --color-text-secondary: light-dark(rgba(61, 61, 58, 1), rgba(194, 192, 182, 1));
+  --color-text-tertiary: light-dark(rgba(115, 114, 108, 1), rgba(156, 154, 146, 1));
+  --color-text-inverse: light-dark(rgba(255, 255, 255, 1), rgba(20, 20, 19, 1));
+  --color-text-info: light-dark(rgba(50, 102, 173, 1), rgba(128, 170, 221, 1));
+  --color-text-danger: light-dark(rgba(127, 44, 40, 1), rgba(238, 136, 132, 1));
+  --color-text-success: light-dark(rgba(38, 91, 25, 1), rgba(122, 185, 72, 1));
+  --color-text-warning: light-dark(rgba(90, 72, 21, 1), rgba(209, 160, 65, 1));
+  --color-text-disabled: light-dark(rgba(20, 20, 19, 0.5), rgba(250, 249, 245, 0.5));
+  --color-text-ghost: light-dark(rgba(115, 114, 108, 0.5), rgba(156, 154, 146, 0.5));
+  --color-border-primary: light-dark(rgba(31, 30, 29, 0.4), rgba(222, 220, 209, 0.4));
+  --color-border-secondary: light-dark(rgba(31, 30, 29, 0.3), rgba(222, 220, 209, 0.3));
+  --color-border-tertiary: light-dark(rgba(31, 30, 29, 0.15), rgba(222, 220, 209, 0.15));
+  --color-border-inverse: light-dark(rgba(255, 255, 255, 0.3), rgba(20, 20, 19, 0.15));
+  --color-border-ghost: light-dark(rgba(31, 30, 29, 0), rgba(222, 220, 209, 0));
+  --color-border-info: light-dark(rgba(70, 130, 213, 1), rgba(70, 130, 213, 1));
+  --color-border-danger: light-dark(rgba(167, 61, 57, 1), rgba(205, 92, 88, 1));
+  --color-border-success: light-dark(rgba(67, 116, 38, 1), rgba(89, 145, 48, 1));
+  --color-border-warning: light-dark(rgba(128, 92, 31, 1), rgba(168, 120, 41, 1));
+  --color-border-disabled: light-dark(rgba(31, 30, 29, 0.1), rgba(222, 220, 209, 0.1));
+  --color-ring-primary: light-dark(rgba(20, 20, 19, 0.7), rgba(250, 249, 245, 0.7));
+  --color-ring-secondary: light-dark(rgba(61, 61, 58, 0.7), rgba(194, 192, 182, 0.7));
+  --color-ring-inverse: light-dark(rgba(255, 255, 255, 0.7), rgba(20, 20, 19, 0.7));
+  --color-ring-info: light-dark(rgba(50, 102, 173, 0.5), rgba(128, 170, 221, 0.5));
+  --color-ring-danger: light-dark(rgba(167, 61, 57, 0.5), rgba(205, 92, 88, 0.5));
+  --color-ring-success: light-dark(rgba(67, 116, 38, 0.5), rgba(89, 145, 48, 0.5));
+  --color-ring-warning: light-dark(rgba(128, 92, 31, 0.5), rgba(168, 120, 41, 0.5));
+  --font-sans: Anthropic Sans, sans-serif;
+  --font-mono: ui-monospace, monospace;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-text-xs-size: 12px;
+  --font-text-sm-size: 14px;
+  --font-text-md-size: 16px;
+  --font-text-lg-size: 20px;
+  --font-heading-xs-size: 12px;
+  --font-heading-sm-size: 14px;
+  --font-heading-md-size: 16px;
+  --font-heading-lg-size: 20px;
+  --font-heading-xl-size: 24px;
+  --font-heading-2xl-size: 28px;
+  --font-heading-3xl-size: 36px;
+  --font-text-xs-line-height: 1.4;
+  --font-text-sm-line-height: 1.4;
+  --font-text-md-line-height: 1.4;
+  --font-text-lg-line-height: 1.25;
+  --font-heading-xs-line-height: 1.4;
+  --font-heading-sm-line-height: 1.4;
+  --font-heading-md-line-height: 1.4;
+  --font-heading-lg-line-height: 1.25;
+  --font-heading-xl-line-height: 1.25;
+  --font-heading-2xl-line-height: 1.1;
+  --font-heading-3xl-line-height: 1;
+  --border-radius-xs: 4px;
+  --border-radius-sm: 6px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 10px;
+  --border-radius-xl: 12px;
+  --border-radius-full: 9999px;
+  --border-width-regular: 0.5px;
+  --shadow-hairline: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}</style></head>
+<body>
+  <!-- Pre-defined SVG markers — available to all SVGs via url(#arrow) -->
+  <svg style="position:absolute;width:0;height:0" aria-hidden="true">
+    <defs>
+      <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+      </marker>
+    </defs>
+  </svg>
+  <div id="vis-container">
+
+
+
+<style>
+html,body{background:#12141c !important;color:#f0f0f0 !important;font-family:Arial,sans-serif;font-size:13px;margin:0;padding:8px;}
+*{box-sizing:border-box;}
+.nav{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:14px;}
+.tab{background:#1e2235;color:#b0c4f8;border:2px solid #3a4870;border-radius:7px;padding:8px 3px;font-size:9.5px;font-weight:700;cursor:pointer;text-align:center;line-height:1.4;}
+.tab.on{background:#1a5cb8;color:#fff;border-color:#5090ff;}
+.sec{display:none;}.sec.on{display:block;}
+.h1{font-size:16px;font-weight:700;color:#fff;margin-bottom:3px;}
+.sub{font-size:12px;color:#8898bb;margin-bottom:12px;}
+.badge{display:inline-block;background:#1a5cb8;color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;margin-bottom:8px;}
+.sl{font-size:13px;font-weight:700;color:#78aaff;margin:14px 0 8px 0;padding-bottom:4px;border-bottom:1px solid #2a3860;}
+.divider{height:1px;background:#2a3860;margin:12px 0;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px;}
+.g4{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.card{background:#1a1e30;border:1px solid #2e3858;border-radius:8px;padding:12px;}
+.card .t{font-size:13px;font-weight:700;color:#c0d4ff;margin-bottom:6px;}
+.card .b{font-size:12px;color:#9aaac8;line-height:1.7;}
+.card-b{background:#0c1e38;border-color:#1e5090;}.card-b .t{color:#70c0ff;}.card-b .b{color:#90b8e8;}
+.card-g{background:#081c10;border-color:#1a6030;}.card-g .t{color:#50e880;}.card-g .b{color:#80c898;}
+.card-r{background:#200a0a;border-color:#702020;}.card-r .t{color:#ff7070;}.card-r .b{color:#e89090;}
+.card-y{background:#1e1600;border-color:#6a5000;}.card-y .t{color:#ffc840;}.card-y .b{color:#d8a860;}
+.card-p{background:#140c28;border-color:#4a30a0;}.card-p .t{color:#c0a0ff;}.card-p .b{color:#a888e8;}
+.note{border-left:4px solid #4080ff;background:#0c1e3a;color:#b0ccf8;padding:10px 14px;border-radius:0 7px 7px 0;margin:10px 0;font-size:13px;line-height:1.6;}
+.note b{color:#fff;}
+.note-g{border-left-color:#30c860;background:#081c10;color:#90e8a8;}.note-g b{color:#60ff90;}
+.note-r{border-left-color:#e03030;background:#200808;color:#f09090;}.note-r b{color:#ff8080;}
+.note-y{border-left-color:#e0a000;background:#1c1200;color:#e8c860;}.note-y b{color:#ffe060;}
+.note-p{border-left-color:#9070e0;background:#140c28;color:#c8b0ff;}.note-p b{color:#d8c8ff;}
+.code{background:#080a10;border:1px solid #2a3460;border-radius:6px;padding:12px 14px;font-family:'Courier New',monospace;font-size:11px;color:#d8e8ff;line-height:1.8;white-space:pre-wrap;margin:10px 0;}
+.tg{display:inline-block;background:#0a2c14;color:#50e870;border:1px solid #208040;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;margin:2px;}
+.tr{display:inline-block;background:#2c0a0a;color:#ff7070;border:1px solid #802020;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;margin:2px;}
+.tb{display:inline-block;background:#0a1e3c;color:#60b0ff;border:1px solid #204880;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;margin:2px;}
+.ty{display:inline-block;background:#241800;color:#ffc040;border:1px solid #806000;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;margin:2px;}
+table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:10px;}
+th{background:#1a1e30;color:#78aaff;font-weight:700;padding:7px 8px;text-align:left;border-bottom:1px solid #2e3858;}
+td{padding:6px 8px;border-bottom:1px solid #1e2438;color:#c0cce8;vertical-align:top;}
+tr:hover td{background:#1a2040;}
+.step{display:flex;gap:10px;margin-bottom:10px;align-items:flex-start;}
+.sn{min-width:26px;height:26px;border-radius:50%;background:#1a5cb8;color:#fff;font-weight:700;font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.st{font-size:13px;font-weight:700;color:#fff;margin-bottom:2px;}
+.sd{font-size:12px;color:#8898b8;line-height:1.5;}
+</style>
+
+
+
+<div class="nav" id="NAV">
+  <div class="tab" onclick="goTab(1)">1. EDA Overview</div>
+  <div class="tab" onclick="goTab(2)">2. Missing Values</div>
+  <div class="tab" onclick="goTab(3)">3. Outliers</div>
+  <div class="tab" onclick="goTab(4)">4. Encoding + Scaling</div>
+  <div class="tab" onclick="goTab(5)">5. Feature Engineering</div>
+  <div class="tab" onclick="goTab(6)">6. Feature Removal</div>
+  <div class="tab on" onclick="goTab(7)">7. Full Pipeline</div>
+</div>
+
+<!-- ══ TAB 1: EDA OVERVIEW ══ -->
+<div class="sec" id="S1">
+<div class="badge">EXPLORATORY DATA ANALYSIS</div>
+<div class="h1">EDA — Understanding Your Data Before Touching It</div>
+<div class="sub">The step that determines whether your model succeeds or fails — before a single line of ML code</div>
+
+<div class="note"><b>The 80/20 rule of ML:</b> 80% of your time is data preparation. A perfectly tuned model on dirty data will be beaten every time by a simple model on clean data. EDA is not optional — it IS the work.</div>
+
+<div class="sl">What EDA tells you</div>
+<div class="g3">
+  <div class="card card-b"><div class="t">Data quality problems</div><div class="b">· Missing values — how many, which pattern<br>· Duplicates — exact or near-duplicate rows<br>· Wrong dtypes — numbers stored as strings<br>· Inconsistent categories — "Male"/"male"/"M"<br>· Impossible values — age=-5, salary=9999999<br>· Date parsing errors</div></div>
+  <div class="card card-g"><div class="t">Distribution insights</div><div class="b">· Skewness — long right/left tail<br>· Bimodal — two separate populations<br>· Heavy tails — outliers present<br>· Normal vs uniform distribution<br>· Class imbalance in target<br>· Feature ranges and scales</div></div>
+  <div class="card card-y"><div class="t">Relationships between features</div><div class="b">· Highly correlated pairs — redundant<br>· Non-linear relationships<br>· Feature-target correlation strength<br>· Interaction effects between features<br>· Confounding variables<br>· Temporal patterns in time data</div></div>
+</div>
+
+<div class="sl">The EDA checklist — run in this order</div>
+<div class="step"><div class="sn">1</div><div><div class="st">Shape + dtypes + memory</div><div class="sd">df.shape, df.dtypes, df.info(), df.memory_usage(). Understand what you have before going deeper.</div></div></div>
+<div class="step"><div class="sn">2</div><div><div class="st">Missing values — count + pattern</div><div class="sd">df.isnull().sum(). Visualise missingness pattern. Is it random (MCAR), conditional (MAR), or systematic (MNAR)? The pattern determines the imputation strategy.</div></div></div>
+<div class="step"><div class="sn">3</div><div><div class="st">Duplicates</div><div class="sd">df.duplicated().sum(). Check exact duplicates and near-duplicates. Remove before any analysis.</div></div></div>
+<div class="step"><div class="sn">4</div><div><div class="st">Target variable analysis</div><div class="sd">Distribution of y. Class balance for classification. Skewness for regression. This determines your loss function and evaluation metric.</div></div></div>
+<div class="step"><div class="sn">5</div><div><div class="st">Univariate analysis — each feature individually</div><div class="sd">Histograms for numerical. Bar charts for categorical. Check range, skewness, outliers, cardinality.</div></div></div>
+<div class="step"><div class="sn">6</div><div><div class="st">Bivariate analysis — feature vs target</div><div class="sd">Scatter plots, box plots, correlation. Which features are most predictive? Any non-linear relationships?</div></div></div>
+<div class="step"><div class="sn">7</div><div><div class="st">Multivariate analysis — feature interactions</div><div class="sd">Correlation matrix, pair plots, VIF. Find multicollinearity. Find interaction features worth engineering.</div></div></div>
+<div class="step"><div class="sn">8</div><div><div class="st">Outlier detection</div><div class="sd">IQR method, Z-score, isolation forest. Decide: remove, cap, or transform?</div></div></div>
+<div class="step"><div class="sn">9</div><div><div class="st">Data quality fixes</div><div class="sd">Fix dtypes, standardise categories, handle impossible values, correct date formats.</div></div></div>
+<div class="step"><div class="sn">10</div><div><div class="st">Document findings → decide preprocessing strategy</div><div class="sd">Write down: which features need imputation, encoding, scaling, removal, transformation. This becomes your preprocessing pipeline.</div></div></div>
+
+<div class="code">
+# ══════════════════════════════════════════════════════════
+# COMPLETE EDA STARTER — runs on any dataset
+# ══════════════════════════════════════════════════════════
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+import warnings
+warnings.filterwarnings('ignore')
+
+# ── Load any dataset ──────────────────────────────────────
+# Replace with: df = spark.table("catalog.schema.table").toPandas()
+from sklearn.datasets import fetch_openml
+titanic = fetch_openml('titanic', version=1, as_frame=True, parser='auto')
+df = titanic.frame.copy()
+target_col = 'survived'
+print(f"Dataset loaded: {df.shape[0]} rows x {df.shape[1]} columns")
+
+# ── 1. Basic overview ─────────────────────────────────────
+print("\n── SHAPE + DTYPES ──")
+print(df.info())
+print(f"\nMemory usage: {df.memory_usage(deep=True).sum()/1024:.1f} KB")
+
+# ── 2. Missing values ─────────────────────────────────────
+print("\n── MISSING VALUES ──")
+missing = df.isnull().sum()
+missing_pct = (missing / len(df) * 100).round(2)
+missing_df = pd.DataFrame({'count': missing, 'pct': missing_pct})
+missing_df = missing_df[missing_df['count'] &gt; 0].sort_values('pct', ascending=False)
+print(missing_df)
+print(f"\nColumns with &gt;30% missing (consider dropping): {missing_df[missing_df['pct']&gt;30].index.tolist()}")
+print(f"Columns with &lt;5% missing (safe to impute):     {missing_df[missing_df['pct']&lt;5].index.tolist()}")
+
+# ── 3. Duplicates ─────────────────────────────────────────
+print(f"\n── DUPLICATES ──")
+print(f"Exact duplicates: {df.duplicated().sum()}")
+df = df.drop_duplicates()
+
+# ── 4. Target variable ────────────────────────────────────
+print(f"\n── TARGET: {target_col} ──")
+print(df[target_col].value_counts())
+print(f"Class balance: {df[target_col].value_counts(normalize=True).round(3)}")
+imbalance = df[target_col].value_counts(normalize=True).min()
+if imbalance &lt; 0.2:
+    print(f"WARNING: severe imbalance ({imbalance:.1%} minority) — use AUC-PR, not accuracy!")
+
+# ── 5. Numerical feature stats ────────────────────────────
+print("\n── NUMERICAL FEATURES ──")
+num_cols = df.select_dtypes(include=[np.number]).columns.tolist()
+stats_df = df[num_cols].describe().T
+stats_df['skewness'] = df[num_cols].skew()
+stats_df['kurtosis'] = df[num_cols].kurtosis()
+stats_df['missing%'] = (df[num_cols].isnull().mean()*100).round(2)
+print(stats_df[['mean','std','min','max','skewness','kurtosis','missing%']].round(3))
+
+# Flag skewed features
+skewed = stats_df[abs(stats_df['skewness']) &gt; 1].index.tolist()
+print(f"\nHighly skewed features (|skew|&gt;1): {skewed}")
+print("→ Consider log/sqrt transform before training")
+
+# ── 6. Categorical feature analysis ──────────────────────
+print("\n── CATEGORICAL FEATURES ──")
+cat_cols = df.select_dtypes(include=['object','category']).columns.tolist()
+for col in cat_cols:
+    n_unique = df[col].nunique()
+    top_val  = df[col].value_counts().index[0] if n_unique&gt;0 else None
+    print(f"  {col:20s}: {n_unique:5d} unique  top='{top_val}'  missing={df[col].isnull().sum()}")
+    if n_unique &gt; 50:
+        print(f"    WARNING: high cardinality — use target encoding or embedding")
+
+# ── 7. Correlation analysis ───────────────────────────────
+print("\n── CORRELATIONS ──")
+corr = df[num_cols].corr()
+# High correlation pairs
+high_corr = []
+for i in range(len(corr.columns)):
+    for j in range(i+1, len(corr.columns)):
+        r = corr.iloc[i,j]
+        if abs(r) &gt; 0.75:
+            high_corr.append((corr.columns[i], corr.columns[j], r))
+high_corr.sort(key=lambda x: abs(x[2]), reverse=True)
+print(f"Highly correlated pairs (|r|&gt;0.75): {len(high_corr)}")
+for f1, f2, r in high_corr[:8]:
+    print(f"  {f1:20s} &lt;-&gt; {f2:20s}  r={r:.3f}")
+
+# Feature-target correlation
+if target_col in df.columns:
+    try:
+        df_num = df.copy()
+        df_num[target_col] = pd.to_numeric(df_num[target_col], errors='coerce')
+        feat_corr = df_num[num_cols+[target_col]].corr()[target_col].drop(target_col)
+        feat_corr = feat_corr.abs().sort_values(ascending=False)
+        print(f"\nFeature-target correlation (|r|):")
+        print(feat_corr.round(3))
+    except: pass
+
+# ── 8. Outlier summary ────────────────────────────────────
+print("\n── OUTLIER SUMMARY (IQR method) ──")
+for col in num_cols:
+    col_clean = df[col].dropna()
+    Q1, Q3 = col_clean.quantile(0.25), col_clean.quantile(0.75)
+    IQR = Q3 - Q1
+    n_out = ((col_clean &lt; Q1-1.5*IQR) | (col_clean &gt; Q3+1.5*IQR)).sum()
+    pct = n_out/len(col_clean)*100
+    if n_out &gt; 0:
+        print(f"  {col:20s}: {n_out:5d} outliers ({pct:.1f}%)")
+
+print("\n✓ EDA complete — now decide your preprocessing strategy")
+print("Next steps based on findings:")
+print("  1. Impute or drop missing values")
+print("  2. Remove or cap outliers")
+print("  3. Encode categorical features")
+print("  4. Scale numerical features")
+print("  5. Engineer new features")
+print("  6. Remove redundant/irrelevant features")</div>
+</div>
+
+<!-- ══ TAB 2: MISSING VALUES ══ -->
+<div class="sec" id="S2">
+<div class="badge">DATA CLEANING — MISSING VALUES</div>
+<div class="h1">Handling Missing Values — Every Strategy with Code</div>
+<div class="sub">Understanding WHY data is missing determines HOW to handle it</div>
+
+<div class="note"><b>Three types of missingness — must identify before choosing strategy:</b><br>
+<b>MCAR</b> (Missing Completely At Random) — no pattern, safe to impute or drop<br>
+<b>MAR</b> (Missing At Random) — missing depends on other observed features — use conditional imputation<br>
+<b>MNAR</b> (Missing Not At Random) — missing value is related to the missing value itself — most dangerous, needs domain knowledge</div>
+
+<div class="g3">
+  <div class="card card-r"><div class="t">When to DROP</div><div class="b">· Column missing &gt; 40-50% — not enough signal<br>· Row missing majority of features<br>· MNAR with no fix possible<br>· Feature adds no predictive value anyway<br><br><span class="tr">Never drop without checking importance first</span></div></div>
+  <div class="card card-y"><div class="t">When to IMPUTE (simple)</div><div class="b">· Missing &lt; 5% — use mean/median/mode<br>· MCAR pattern — random, safe to fill<br>· Numerical: median (robust to outliers)<br>· Categorical: most frequent or "Unknown"<br>· Time series: forward fill (ffill)<br><br><span class="ty">Simplest — always try first</span></div></div>
+  <div class="card card-g"><div class="t">When to use ADVANCED imputation</div><div class="b">· Missing 5-40% with patterns<br>· MAR — depends on other features<br>· KNN imputation — uses similar rows<br>· IterativeImputer (MICE) — multivariate<br>· Model-based — predict missing from others<br><br><span class="tg">Best accuracy but slower</span></div></div>
+</div>
+
+<div class="code">
+# ══════════════════════════════════════════════════════════
+# MISSING VALUE HANDLING — All Strategies
+# ══════════════════════════════════════════════════════════
+import numpy as np
+import pandas as pd
+from sklearn.impute import SimpleImputer, KNNImputer, IterativeImputer
+from sklearn.experimental import enable_iterative_imputer
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.preprocessing import LabelEncoder
+import warnings
+warnings.filterwarnings('ignore')
+
+# ── Create example dataset with various missing patterns ──
+np.random.seed(42)
+n = 500
+df = pd.DataFrame({
+    'age':      np.random.normal(35, 12, n),
+    'salary':   np.random.normal(55000, 15000, n),
+    'score':    np.random.uniform(0, 100, n),
+    'category': np.random.choice(['A','B','C','D'], n),
+    'city':     np.random.choice(['NYC','LA','Chicago','Houston'], n),
+    'target':   np.random.randint(0, 2, n)
+})
+# Introduce missing values of different types
+df.loc[np.random.choice(n, 20, replace=False), 'age']      = np.nan  # MCAR ~4%
+df.loc[np.random.choice(n, 80, replace=False), 'salary']   = np.nan  # MAR  ~16%
+df.loc[np.random.choice(n, 200, replace=False), 'city']    = np.nan  # ~40%
+df.loc[np.random.choice(n, 15, replace=False), 'category'] = np.nan  # ~3%
+print("Dataset shape:", df.shape)
+print("\nMissing values:")
+print((df.isnull().sum() / len(df) * 100).round(1).to_string())
+
+# ── Step 1: Analyse missingness pattern ───────────────────
+print("\n── MISSINGNESS ANALYSIS ──")
+def analyse_missing(df):
+    miss = df.isnull().sum()
+    pct  = miss / len(df) * 100
+    result = pd.DataFrame({'missing': miss, 'pct': pct.round(2)})
+    result = result[result['missing'] &gt; 0].sort_values('pct', ascending=False)
+    result['recommendation'] = result['pct'].apply(lambda p:
+        'DROP column' if p &gt; 50
+        else 'KNN/MICE impute' if p &gt; 10
+        else 'Median/Mode impute' if p &gt; 0
+        else 'OK')
+    return result
+print(analyse_missing(df))
+
+# ── Step 2: Drop high-missing columns ─────────────────────
+print("\n── STRATEGY 1: Drop columns with &gt;40% missing ──")
+threshold = 0.4
+cols_to_drop = [c for c in df.columns if df[c].isnull().mean() &gt; threshold]
+df_clean = df.drop(columns=cols_to_drop)
+print(f"Dropped: {cols_to_drop}")
+print(f"Remaining: {df_clean.shape}")
+
+# ── Step 3: Drop rows with too many missing ────────────────
+print("\n── STRATEGY 2: Drop rows missing &gt;50% of features ──")
+row_missing_pct = df_clean.isnull().mean(axis=1)
+rows_to_drop = row_missing_pct[row_missing_pct &gt; 0.5].index
+print(f"Rows dropped: {len(rows_to_drop)}")
+df_clean = df_clean.drop(index=rows_to_drop)
+
+# ── Step 4: Simple imputation ─────────────────────────────
+print("\n── STRATEGY 3: SimpleImputer — mean/median/mode ──")
+num_cols = df_clean.select_dtypes(include=[np.number]).columns.tolist()
+cat_cols = df_clean.select_dtypes(include=['object']).columns.tolist()
+num_cols = [c for c in num_cols if c != 'target']
+
+# Numerical → median (robust to outliers)
+imp_median = SimpleImputer(strategy='median')
+df_clean[num_cols] = imp_median.fit_transform(df_clean[num_cols])
+print(f"Numerical imputed with median: {num_cols}")
+
+# Categorical → most frequent
+imp_mode = SimpleImputer(strategy='most_frequent')
+df_clean[cat_cols] = imp_mode.fit_transform(df_clean[cat_cols])
+print(f"Categorical imputed with mode: {cat_cols}")
+print(f"Missing after simple impute: {df_clean.isnull().sum().sum()}")
+
+# ── Step 5: Add missing indicator (best practice) ─────────
+print("\n── BEST PRACTICE: Add missing indicator columns ──")
+# Before imputing, add a binary flag showing where data was missing
+# This lets the model learn from the missingness pattern itself
+df_with_ind = df.drop(columns=cols_to_drop).copy()
+for col in ['age', 'salary', 'category']:
+    df_with_ind[f'{col}_was_missing'] = df_with_ind[col].isnull().astype(int)
+    n_flags = df_with_ind[f'{col}_was_missing'].sum()
+    print(f"  {col}_was_missing: {n_flags} rows flagged")
+
+# ── Step 6: KNN Imputation ────────────────────────────────
+print("\n── STRATEGY 4: KNN Imputer (uses similar rows) ──")
+df_knn = df_clean[num_cols].copy()
+# Re-introduce some missing to demonstrate
+df_knn.loc[:20, 'age'] = np.nan
+knn_imp = KNNImputer(n_neighbors=5)
+df_knn_imputed = pd.DataFrame(
+    knn_imp.fit_transform(df_knn), columns=df_knn.columns)
+print(f"KNN imputed {df_knn.isnull().sum().sum()} missing values")
+print(f"Age imputed sample: {df_knn_imputed['age'][:5].round(2).tolist()}")
+
+# ── Step 7: Iterative/MICE Imputation ────────────────────
+print("\n── STRATEGY 5: IterativeImputer (MICE) ──")
+# Best for MAR — models each feature as a function of others
+df_mice = df_clean[num_cols].copy()
+df_mice.loc[:30, 'salary'] = np.nan
+mice_imp = IterativeImputer(
+    estimator=RandomForestRegressor(n_estimators=50, random_state=42),
+    max_iter=10, random_state=42)
+df_mice_imputed = pd.DataFrame(
+    mice_imp.fit_transform(df_mice), columns=df_mice.columns)
+print(f"MICE imputed {df_mice.isnull().sum().sum()} missing values")
+print(f"Salary imputed sample: {df_mice_imputed['salary'][:5].round(0).tolist()}")
+
+# ── Step 8: Special cases ────────────────────────────────
+print("\n── SPECIAL CASES ──")
+# Time series → forward fill then backward fill
+ts = pd.Series([1.0, np.nan, np.nan, 4.0, np.nan, 6.0])
+print(f"Time series before: {ts.tolist()}")
+print(f"After ffill+bfill:  {ts.ffill().bfill().tolist()}")
+
+# Categorical → add 'Unknown' category instead of mode
+df_cat_demo = pd.DataFrame({'color': ['red','blue',np.nan,'green',np.nan]})
+df_cat_demo['color'] = df_cat_demo['color'].fillna('Unknown')
+print(f"\nCategorical with Unknown: {df_cat_demo['color'].tolist()}")
+
+# Numerical → fill with -999 as sentinel value
+df_sentinel = pd.DataFrame({'score': [85.0, np.nan, 92.0, np.nan, 78.0]})
+df_sentinel['score_missing'] = df_sentinel['score'].isnull().astype(int)
+df_sentinel['score'] = df_sentinel['score'].fillna(-999)
+print(f"\nSentinel fill: {df_sentinel.to_string()}")
+
+# ── Step 9: Comparison ───────────────────────────────────
+print("\n── STRATEGY COMPARISON ──")
+print(f"{'Strategy':25s}  {'Use when':40s}  {'Pros':25s}")
+print("-"*95)
+strategies = [
+    ('Drop column',         'missing &gt; 40-50%',              'Clean, simple'),
+    ('Drop row',            'row missing &gt; 50% features',    'Clean'),
+    ('Mean imputation',     'MCAR, symmetric distribution',  'Fast, simple'),
+    ('Median imputation',   'MCAR, skewed or with outliers', 'Robust'),
+    ('Mode imputation',     'MCAR categorical',              'Simple'),
+    ('Constant/Unknown',    'Category, MNAR',                'Preserves pattern'),
+    ('Missing indicator',   'Always add this!',              'Model learns pattern'),
+    ('KNN imputation',      'MAR, &lt;20% missing',             'Uses similar rows'),
+    ('MICE/Iterative',      'MAR, complex patterns',         'Most accurate'),
+    ('Forward fill',        'Time series data',              'Preserves time order'),
+]
+for s, w, p in strategies:
+    print(f"{s:25s}  {w:40s}  {p}")</div>
+
+<div class="note note-y"><b>Golden rule:</b> Always add a missing indicator column BEFORE imputing. The fact that a value was missing is itself information the model can learn from. A customer with missing income is different from one with a recorded income — even after you fill it with the median.</div>
+</div>
+
+<!-- ══ TAB 3: OUTLIERS ══ -->
+<div class="sec" id="S3">
+<div class="badge">DATA CLEANING — OUTLIERS</div>
+<div class="h1">Outlier Detection and Treatment</div>
+<div class="sub">Finding extreme values — decide to remove, cap, transform, or keep</div>
+
+<div class="note"><b>Critical question before treating outliers:</b> Is this a data error or a real extreme value? A salary of $10M may be an outlier but it is real. A salary of -$5000 is a data error. The treatment is completely different.</div>
+
+<div class="g4">
+  <div class="card card-b"><div class="t">Detection methods</div><div class="b"><b style="color:#70c0ff">IQR method:</b> outlier if &lt; Q1-1.5×IQR or &gt; Q3+1.5×IQR. Most common, non-parametric.<br><br><b style="color:#70c0ff">Z-score:</b> outlier if |z| &gt; 3. Assumes normal distribution. Sensitive to own outliers.<br><br><b style="color:#70c0ff">Modified Z-score:</b> uses median instead of mean. Robust version of Z-score.<br><br><b style="color:#70c0ff">Isolation Forest:</b> ML-based. Best for multivariate outliers. No distribution assumption.</div></div>
+  <div class="card card-g"><div class="t">Treatment strategies</div><div class="b"><b style="color:#50e880">Remove:</b> data errors, impossible values (negative age). Use sparingly.<br><br><b style="color:#50e880">Cap/Winsorize:</b> replace extreme values with percentile bounds (e.g. 1st–99th). Keeps row, reduces extreme influence.<br><br><b style="color:#50e880">Log transform:</b> compresses right-skewed distributions. Handles multiplicative outliers.<br><br><b style="color:#50e880">Keep:</b> if real and important (fraud detection — outliers ARE the signal!).</div></div>
+</div>
+
+<div class="code">
+# ══════════════════════════════════════════════════════════
+# OUTLIER DETECTION AND TREATMENT — All Methods
+# ══════════════════════════════════════════════════════════
+import numpy as np
+import pandas as pd
+from scipy import stats
+from sklearn.ensemble import IsolationForest
+from sklearn.preprocessing import RobustScaler
+import warnings
+warnings.filterwarnings('ignore')
+
+np.random.seed(42)
+n = 400
+df = pd.DataFrame({
+    'age':    np.append(np.random.normal(35, 8, n-10),
+                        [-5, 200, 150, 0, -10, 999, 120, -3, 180, 250]),
+    'salary': np.append(np.random.lognormal(10.8, 0.4, n-5),
+                        [0, -1000, 9999999, 500, -500]),
+    'score':  np.append(np.random.normal(60, 15, n-8),
+                        [300, -50, 250, -30, 400, 500, -100, 350]),
+    'target': np.random.randint(0, 2, n)
+})
+num_cols = ['age', 'salary', 'score']
+
+# ── Method 1: IQR ─────────────────────────────────────────
+print("── METHOD 1: IQR Method ──")
+def detect_outliers_iqr(series, multiplier=1.5):
+    Q1  = series.quantile(0.25)
+    Q3  = series.quantile(0.75)
+    IQR = Q3 - Q1
+    lower = Q1 - multiplier * IQR
+    upper = Q3 + multiplier * IQR
+    mask  = (series &lt; lower) | (series &gt; upper)
+    return mask, lower, upper
+
+for col in num_cols:
+    mask, lo, hi = detect_outliers_iqr(df[col])
+    print(f"  {col:8s}: {mask.sum():3d} outliers  bounds=[{lo:.1f}, {hi:.1f}]  "
+          f"min={df[col].min():.1f}  max={df[col].max():.1f}")
+
+# ── Method 2: Z-score ─────────────────────────────────────
+print("\n── METHOD 2: Z-score (|z|&gt;3) ──")
+for col in num_cols:
+    z = np.abs(stats.zscore(df[col].fillna(df[col].median())))
+    n_out = (z &gt; 3).sum()
+    print(f"  {col:8s}: {n_out:3d} outliers with |z|&gt;3")
+
+# ── Method 3: Modified Z-score (robust) ───────────────────
+print("\n── METHOD 3: Modified Z-score (uses median) ──")
+def modified_zscore(series):
+    median = series.median()
+    mad    = np.median(np.abs(series - median))
+    return 0.6745 * (series - median) / (mad + 1e-9)
+
+for col in num_cols:
+    mz   = np.abs(modified_zscore(df[col].fillna(df[col].median())))
+    n_out = (mz &gt; 3.5).sum()
+    print(f"  {col:8s}: {n_out:3d} outliers with modified |z|&gt;3.5")
+
+# ── Method 4: Isolation Forest (multivariate) ─────────────
+print("\n── METHOD 4: Isolation Forest (multivariate) ──")
+iso = IsolationForest(contamination=0.05, random_state=42, n_jobs=-1)
+X_iso = df[num_cols].fillna(df[num_cols].median())
+outlier_pred = iso.fit_predict(X_iso)
+n_out_iso = (outlier_pred == -1).sum()
+print(f"  Multivariate outliers detected: {n_out_iso}")
+print(f"  ({n_out_iso/len(df)*100:.1f}% of data)")
+df['iso_outlier'] = (outlier_pred == -1).astype(int)
+
+# ── Treatment 1: Remove ───────────────────────────────────
+print("\n── TREATMENT 1: Remove data errors ──")
+df_clean = df.copy()
+# Remove clearly impossible values (domain knowledge)
+df_clean = df_clean[df_clean['age'].between(0, 120)]
+df_clean = df_clean[df_clean['salary'] &gt; 0]
+df_clean = df_clean[df_clean['score'].between(0, 100)]
+print(f"Removed {len(df)-len(df_clean)} impossible values")
+print(f"Rows: {len(df)} → {len(df_clean)}")
+
+# ── Treatment 2: Winsorize/Cap ────────────────────────────
+print("\n── TREATMENT 2: Winsorize (cap at percentiles) ──")
+df_winsor = df.copy()
+for col in num_cols:
+    lower = df_winsor[col].quantile(0.01)
+    upper = df_winsor[col].quantile(0.99)
+    before_range = df_winsor[col].max() - df_winsor[col].min()
+    df_winsor[col] = df_winsor[col].clip(lower=lower, upper=upper)
+    after_range = df_winsor[col].max() - df_winsor[col].min()
+    print(f"  {col:8s}: range {before_range:.1f} → {after_range:.1f}")
+
+# ── Treatment 3: Log transform ────────────────────────────
+print("\n── TREATMENT 3: Log transform (for right-skewed) ──")
+df_log = df.copy()
+for col in ['salary']:
+    skew_before = df_log[col].skew()
+    df_log[col+'_log'] = np.log1p(df_log[col].clip(lower=0))
+    skew_after  = df_log[col+'_log'].skew()
+    print(f"  {col}: skewness {skew_before:.2f} → {skew_after:.2f}")
+
+# ── Treatment 4: RobustScaler ─────────────────────────────
+print("\n── TREATMENT 4: RobustScaler (IQR-based scaling) ──")
+rs = RobustScaler()  # centers at median, scales by IQR — outlier-resistant
+X_robust = rs.fit_transform(df[num_cols].fillna(0))
+print(f"  After RobustScaler: mean≈0, std varies by IQR")
+print(f"  Age range: [{X_robust[:,0].min():.2f}, {X_robust[:,0].max():.2f}]")
+
+# ── Summary ───────────────────────────────────────────────
+print("\n── OUTLIER TREATMENT DECISION GUIDE ──")
+guide = [
+    ('Data errors (impossible values)', 'Remove rows', 'age=-5, salary=-1000'),
+    ('Real extremes, little ML impact',  'Keep + RobustScaler', 'High earners'),
+    ('Right-skewed distribution',        'Log/sqrt transform', 'House prices, salary'),
+    ('Real extremes, affect model',      'Winsorize at 1%-99%', 'Cap at percentiles'),
+    ('Multivariate anomalies',           'Isolation Forest flag', 'Fraud detection'),
+    ('Target is the outlier',            'Keep! Outlier = signal', 'Fraud, anomaly det.'),
+]
+print(f"{'Situation':40s}  {'Treatment':30s}  {'Example':25s}")
+print("-"*100)
+for s, t, e in guide:
+    print(f"{s:40s}  {t:30s}  {e}")</div>
+
+<div class="note note-r"><b>Never blindly remove outliers in fraud detection or anomaly detection.</b> The outliers ARE the signal you are trying to find. Removing them defeats the purpose of the entire model. Always ask "is this outlier the thing I want to predict?" before removing anything.</div>
+</div>
+
+<!-- ══ TAB 4: ENCODING + SCALING ══ -->
+<div class="sec" id="S4">
+<div class="badge">DATA TRANSFORMATION</div>
+<div class="h1">Encoding Categorical Features + Scaling Numerical Features</div>
+<div class="sub">Making data digestible for ML algorithms — every technique explained</div>
+
+<div class="g3">
+  <div class="card card-b"><div class="t">Why encoding matters</div><div class="b">ML algorithms work with numbers. Categorical features like "red/blue/green" or "NYC/LA/Chicago" must be converted to numbers. Wrong encoding = model learns wrong relationships.<br><br><span class="tb">Nominal</span> = no order (city, color) → one-hot<br><span class="tb">Ordinal</span> = has order (low/mid/high) → label encode with correct order</div></div>
+  <div class="card card-g"><div class="t">Why scaling matters</div><div class="b">Age ranges 0–100. Salary ranges 0–500,000. Without scaling, gradient descent updates salary weights far faster than age weights — the model is biased toward large-scale features.<br><br><span class="tg">Tree models</span> — do NOT need scaling<br><span class="tg">Linear/SVM/KNN/NN</span> — MUST scale</div></div>
+  <div class="card card-y"><div class="t">Fit on train only!</div><div class="b">Always fit your encoder/scaler on training data only. Then use transform() on val and test. Fitting on all data leaks test distribution into training.<br><br><code style="color:#ffc040;font-size:11px;">scaler.fit(X_train)      ← correct<br>scaler.transform(X_val)  ← correct<br>scaler.fit(X_all)        ← DATA LEAKAGE!</code></div></div>
+</div>
+
+<div class="code">
+# ══════════════════════════════════════════════════════════
+# ENCODING + SCALING — Every Technique
+# ══════════════════════════════════════════════════════════
+import numpy as np
+import pandas as pd
+from sklearn.preprocessing import (LabelEncoder, OrdinalEncoder,
+    OneHotEncoder, StandardScaler, MinMaxScaler, RobustScaler,
+    QuantileTransformer, PowerTransformer)
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.compose import ColumnTransformer
+import warnings
+warnings.filterwarnings('ignore')
+
+# ── Sample dataset ────────────────────────────────────────
+np.random.seed(42)
+n = 300
+df = pd.DataFrame({
+    'age':      np.random.normal(35, 10, n).clip(18, 80),
+    'salary':   np.random.lognormal(10.5, 0.6, n),
+    'score':    np.random.uniform(0, 100, n),
+    'city':     np.random.choice(['NYC','LA','Chicago','Houston','Phoenix'], n),
+    'education':np.random.choice(['High School','Bachelor','Master','PhD'], n),
+    'gender':   np.random.choice(['Male','Female'], n),
+    'target':   np.random.randint(0, 2, n)
+})
+X = df.drop('target', axis=1)
+y = df['target']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# ══════════════════════════════════════════════
+# CATEGORICAL ENCODING
+# ══════════════════════════════════════════════
+
+# ── Encoding 1: Label Encoding (ordinal features only) ───
+print("CATEGORICAL ENCODING")
+print("\n1. Label Encoding (use only for ordinal features)")
+edu_order = ['High School', 'Bachelor', 'Master', 'PhD']
+oe = OrdinalEncoder(categories=[edu_order])
+edu_encoded = oe.fit_transform(X_train[['education']])
+print(f"   Education mapping: {dict(zip(edu_order, range(len(edu_order))))}")
+print(f"   Sample: {X_train['education'][:5].tolist()}")
+print(f"   Encoded: {edu_encoded[:5].ravel().tolist()}")
+
+# ── Encoding 2: One-Hot Encoding (nominal, low cardinality) ─
+print("\n2. One-Hot Encoding (nominal, few categories)")
+ohe = OneHotEncoder(drop='first', sparse_output=False, handle_unknown='ignore')
+city_encoded = ohe.fit_transform(X_train[['city']])
+city_cols = ohe.get_feature_names_out(['city'])
+print(f"   Original cities: {X_train['city'].unique().tolist()}")
+print(f"   Created columns: {city_cols.tolist()}")
+print(f"   Sample rows:\n{pd.DataFrame(city_encoded[:3], columns=city_cols)}")
+
+# ── Encoding 3: Target Encoding (high cardinality) ────────
+print("\n3. Target Encoding (for high-cardinality categorical)")
+# Replaces category with mean target value
+# IMPORTANT: compute on training data only to avoid leakage
+X_train_te = X_train.copy(); X_test_te = X_test.copy()
+city_target_mean = X_train_te.join(y_train).groupby('city')['target'].mean()
+X_train_te['city_target_enc'] = X_train_te['city'].map(city_target_mean)
+X_test_te['city_target_enc']  = X_test_te['city'].map(city_target_mean)
+# Handle unseen categories in test
+X_test_te['city_target_enc'].fillna(y_train.mean(), inplace=True)
+print(f"   City target means: {city_target_mean.round(3).to_dict()}")
+
+# ── Encoding 4: Frequency Encoding ────────────────────────
+print("\n4. Frequency Encoding (replace with category frequency)")
+city_freq = X_train['city'].value_counts(normalize=True)
+X_train['city_freq'] = X_train['city'].map(city_freq)
+X_test['city_freq']  = X_test['city'].map(city_freq).fillna(0)
+print(f"   City frequencies: {city_freq.round(3).to_dict()}")
+
+# ── Encoding 5: Binary Encoding ───────────────────────────
+print("\n5. Binary Encoding (gender — 2 categories)")
+gender_map = {'Male': 0, 'Female': 1}
+X_train['gender_bin'] = X_train['gender'].map(gender_map)
+X_test['gender_bin']  = X_test['gender'].map(gender_map)
+print(f"   Gender: Male=0, Female=1")
+
+# ══════════════════════════════════════════════
+# NUMERICAL SCALING
+# ══════════════════════════════════════════════
+print("\n\nNUMERICAL SCALING")
+num_cols = ['age', 'salary', 'score']
+X_num_tr = X_train[num_cols].values
+X_num_te = X_test[num_cols].values
+
+# ── Scaling 1: StandardScaler (Z-score) ───────────────────
+print("\n1. StandardScaler (Z-score) — mean=0, std=1")
+ss = StandardScaler()
+X_std = ss.fit_transform(X_num_tr)
+print(f"   Age: mean={ss.mean_[0]:.1f}, std={np.sqrt(ss.var_[0]):.1f}")
+print(f"   After scaling — mean={X_std[:,0].mean():.3f}, std={X_std[:,0].std():.3f}")
+print(f"   USE WHEN: linear models, SVM, neural networks")
+
+# ── Scaling 2: MinMaxScaler ───────────────────────────────
+print("\n2. MinMaxScaler — scales to [0,1] range")
+mms = MinMaxScaler()
+X_mm = mms.fit_transform(X_num_tr)
+print(f"   After scaling — min={X_mm.min():.3f}, max={X_mm.max():.3f}")
+print(f"   USE WHEN: when 0-1 range needed (neural nets, KNN, image data)")
+print(f"   AVOID WHEN: outliers present (they compress everything else)")
+
+# ── Scaling 3: RobustScaler ───────────────────────────────
+print("\n3. RobustScaler — uses IQR, robust to outliers")
+rs = RobustScaler()
+X_rob = rs.fit_transform(X_num_tr)
+print(f"   Salary center: {rs.center_[1]:.0f}  scale: {rs.scale_[1]:.0f}")
+print(f"   USE WHEN: outliers present (salary, house prices)")
+
+# ── Scaling 4: Log Transform ──────────────────────────────
+print("\n4. Log Transform — for right-skewed distributions")
+salary_skew_before = pd.Series(X_num_tr[:,1]).skew()
+X_log = np.log1p(X_num_tr)  # log1p = log(1+x), handles 0 values
+salary_skew_after  = pd.Series(X_log[:,1]).skew()
+print(f"   Salary skewness: {salary_skew_before:.3f} → {salary_skew_after:.3f}")
+print(f"   USE WHEN: exponential/power-law distributions (salary, price, count)")
+
+# ── Scaling 5: QuantileTransformer ───────────────────────
+print("\n5. QuantileTransformer — maps to uniform/normal distribution")
+qt = QuantileTransformer(output_distribution='normal', random_state=42)
+X_qt = qt.fit_transform(X_num_tr)
+print(f"   Maps any distribution to Gaussian — most powerful transformation")
+print(f"   After: skewness={pd.Series(X_qt[:,1]).skew():.3f}")
+print(f"   USE WHEN: extreme skew, non-normal distributions")
+
+# ── Scaling 6: PowerTransformer (Yeo-Johnson) ────────────
+print("\n6. PowerTransformer (Yeo-Johnson)")
+pt = PowerTransformer(method='yeo-johnson')  # handles negatives unlike Box-Cox
+X_pt = pt.fit_transform(X_num_tr)
+print(f"   Salary skewness: {pd.Series(X_pt[:,1]).skew():.3f}")
+print(f"   USE WHEN: need Gaussian output, handles negative values")
+
+# ══════════════════════════════════════════════
+# COMBINED PIPELINE with ColumnTransformer
+# ══════════════════════════════════════════════
+print("\n\n── PRODUCTION PIPELINE: ColumnTransformer ──")
+from sklearn.compose import ColumnTransformer
+
+numeric_features  = ['age', 'salary', 'score']
+ordinal_features  = ['education']
+nominal_features  = ['city', 'gender']
+
+preprocessor = ColumnTransformer([
+    ('num',     StandardScaler(),
+                numeric_features),
+    ('ordinal', OrdinalEncoder(categories=[['High School','Bachelor','Master','PhD'],
+                                            ['Male','Female']]),
+                ['education', 'gender']),
+    ('nominal', OneHotEncoder(drop='first', handle_unknown='ignore'),
+                ['city']),
+], remainder='drop')
+
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import roc_auc_score
+
+full_pipe = Pipeline([
+    ('prep', preprocessor),
+    ('clf',  RandomForestClassifier(n_estimators=100, random_state=42))
+])
+full_pipe.fit(X_train, y_train)
+print(f"Pipeline AUC: {roc_auc_score(y_test, full_pipe.predict_proba(X_test)[:,1]):.4f}")
+print("Feature names after transformation:")
+try:
+    print(full_pipe['prep'].get_feature_names_out())
+except:
+    print("(get_feature_names_out available in sklearn &gt;= 1.0)")
+
+# ── Comparison table ──────────────────────────────────────
+print("\n── SCALER COMPARISON GUIDE ──")
+scalers = [
+    ('StandardScaler', 'Z-score: (x-mean)/std', 'Linear, SVM, NN, LR', 'Outliers affect mean/std'),
+    ('MinMaxScaler',   'Scale to [0,1]',         'KNN, NN, no outliers', 'Sensitive to outliers'),
+    ('RobustScaler',   '(x-median)/IQR',         'When outliers present', 'Less sensitive to outliers'),
+    ('Log transform',  'log(1+x)',                'Right-skewed (salary)', 'Only for positive values'),
+    ('QuantileTransf', 'Map to normal/uniform',   'Extreme skew',         'Changes distribution shape'),
+    ('No scaling',     'Raw values',              'Tree-based models',    'Bad for gradient methods'),
+]
+print(f"{'Scaler':20s}  {'Formula':25s}  {'Use when':30s}  {'Limitation'}")
+for name,form,use,lim in scalers:
+    print(f"{name:20s}  {form:25s}  {use:30s}  {lim}")</div>
+
+<div class="note note-g"><b>Tree-based models (Random Forest, XGBoost, Decision Trees) do NOT need scaling</b> — they split on thresholds so the scale is irrelevant. Linear models, SVM, KNN, and neural networks MUST be scaled — they are distance or gradient based and scale matters enormously.</div>
+</div>
+
+<!-- ══ TAB 5: FEATURE ENGINEERING ══ -->
+<div class="sec" id="S5">
+<div class="badge">FEATURE ENGINEERING</div>
+<div class="h1">Creating New Features — The Biggest ROI in ML</div>
+<div class="sub">Feature engineering beats algorithm selection every single time</div>
+
+<div class="note"><b>Why feature engineering matters more than model choice:</b> A logistic regression with excellent engineered features will beat XGBoost with raw features. The model can only learn what is in the data — if the signal is buried, no algorithm can find it. Your job is to surface the signal.</div>
+
+<div class="g3">
+  <div class="card card-b"><div class="t">Mathematical transformations</div><div class="b">· Log — compress right-skewed<br>· Square root — moderate skew<br>· Square / cube — amplify non-linearity<br>· Polynomial (x², x³, x₁×x₂) — capture curves<br>· Reciprocal (1/x) — diminishing returns<br>· Absolute value — magnitude only</div></div>
+  <div class="card card-g"><div class="t">Interaction features</div><div class="b">· Multiply two features: x₁×x₂<br>· Ratio: x₁/x₂ (salary/age = earning rate)<br>· Difference: x₁-x₂ (current-past score)<br>· Bin+encode: age_group×income_group<br>· Polynomial combos: from PolynomialFeatures<br>· Domain-specific: BMI = weight/height²</div></div>
+  <div class="card card-y"><div class="t">Aggregation features</div><div class="b">· GroupBy mean/max/min/std/count<br>· Rolling window stats (time series)<br>· Lag features — previous value<br>· Cumulative sum/mean<br>· Rank within group<br>· Frequency of category in group</div></div>
+</div>
+
+<div class="code">
+# ══════════════════════════════════════════════════════════
+# FEATURE ENGINEERING — All Techniques with Real Impact
+# ══════════════════════════════════════════════════════════
+import numpy as np
+import pandas as pd
+from sklearn.preprocessing import PolynomialFeatures, KBinsDiscretizer
+from sklearn.datasets import fetch_california_housing, load_breast_cancer
+from sklearn.model_selection import cross_val_score, train_test_split
+from sklearn.ensemble import RandomForestRegressor, RandomForestClassifier
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
+import warnings
+warnings.filterwarnings('ignore')
+
+# ── Dataset ───────────────────────────────────────────────
+housing = fetch_california_housing(as_frame=True)
+df = housing.frame.copy()
+X_raw = housing.data
+y = housing.target
+
+# Baseline score
+rf = RandomForestRegressor(n_estimators=100, random_state=42, n_jobs=-1)
+baseline_r2 = cross_val_score(rf, X_raw, y, cv=5, scoring='r2').mean()
+print(f"Baseline R² (raw features): {baseline_r2:.4f}")
+print(f"Features: {X_raw.shape[1]}")
+
+# ══════════════════════════════════════════════
+# 1. MATHEMATICAL TRANSFORMATIONS
+# ══════════════════════════════════════════════
+print("\n── 1. Mathematical Transformations ──")
+df_eng = df.copy()
+
+# Log transform skewed features
+skewed_cols = []
+for col in df.drop('MedHouseVal',axis=1).columns:
+    if abs(df[col].skew()) &gt; 1:
+        df_eng[col+'_log'] = np.log1p(df[col].clip(lower=0))
+        skewed_cols.append(col)
+        print(f"  log({col}): skew {df[col].skew():.2f} → {df_eng[col+'_log'].skew():.2f}")
+
+# Square root transform
+for col in ['Population', 'HouseAge']:
+    df_eng[col+'_sqrt'] = np.sqrt(df[col].clip(lower=0))
+    print(f"  sqrt({col}): skew {df[col].skew():.2f} → {df_eng[col+'_sqrt'].skew():.2f}")
+
+# ══════════════════════════════════════════════
+# 2. INTERACTION FEATURES (domain knowledge)
+# ══════════════════════════════════════════════
+print("\n── 2. Interaction Features ──")
+# Rooms per person — more meaningful than raw rooms
+df_eng['rooms_per_person']    = df['AveRooms'] / (df['Population'] + 1)
+df_eng['bedrooms_per_room']   = df['AveBedrms'] / (df['AveRooms'] + 1)
+df_eng['population_density']  = df['Population'] / (df['AveRooms'] + 1)
+df_eng['income_per_person']   = df['MedInc'] / (df['AveOccup'] + 1)
+df_eng['location_score']      = df['Latitude'] * df['Longitude']
+df_eng['coast_distance']      = np.sqrt((df['Latitude']-34)**2 + (df['Longitude']+118)**2)
+
+new_feats = ['rooms_per_person','bedrooms_per_room','population_density',
+             'income_per_person','location_score','coast_distance']
+for f in new_feats:
+    print(f"  {f:30s}: mean={df_eng[f].mean():.3f}  std={df_eng[f].std():.3f}")
+
+# ══════════════════════════════════════════════
+# 3. BINNING / DISCRETISATION
+# ══════════════════════════════════════════════
+print("\n── 3. Binning / Discretisation ──")
+# Convert continuous to bins — captures non-linear effects
+kbd = KBinsDiscretizer(n_bins=5, encode='ordinal', strategy='quantile')
+df_eng['income_bin'] = kbd.fit_transform(df[['MedInc']])
+df_eng['age_bin']    = KBinsDiscretizer(n_bins=4, encode='ordinal',
+                        strategy='uniform').fit_transform(df[['HouseAge']])
+
+print("  Income bins (quantile-based):")
+for i, (lo, hi) in enumerate(zip(kbd.bin_edges_[0][:-1], kbd.bin_edges_[0][1:])):
+    count = (df_eng['income_bin']==i).sum()
+    print(f"    Bin {i}: [{lo:.2f}, {hi:.2f}]  n={count}")
+
+# Percentile bins — rank within distribution
+df_eng['income_percentile'] = df['MedInc'].rank(pct=True)
+print(f"\n  Income percentile range: {df_eng['income_percentile'].min():.3f} — {df_eng['income_percentile'].max():.3f}")
+
+# ══════════════════════════════════════════════
+# 4. POLYNOMIAL FEATURES
+# ══════════════════════════════════════════════
+print("\n── 4. Polynomial Features ──")
+top_features = ['MedInc', 'HouseAge', 'AveRooms', 'Latitude']
+poly = PolynomialFeatures(degree=2, interaction_only=False, include_bias=False)
+X_poly = poly.fit_transform(df[top_features])
+poly_names = poly.get_feature_names_out(top_features)
+print(f"  {len(top_features)} features → {X_poly.shape[1]} polynomial features")
+print(f"  New features: {[n for n in poly_names if '^' in n or ' ' in n][:10]}")
+
+# ══════════════════════════════════════════════
+# 5. DATE/TIME FEATURES
+# ══════════════════════════════════════════════
+print("\n── 5. Date/Time Feature Extraction ──")
+# Example with synthetic dates
+dates = pd.date_range('2020-01-01', periods=100, freq='D')
+df_dates = pd.DataFrame({'date': dates, 'value': np.random.randn(100)})
+df_dates['year']       = df_dates['date'].dt.year
+df_dates['month']      = df_dates['date'].dt.month
+df_dates['day']        = df_dates['date'].dt.day
+df_dates['dayofweek']  = df_dates['date'].dt.dayofweek   # 0=Mon, 6=Sun
+df_dates['is_weekend'] = (df_dates['dayofweek'] &gt;= 5).astype(int)
+df_dates['quarter']    = df_dates['date'].dt.quarter
+df_dates['week']       = df_dates['date'].dt.isocalendar().week.astype(int)
+df_dates['days_since'] = (df_dates['date'] - df_dates['date'].min()).dt.days
+
+# Cyclical encoding for month/day (preserves circular nature)
+df_dates['month_sin'] = np.sin(2*np.pi*df_dates['month']/12)
+df_dates['month_cos'] = np.cos(2*np.pi*df_dates['month']/12)
+df_dates['dow_sin']   = np.sin(2*np.pi*df_dates['dayofweek']/7)
+df_dates['dow_cos']   = np.cos(2*np.pi*df_dates['dayofweek']/7)
+print(f"  Date features created: {[c for c in df_dates.columns if c not in ['date','value']]}")
+print("  Note: cyclical sin/cos ensures Dec→Jan continuity, not a jump from 12 to 1")
+
+# ══════════════════════════════════════════════
+# 6. AGGREGATION FEATURES
+# ══════════════════════════════════════════════
+print("\n── 6. Aggregation Features (GroupBy) ──")
+# Add income_bin as group
+df_agg = df.copy()
+df_agg['income_bin'] = pd.qcut(df['MedInc'], 5, labels=False)
+
+# Aggregate stats per income group
+grp_stats = df_agg.groupby('income_bin')['AveRooms'].agg(['mean','std','max'])
+grp_stats.columns = ['rooms_mean_by_income','rooms_std_by_income','rooms_max_by_income']
+df_agg = df_agg.join(grp_stats, on='income_bin')
+
+for col in ['rooms_mean_by_income','rooms_std_by_income']:
+    corr = df_agg[col].corr(y)
+    print(f"  {col}: corr with target = {corr:.3f}")
+
+# ══════════════════════════════════════════════
+# 7. IMPACT OF FEATURE ENGINEERING
+# ══════════════════════════════════════════════
+print("\n── 7. Impact Comparison ──")
+feature_sets = {
+    'Raw 8 features':              X_raw,
+    '+ log transforms':            np.hstack([X_raw, np.log1p(df[skewed_cols].clip(0))]),
+    '+ interaction features':      np.hstack([X_raw, df_eng[new_feats].values]),
+    '+ bins + interactions':       np.hstack([X_raw, df_eng[new_feats+['income_bin','age_bin']].values]),
+    '+ polynomial (top 4 feats)':  np.hstack([X_raw, X_poly]),
+    'All engineered features':     df_eng.drop('MedHouseVal',axis=1).fillna(0).values,
+}
+for name, X_fe in feature_sets.items():
+    r2 = cross_val_score(rf, X_fe, y, cv=5, scoring='r2', n_jobs=-1).mean()
+    improvement = r2 - baseline_r2
+    print(f"  {name:35s}: R²={r2:.4f}  improvement={improvement:+.4f}  features={X_fe.shape[1]}")</div>
+
+<div class="note note-g"><b>Most impactful feature engineering techniques in order of ROI:</b> (1) Domain-knowledge interactions like rooms_per_person beat polynomial features. (2) Log-transforming skewed features. (3) Date/time extraction when temporal patterns exist. (4) GroupBy aggregations when groups are meaningful. (5) Cyclical encoding for periodic features like month and day-of-week.</div>
+</div>
+
+<!-- ══ TAB 6: FEATURE REMOVAL ══ -->
+<div class="sec" id="S6">
+<div class="badge">FEATURE REMOVAL</div>
+<div class="h1">Removing Useless and Harmful Features</div>
+<div class="sub">Not all features help — some actively hurt model performance</div>
+
+<div class="note"><b>Adding more features does NOT always help.</b> Irrelevant features add noise to the model's decision boundary. Correlated features cause coefficient instability. ID columns cause overfitting. Knowing what to remove is as important as knowing what to keep.</div>
+
+<div class="g3">
+  <div class="card card-r"><div class="t">Features to always remove</div><div class="b">· ID columns — unique per row, causes severe overfitting<br>· Free-text without NLP — too sparse<br>· URL, email, IP address — too unique<br>· Timestamp raw — extract year/month/day first<br>· Constant columns — zero variance<br>· Duplicate columns<br>· Target leakage — features derived from the target</div></div>
+  <div class="card card-y"><div class="t">Features to consider removing</div><div class="b">· High missingness (&gt;50%) without fix<br>· Near-zero variance<br>· High cardinality categorical (&gt;50 unique) without encoding<br>· Highly correlated pairs (|r|&gt;0.90) — keep only one<br>· Low feature importance in tree models<br>· Features with VIF &gt; 10</div></div>
+  <div class="card card-g"><div class="t">Target leakage — the silent killer</div><div class="b">Model trains perfectly but fails in production.<br><br>Leakage examples:<br>· "claim_approved" predicting "fraud" — approval happens AFTER<br>· "future_salary" predicting "job_change" — uses future data<br>· "treatment_received" predicting "diagnosis" — backwards causality<br><br><span class="tg">Fix: only use features available at prediction time</span></div></div>
+</div>
+
+<div class="code">
+# ══════════════════════════════════════════════════════════
+# FEATURE REMOVAL — All Techniques
+# ══════════════════════════════════════════════════════════
+import numpy as np
+import pandas as pd
+from sklearn.feature_selection import VarianceThreshold
+from sklearn.preprocessing import StandardScaler
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
+from statsmodels.stats.outliers_influence import variance_inflation_factor
+import warnings
+warnings.filterwarnings('ignore')
+
+# Create synthetic dataset with various problem features
+np.random.seed(42)
+n = 500
+base = np.random.randn(n, 5)
+df = pd.DataFrame({
+    'id':           range(n),                                # ID — must remove
+    'useful_1':     base[:,0],
+    'useful_2':     base[:,1],
+    'useful_3':     base[:,2],
+    'constant':     np.ones(n),                             # constant — must remove
+    'near_constant':np.where(np.random.rand(n)&gt;0.02, 5, 6),# near constant
+    'duplicate_1':  base[:,0],                              # duplicate of useful_1
+    'correlated_95':base[:,0]*0.95 + np.random.randn(n)*0.1,# |r|=0.95 with useful_1
+    'correlated_80':base[:,1]*0.80 + np.random.randn(n)*0.3,# |r|=0.80 with useful_2
+    'noisy_random': np.random.randn(n),                     # pure noise
+    'noisy_random2':np.random.randn(n),                     # pure noise
+    'sparse_50pct': np.where(np.random.rand(n)&gt;0.5, base[:,3], np.nan),
+    'target': (base[:,0]+base[:,1]+base[:,2] &gt; 0).astype(int)
+})
+print(f"Starting features: {df.shape[1]-1}")
+
+# ── Step 1: Remove obvious bad features ───────────────────
+print("\n── Step 1: Remove always-bad features ──")
+
+# Remove ID-like columns
+id_cols = ['id']
+df.drop(columns=id_cols, inplace=True)
+print(f"  Removed ID columns: {id_cols}")
+
+# Remove constant features (zero variance)
+constant_cols = [c for c in df.columns if df[c].nunique() &lt;= 1]
+df.drop(columns=constant_cols, inplace=True)
+print(f"  Removed constants: {constant_cols}")
+
+# Remove near-constant (VarianceThreshold)
+X_var = df.drop('target', axis=1).fillna(0)
+vt = VarianceThreshold(threshold=0.01)
+vt.fit(X_var)
+low_var = [c for c, s in zip(X_var.columns, vt.get_support()) if not s]
+df.drop(columns=low_var, inplace=True)
+print(f"  Removed near-zero variance: {low_var}")
+
+# Remove exact duplicates
+X_check = df.drop('target', axis=1)
+dup_cols = []
+for i, c1 in enumerate(X_check.columns):
+    for c2 in X_check.columns[i+1:]:
+        if X_check[c1].equals(X_check[c2]):
+            dup_cols.append(c2)
+df.drop(columns=set(dup_cols), inplace=True)
+print(f"  Removed duplicate columns: {dup_cols}")
+print(f"  Features after step 1: {df.shape[1]-1}")
+
+# ── Step 2: Correlation-based removal ─────────────────────
+print("\n── Step 2: Correlation-based removal ──")
+X = df.drop('target', axis=1).fillna(0)
+corr_matrix = X.corr()
+
+# Find pairs with |r| &gt; 0.85 — keep feature with higher target correlation
+target_corr = abs(df[X.columns].corrwith(df['target'].astype(float)))
+to_drop_corr = set()
+for i in range(len(corr_matrix.columns)):
+    for j in range(i+1, len(corr_matrix.columns)):
+        r = abs(corr_matrix.iloc[i,j])
+        if r &gt; 0.85:
+            c1, c2 = corr_matrix.columns[i], corr_matrix.columns[j]
+            drop = c1 if target_corr.get(c1, 0) &lt; target_corr.get(c2, 0) else c2
+            to_drop_corr.add(drop)
+            print(f"  High corr: {c1} &lt;-&gt; {c2}  r={r:.3f}  dropping: {drop}")
+
+df.drop(columns=list(to_drop_corr), inplace=True)
+print(f"  Features after correlation filter: {df.shape[1]-1}")
+
+# ── Step 3: VIF — multicollinearity ───────────────────────
+print("\n── Step 3: VIF — Variance Inflation Factor ──")
+X_vif = df.drop('target', axis=1).fillna(0)
+scaler = StandardScaler()
+X_scaled = pd.DataFrame(scaler.fit_transform(X_vif), columns=X_vif.columns)
+
+vif_df = pd.DataFrame({
+    'feature': X_scaled.columns,
+    'VIF':     [variance_inflation_factor(X_scaled.values, i)
+                for i in range(X_scaled.shape[1])]
+}).sort_values('VIF', ascending=False)
+print(vif_df.to_string(index=False))
+print("  VIF &gt; 10 = severe multicollinearity → remove or use Ridge regression")
+print("  VIF &gt; 5  = moderate multicollinearity → consider removing")
+
+high_vif = vif_df[vif_df['VIF'] &gt; 10]['feature'].tolist()
+if high_vif:
+    print(f"  Removing high-VIF features: {high_vif}")
+    df.drop(columns=high_vif, inplace=True)
+
+# ── Step 4: Statistical significance ──────────────────────
+print("\n── Step 4: Statistical feature significance ──")
+from sklearn.feature_selection import f_classif, mutual_info_classif
+X_final = df.drop('target', axis=1).fillna(0)
+y_final = df['target']
+
+f_scores, p_values = f_classif(X_final, y_final)
+mi_scores = mutual_info_classif(X_final, y_final, random_state=42)
+
+significance_df = pd.DataFrame({
+    'feature':  X_final.columns,
+    'F_score':  f_scores.round(3),
+    'p_value':  p_values.round(4),
+    'MI':       mi_scores.round(4),
+    'significant': p_values &lt; 0.05
+}).sort_values('F_score', ascending=False)
+print(significance_df.to_string(index=False))
+
+# Remove statistically insignificant features
+insig = significance_df[~significance_df['significant']]['feature'].tolist()
+if insig:
+    print(f"\n  Statistically insignificant (p&gt;0.05): {insig}")
+    df.drop(columns=insig, inplace=True)
+
+# ── Step 5: Tree-based importance ─────────────────────────
+print("\n── Step 5: Tree-based feature importance ──")
+X_final = df.drop('target', axis=1).fillna(0)
+y_final = df['target']
+rf = RandomForestClassifier(n_estimators=200, random_state=42, n_jobs=-1)
+rf.fit(X_final, y_final)
+importance_df = pd.DataFrame({
+    'feature':    X_final.columns,
+    'importance': rf.feature_importances_
+}).sort_values('importance', ascending=False)
+print(importance_df.to_string(index=False))
+
+# Remove near-zero importance features
+zero_imp = importance_df[importance_df['importance'] &lt; 0.01]['feature'].tolist()
+print(f"\n  Near-zero importance: {zero_imp}")
+
+# ── Step 6: Target leakage check ─────────────────────────
+print("\n── Step 6: Target Leakage Detection ──")
+print("""
+Target leakage = using information that would not be available
+at the time of prediction in the real world.
+
+Leakage red flags:
+  1. Model accuracy is suspiciously high (&gt;99%) on complex problem
+  2. Feature has almost perfect correlation with target (|r| &gt; 0.98)
+  3. Feature is computed AFTER the target event
+  4. Feature contains the target under a different name
+  5. Test accuracy much lower than train accuracy
+
+How to check:
+""")
+# Check for suspiciously high feature-target correlations
+X_check = df.drop('target', axis=1).fillna(0)
+feat_target_corr = abs(X_check.corrwith(df['target'].astype(float)))
+suspicious = feat_target_corr[feat_target_corr &gt; 0.9]
+if len(suspicious) &gt; 0:
+    print(f"  SUSPICIOUS: features with |r|&gt;0.9 with target: {suspicious.to_dict()}")
+    print("  Investigate these — possible leakage!")
+else:
+    print(f"  No obvious leakage detected (max |r| with target = {feat_target_corr.max():.3f})")
+
+print(f"\nFinal feature count: {df.shape[1]-1} (started with {n} engineered features)")</div>
+
+<div class="note note-r"><b>Target leakage is the most dangerous bug in ML.</b> The model looks perfect in development but fails completely in production because the leaked feature is not available when making real predictions. Always ask "would I have this feature at prediction time, before the outcome occurs?"</div>
+</div>
+
+<!-- ══ TAB 7: FULL PIPELINE ══ -->
+<div class="sec on" id="S7">
+<div class="badge">COMPLETE PREPARATION PIPELINE</div>
+<div class="h1">End-to-End Data Preparation → Supervised Learning</div>
+<div class="sub">One complete script — EDA → Clean → Transform → Engineer → Remove → Train</div>
+
+<div class="note note-g"><b>This is the template to copy into every new Databricks notebook.</b> Replace the dataset loader with spark.table(). Every step is in the correct order with no leakage.</div>
+
+<div class="code">
+# ══════════════════════════════════════════════════════════════
+# COMPLETE DATA PREPARATION PIPELINE
+# EDA → Missing → Outliers → Encode → Scale →
+# Engineer → Remove → Feature Selection → Train → Evaluate
+# Dataset: Titanic (real missing values, mixed types, imbalance)
+# ══════════════════════════════════════════════════════════════
+import numpy as np
+import pandas as pd
+from scipy import stats
+from sklearn.datasets import fetch_openml
+from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.preprocessing import (StandardScaler, OrdinalEncoder,
+                                    OneHotEncoder, LabelEncoder)
+from sklearn.impute import SimpleImputer, KNNImputer
+from sklearn.feature_selection import SelectFromModel, f_classif
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.pipeline import Pipeline
+from sklearn.compose import ColumnTransformer
+from sklearn.metrics import *
+import warnings; warnings.filterwarnings('ignore')
+
+print("▶ PHASE 1: LOAD DATA")
+titanic = fetch_openml('titanic', version=1, as_frame=True, parser='auto')
+df = titanic.frame.copy()
+df['survived'] = pd.to_numeric(df['survived'], errors='coerce').astype(int)
+target = 'survived'
+print(f"  Shape: {df.shape}")
+
+# ── Select useful features ────────────────────────────────
+USE_COLS = ['pclass','sex','age','sibsp','parch','fare','embarked','survived']
+df = df[USE_COLS].copy()
+print(f"  Using columns: {USE_COLS}")
+
+print("\n▶ PHASE 2: EDA SUMMARY")
+print(f"  Target balance: {df[target].value_counts(normalize=True).round(3).to_dict()}")
+print(f"  Missing:\n{(df.isnull().sum()/len(df)*100).round(1).to_string()}")
+print(f"  Dtypes:\n{df.dtypes.to_string()}")
+for col in df.select_dtypes(include=[np.number]).columns:
+    print(f"  {col:8s}: skew={df[col].skew():.2f}  range=[{df[col].min():.1f}, {df[col].max():.1f}]")
+
+print("\n▶ PHASE 3: SPLIT BEFORE PREPROCESSING")
+X = df.drop(target, axis=1)
+y = df[target]
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y)
+X_train, X_val, y_train, y_val = train_test_split(
+    X_train, y_train, test_size=0.2, random_state=42, stratify=y_train)
+print(f"  Train: {X_train.shape}  Val: {X_val.shape}  Test: {X_test.shape}")
+
+print("\n▶ PHASE 4: MISSING VALUE HANDLING")
+# Add missing indicator BEFORE imputing
+for col in ['age','fare','embarked']:
+    if X_train[col].isnull().any():
+        X_train[f'{col}_missing'] = X_train[col].isnull().astype(int)
+        X_val  [f'{col}_missing'] = X_val  [col].isnull().astype(int)
+        X_test [f'{col}_missing'] = X_test [col].isnull().astype(int)
+        pct = X_train[col].isnull().mean()*100
+        print(f"  Added {col}_missing indicator ({pct:.1f}% missing)")
+
+# Impute numerical — median
+num_imp = SimpleImputer(strategy='median')
+for col in ['age','fare']:
+    X_train[[col]] = num_imp.fit_transform(X_train[[col]])
+    X_val  [[col]] = num_imp.transform(X_val  [[col]])
+    X_test [[col]] = num_imp.transform(X_test [[col]])
+    print(f"  {col} imputed with median={num_imp.statistics_[0]:.1f}")
+
+# Impute categorical — most frequent
+cat_imp = SimpleImputer(strategy='most_frequent')
+for col in ['embarked','sex']:
+    X_train[[col]] = cat_imp.fit_transform(X_train[[col]])
+    X_val  [[col]] = cat_imp.transform(X_val  [[col]])
+    X_test [[col]] = cat_imp.transform(X_test [[col]])
+    print(f"  {col} imputed with mode='{cat_imp.statistics_[0]}'")
+
+print("\n▶ PHASE 5: OUTLIER TREATMENT")
+for col in ['fare']:
+    # Winsorize at 1st–99th percentile
+    lo = X_train[col].quantile(0.01)
+    hi = X_train[col].quantile(0.99)
+    before_max = X_train[col].max()
+    X_train[col] = X_train[col].clip(lo, hi)
+    X_val  [col] = X_val  [col].clip(lo, hi)
+    X_test [col] = X_test [col].clip(lo, hi)
+    print(f"  {col}: winsorized [{lo:.1f}, {hi:.1f}]  max: {before_max:.1f}→{X_train[col].max():.1f}")
+
+print("\n▶ PHASE 6: ENCODING CATEGORICAL FEATURES")
+# Binary encoding — sex
+for split in [X_train, X_val, X_test]:
+    split['sex_bin'] = (split['sex'] == 'male').astype(int)
+print(f"  sex → sex_bin: male=1, female=0")
+
+# One-hot encoding — embarked
+ohe = OneHotEncoder(drop='first', sparse_output=False, handle_unknown='ignore')
+emb_tr = ohe.fit_transform(X_train[['embarked']])
+emb_cols = ohe.get_feature_names_out(['embarked'])
+for split_X, emb in [(X_train, emb_tr),
+                      (X_val,   ohe.transform(X_val[['embarked']])),
+                      (X_test,  ohe.transform(X_test[['embarked']]))]:
+    for i, col in enumerate(emb_cols):
+        split_X[col] = emb[:, i]
+print(f"  embarked → {emb_cols.tolist()}")
+
+# Drop original categorical columns
+for split in [X_train, X_val, X_test]:
+    split.drop(columns=['sex','embarked'], inplace=True)
+print(f"  Features after encoding: {X_train.columns.tolist()}")
+
+print("\n▶ PHASE 7: FEATURE ENGINEERING")
+for split in [X_train, X_val, X_test]:
+    # Family size — combine sibsp and parch
+    split['family_size']    = split['sibsp'] + split['parch'] + 1
+    split['is_alone']       = (split['family_size'] == 1).astype(int)
+    # Age groups
+    split['is_child']       = (split['age'] &lt; 16).astype(int)
+    split['is_senior']      = (split['age'] &gt; 60).astype(int)
+    # Fare per person
+    split['fare_per_person']= split['fare'] / split['family_size']
+    # Wealth proxy
+    split['wealth_score']   = (4-split['pclass']) * split['fare'] / 100
+    # Interaction
+    split['class_sex']      = split['pclass'] * split['sex_bin']
+
+new_feats = ['family_size','is_alone','is_child','is_senior',
+             'fare_per_person','wealth_score','class_sex']
+print(f"  Created {len(new_feats)} new features: {new_feats}")
+
+# Evaluate each feature's correlation with target
+corrs = []
+for f in new_feats:
+    r = abs(X_train[f].corr(y_train))
+    corrs.append((f, r))
+    print(f"  {f:20s}: |r| with target = {r:.3f}")
+
+print("\n▶ PHASE 8: SCALING")
+num_feats = ['age','fare','sibsp','parch','fare_per_person','wealth_score','family_size']
+scaler = StandardScaler()
+X_train[num_feats] = scaler.fit_transform(X_train[num_feats])
+X_val  [num_feats] = scaler.transform(X_val  [num_feats])
+X_test [num_feats] = scaler.transform(X_test [num_feats])
+print(f"  StandardScaler applied to: {num_feats}")
+
+print("\n▶ PHASE 9: FEATURE REMOVAL")
+# Remove highly correlated features
+corr = X_train.corr()
+to_drop = set()
+for i in range(len(corr.columns)):
+    for j in range(i+1, len(corr.columns)):
+        if abs(corr.iloc[i,j]) &gt; 0.90:
+            to_drop.add(corr.columns[j])
+            print(f"  Drop {corr.columns[j]}: |r|={abs(corr.iloc[i,j]):.3f} with {corr.columns[i]}")
+if to_drop:
+    X_train.drop(columns=list(to_drop), inplace=True)
+    X_val  .drop(columns=list(to_drop), inplace=True)
+    X_test .drop(columns=list(to_drop), inplace=True)
+print(f"  Final features ({len(X_train.columns)}): {X_train.columns.tolist()}")
+
+print("\n▶ PHASE 10: BASELINE MODEL")
+majority = y_train.value_counts(normalize=True).max()
+print(f"  Baseline (majority class accuracy): {majority:.4f}")
+
+print("\n▶ PHASE 11: TRAIN AND COMPARE MODELS")
+models = {
+    'Logistic Regression': LogisticRegression(max_iter=1000, random_state=42),
+    'Random Forest':       RandomForestClassifier(n_estimators=100, random_state=42),
+    'Gradient Boosting':   GradientBoostingClassifier(n_estimators=100, random_state=42),
+}
+print(f"  {'Model':25s}  {'CV AUC':8s}  {'Val AUC':8s}  {'Val F1':8s}")
+best_auc, best_name, best_mdl = 0, '', None
+for name, mdl in models.items():
+    mdl.fit(X_train, y_train)
+    cv_auc  = cross_val_score(mdl, X_train, y_train, cv=5, scoring='roc_auc').mean()
+    val_prob= mdl.predict_proba(X_val)[:,1]
+    val_pred= mdl.predict(X_val)
+    val_auc = roc_auc_score(y_val, val_prob)
+    val_f1  = f1_score(y_val, val_pred)
+    print(f"  {name:25s}  {cv_auc:.4f}   {val_auc:.4f}   {val_f1:.4f}")
+    if val_auc &gt; best_auc:
+        best_auc, best_name, best_mdl = val_auc, name, mdl
+
+print(f"\n  Best: {best_name}  (Val AUC={best_auc:.4f})")
+
+print("\n▶ PHASE 12: FINAL TEST EVALUATION")
+y_pred_te = best_mdl.predict(X_test)
+y_prob_te = best_mdl.predict_proba(X_test)[:,1]
+print(f"\n  FINAL TEST RESULTS ({best_name}):")
+print(f"  Accuracy:   {accuracy_score(y_test, y_pred_te):.4f}")
+print(f"  Precision:  {precision_score(y_test, y_pred_te):.4f}")
+print(f"  Recall:     {recall_score(y_test, y_pred_te):.4f}")
+print(f"  F1 Score:   {f1_score(y_test, y_pred_te):.4f}")
+print(f"  AUC-ROC:    {roc_auc_score(y_test, y_prob_te):.4f}")
+print(f"  MCC:        {matthews_corrcoef(y_test, y_pred_te):.4f}")
+print(f"\n{classification_report(y_test, y_pred_te, target_names=['Died','Survived'])}")
+print("✅ Complete pipeline finished — ready for MLflow logging and deployment!")</div>
+
+<div class="note note-g"><b>Complete pipeline summary:</b> This 12-phase workflow covers every concept from all 7 tabs — EDA analysis → missing value imputation with indicators → outlier winsorization → categorical encoding → feature engineering with domain knowledge → scaling → correlation-based removal → baseline comparison → final test evaluation. Copy this structure into every new ML project.</div>
+</div>
+
+<script>
+function goTab(n){
+  for(var i=1;i<=7;i++)
+    document.getElementById('S'+i).className='sec'+(i===n?' on':'');
+  var tabs=document.querySelectorAll('.tab');
+  tabs.forEach(function(t,i){t.className='tab'+(i===n-1?' on':'');});
+}
+</script>
+
+
+</div>
+  <div id="copy-toast"></div>
+  <div id="action-btns">
+    <button id="more-btn" aria-label="Widget actions">
+      <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor"><path d="M4.5 8.5C5.32843 8.5 6 9.17157 6 10C6 10.8284 5.32843 11.5 4.5 11.5C3.67157 11.5 3 10.8284 3 10C3 9.17157 3.67157 8.5 4.5 8.5ZM10 8.5C10.8284 8.5 11.5 9.17157 11.5 10C11.5 10.8284 10.8284 11.5 10 11.5C9.17157 11.5 8.5 10.8284 8.5 10C8.5 9.17157 9.17157 8.5 10 8.5ZM15.5 8.5C16.3284 8.5 17 9.17157 17 10C17 10.8284 16.3284 11.5 15.5 11.5C14.6716 11.5 14 10.8284 14 10C14 9.17157 14.6716 8.5 15.5 8.5Z"></path></svg>
+    </button>
+    <div id="more-popover">
+      <button class="more-item" id="copy-btn">
+        <span class="more-item-icon" id="copy-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M12.5 3C13.3284 3 14 3.67157 14 4.5V6H15.5C16.3284 6 17 6.67157 17 7.5V15.5C17 16.3284 16.3284 17 15.5 17H7.5C6.67157 17 6 16.3284 6 15.5V14H4.5C3.67157 14 3 13.3284 3 12.5V4.5C3 3.67157 3.67157 3 4.5 3H12.5ZM14 12.5C14 13.3284 13.3284 14 12.5 14H7V15.5C7 15.7761 7.22386 16 7.5 16H15.5C15.7761 16 16 15.7761 16 15.5V7.5C16 7.22386 15.7761 7 15.5 7H14V12.5ZM4.5 4C4.22386 4 4 4.22386 4 4.5V12.5C4 12.7761 4.22386 13 4.5 13H12.5C12.7761 13 13 12.7761 13 12.5V4.5C13 4.22386 12.7761 4 12.5 4H4.5Z"></path></svg></span>
+        <span class="more-item-label" data-i18n="clipLabel">Copy to clipboard</span>
+      </button>
+      <button class="more-item" id="download-btn">
+        <span class="more-item-icon" id="download-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M16.5 13C16.7761 13 17 13.2239 17 13.5V15.5C17 16.3284 16.3284 17 15.5 17H4.5C3.67157 17 3 16.3284 3 15.5V13.5C3 13.2239 3.22386 13 3.5 13C3.77614 13 4 13.2239 4 13.5V15.5C4 15.7761 4.22386 16 4.5 16H15.5C15.7761 16 16 15.7761 16 15.5V13.5C16 13.2239 16.2239 13 16.5 13ZM10 3C10.2761 3 10.5 3.22386 10.5 3.5V12.1855L13.626 8.66797C13.8094 8.46166 14.1256 8.44275 14.332 8.62598C14.5383 8.80936 14.5573 9.12563 14.374 9.33203L10.374 13.832L10.2949 13.9033C10.21 13.9654 10.107 14 10 14C9.85718 14 9.72086 13.9388 9.62598 13.832L5.62598 9.33203L5.56738 9.25C5.45079 9.04872 5.48735 8.78653 5.66797 8.62598C5.84854 8.46567 6.1127 8.46039 6.29883 8.59961L6.37402 8.66797L9.5 12.1855V3.5C9.5 3.22386 9.72386 3 10 3Z"></path></svg></span>
+        <span class="more-item-label" data-i18n="grabLabel">Download file</span>
+      </button>
+    </div>
+  </div>
+  <script type="module">
+"use strict";
+(() => {
+  var __create = Object.create;
+  var __defProp = Object.defineProperty;
+  var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+  var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __getProtoOf = Object.getPrototypeOf;
+  var __hasOwnProp = Object.prototype.hasOwnProperty;
+  var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x, {
+    get: (a, b) => (typeof require !== "undefined" ? require : a)[b]
+  }) : x)(function(x) {
+    if (typeof require !== "undefined") return require.apply(this, arguments);
+    throw Error('Dynamic require of "' + x + '" is not supported');
+  });
+  var __copyProps = (to, from, except, desc) => {
+    if (from && typeof from === "object" || typeof from === "function") {
+      for (let key of __getOwnPropNames(from))
+        if (!__hasOwnProp.call(to, key) && key !== except)
+          __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+    }
+    return to;
+  };
+  var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+    // If the importer is in node compatibility mode or this is not an ESM
+    // file that has been converted to a CommonJS file using a Babel-
+    // compatible transform (i.e. "__esModule" has not been set), then set
+    // "default" to the CommonJS "module.exports" for node compatibility.
+    isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+    mod
+  ));
+
+  // src/scripts/mcp-app-helper.ts
+  var app2 = /* @__PURE__ */ (() => {
+    let nextId = 100;
+    return {
+      sendRequest({ method, params }) {
+        const id = nextId++;
+        window.parent.postMessage({ jsonrpc: "2.0", id, method, params }, "*");
+        return new Promise((resolve, reject) => {
+          window.addEventListener(
+            "message",
+            function listener(event) {
+              if (event.data?.id === id) {
+                window.removeEventListener("message", listener);
+                if (event.data?.result) {
+                  resolve(event.data.result);
+                } else if (event.data?.error) {
+                  const e = event.data.error;
+                  reject(
+                    new Error(
+                      typeof e === "string" ? e : e.message || JSON.stringify(e)
+                    )
+                  );
+                }
+              }
+            }
+          );
+        });
+      },
+      sendNotification({ method, params }) {
+        window.parent.postMessage({ jsonrpc: "2.0", method, params }, "*");
+      },
+      /**
+       * Attach files to the conversation — structured clone carries File objects
+       * through postMessage (web-only, mobile relay JSON.stringifies).
+       * Uses a non-JSON-RPC shape so PostMessageTransport drops it, raw listener
+       * in AppRenderer catches it. Requires real user click (userActivation gate
+       * enforced host-side per PR #31090).
+       */
+      attachFiles(files) {
+        window.parent.postMessage({ type: "anthropic:attach-files", files }, "*");
+      },
+      onNotification(method, handler) {
+        window.addEventListener(
+          "message",
+          function listener(event) {
+            if (event.data?.method === method) {
+              handler(event.data.params);
+            }
+          }
+        );
+      },
+      async requestDisplayMode({ mode }) {
+        return this.sendRequest({
+          method: "ui/request-display-mode",
+          params: { mode }
+        });
+      },
+      setupAutoResize() {
+        new ResizeObserver(() => {
+          const { body, documentElement: html } = document;
+          const htmlStyle = getComputedStyle(html);
+          const rect = body.getBoundingClientRect();
+          const width = Math.ceil(rect.width);
+          const height = Math.ceil(
+            rect.height + (parseFloat(htmlStyle.borderTop) || 0) + (parseFloat(htmlStyle.borderBottom) || 0)
+          );
+          this.sendNotification({
+            method: "ui/notifications/size-changed",
+            params: { width, height }
+          });
+        }).observe(document.body);
+      }
+    };
+  })();
+  window.app = app2;
+
+  // src/scripts/streaming-morph.ts
+  function createStreamingRenderer2(options = {}) {
+    const {
+      stripScripts = false,
+      widgetName = "Widget",
+      shouldRender = () => true,
+      onFirstRender
+    } = options;
+    let didFirstRender = false;
+    const markFirstRender2 = () => {
+      if (!didFirstRender) {
+        didFirstRender = true;
+        onFirstRender?.();
+      }
+    };
+    let parserModules = null;
+    let morphdomModule = null;
+    let streamingParser = null;
+    let prevCode = "";
+    async function renderPartial(container2, code) {
+      if (!code) return;
+      if (!parserModules || !morphdomModule) {
+        try {
+          const [htmlparser2, domhandler, domSerializer, morphdom] = await Promise.all([
+            import("https://esm.sh/htmlparser2@9.1.0"),
+            import("https://esm.sh/domhandler@5.0.3"),
+            import("https://esm.sh/dom-serializer@2.0.0"),
+            import("https://esm.sh/morphdom@2.7.4")
+          ]);
+          parserModules = {
+            Parser: htmlparser2.Parser,
+            DomHandler: domhandler.DomHandler,
+            render: domSerializer.default
+          };
+          morphdomModule = morphdom.default;
+        } catch (err) {
+          console.warn(
+            `[${widgetName}] CDN failed, falling back to innerHTML:`,
+            err
+          );
+          container2.innerHTML = code;
+          markFirstRender2();
+          return;
+        }
+      }
+      if (code.length < prevCode.length || !streamingParser) {
+        const handler = new parserModules.DomHandler();
+        streamingParser = {
+          parser: new parserModules.Parser(handler, {
+            decodeEntities: false,
+            lowerCaseAttributeNames: false,
+            lowerCaseTags: false,
+            recognizeSelfClosing: true
+          }),
+          handler,
+          write(chunk) {
+            this.parser.write(chunk);
+          },
+          serialize() {
+            return parserModules.render(this.handler.root.children, {
+              encodeEntities: false
+            });
+          }
+        };
+        prevCode = "";
+      }
+      const newChunk = code.substring(prevCode.length);
+      if (newChunk) {
+        streamingParser.write(newChunk);
+        prevCode = code;
+      }
+      let serialized = streamingParser.serialize();
+      if (serialized) {
+        if (stripScripts) {
+          serialized = serialized.replace(/<script[\s\S]*?<\/script>/gi, "");
+        }
+        if (shouldRender(serialized)) {
+          const tempContainer = container2.cloneNode(false);
+          tempContainer.innerHTML = serialized;
+          morphdomModule(container2, tempContainer, { childrenOnly: true });
+          markFirstRender2();
+        }
+      }
+    }
+    return { renderPartial };
+  }
+  window.createStreamingRenderer = createStreamingRenderer2;
+
+  // src/scripts/clipboard-copy.ts
+  var htmlToImage = null;
+  async function loadHtmlToImage() {
+    if (!htmlToImage) {
+      htmlToImage = await import("https://esm.sh/html-to-image@1.11.11");
+    }
+    return htmlToImage;
+  }
+  async function copyToClipboard2(_container) {
+    const lib = await loadHtmlToImage();
+    const target = document.body;
+    const width = target.scrollWidth || 700;
+    const height = target.scrollHeight || 400;
+    const blob = await lib.toBlob(target, {
+      pixelRatio: 2,
+      width,
+      height,
+      filter: (node) => !(node instanceof HTMLElement && (node.id === "action-btns" || node.id === "copy-toast"))
+    });
+    if (!blob) throw new Error("Failed to create PNG");
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    if (isSafari) {
+      await navigator.clipboard.write([
+        new ClipboardItem({ "image/png": Promise.resolve(blob) })
+      ]);
+    } else {
+      await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+    }
+  }
+  window.copyToClipboard = copyToClipboard2;
+
+  // src/scripts/host-init.ts
+  function initHostContext2(result) {
+    const hostContext = result.hostContext;
+    if (!hostContext) return;
+    const styles = hostContext.styles;
+    if (!styles) return;
+    const css = styles.css;
+    if (css?.fonts) {
+      const fontStyle = document.getElementById("mcp-host-fonts");
+      if (fontStyle) {
+        fontStyle.textContent = css.fonts;
+      }
+    }
+    const variables = styles.variables;
+    if (variables) {
+      const style = document.createElement("style");
+      style.id = "mcp-host-variables";
+      style.textContent = ":root {\n" + Object.entries(variables).map(([key, value]) => "  " + key + ": " + value + ";").join("\n") + "\n}";
+      document.head.appendChild(style);
+    }
+    applyHostStrings(hostContext._hostStrings);
+  }
+  function applyHostStrings(hostStrings) {
+    if (!hostStrings || typeof hostStrings !== "object") return;
+    const strings = hostStrings;
+    document.querySelectorAll("[data-i18n]").forEach((el) => {
+      const key = el.dataset.i18n;
+      const val = key ? strings[key] : void 0;
+      if (val && val.trim()) el.textContent = val;
+    });
+    window.__hostStrings = strings;
+  }
+  window.addEventListener("message", (event) => {
+    const data = event.data;
+    if (data?.method === "ui/notifications/host-context-changed") {
+      applyHostStrings(data.params?._hostStrings);
+    }
+  });
+  window.initHostContext = initHostContext2;
+
+  // src/scripts/send-prompt.ts
+  window.sendPrompt = function sendPrompt(text) {
+    app.sendRequest({
+      method: "ui/message",
+      params: { role: "user", content: [{ type: "text", text }] }
+    });
+  };
+
+  // src/scripts/elicitation.ts
+  var selectedFiles = /* @__PURE__ */ new Map();
+  var submittedKey;
+  var FADE_MS = 150;
+  function cssStringEscape(s) {
+    return s.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+  }
+  function fingerprint(s) {
+    let h = 5381;
+    for (let i = 0; i < s.length; i++) h = (h << 5) + h + s.charCodeAt(i) | 0;
+    return `elicit-submitted:${s.length}:${h.toString(36)}`;
+  }
+  function escapeHtml(s) {
+    const map = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    };
+    return s.replace(/[&<>"']/g, (c) => map[c]);
+  }
+  function renderFileTile(container2, name, file) {
+    const tile = document.createElement("div");
+    tile.className = "elicit-file-tile";
+    const dot = file.name.lastIndexOf(".");
+    const ext = dot > 0 && file.name.length - dot <= 6 ? file.name.slice(dot + 1).toUpperCase() : "FILE";
+    tile.innerHTML = `
+    <button type="button" class="remove" aria-label="Remove ${escapeHtml(file.name)}">\xD7</button>
+    <div class="name">${escapeHtml(file.name)}</div>
+    <div class="badge">${escapeHtml(ext)}</div>
+  `;
+    tile.querySelector(".remove")?.addEventListener("click", () => {
+      const list = selectedFiles.get(name);
+      if (list) {
+        const idx = list.indexOf(file);
+        if (idx >= 0) list.splice(idx, 1);
+      }
+      tile.remove();
+    });
+    container2.appendChild(tile);
+  }
+  function renderSubmittedSummary(form, answers, skipped) {
+    const summary = document.createElement("div");
+    summary.className = "elicit-summary";
+    const appendRow = (label, parts) => {
+      const row = document.createElement("div");
+      row.className = "elicit-summary-row";
+      if (label !== void 0) {
+        const q = document.createElement("span");
+        q.className = "elicit-summary-q";
+        q.textContent = label;
+        row.appendChild(q);
+      }
+      for (const part of parts) {
+        const a = document.createElement("span");
+        a.className = "elicit-summary-a";
+        a.textContent = part;
+        row.appendChild(a);
+      }
+      summary.appendChild(row);
+    };
+    const nonEmpty = (v) => {
+      if (v === void 0 || v === "") return void 0;
+      if (Array.isArray(v)) return v.length ? v.join(", ") : void 0;
+      return v;
+    };
+    if (skipped) {
+      appendRow(void 0, ["Skipped \u2014 proceeding with defaults."]);
+    } else {
+      const seen = /* @__PURE__ */ new Set();
+      form.querySelectorAll(".elicit-group").forEach((group) => {
+        const label = group.querySelector(".elicit-question")?.textContent?.trim();
+        const parts = [];
+        group.querySelectorAll("[data-name]").forEach((el) => {
+          const name = el.dataset.name;
+          if (!name || seen.has(name)) return;
+          seen.add(name);
+          const v = nonEmpty(answers[name]);
+          if (v !== void 0) parts.push(v);
+          const other = nonEmpty(answers[`${name}_other`]);
+          if (other !== void 0) {
+            seen.add(`${name}_other`);
+            parts.push(other);
+          }
+        });
+        if (parts.length) appendRow(label, parts);
+      });
+      for (const [name, value] of Object.entries(answers)) {
+        if (seen.has(name)) continue;
+        const v = nonEmpty(value);
+        if (v !== void 0) appendRow(name, [v]);
+      }
+      if (summary.childElementCount === 0) {
+        appendRow(void 0, ["Submitted with defaults."]);
+      }
+    }
+    form.querySelector(".elicit-body")?.replaceChildren(summary);
+  }
+  function wireElicitation() {
+    const form = document.querySelector("form.elicit");
+    if (!form) return;
+    selectedFiles.clear();
+    let submitted = false;
+    form.addEventListener("submit", (e) => e.preventDefault());
+    submittedKey = fingerprint(form.innerHTML);
+    try {
+      const stored = sessionStorage.getItem(submittedKey);
+      if (stored) {
+        form.classList.add("elicit-submitted", "elicit-restored");
+        const parsed = JSON.parse(stored);
+        if (parsed && typeof parsed === "object" && "answers" in parsed && "skipped" in parsed) {
+          renderSubmittedSummary(
+            form,
+            parsed.answers,
+            parsed.skipped
+          );
+        }
+        return;
+      }
+    } catch {
+    }
+    form.querySelectorAll(".elicit-pills").forEach((container2) => {
+      const isMulti = container2.dataset.multi === "true";
+      const name = container2.dataset.name;
+      container2.querySelectorAll(".elicit-pill").forEach((p) => p.setAttribute("aria-pressed", "false"));
+      container2.addEventListener("click", (e) => {
+        const pill = e.target.closest(
+          ".elicit-pill"
+        );
+        if (!pill) return;
+        if (!isMulti) {
+          container2.querySelectorAll(".elicit-pill[aria-pressed]").forEach((p) => {
+            if (p !== pill) p.setAttribute("aria-pressed", "false");
+          });
+        }
+        const nowSelected = pill.getAttribute("aria-pressed") !== "true";
+        pill.setAttribute("aria-pressed", String(nowSelected));
+        if (name) {
+          const otherInput = form.querySelector(
+            `.elicit-other[data-for="${cssStringEscape(name)}"]`
+          );
+          if (otherInput) {
+            const otherPillSelected = container2.querySelector(
+              '.elicit-pill[data-other][aria-pressed="true"]'
+            ) !== null;
+            otherInput.hidden = !otherPillSelected;
+            if (otherPillSelected) {
+              otherInput.focus();
+            }
+          }
+        }
+      });
+    });
+    form.querySelectorAll(".elicit-files[data-name]").forEach((container2) => {
+      const name = container2.dataset.name;
+      selectedFiles.set(name, []);
+      const dropzone = container2.querySelector(".elicit-dropzone");
+      const input = dropzone?.querySelector("input[type='file']");
+      if (!dropzone || !input) return;
+      if (dropzone.tagName !== "LABEL") {
+        dropzone.addEventListener("click", (e) => {
+          if (e.target === input) return;
+          input.click();
+        });
+      }
+      input.addEventListener("change", () => {
+        const files = Array.from(input.files ?? []);
+        for (const file of files) {
+          const entry = {
+            name: file.name,
+            size: file.size,
+            type: file.type,
+            raw: file
+          };
+          selectedFiles.get(name).push(entry);
+          renderFileTile(container2, name, entry);
+        }
+        input.value = "";
+      });
+    });
+    form.querySelector(".elicit-submit")?.addEventListener("click", () => {
+      if (submitted) return;
+      submitted = true;
+      window.submitElicitation(collectElicitAnswers());
+    });
+    form.querySelector(".elicit-skip")?.addEventListener("click", () => {
+      if (submitted) return;
+      submitted = true;
+      window.submitElicitation({}, { skipped: true });
+    });
+  }
+  function collectElicitAnswers() {
+    const form = document.querySelector("form.elicit");
+    if (!form) return {};
+    const answers = {};
+    form.querySelectorAll(".elicit-pills[data-name]").forEach((container2) => {
+      const name = container2.dataset.name;
+      const isMulti = container2.dataset.multi === "true";
+      const selected = Array.from(
+        container2.querySelectorAll(
+          ".elicit-pill[aria-pressed='true']"
+        )
+      ).map((p) => p.dataset.value ?? p.textContent?.trim() ?? "");
+      answers[name] = isMulti ? selected : selected[0] ?? "";
+      const otherInput = form.querySelector(
+        `.elicit-other[data-for="${cssStringEscape(name)}"]`
+      );
+      if (otherInput && !otherInput.hidden && otherInput.value.trim()) {
+        answers[`${name}_other`] = otherInput.value.trim();
+      }
+    });
+    for (const [name, files] of selectedFiles) {
+      if (files.length === 0) continue;
+      answers[name] = files.map((f) => `${f.name} (attached)`);
+    }
+    form.querySelectorAll(
+      "[data-name]:not(.elicit-pills):not(.elicit-other):not(.elicit-files)"
+    ).forEach((el) => {
+      const name = el.dataset.name;
+      if (name && el.value.trim()) {
+        answers[name] = el.value.trim();
+      }
+    });
+    return answers;
+  }
+  window.submitElicitation = function submitElicitation(answers, options = {}) {
+    const skipped = options.skipped ?? false;
+    const form = document.querySelector("form.elicit");
+    const title = form?.querySelector(".elicit-header > span")?.textContent?.trim();
+    if (form) {
+      form.classList.add("elicit-transitioning");
+      const swap = () => {
+        if (!form.isConnected) return;
+        form.classList.add("elicit-submitted");
+        renderSubmittedSummary(form, answers, skipped);
+        form.classList.remove("elicit-transitioning");
+      };
+      setTimeout(swap, FADE_MS);
+    }
+    const persistSubmitted = () => {
+      if (!submittedKey) return;
+      try {
+        sessionStorage.setItem(
+          submittedKey,
+          JSON.stringify({ answers, skipped })
+        );
+      } catch {
+        try {
+          sessionStorage.setItem(submittedKey, "1");
+        } catch {
+        }
+      }
+    };
+    if (skipped) {
+      window.sendPrompt(
+        "(Skipped the form \u2014 proceed with defaults or ask me in plain text)"
+      );
+      persistSubmitted();
+      return;
+    }
+    const rawFiles = [];
+    for (const list of selectedFiles.values()) {
+      for (const f of list) rawFiles.push(f.raw);
+    }
+    const humanizeKey = (k) => {
+      let suffix = "";
+      if (k.endsWith("_other")) {
+        k = k.slice(0, -"_other".length);
+        suffix = " (other)";
+      } else if (k.endsWith("_file")) {
+        k = k.slice(0, -"_file".length);
+        suffix = " file";
+      } else if (k.endsWith("_text")) {
+        k = k.slice(0, -"_text".length);
+      }
+      const words = k.replace(/_/g, " ");
+      return words.charAt(0).toUpperCase() + words.slice(1) + suffix;
+    };
+    const FOLD_AT = 200;
+    const prefix = title ? `${title} \u2014 ` : "";
+    const pairs = [];
+    const folds = [];
+    for (const [k, v] of Object.entries(answers)) {
+      if (v === "" || Array.isArray(v) && v.length === 0) continue;
+      const raw = Array.isArray(v) ? v.join(", ") : v;
+      const label = humanizeKey(k);
+      if (raw.length > FOLD_AT) {
+        pairs.push(`${label}: (${raw.length} chars \u2014 see below)`);
+        folds.push(`[${label}]
+${raw}`);
+      } else {
+        const flat = raw.replace(/\r?\n/g, " / ");
+        const value = flat.length > 80 ? `"${flat}"` : flat;
+        pairs.push(`${label}: ${value}`);
+      }
+    }
+    let payload = pairs.length === 0 ? `${prefix}proceeding with defaults.` : `${prefix}${pairs.join(" \xB7 ")}`;
+    if (folds.length > 0) {
+      payload += `
+
+--- Full content ---
+${folds.join("\n\n")}`;
+    }
+    if (rawFiles.length > 0) {
+      window.parent.postMessage(
+        { type: "anthropic:elicit-submit", text: payload, files: rawFiles },
+        "*"
+      );
+    } else {
+      window.sendPrompt(payload);
+      persistSubmitted();
+    }
+  };
+  window.collectElicitAnswers = collectElicitAnswers;
+  window._wireElicitation = wireElicitation;
+
+  // src/scripts/open-link.ts
+  window.openLink = function openLink(url) {
+    return app.sendRequest({
+      method: "ui/open-link",
+      params: { url }
+    });
+  };
+  document.getElementById("vis-container").addEventListener("click", (e) => {
+    const anchor = e.target?.closest?.("a[href]");
+    if (!anchor) return;
+    const href = anchor.getAttribute("href");
+    if (!href) return;
+    if (href.startsWith("#") || href.startsWith("javascript:")) return;
+    let url;
+    try {
+      url = new URL(href, window.location.href).href;
+    } catch {
+      return;
+    }
+    if (!/^https?:/.test(url)) return;
+    e.preventDefault();
+    window.openLink(url);
+  });
+
+  // src/scripts/svg-text-occlusion.ts
+  function fixSvgTextOcclusion2(container2) {
+    try {
+      const svg = container2.querySelector("svg");
+      if (!svg) return;
+      const NS = "http://www.w3.org/2000/svg";
+      const PAD_X = 4;
+      const PAD_Y = 2;
+      const MIN_CONNECTOR_LEN = 15;
+      const textRects = [];
+      svg.querySelectorAll("text").forEach((t) => {
+        if (t.closest("defs, mask, clipPath, marker")) return;
+        try {
+          const bb = t.getBBox();
+          if (bb.width < 1 || bb.height < 1) return;
+          textRects.push({
+            x: bb.x - PAD_X,
+            y: bb.y - PAD_Y,
+            w: bb.width + 2 * PAD_X,
+            h: bb.height + 2 * PAD_Y
+          });
+        } catch {
+        }
+      });
+      if (!textRects.length) return;
+      const candidates = [];
+      svg.querySelectorAll("line, path, polyline").forEach((el) => {
+        if (el.closest("defs, mask, clipPath, marker")) return;
+        if (el.tagName.toLowerCase() === "path") {
+          const fill = el.getAttribute("fill") || getComputedStyle(el).fill;
+          if (fill && fill !== "none" && fill !== "transparent" && !/^rgba\([^)]*,\s*0\)$/.test(fill))
+            return;
+        }
+        const geom = el;
+        try {
+          const len = geom.getTotalLength();
+          if (len < MIN_CONNECTOR_LEN) return;
+          candidates.push({ el: geom, len });
+        } catch {
+        }
+      });
+      if (!candidates.length) return;
+      const inRect = (px, py, r) => px >= r.x && px <= r.x + r.w && py >= r.y && py <= r.y + r.h;
+      const intersecting = [];
+      for (const { el, len } of candidates) {
+        const step = Math.max(2, len / 80);
+        let hit = false;
+        for (let d = 0; d <= len && !hit; d += step) {
+          const pt = el.getPointAtLength(d);
+          for (const r of textRects) {
+            if (inRect(pt.x, pt.y, r)) {
+              hit = true;
+              break;
+            }
+          }
+        }
+        if (hit) intersecting.push(el);
+      }
+      if (!intersecting.length) return;
+      let defs = svg.querySelector(":scope > defs");
+      if (!defs) {
+        defs = document.createElementNS(NS, "defs");
+        svg.insertBefore(defs, svg.firstChild);
+      }
+      const maskId = `imagine-text-gaps-${Math.random().toString(36).slice(2, 8)}`;
+      const mask = document.createElementNS(NS, "mask");
+      mask.setAttribute("id", maskId);
+      mask.setAttribute("maskUnits", "userSpaceOnUse");
+      const vb = (svg.getAttribute("viewBox") || "").trim().split(/[\s,]+/).map(Number);
+      const [vx, vy, vw, vh] = vb.length === 4 && vb.every((n) => Number.isFinite(n)) ? vb : (() => {
+        const bb = svg.getBBox();
+        return [bb.x, bb.y, bb.width, bb.height];
+      })();
+      const bg = document.createElementNS(NS, "rect");
+      bg.setAttribute("x", String(vx));
+      bg.setAttribute("y", String(vy));
+      bg.setAttribute("width", String(vw));
+      bg.setAttribute("height", String(vh));
+      bg.setAttribute("fill", "white");
+      mask.appendChild(bg);
+      for (const r of textRects) {
+        const hole = document.createElementNS(NS, "rect");
+        hole.setAttribute("x", String(r.x));
+        hole.setAttribute("y", String(r.y));
+        hole.setAttribute("width", String(r.w));
+        hole.setAttribute("height", String(r.h));
+        hole.setAttribute("fill", "black");
+        hole.setAttribute("rx", "2");
+        mask.appendChild(hole);
+      }
+      defs.appendChild(mask);
+      for (const el of intersecting) {
+        el.setAttribute("mask", `url(#${maskId})`);
+      }
+    } catch {
+    }
+  }
+  window.fixSvgTextOcclusion = fixSvgTextOcclusion2;
+
+  // src/scripts/svg-clip-fix.ts
+  function fixSvgClipping2(container2) {
+    try {
+      const svg = container2.querySelector("svg");
+      if (!svg) return;
+      const vb = svg.getAttribute("viewBox");
+      if (!vb) return;
+      const [vbX, vbY, vbW, vbH] = vb.split(/[\s,]+/).map(Number);
+      if (![vbX, vbY, vbW, vbH].every(Number.isFinite)) return;
+      if (vbW < 100 || vbH < 100) return;
+      let maxX = -Infinity;
+      let maxY = -Infinity;
+      svg.querySelectorAll(
+        ":scope > :not(defs):not(style):not(title):not(desc):not(metadata)"
+      ).forEach((el) => {
+        try {
+          const bb = el.getBBox();
+          if (bb.width < 0.5 && bb.height < 0.5) return;
+          maxX = Math.max(maxX, bb.x + bb.width);
+          maxY = Math.max(maxY, bb.y + bb.height);
+        } catch {
+        }
+      });
+      const PAD = 10;
+      const vbRight = vbX + vbW;
+      const vbBottom = vbY + vbH;
+      let newW = vbW;
+      if (maxX !== -Infinity && maxX + PAD > vbRight + 1) {
+        newW = maxX + PAD - vbX;
+      }
+      let newH = vbH;
+      if (maxY !== -Infinity && maxY + PAD > vbBottom + 1) {
+        newH = maxY + PAD - vbY;
+      }
+      if (newW !== vbW || newH !== vbH) {
+        svg.setAttribute(
+          "viewBox",
+          `${vbX} ${vbY} ${round(newW)} ${round(newH)}`
+        );
+        const hAttr = svg.getAttribute("height");
+        if (hAttr && newH !== vbH) {
+          const px = parseFloat(hAttr);
+          if (Number.isFinite(px)) {
+            svg.setAttribute("height", String(round(px * (newH / vbH))));
+          }
+        }
+      }
+      svg.style.maxWidth = `${round(newW)}px`;
+      svg.style.display = "block";
+      svg.style.marginInline = "auto";
+    } catch {
+    }
+  }
+  function round(n) {
+    return Math.round(n * 100) / 100;
+  }
+  globalThis.fixSvgClipping = fixSvgClipping2;
+
+  // src/scripts/svg-text-edge-fix.ts
+  function fixSvgTextEdgeClip2(container2) {
+    try {
+      const svg = container2.querySelector("svg");
+      if (!svg) return;
+      const vb = svg.getAttribute("viewBox");
+      if (!vb) return;
+      const [vbX, , vbW] = vb.split(/[\s,]+/).map(Number);
+      if (!Number.isFinite(vbX) || !Number.isFinite(vbW)) return;
+      const vbRight = vbX + vbW;
+      const byKey = /* @__PURE__ */ new Map();
+      svg.querySelectorAll("text").forEach((text) => {
+        if (text.closest("svg") !== svg) return;
+        if (text.closest("g[transform]")) return;
+        if (text.hasAttribute("transform")) return;
+        if (text.querySelector("tspan[x]")) return;
+        const p = text.parentElement;
+        if (p && p !== svg) {
+          const hasBox = Array.from(
+            p.querySelectorAll(
+              ":scope > rect, :scope > circle, :scope > ellipse"
+            )
+          ).some((shape) => {
+            try {
+              return shape.getBBox().width > 10;
+            } catch {
+              return true;
+            }
+          });
+          if (hasBox) return;
+        }
+        const anchor = text.getAttribute("text-anchor") || getComputedStyle(text).textAnchor || "start";
+        if (anchor !== "start" && anchor !== "end") return;
+        let bb;
+        try {
+          bb = text.getBBox();
+        } catch {
+          return;
+        }
+        if (bb.width < 1) return;
+        const xAttr = text.getAttribute("x");
+        if (!xAttr || /[\s,]/.test(xAttr)) return;
+        const x = parseFloat(xAttr);
+        if (!Number.isFinite(x)) return;
+        const overflow = anchor === "start" ? bb.x + bb.width - vbRight : vbX - bb.x;
+        const key = `${anchor}:${x}`;
+        const group = byKey.get(key) ?? [];
+        group.push({ text, x, anchor, overflow, width: bb.width });
+        byKey.set(key, group);
+      });
+      byKey.forEach((group) => {
+        const overflowing = group.filter((g) => g.overflow > 2);
+        if (!overflowing.length) return;
+        const worst = overflowing.reduce(
+          (a, b) => a.overflow > b.overflow ? a : b
+        );
+        if (worst.overflow > worst.width * 0.5) return;
+        const shift = group[0].anchor === "start" ? -worst.overflow : worst.overflow;
+        group.forEach(
+          ({ text, x }) => text.setAttribute("x", String(round2(x + shift)))
+        );
+      });
+    } catch {
+    }
+  }
+  function round2(n) {
+    return Math.round(n * 100) / 100;
+  }
+  globalThis.fixSvgTextEdgeClip = fixSvgTextEdgeClip2;
+
+  // src/scripts/widget-main.ts
+  var IMPLEMENTATION = { name: "visualize widget", version: "1.0.0" };
+  var container = document.getElementById("vis-container");
+  var isSvgCode = (code) => code.trimStart().startsWith("<svg");
+  var hasSvgVisuals = (code) => code && /<(rect|circle|ellipse|line|polyline|polygon|path|text|image|use|g|foreignObject)[\s>]/i.test(
+    code.replace(/<style[\s\S]*?<\/style>/gi, "").replace(/<defs[\s\S]*?<\/defs>/gi, "")
+  );
+  var hasHtmlVisuals = (code) => code && code.replace(/<style[\s\S]*?<\/style>/gi, "").replace(/<script[\s\S]*?<\/script>/gi, "").replace(/<!--[\s\S]*?-->/g, "").trim().length > 0;
+  var executeScripts = async () => {
+    const scripts = Array.from(container.querySelectorAll("script"));
+    for (const oldScript of scripts) {
+      const newScript = document.createElement("script");
+      Array.from(oldScript.attributes).forEach(
+        (attr) => newScript.setAttribute(attr.name, attr.value)
+      );
+      newScript.textContent = oldScript.textContent;
+      const hasSrc = newScript.hasAttribute("src");
+      const loaded = hasSrc ? new Promise((resolve) => {
+        newScript.onload = () => resolve();
+        newScript.onerror = () => resolve();
+      }) : Promise.resolve();
+      oldScript.parentNode?.replaceChild(newScript, oldScript);
+      await loaded;
+    }
+  };
+  var vizTitle = "visualize";
+  var iframeStartTime = performance.now();
+  var firstRenderSent = false;
+  var sendTiming = (event) => app.sendNotification({
+    method: "notifications/message",
+    params: {
+      level: "info",
+      logger: `viz:timing:${event}`,
+      data: { iframe_ms: Math.round(performance.now() - iframeStartTime) }
+    }
+  });
+  var sendAction = (action) => app.sendNotification({
+    method: "notifications/message",
+    params: { level: "info", logger: `viz:action:${action}`, data: { action } }
+  });
+  var markFirstRender = () => {
+    if (!firstRenderSent) {
+      firstRenderSent = true;
+      sendTiming("firstrender");
+    }
+  };
+  var svgRenderer = createStreamingRenderer({
+    widgetName: "VisualizeWidget-SVG",
+    shouldRender: hasSvgVisuals,
+    onFirstRender: markFirstRender
+  });
+  var htmlRenderer = createStreamingRenderer({
+    widgetName: "VisualizeWidget-HTML",
+    stripScripts: true,
+    shouldRender: hasHtmlVisuals,
+    onFirstRender: markFirstRender
+  });
+  var renderFinal = async (code) => {
+    container.classList.remove("streaming");
+    if (isSvgCode(code)) {
+      if (hasSvgVisuals(code)) {
+        container.innerHTML = code;
+        markFirstRender();
+        fixSvgTextEdgeClip(container);
+        fixSvgClipping(container);
+        fixSvgTextOcclusion(container);
+      }
+    } else {
+      if (hasHtmlVisuals(code)) {
+        container.innerHTML = code;
+        markFirstRender();
+        await executeScripts();
+        container.classList.remove("scripts-loading");
+        window._wireElicitation();
+        fixSvgTextEdgeClip(container);
+        fixSvgClipping(container);
+        fixSvgTextOcclusion(container);
+      }
+    }
+    window.dispatchEvent(
+      new CustomEvent("viz:complete", {
+        detail: { code, title: vizTitle }
+      })
+    );
+    sendTiming("complete");
+  };
+  var renderPartialCode = (code) => {
+    container.classList.add("streaming");
+    if (isSvgCode(code)) {
+      void svgRenderer.renderPartial(container, code);
+    } else {
+      void htmlRenderer.renderPartial(container, code);
+      if (code.includes("<script") && hasHtmlVisuals(code)) {
+        container.classList.add("scripts-loading");
+      }
+    }
+  };
+  var nextRequestId = 1;
+  async function connectToHost() {
+    try {
+      window.addEventListener("message", (event) => {
+        try {
+          const data = event.data;
+          if (data && data.jsonrpc === "2.0") {
+            if (data.id === 1 && data.result) {
+              initHostContext(data.result);
+              window.parent.postMessage(
+                {
+                  jsonrpc: "2.0",
+                  method: "ui/notifications/initialized",
+                  params: {}
+                },
+                "*"
+              );
+            }
+          }
+        } catch (err) {
+          console.error("[VisualizeWidget] Error handling message:", err);
+        }
+      });
+      app.onNotification("ui/notifications/tool-input-partial", (params) => {
+        const args = params?.arguments ?? {};
+        if (typeof args.title === "string" && args.title) vizTitle = args.title;
+        const code = args.widget_code ?? args.code;
+        if (code) renderPartialCode(code);
+      });
+      app.onNotification("ui/notifications/tool-input", (params) => {
+        const args = params?.arguments ?? {};
+        if (typeof args.title === "string" && args.title) vizTitle = args.title;
+        const code = args.widget_code ?? args.code;
+        if (code) {
+          void renderFinal(code);
+          if (!document.querySelector("form.elicit")) {
+            document.getElementById("action-btns")?.removeAttribute("hidden");
+          }
+        }
+      });
+      window.parent.postMessage(
+        {
+          jsonrpc: "2.0",
+          id: nextRequestId++,
+          method: "ui/initialize",
+          params: {
+            protocolVersion: "2025-11-21",
+            appInfo: IMPLEMENTATION,
+            appCapabilities: {}
+          }
+        },
+        "*"
+      );
+      app.setupAutoResize();
+      const hostStr = (key) => {
+        const s = window.__hostStrings;
+        const v = s?.[key];
+        return v && v.trim() ? v : void 0;
+      };
+      const FREEZE_PROPS = [
+        "fill",
+        "stroke",
+        "color",
+        "stroke-width",
+        "stroke-dasharray",
+        "stroke-linecap",
+        "stroke-linejoin",
+        "opacity",
+        "font-family",
+        "font-size",
+        "font-weight",
+        "font-style",
+        "text-anchor",
+        "dominant-baseline"
+      ];
+      const freezeSvgForDownload = () => {
+        const live = container.querySelector("svg");
+        if (!live) return null;
+        const clone = live.cloneNode(true);
+        if (!clone.hasAttribute("xmlns")) {
+          clone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+        }
+        clone.style.removeProperty("max-width");
+        clone.style.removeProperty("display");
+        clone.style.removeProperty("margin-inline");
+        const liveEls = live.querySelectorAll("*");
+        const cloneEls = clone.querySelectorAll("*");
+        for (let i = 0; i < liveEls.length; i++) {
+          const el = liveEls[i];
+          const out = cloneEls[i];
+          if (el.closest("defs, marker, mask, clipPath, pattern, symbol")) {
+            continue;
+          }
+          const cs = getComputedStyle(el);
+          const decls = [];
+          for (const p of FREEZE_PROPS) {
+            const v = cs.getPropertyValue(p);
+            if (!v) continue;
+            if (v.startsWith("url(")) continue;
+            if (v === "normal") continue;
+            if (v === "none" && p === "stroke-dasharray") continue;
+            decls.push(`${p}:${v}`);
+          }
+          if (decls.length) {
+            const existing = out.getAttribute("style");
+            out.setAttribute(
+              "style",
+              existing ? `${existing};${decls.join(";")}` : decls.join(";")
+            );
+          }
+          out.removeAttribute("class");
+        }
+        clone.querySelectorAll("style, script").forEach((n) => n.remove());
+        return new XMLSerializer().serializeToString(clone);
+      };
+      const downloadBtn = document.getElementById("download-btn");
+      const downloadIconEl = document.getElementById("download-icon");
+      const downloadLabelEl = downloadBtn?.querySelector(".more-item-label");
+      const downloadIcon = '<svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M16.5 13C16.7761 13 17 13.2239 17 13.5V15.5C17 16.3284 16.3284 17 15.5 17H4.5C3.67157 17 3 16.3284 3 15.5V13.5C3 13.2239 3.22386 13 3.5 13C3.77614 13 4 13.2239 4 13.5V15.5C4 15.7761 4.22386 16 4.5 16H15.5C15.7761 16 16 15.7761 16 15.5V13.5C16 13.2239 16.2239 13 16.5 13ZM10 3C10.2761 3 10.5 3.22386 10.5 3.5V12.1855L13.626 8.66797C13.8094 8.46166 14.1256 8.44275 14.332 8.62598C14.5383 8.80936 14.5573 9.12563 14.374 9.33203L10.374 13.832L10.2949 13.9033C10.21 13.9654 10.107 14 10 14C9.85718 14 9.72086 13.9388 9.62598 13.832L5.62598 9.33203L5.56738 9.25C5.45079 9.04872 5.48735 8.78653 5.66797 8.62598C5.84854 8.46567 6.1127 8.46039 6.29883 8.59961L6.37402 8.66797L9.5 12.1855V3.5C9.5 3.22386 9.72386 3 10 3Z"/></svg>';
+      const downloadCheckIcon = '<svg width="20" height="20" viewBox="0 0 20 20" fill="var(--color-text-success, #265b19)"><path d="M15.1883 5.10908C15.3699 4.96398 15.6346 4.96153 15.8202 5.11592C16.0056 5.27067 16.0504 5.53125 15.9403 5.73605L15.8836 5.82003L8.38354 14.8202C8.29361 14.9279 8.16242 14.9925 8.02221 14.9989C7.88203 15.0051 7.74545 14.9526 7.64622 14.8534L4.14617 11.3533L4.08172 11.2752C3.95384 11.0811 3.97542 10.817 4.14617 10.6463C4.31693 10.4755 4.58105 10.4539 4.77509 10.5818L4.85321 10.6463L7.96556 13.7586L15.1161 5.1794L15.1883 5.10908Z"/></svg>';
+      if (downloadIconEl) downloadIconEl.innerHTML = downloadIcon;
+      window.addEventListener("viz:complete", (ev) => {
+        const detail = ev.detail;
+        const code = detail?.code;
+        const title = detail?.title || "visualize";
+        if (!code || !downloadBtn || !downloadIconEl || !downloadLabelEl) return;
+        const isSvg = code.trimStart().startsWith("<svg");
+        const ext = isSvg ? "svg" : "html";
+        const mime = isSvg ? "image/svg+xml" : "text/html";
+        downloadBtn.onclick = async () => {
+          try {
+            sendAction("download");
+            const res = await app.sendRequest({
+              method: "ui/download-file",
+              params: {
+                contents: [
+                  {
+                    type: "resource",
+                    resource: {
+                      uri: `file:///${title}.${ext}`,
+                      mimeType: mime,
+                      text: isSvg ? freezeSvgForDownload() ?? code : code
+                    }
+                  }
+                ]
+              }
+            });
+            if (!res?.isError) {
+              const restore = downloadLabelEl.textContent;
+              downloadIconEl.innerHTML = downloadCheckIcon;
+              downloadLabelEl.textContent = hostStr("grabDone") ?? "Downloaded";
+              setTimeout(() => {
+                downloadIconEl.innerHTML = downloadIcon;
+                downloadLabelEl.textContent = restore;
+              }, 1500);
+            }
+          } catch {
+          }
+        };
+      });
+      const copyBtn = document.getElementById("copy-btn");
+      const copyIconEl = document.getElementById("copy-icon");
+      const copyLabelEl = copyBtn?.querySelector(".more-item-label");
+      const copyIcon = '<svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M12.5 3C13.3284 3 14 3.67157 14 4.5V6H15.5C16.3284 6 17 6.67157 17 7.5V15.5C17 16.3284 16.3284 17 15.5 17H7.5C6.67157 17 6 16.3284 6 15.5V14H4.5C3.67157 14 3 13.3284 3 12.5V4.5C3 3.67157 3.67157 3 4.5 3H12.5ZM14 12.5C14 13.3284 13.3284 14 12.5 14H7V15.5C7 15.7761 7.22386 16 7.5 16H15.5C15.7761 16 16 15.7761 16 15.5V7.5C16 7.22386 15.7761 7 15.5 7H14V12.5ZM4.5 4C4.22386 4 4 4.22386 4 4.5V12.5C4 12.7761 4.22386 13 4.5 13H12.5C12.7761 13 13 12.7761 13 12.5V4.5C13 4.22386 12.7761 4 12.5 4H4.5Z"/></svg>';
+      const copyCheckIcon = '<svg width="20" height="20" viewBox="0 0 20 20" fill="var(--color-text-success, #265b19)"><path d="M15.1883 5.10908C15.3699 4.96398 15.6346 4.96153 15.8202 5.11592C16.0056 5.27067 16.0504 5.53125 15.9403 5.73605L15.8836 5.82003L8.38354 14.8202C8.29361 14.9279 8.16242 14.9925 8.02221 14.9989C7.88203 15.0051 7.74545 14.9526 7.64622 14.8534L4.14617 11.3533L4.08172 11.2752C3.95384 11.0811 3.97542 10.817 4.14617 10.6463C4.31693 10.4755 4.58105 10.4539 4.77509 10.5818L4.85321 10.6463L7.96556 13.7586L15.1161 5.1794L15.1883 5.10908Z"/></svg>';
+      if (copyIconEl) copyIconEl.innerHTML = copyIcon;
+      if (copyBtn && copyIconEl && copyLabelEl) {
+        copyBtn.onclick = async () => {
+          try {
+            sendAction("copy");
+            await copyToClipboard(container);
+            const restore = copyLabelEl.textContent;
+            copyIconEl.innerHTML = copyCheckIcon;
+            copyLabelEl.textContent = hostStr("clipDone") ?? "Copied";
+            setTimeout(() => {
+              copyIconEl.innerHTML = copyIcon;
+              copyLabelEl.textContent = restore;
+            }, 1500);
+          } catch (_err) {
+            const toast = document.getElementById("copy-toast");
+            toast.textContent = "Copy failed \u2014 try from claude.ai in browser";
+            toast.classList.add("visible");
+            setTimeout(() => toast.classList.remove("visible"), 3e3);
+          }
+        };
+      }
+    } catch (err) {
+      console.error("[VisualizeWidget] Failed to connect:", err);
+    }
+  }
+  connectToHost();
+})();
+
+  </script>
+
+</body></html>

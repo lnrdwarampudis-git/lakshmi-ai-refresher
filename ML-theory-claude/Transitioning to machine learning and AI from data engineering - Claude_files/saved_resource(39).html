@@ -1,0 +1,3276 @@
+<!DOCTYPE html>
+<!-- saved from url=(0357)https://2302c1fa0c5ed127688374cff3325afc.claudemcpcontent.com/mcp_apps?connect-src=https%3A%2F%2Fesm.sh+https%3A%2F%2Fcdnjs.cloudflare.com+https%3A%2F%2Fcdn.jsdelivr.net+https%3A%2F%2Funpkg.com&resource-src=https%3A%2F%2Fesm.sh+https%3A%2F%2Fcdnjs.cloudflare.com+https%3A%2F%2Fcdn.jsdelivr.net+https%3A%2F%2Funpkg.com+https%3A%2F%2Fassets.claude.ai&dev=true -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visualize Widget</title>
+  <style id="mcp-host-fonts">
+@font-face {
+  font-family: "Anthropic Sans";
+  src: url("https://assets.claude.ai/Fonts/AnthropicSans-Text-Regular-Static.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Sans";
+  src: url("https://assets.claude.ai/Fonts/AnthropicSans-Text-RegularItalic-Static.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Sans";
+  src: url("https://assets.claude.ai/Fonts/AnthropicSans-Text-Medium-Static.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Sans";
+  src: url("https://assets.claude.ai/Fonts/AnthropicSans-Text-MediumItalic-Static.otf") format("opentype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Sans";
+  src: url("https://assets.claude.ai/Fonts/AnthropicSans-Text-Semibold-Static.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Sans";
+  src: url("https://assets.claude.ai/Fonts/AnthropicSans-Text-SemiboldItalic-Static.otf") format("opentype");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Sans";
+  src: url("https://assets.claude.ai/Fonts/AnthropicSans-Text-Bold-Static.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Sans";
+  src: url("https://assets.claude.ai/Fonts/AnthropicSans-Text-BoldItalic-Static.otf") format("opentype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+</style>
+  <style>@font-face {
+  font-family: "Anthropic Serif";
+  src: url("https://assets.claude.ai/Fonts/AnthropicSerif-Text-Regular-Static.otf")
+    format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Serif";
+  src: url("https://assets.claude.ai/Fonts/AnthropicSerif-Text-RegularItalic-Static.otf")
+    format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Serif";
+  src: url("https://assets.claude.ai/Fonts/AnthropicSerif-Text-Medium-Static.otf")
+    format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Serif";
+  src: url("https://assets.claude.ai/Fonts/AnthropicSerif-Text-MediumItalic-Static.otf")
+    format("opentype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Serif";
+  src: url("https://assets.claude.ai/Fonts/AnthropicSerif-Text-Semibold-Static.otf")
+    format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Serif";
+  src: url("https://assets.claude.ai/Fonts/AnthropicSerif-Text-SemiboldItalic-Static.otf")
+    format("opentype");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Serif";
+  src: url("https://assets.claude.ai/Fonts/AnthropicSerif-Text-Bold-Static.otf")
+    format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Serif";
+  src: url("https://assets.claude.ai/Fonts/AnthropicSerif-Text-BoldItalic-Static.otf")
+    format("opentype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}</style>
+  <style>:root {
+  color-scheme: light dark;
+  --font-serif: "Anthropic Serif", Georgia, "Times New Roman", serif;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+input,
+select,
+textarea,
+button {
+  font-family: inherit;
+}
+body {
+  font-family:
+    "Anthropic Sans",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  background: transparent;
+}
+/* Iframe height is externally managed — host sets iframe.style.height to
+ * match body.getBoundingClientRect().height via postMessage. During the
+ * 1-frame lag (and the 0.25s initial transition), body > viewport triggers
+ * a transient scrollbar that steals ~15px width, reflowing flex content.
+ * Zero-width scrollbar = zero layout shift. Wheel/keyboard scroll still
+ * work if ever needed. */
+html,
+body {
+  scrollbar-width: none;
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+/* Short var aliases — saves ~5 tokens per reference */
+:root {
+  --p: var(--color-text-primary);
+  --s: var(--color-text-secondary);
+  --t: var(--color-text-tertiary);
+  --bg2: var(--color-background-secondary);
+  --b: var(--color-border-secondary);
+}
+
+/* SVG utility classes — use class="t" instead of repeating font/fill attrs */
+.t {
+  font-size: 14px;
+  fill: var(--p);
+}
+.ts {
+  font-size: 12px;
+  fill: var(--s);
+}
+.th {
+  font-size: 14px;
+  fill: var(--p);
+  font-weight: 500;
+}
+.box {
+  fill: var(--bg2);
+  stroke: var(--b);
+}
+.arr {
+  stroke: var(--t);
+  fill: none;
+  stroke-width: 1.5;
+}
+.node {
+  cursor: pointer;
+}
+.node:hover rect,
+.node:hover .box {
+  filter: brightness(0.97);
+}
+.node:hover text {
+  opacity: 0.8;
+}
+
+/* Form element defaults — model writes bare <input>, styling is automatic */
+/* :not(form.elicit *) — elicitation form provides its own
+ * input/button styling at (0,1,0). Without this exclusion, these
+ * generic rules at (0,3,1) / (1,0,2) clobber every .elicit-* class. */
+input:not([type="range"]):not([type="checkbox"]):not([type="radio"]):not(
+    form.elicit *
+  ),
+select:not(form.elicit *),
+textarea:not(form.elicit *) {
+  width: 100%;
+  height: 36px;
+  padding: 8px 12px;
+  font-size: 16px;
+  background: var(--color-background-primary);
+  color: var(--color-text-primary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: 6px;
+  outline: none;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+textarea {
+  height: auto;
+  min-height: 80px;
+  resize: vertical;
+}
+input:not([type="range"]):not([type="checkbox"]):not([type="radio"]):not(
+    form.elicit *
+  ):hover,
+select:not(form.elicit *):hover,
+textarea:not(form.elicit *):hover {
+  border-color: var(--color-border-secondary);
+}
+input:not([type="range"]):not([type="checkbox"]):not([type="radio"]):not(
+    form.elicit *
+  ):focus,
+select:not(form.elicit *):focus,
+textarea:not(form.elicit *):focus {
+  border-color: var(--color-border-info);
+  box-shadow: 0 0 0 3px var(--color-background-info);
+}
+select {
+  cursor: pointer;
+}
+
+/* Range slider — model writes bare <input type="range">, styling automatic */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  background: light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.1));
+  border-radius: 2px;
+  outline: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-background-primary);
+  border: 1px solid var(--color-border-secondary);
+  cursor: pointer;
+  transition:
+    border-color 0.15s,
+    transform 0.15s;
+}
+input[type="range"]:hover::-webkit-slider-thumb {
+  border-color: var(--color-border-primary);
+  transform: scale(1.1);
+}
+input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-background-primary);
+  border: 1px solid var(--color-border-secondary);
+  cursor: pointer;
+}
+
+/* Button defaults — model writes bare <button>, interaction states automatic */
+button:not(#action-btns button):not(form.elicit button) {
+  padding: 8px 16px;
+  font-size: 14px;
+  background: transparent;
+  color: var(--color-text-primary);
+  border: 0.5px solid var(--color-border-secondary);
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    transform 0.1s;
+}
+button:not(#action-btns button):not(form.elicit button):hover {
+  background: var(--color-background-secondary);
+}
+button:not(#action-btns button):not(form.elicit button):active {
+  background: var(--color-border-tertiary);
+  transform: scale(0.98);
+}
+
+/* ===== Elicitation form — EA-878 =====
+ * Inert unless Claude writes <form class="elicit">.
+ * Figma: AaGSDTRrOCNVhNa7LZaJVr node 5340:3930
+ * Conversational question prompts ("Which side are you on?"),
+ * pills for all choices.
+ */
+
+form.elicit {
+  background: var(--color-background-primary, #fff);
+  border: 0.5px solid var(--color-border-tertiary, rgba(31, 30, 29, 0.15));
+  border-radius: 16px;
+  /* Figma 5340:3930 — soft diffuse shadow, lighter than DS --shadow-md.
+   * Margin keeps the shadow from clipping at #vis-container's overflow:hidden
+   * edge: y-offset 4px + blur 20px ≈ 24px below, 20px sides. */
+  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.04);
+  margin: 4px 20px 24px;
+  overflow: hidden;
+  /* font-base = 14/1.4 sans — descendants inherit; only .elicit-question
+   * (serif 16/1.7), .name (12), .badge (9) override. */
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 14px;
+  line-height: 1.4;
+  /* Match host rendering — without this the iframe uses subpixel AA and
+   * everything (notably weight-500 buttons) reads ~100 heavier on Retina
+   * than the same tokens outside the iframe. */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Chrome props animate on the form→submitted-summary swap. */
+  transition:
+    background-color 200ms ease-out,
+    box-shadow 200ms ease-out,
+    border-radius 200ms ease-out,
+    padding 200ms ease-out,
+    margin 200ms ease-out;
+  /* Shared FileThumbnail tokens (border-border-300/25, shadow-sm/5). */
+  --elicit-border-faint: color-mix(
+    in srgb,
+    var(--color-border-tertiary, rgba(31, 30, 29, 0.15)) 25%,
+    transparent
+  );
+  --elicit-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+/* Form controls don't inherit font props from the UA sheet — pull from root.
+ * `font: inherit` shorthand so font-weight comes too; the individual-prop
+ * version left weight at the UA <button> default (bold-ish on some
+ * platforms) for any control that doesn't set its own weight. */
+form.elicit :is(button, input, textarea) {
+  font: inherit;
+}
+
+/* Header title and question prompts share Claude's chat-output voice
+ * (p.font-claude-response-body = Anthropic Serif 16 / 400 / 1.7) so both
+ * read as Claude speaking, not form chrome. */
+form.elicit .elicit-header,
+form.elicit .elicit-question {
+  font-family: var(--font-serif, "Anthropic Serif", Georgia, serif);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--color-text-primary, #131313);
+}
+
+/* 44px total to match the suggested-connector widget spec.
+ * Fixed height + zero vertical padding lets align-items:center handle the rest;
+ * avoids the icon/text line-height arithmetic. */
+form.elicit .elicit-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 16px;
+  border-bottom: 0.5px solid
+    var(--color-border-tertiary, rgba(31, 30, 29, 0.15));
+}
+form.elicit .elicit-header > svg {
+  /* IconBase vectorSizeMap[16] = 20 — anthropicons render in a 20px box. */
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  fill: currentColor;
+}
+form.elicit .elicit-header > span {
+  flex: 1;
+}
+
+form.elicit .elicit-body {
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+form.elicit .elicit-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+form.elicit .elicit-question {
+  margin: 0;
+}
+
+/* Pills container — no horizontal padding. Previously had 0 8px which pushed
+ * pills 8px right of the question/textarea/date in the same .elicit-group. */
+form.elicit .elicit-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+form.elicit .elicit-pill {
+  /* Fully rounded + tighter padding — visually distinct from the rectangular
+   * text inputs (textarea/other/date stay at 8-12px radius). Pills and inputs
+   * don't match in height so the shape difference reads as intentional. */
+  padding: 8px 12px;
+  border: 0.5px solid var(--color-border-tertiary, rgba(31, 30, 29, 0.15));
+  border-radius: 9999px;
+  background: transparent;
+  color: var(--color-text-secondary, #383835);
+  cursor: pointer;
+  transition:
+    border-color 120ms ease,
+    background-color 120ms ease;
+}
+form.elicit .elicit-pill:hover {
+  border-color: var(--color-border-secondary, rgba(30, 30, 29, 0.3));
+}
+/* Semantic accents — same light-fill+soft-border recipe as the blue selected
+ * state, applied via attribute so inline style doesn't fight aria-pressed.
+ * Single-attr specificity; the [aria-pressed="true"] rule below wins on
+ * border+bg so selection remains visible on accented pills. */
+form.elicit .elicit-pill[data-accent="warning"] {
+  border-color: var(--color-text-warning, #5a4815);
+  background: color-mix(
+    in srgb,
+    var(--color-text-warning, #5a4815) 15%,
+    transparent
+  );
+  color: var(--color-text-warning, #5a4815);
+}
+form.elicit .elicit-pill[data-accent="danger"] {
+  border-color: var(--color-text-danger, #7f2c28);
+  background: color-mix(
+    in srgb,
+    var(--color-text-danger, #7f2c28) 15%,
+    transparent
+  );
+  color: var(--color-text-danger, #7f2c28);
+}
+form.elicit .elicit-pill[data-accent="success"] {
+  border-color: var(--color-text-success, #265b19);
+  background: color-mix(
+    in srgb,
+    var(--color-text-success, #265b19) 15%,
+    transparent
+  );
+  color: var(--color-text-success, #265b19);
+}
+form.elicit .elicit-pill[aria-pressed="true"] {
+  /* Figma: 0.5px #184f95 border + rgba(205,226,251,0.5) fill (approx via color-mix). */
+  border: 0.5px solid var(--color-text-info, #184f95);
+  background: color-mix(
+    in srgb,
+    var(--color-text-info, #184f95) 15%,
+    transparent
+  );
+  /* accent-000 — host bridge maps DS accent to --color-text-info (no
+   * --accent-* var injected into the iframe). Matches border + fill. */
+  color: var(--color-text-info, #184f95);
+}
+
+/* "Other" conditional text input.
+ * background/color explicit — generic input rule no longer provides
+ * these post-specificity-fix, UA Canvas/CanvasText mismatch in dark mode. */
+form.elicit .elicit-other {
+  margin-top: 8px;
+  height: 40px;
+  padding: 0 12px;
+  border: 0.5px solid var(--color-border-tertiary, rgba(31, 30, 29, 0.15));
+  border-radius: 8px;
+  background: var(--color-background-primary, #fff);
+  color: var(--color-text-primary, #131313);
+  width: 100%;
+  box-sizing: border-box;
+}
+form.elicit .elicit-other[hidden] {
+  display: none;
+}
+
+/* Textarea.
+ * background/color explicit — generic textarea rule no longer provides
+ * these post-specificity-fix, UA Canvas/CanvasText mismatch in dark mode. */
+form.elicit .elicit-textarea {
+  min-height: 84px;
+  padding: 12px;
+  border: 0.5px solid var(--color-border-tertiary, rgba(31, 30, 29, 0.15));
+  border-radius: 8px;
+  background: var(--color-background-primary, #fff);
+  color: var(--color-text-primary, #131313);
+  resize: vertical;
+  box-sizing: border-box;
+  width: 100%;
+}
+form.elicit .elicit-textarea::placeholder {
+  color: var(--color-text-tertiary, #7b7974);
+}
+
+/* Date input — pill-shaped, hugs content */
+form.elicit .elicit-date {
+  padding: 12px 16px;
+  border: 0.5px solid var(--color-border-tertiary, rgba(31, 30, 29, 0.15));
+  border-radius: 12px;
+  background: transparent;
+  color: var(--color-text-primary, #131313);
+  width: fit-content;
+  cursor: pointer;
+}
+/* Shared focus ring for all text inputs — info-blue border + soft glow */
+form.elicit .elicit-other:focus,
+form.elicit .elicit-textarea:focus,
+form.elicit .elicit-date:focus {
+  outline: none;
+  border-color: var(--color-border-info, #2a78d6);
+  box-shadow: 0 0 0 3px var(--color-background-info, rgba(42, 120, 214, 0.2));
+}
+
+/* File upload — dashed dropzone + filled tiles.
+ * Tile styling mirrors packages/chat/components/FileThumbnail.tsx (the
+ * thumbnail users already see in the chat input row) so a file picked here
+ * reads as the same object it becomes once attached. Dropzone is the first
+ * flex child; tiles append after it (flow right). */
+form.elicit .elicit-files {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 12px;
+}
+form.elicit .elicit-dropzone {
+  /* 120×120 = FileThumbnail SIZE_MAP.normal. Dashed stays 1px — 0.5px
+   * dashed rasterizes to invisible gaps on non-retina. */
+  width: 120px;
+  height: 120px;
+  border: 1px dashed var(--color-border-tertiary, rgba(31, 30, 29, 0.15));
+  border-radius: 10px;
+  box-shadow: var(--elicit-shadow-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  /* Figma 5340:4071 — 2% text-000 wash over bg-000 */
+  background: color-mix(
+    in srgb,
+    var(--color-text-primary, #131313) 2%,
+    var(--color-background-primary, #fff)
+  );
+  color: var(--color-text-tertiary, #7b7974);
+  transition:
+    border-color 120ms ease,
+    background-color 120ms ease;
+}
+form.elicit .elicit-dropzone:hover {
+  border-color: var(--color-text-info, #184f95);
+  background: color-mix(
+    in srgb,
+    var(--color-text-info, #184f95) 4%,
+    transparent
+  );
+}
+form.elicit .elicit-dropzone svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+form.elicit .elicit-dropzone input[type="file"] {
+  display: none;
+}
+
+form.elicit .elicit-file-tile {
+  /* FileThumbnail ThumbnailInteractionContainer:
+   * rounded-lg border-0.5 border-border-300/25 shadow-sm shadow-always-black/5
+   * bg-bg-000 px-2.5 py-2 gap-2.5 → 8px radius, 0.5px border, 8/10px pad */
+  width: 120px;
+  height: 120px;
+  border: 0.5px solid var(--elicit-border-faint);
+  border-radius: 8px;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  background: var(--color-background-primary, #fff);
+  box-shadow: var(--elicit-shadow-sm);
+  box-sizing: border-box;
+  position: relative;
+}
+form.elicit .elicit-file-tile .name {
+  /* FileThumbnail title: text-[12px] text-text-100 break-words line-clamp-3 */
+  font-size: 12px;
+  color: var(--color-text-primary, #131313);
+  word-break: break-word;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+form.elicit .elicit-file-tile .badge {
+  /* FileThumbnail ThumbnailTagContainer:
+   * h-[18px] px-1 border-0.5 border-border-300/25 shadow-sm rounded
+   * bg-bg-000/70 font-medium + inner text-[9px] uppercase font-bold */
+  align-self: flex-start;
+  height: 18px;
+  padding: 0 4px;
+  display: inline-flex;
+  align-items: center;
+  border: 0.5px solid var(--elicit-border-faint);
+  border-radius: 4px;
+  background: color-mix(
+    in srgb,
+    var(--color-background-primary, #fff) 70%,
+    transparent
+  );
+  box-shadow: var(--elicit-shadow-sm);
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--color-text-tertiary, #7b7974);
+  text-transform: uppercase;
+}
+/* FileThumbnail RemoveButton: w-5 h-5 -top-2 -left-2 rounded-full
+ * border-0.5 border-border-300/25 bg-bg-000/90 backdrop-blur-sm.
+ * Always visible (no group-hover in iframe — touch + no Tailwind group). */
+form.elicit .elicit-file-tile .remove {
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 0.5px solid var(--elicit-border-faint);
+  border-radius: 9999px;
+  background: color-mix(
+    in srgb,
+    var(--color-background-primary, #fff) 90%,
+    transparent
+  );
+  backdrop-filter: blur(4px);
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  color: var(--color-text-tertiary, #7b7974);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    color 120ms ease,
+    background-color 120ms ease;
+}
+form.elicit .elicit-file-tile .remove:hover {
+  color: var(--color-text-secondary, #383835);
+  background: color-mix(
+    in srgb,
+    var(--color-background-primary, #fff) 50%,
+    transparent
+  );
+}
+
+/* Footer — DS Button tokens transcribed (variant=secondary / variant=primary,
+ * size=default: h-9 px-4 rounded-lg min-w-[5rem] font-base-bold). */
+form.elicit .elicit-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  /* Explicit height (mirrors .elicit-header) so the submitted-state height:0
+   * transition can interpolate — auto→0 snaps. 36px buttons + 32px breathing room. */
+  height: 68px;
+  padding: 0 24px;
+  border-top: 0.5px solid var(--color-border-tertiary, rgba(31, 30, 29, 0.15));
+}
+form.elicit .elicit-skip,
+form.elicit .elicit-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  min-width: 80px;
+  padding: 0 16px;
+  border-radius: 8px;
+  /* DS Button primary/secondary = font-base-bold (tw-typography.js:26) */
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background-color 100ms ease-out,
+    border-color 100ms ease-out,
+    transform 150ms cubic-bezier(0.165, 0.85, 0.45, 1);
+}
+form.elicit .elicit-skip:active,
+form.elicit .elicit-submit:active {
+  transform: scale(0.96);
+}
+/* secondary */
+form.elicit .elicit-skip {
+  border: 0.5px solid
+    color-mix(
+      in srgb,
+      var(--color-border-secondary, rgba(30, 30, 29, 0.3)) 30%,
+      transparent
+    );
+  background: transparent;
+  color: var(--color-text-primary, #131313);
+}
+form.elicit .elicit-skip:hover {
+  background: var(--color-background-secondary, #f9f9f7);
+  border-color: transparent;
+}
+/* primary */
+form.elicit .elicit-submit {
+  border: none;
+  background: var(--color-text-primary, #131313);
+  color: var(--color-background-primary, #fff);
+}
+form.elicit .elicit-submit:hover {
+  transform: scaleX(1.005) scaleY(1.015);
+}
+/* :hover and :active are both true during a mouse click; equal specificity →
+ * source order wins, so without this the hover-grow above masks the press-down. */
+form.elicit .elicit-submit:hover:active {
+  transform: scale(0.96);
+}
+
+/* Post-submit — submitElicitation() adds .elicit-transitioning (body fades
+ * out), then after 150ms swaps the body for the Q/A summary and adds
+ * .elicit-submitted (chrome transitions to the bare card while body fades
+ * back in). Mirrors AskUserQuestion: outer card = AskUserQuestionToolUseCell
+ * .tsx:177 (rounded-xl border-0.5 border-border-300 p-4, no bg-bg-000 when
+ * submitted), rows = SubmittedResponses.tsx:14-36. */
+form.elicit .elicit-body {
+  transition: opacity 150ms ease-out;
+}
+form.elicit.elicit-transitioning .elicit-body {
+  opacity: 0;
+}
+form.elicit.elicit-submitted {
+  background: transparent;
+  border-radius: 12px;
+  box-shadow: none;
+  padding: 16px;
+  margin: 4px;
+}
+/* `display: none` can't transition — collapse to zero so the chrome animates
+ * away with the form's 200ms transition instead of snapping. */
+form.elicit .elicit-header,
+form.elicit .elicit-footer {
+  transition:
+    opacity 200ms ease-out,
+    height 200ms ease-out,
+    padding 200ms ease-out,
+    border-width 200ms ease-out,
+    /* step to hidden after the collapse so Skip/Submit leave the tab order +
+     * a11y tree (pointer-events:none alone doesn't). */
+    visibility 0s linear 200ms;
+}
+form.elicit.elicit-submitted .elicit-header,
+form.elicit.elicit-submitted .elicit-footer {
+  opacity: 0;
+  height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  border-width: 0;
+  overflow: hidden;
+  pointer-events: none;
+  visibility: hidden;
+}
+form.elicit.elicit-submitted .elicit-body {
+  padding: 0;
+}
+/* Quota-fallback "1" sentinel restore: shape check skips renderSubmittedSummary
+ * so the body still has live inputs — dim them so the locked state reads. */
+form.elicit.elicit-submitted .elicit-body:not(:has(.elicit-summary)) {
+  pointer-events: none;
+  opacity: 0.5;
+}
+/* sessionStorage restore path adds this alongside .elicit-submitted so
+ * scroll-back/reload shows the summary immediately (no replayed crossfade). */
+form.elicit.elicit-restored,
+form.elicit.elicit-restored .elicit-body,
+form.elicit.elicit-restored .elicit-header,
+form.elicit.elicit-restored .elicit-footer {
+  transition: none;
+}
+form.elicit .elicit-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+form.elicit .elicit-summary-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+/* SubmittedResponses question: text-text-300 font-claude-response-small-bold
+ * (serif 14 / 600 / 1.5) */
+form.elicit .elicit-summary-q {
+  font-family: var(--font-serif, "Anthropic Serif", Georgia, serif);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--color-text-secondary, #383835);
+}
+/* SubmittedResponses answer: text-text-500 font-base (sans 14 / 430 / 1.4) */
+form.elicit .elicit-summary-a {
+  font-weight: 430;
+  color: var(--color-text-tertiary, #7b7974);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Headings — bare tags get correct color in both modes */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--color-text-primary);
+}
+
+.leader {
+  stroke: var(--t);
+  stroke-width: 0.5;
+  stroke-dasharray: 4 3;
+  fill: none;
+}
+
+/* Color ramp classes — apply to <g> or shape element (rect/ellipse/circle/polygon), never <path>.
+   light-dark() responds to ancestor color-scheme, not just OS preference. */
+g.c-purple > rect,
+g.c-purple > ellipse,
+g.c-purple > circle,
+g.c-purple > polygon,
+rect.c-purple,
+ellipse.c-purple,
+circle.c-purple,
+polygon.c-purple {
+  fill: light-dark(#eeedfe, #3c3489);
+  stroke: light-dark(#534ab7, #afa9ec);
+}
+.c-purple > .th,
+.c-purple > .t {
+  fill: light-dark(#3c3489, #cecbf6);
+}
+.c-purple > .ts {
+  fill: light-dark(#534ab7, #afa9ec);
+}
+g.c-teal > rect,
+g.c-teal > ellipse,
+g.c-teal > circle,
+g.c-teal > polygon,
+rect.c-teal,
+ellipse.c-teal,
+circle.c-teal,
+polygon.c-teal {
+  fill: light-dark(#e1f5ee, #085041);
+  stroke: light-dark(#0f6e56, #5dcaa5);
+}
+.c-teal > .th,
+.c-teal > .t {
+  fill: light-dark(#085041, #9fe1cb);
+}
+.c-teal > .ts {
+  fill: light-dark(#0f6e56, #5dcaa5);
+}
+g.c-coral > rect,
+g.c-coral > ellipse,
+g.c-coral > circle,
+g.c-coral > polygon,
+rect.c-coral,
+ellipse.c-coral,
+circle.c-coral,
+polygon.c-coral {
+  fill: light-dark(#faece7, #712b13);
+  stroke: light-dark(#993c1d, #f0997b);
+}
+.c-coral > .th,
+.c-coral > .t {
+  fill: light-dark(#712b13, #f5c4b3);
+}
+.c-coral > .ts {
+  fill: light-dark(#993c1d, #f0997b);
+}
+g.c-pink > rect,
+g.c-pink > ellipse,
+g.c-pink > circle,
+g.c-pink > polygon,
+rect.c-pink,
+ellipse.c-pink,
+circle.c-pink,
+polygon.c-pink {
+  fill: light-dark(#fbeaf0, #72243e);
+  stroke: light-dark(#993556, #ed93b1);
+}
+.c-pink > .th,
+.c-pink > .t {
+  fill: light-dark(#72243e, #f4c0d1);
+}
+.c-pink > .ts {
+  fill: light-dark(#993556, #ed93b1);
+}
+g.c-gray > rect,
+g.c-gray > ellipse,
+g.c-gray > circle,
+g.c-gray > polygon,
+rect.c-gray,
+ellipse.c-gray,
+circle.c-gray,
+polygon.c-gray {
+  fill: light-dark(#f1efe8, #444441);
+  stroke: light-dark(#5f5e5a, #b4b2a9);
+}
+.c-gray > .th,
+.c-gray > .t {
+  fill: light-dark(#444441, #d3d1c7);
+}
+.c-gray > .ts {
+  fill: light-dark(#5f5e5a, #b4b2a9);
+}
+g.c-blue > rect,
+g.c-blue > ellipse,
+g.c-blue > circle,
+g.c-blue > polygon,
+rect.c-blue,
+ellipse.c-blue,
+circle.c-blue,
+polygon.c-blue {
+  fill: light-dark(#e6f1fb, #0c447c);
+  stroke: light-dark(#185fa5, #85b7eb);
+}
+.c-blue > .th,
+.c-blue > .t {
+  fill: light-dark(#0c447c, #b5d4f4);
+}
+.c-blue > .ts {
+  fill: light-dark(#185fa5, #85b7eb);
+}
+g.c-green > rect,
+g.c-green > ellipse,
+g.c-green > circle,
+g.c-green > polygon,
+rect.c-green,
+ellipse.c-green,
+circle.c-green,
+polygon.c-green {
+  fill: light-dark(#eaf3de, #27500a);
+  stroke: light-dark(#3b6d11, #97c459);
+}
+.c-green > .th,
+.c-green > .t {
+  fill: light-dark(#27500a, #c0dd97);
+}
+.c-green > .ts {
+  fill: light-dark(#3b6d11, #97c459);
+}
+g.c-amber > rect,
+g.c-amber > ellipse,
+g.c-amber > circle,
+g.c-amber > polygon,
+rect.c-amber,
+ellipse.c-amber,
+circle.c-amber,
+polygon.c-amber {
+  fill: light-dark(#faeeda, #633806);
+  stroke: light-dark(#854f0b, #ef9f27);
+}
+.c-amber > .th,
+.c-amber > .t {
+  fill: light-dark(#633806, #fac775);
+}
+.c-amber > .ts {
+  fill: light-dark(#854f0b, #ef9f27);
+}
+g.c-red > rect,
+g.c-red > ellipse,
+g.c-red > circle,
+g.c-red > polygon,
+rect.c-red,
+ellipse.c-red,
+circle.c-red,
+polygon.c-red {
+  fill: light-dark(#fcebeb, #791f1f);
+  stroke: light-dark(#a32d2d, #f09595);
+}
+.c-red > .th,
+.c-red > .t {
+  fill: light-dark(#791f1f, #f7c1c1);
+}
+.c-red > .ts {
+  fill: light-dark(#a32d2d, #f09595);
+}
+
+/* Mermaid class/ER diagrams — match house aesthetic.
+   Mermaid v11 class/ER renderers use <path> (not <rect>) with inline stroke/fill
+   attrs that IGNORE themeVariables mainBkg/nodeBorder. Labels are
+   <foreignObject><div><span class="nodeLabel"><p>text</p> — NOT <text>. All style
+   fixes require !important to beat inline attrs + mermaid's inline <style>.
+   Selectors target .classDiagram/.erDiagram SVG root classes (always present)
+   rather than a .mermaid wrapper (which the model sometimes omits). */
+svg.classDiagram,
+svg.erDiagram {
+  font-size: 13px;
+  max-width: 100%;
+  height: auto;
+}
+/* Mermaid sizes foreignObject to fit measured text width. If we upsize post-render,
+   text clips. So: overflow visible on FO, and widen inner div past its max-width. */
+svg.classDiagram foreignObject,
+svg.erDiagram foreignObject {
+  overflow: visible;
+}
+svg.classDiagram foreignObject > div,
+svg.erDiagram foreignObject > div {
+  max-width: none !important;
+}
+/* Body text: members, methods, attribute rows */
+svg.classDiagram .nodeLabel,
+svg.erDiagram .nodeLabel,
+svg.classDiagram .label foreignObject div,
+svg.erDiagram .label foreignObject div {
+  font-family: var(--font-sans) !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  color: var(--color-text-secondary) !important;
+}
+/* Titles: classDiagram wraps in .label-group; erDiagram wraps in .name */
+svg.classDiagram .label-group .nodeLabel,
+svg.erDiagram .name .nodeLabel {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  color: var(--color-text-primary) !important;
+}
+/* Kill mermaid's inline style="font-weight: bolder" on the .label wrapper */
+svg.classDiagram .label-group .label {
+  font-weight: 500 !important;
+}
+/* Edge labels (relationship verbs + cardinality) */
+svg.classDiagram .edgeLabel,
+svg.classDiagram .edgeLabel span,
+svg.classDiagram .edgeTerminals foreignObject div,
+svg.erDiagram .edgeLabel,
+svg.erDiagram .edgeLabel span {
+  font-size: 11px !important;
+  color: var(--color-text-tertiary) !important;
+}
+/* Box outlines, row stripes, dividers — all rendered as <path> with inline attrs.
+   Mermaid's '#id .node path { fill:... }' CSS beats fill="none" attr — force fill:none. */
+svg.classDiagram .node path[stroke]:not([stroke="none"]),
+svg.classDiagram .divider path,
+svg.erDiagram .node path[stroke]:not([stroke="none"]),
+svg.erDiagram .divider path {
+  stroke: var(--color-border-tertiary) !important;
+  stroke-width: 0.5px !important;
+  fill: none !important;
+}
+/* classDiagram: box fill (inside .basic.label-container). Mermaid's inline CSS
+   '#id .node path { stroke:... }' beats the stroke="none" attr (SVG attrs have
+   lowest specificity), and the fill path is open (no Z) so the phantom stroke
+   only paints top/right/bottom — left edge looks darker. Kill the stroke. */
+svg.classDiagram .node .basic path[fill]:not([fill="none"]) {
+  fill: var(--color-background-primary) !important;
+  stroke: none !important;
+  stroke-width: 0 !important;
+}
+/* erDiagram: header row (anonymous first-child <g>) uses secondary bg */
+svg.erDiagram .node > g:first-child > path[fill]:not([fill="none"]) {
+  fill: var(--color-background-secondary) !important;
+}
+/* erDiagram: row stripes */
+svg.erDiagram .row-rect-odd path[fill]:not([fill="none"]) {
+  fill: var(--color-background-primary) !important;
+}
+svg.erDiagram .row-rect-even path[fill]:not([fill="none"]) {
+  fill: var(--color-background-secondary) !important;
+}
+/* Connector lines */
+svg.erDiagram .relationshipLine,
+svg.classDiagram .relation {
+  stroke: var(--color-text-tertiary) !important;
+  stroke-width: 1px !important;
+}
+svg.classDiagram .marker,
+svg.classDiagram marker path,
+svg.erDiagram .marker,
+svg.erDiagram marker path {
+  stroke: var(--color-text-tertiary) !important;
+  stroke-width: 1px !important;
+}
+svg.classDiagram marker path[fill]:not([fill="none"]):not([fill="transparent"]),
+svg.erDiagram marker path[fill]:not([fill="none"]):not([fill="transparent"]) {
+  fill: var(--color-text-tertiary) !important;
+}
+/* Relationship label background — kill default 0.7 opacity */
+svg.classDiagram .labelBkg,
+svg.erDiagram .labelBkg {
+  background-color: var(--color-background-primary) !important;
+  opacity: 1 !important;
+}
+
+body {
+  position: relative;
+}
+#vis-container {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+#vis-container > svg {
+  display: block;
+  margin-inline: auto;
+  max-width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+/* Action buttons group.
+   hidden attr is removed on tool-input (final) so buttons never show during streaming.
+   Popover items: Copy to clipboard, Download file. */
+#action-btns {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2147483647;
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+/* display:flex above would override UA [hidden] — restore it */
+#action-btns[hidden] {
+  display: none;
+}
+body:hover #action-btns {
+  opacity: 1;
+}
+/* Hide on touch-primary (mobile) devices — both the reveal above
+   (body:hover) and the popover open (#more-btn:hover) are hover-driven,
+   so on a device without hover the ⋯ trigger either never appears or
+   sticks visible after a stray tap with no way to open the menu. */
+@media (hover: none) and (pointer: coarse) {
+  #action-btns {
+    display: none;
+  }
+}
+/* 28×28 chip style for the ⋯ trigger.
+   bg-100 at rest (visible over widget content), bg-300 on hover.
+   No border — bg change is enough hover feedback. Transparent border stays
+   for layout stability. Fallback light-dark() values match the design-system
+   --bg-100/--bg-300 tokens (widget iframe doesn't receive them via host
+   context, only --color-background-* semantic vars). */
+#action-btns > button {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius-sm, 6px);
+  background: var(--bg-100, light-dark(#faf9f5, #262624));
+  border: 1px solid transparent;
+  color: var(--color-text-secondary, #3d3d3a);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+#action-btns > button:hover {
+  background: var(--bg-300, light-dark(#f0eee6, #141413));
+}
+/* Popover — drops down-left from the trigger.
+   Styled to match the native claude.ai Radix dropdown: white bg, backdrop
+   blur, 0.5px border, subtle shadow. Items are single-line icon + label,
+   matching the conversation menu (Star/Rename/Add to project). */
+#more-popover {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  min-width: 8rem;
+  padding: 6px;
+  border-radius: 12px;
+  background: var(--color-background-primary, #fff);
+  border: 0.5px solid var(--color-border-secondary, rgba(0, 0, 0, 0.1));
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 2px 8px light-dark(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.24));
+  font-family: var(--font-sans, system-ui);
+  color: var(--color-text-secondary, #3d3d3a);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease,
+    visibility 0s linear 0.15s;
+}
+/* Reveal only when hovering the ⋯ trigger or the popover itself. A 4px
+   dead-zone between trigger and popover would close it, so
+   #more-popover:hover keeps it open during the crossing. */
+#more-btn:hover ~ #more-popover,
+#more-popover:hover {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease,
+    visibility 0s;
+}
+/* Popover items — single-line icon + label, matching native dropdown menu */
+.more-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-sans, system-ui) !important;
+  color: inherit;
+  transition: background 0.1s ease;
+  white-space: nowrap;
+}
+.more-item:hover {
+  background: var(--color-background-secondary, #f5f4ed);
+  color: var(--color-text-primary, #141413);
+}
+.more-item-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.more-item-icon svg {
+  width: 20px;
+  height: 20px;
+}
+.more-item-label {
+  font-family: var(--font-sans, system-ui) !important;
+  font-size: 14px;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+#copy-toast {
+  position: fixed;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  background: var(--color-background-danger, #f7ecec);
+  color: var(--color-text-danger, #7f2c28);
+  border: 1px solid var(--color-border-danger, #a73d39);
+  font-family: var(--font-sans, system-ui);
+  font-size: 13px;
+  padding: 8px 14px;
+  border-radius: var(--border-radius-md, 8px);
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+  z-index: 2147483647;
+  white-space: nowrap;
+}
+#copy-toast.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* HTML scripts-loading shimmer */
+#vis-container.scripts-loading {
+  pointer-events: none;
+  opacity: 0.7;
+}
+#vis-container.scripts-loading::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 10000;
+  overflow: hidden;
+}
+#vis-container.scripts-loading::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: 0;
+  width: 60%;
+  height: 200%;
+  z-index: 10001;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    light-dark(rgba(0, 0, 0, 0.06), rgba(255, 255, 255, 0.08)) 50%,
+    transparent 100%
+  );
+  animation: scriptsShimmer 2s ease-in-out infinite;
+}
+@keyframes scriptsShimmer {
+  0% {
+    transform: translateX(-100%) rotate(25deg);
+  }
+  100% {
+    transform: translateX(200%) rotate(25deg);
+  }
+}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}</style>
+  <style id="entry-animation">/* Entry animation for streaming SVG elements.
+   Scoped to #vis-container.streaming — widget-main.ts adds the class on first
+   tool-input-partial and removes it on tool-input. After streaming, scripts
+   that rebuild SVG via innerHTML (e.g. slider-driven charts) won't trigger this.
+   Uses CSS individual transform property (scale) to avoid conflicts with SVG transform attribute.
+   Excludes elements with transform/opacity attributes to prevent CSS overriding SVG values. */
+@keyframes svgFadeInScale {
+  from {
+    opacity: 0;
+    scale: 0.95;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+#vis-container.streaming
+  :where(
+    svg,
+    circle,
+    rect,
+    path,
+    polygon,
+    polyline,
+    line,
+    ellipse,
+    g,
+    text
+  ):not([transform]):not([opacity]) {
+  transition:
+    fill 0.4s ease-out,
+    stroke 0.4s ease-out,
+    opacity 0.4s ease-out;
+  animation: svgFadeInScale 0.5s ease-out;
+  transform-origin: center;
+}</style>
+  <link rel="stylesheet" href="./tabler-icons.min.css" media="all" onload="this.media=&#39;all&#39;">
+<style id="mcp-host-variables">:root {
+  --color-background-primary: light-dark(rgba(255, 255, 255, 1), rgba(48, 48, 46, 1));
+  --color-background-secondary: light-dark(rgba(245, 244, 237, 1), rgba(38, 38, 36, 1));
+  --color-background-tertiary: light-dark(rgba(250, 249, 245, 1), rgba(20, 20, 19, 1));
+  --color-background-inverse: light-dark(rgba(20, 20, 19, 1), rgba(250, 249, 245, 1));
+  --color-background-ghost: light-dark(rgba(255, 255, 255, 0), rgba(48, 48, 46, 0));
+  --color-background-info: light-dark(rgba(214, 228, 246, 1), rgba(37, 62, 95, 1));
+  --color-background-danger: light-dark(rgba(247, 236, 236, 1), rgba(96, 42, 40, 1));
+  --color-background-success: light-dark(rgba(233, 241, 220, 1), rgba(27, 70, 20, 1));
+  --color-background-warning: light-dark(rgba(246, 238, 223, 1), rgba(72, 58, 15, 1));
+  --color-background-disabled: light-dark(rgba(255, 255, 255, 0.5), rgba(48, 48, 46, 0.5));
+  --color-text-primary: light-dark(rgba(20, 20, 19, 1), rgba(250, 249, 245, 1));
+  --color-text-secondary: light-dark(rgba(61, 61, 58, 1), rgba(194, 192, 182, 1));
+  --color-text-tertiary: light-dark(rgba(115, 114, 108, 1), rgba(156, 154, 146, 1));
+  --color-text-inverse: light-dark(rgba(255, 255, 255, 1), rgba(20, 20, 19, 1));
+  --color-text-info: light-dark(rgba(50, 102, 173, 1), rgba(128, 170, 221, 1));
+  --color-text-danger: light-dark(rgba(127, 44, 40, 1), rgba(238, 136, 132, 1));
+  --color-text-success: light-dark(rgba(38, 91, 25, 1), rgba(122, 185, 72, 1));
+  --color-text-warning: light-dark(rgba(90, 72, 21, 1), rgba(209, 160, 65, 1));
+  --color-text-disabled: light-dark(rgba(20, 20, 19, 0.5), rgba(250, 249, 245, 0.5));
+  --color-text-ghost: light-dark(rgba(115, 114, 108, 0.5), rgba(156, 154, 146, 0.5));
+  --color-border-primary: light-dark(rgba(31, 30, 29, 0.4), rgba(222, 220, 209, 0.4));
+  --color-border-secondary: light-dark(rgba(31, 30, 29, 0.3), rgba(222, 220, 209, 0.3));
+  --color-border-tertiary: light-dark(rgba(31, 30, 29, 0.15), rgba(222, 220, 209, 0.15));
+  --color-border-inverse: light-dark(rgba(255, 255, 255, 0.3), rgba(20, 20, 19, 0.15));
+  --color-border-ghost: light-dark(rgba(31, 30, 29, 0), rgba(222, 220, 209, 0));
+  --color-border-info: light-dark(rgba(70, 130, 213, 1), rgba(70, 130, 213, 1));
+  --color-border-danger: light-dark(rgba(167, 61, 57, 1), rgba(205, 92, 88, 1));
+  --color-border-success: light-dark(rgba(67, 116, 38, 1), rgba(89, 145, 48, 1));
+  --color-border-warning: light-dark(rgba(128, 92, 31, 1), rgba(168, 120, 41, 1));
+  --color-border-disabled: light-dark(rgba(31, 30, 29, 0.1), rgba(222, 220, 209, 0.1));
+  --color-ring-primary: light-dark(rgba(20, 20, 19, 0.7), rgba(250, 249, 245, 0.7));
+  --color-ring-secondary: light-dark(rgba(61, 61, 58, 0.7), rgba(194, 192, 182, 0.7));
+  --color-ring-inverse: light-dark(rgba(255, 255, 255, 0.7), rgba(20, 20, 19, 0.7));
+  --color-ring-info: light-dark(rgba(50, 102, 173, 0.5), rgba(128, 170, 221, 0.5));
+  --color-ring-danger: light-dark(rgba(167, 61, 57, 0.5), rgba(205, 92, 88, 0.5));
+  --color-ring-success: light-dark(rgba(67, 116, 38, 0.5), rgba(89, 145, 48, 0.5));
+  --color-ring-warning: light-dark(rgba(128, 92, 31, 0.5), rgba(168, 120, 41, 0.5));
+  --font-sans: Anthropic Sans, sans-serif;
+  --font-mono: ui-monospace, monospace;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-text-xs-size: 12px;
+  --font-text-sm-size: 14px;
+  --font-text-md-size: 16px;
+  --font-text-lg-size: 20px;
+  --font-heading-xs-size: 12px;
+  --font-heading-sm-size: 14px;
+  --font-heading-md-size: 16px;
+  --font-heading-lg-size: 20px;
+  --font-heading-xl-size: 24px;
+  --font-heading-2xl-size: 28px;
+  --font-heading-3xl-size: 36px;
+  --font-text-xs-line-height: 1.4;
+  --font-text-sm-line-height: 1.4;
+  --font-text-md-line-height: 1.4;
+  --font-text-lg-line-height: 1.25;
+  --font-heading-xs-line-height: 1.4;
+  --font-heading-sm-line-height: 1.4;
+  --font-heading-md-line-height: 1.4;
+  --font-heading-lg-line-height: 1.25;
+  --font-heading-xl-line-height: 1.25;
+  --font-heading-2xl-line-height: 1.1;
+  --font-heading-3xl-line-height: 1;
+  --border-radius-xs: 4px;
+  --border-radius-sm: 6px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 10px;
+  --border-radius-xl: 12px;
+  --border-radius-full: 9999px;
+  --border-width-regular: 0.5px;
+  --shadow-hairline: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}</style></head>
+<body>
+  <!-- Pre-defined SVG markers — available to all SVGs via url(#arrow) -->
+  <svg style="position:absolute;width:0;height:0" aria-hidden="true">
+    <defs>
+      <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+      </marker>
+    </defs>
+  </svg>
+  <div id="vis-container" class="streaming scripts-loading">
+
+
+
+<style>
+html,body{background:#12141c !important;color:#f0f0f0 !important;font-family:Arial,sans-serif;font-size:13px;margin:0;padding:8px;}
+*{box-sizing:border-box;}
+.nav{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-bottom:14px;}
+.tab{background:#1e2235;color:#b0c4f8;border:2px solid #3a4870;border-radius:7px;padding:9px 4px;font-size:10px;font-weight:700;cursor:pointer;text-align:center;line-height:1.4;}
+.tab.on{background:#1a5cb8;color:#fff;border-color:#5090ff;}
+.sec{display:none;}.sec.on{display:block;}
+.h1{font-size:16px;font-weight:700;color:#fff;margin-bottom:3px;}
+.sub{font-size:12px;color:#8898bb;margin-bottom:12px;}
+.badge{display:inline-block;color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;margin-bottom:8px;}
+.bg-b{background:#1a5cb8;}.bg-g{background:#1a7a3a;}.bg-y{background:#7a5800;}.bg-p{background:#5a30a0;}.bg-o{background:#7a3800;}
+.sl{font-size:13px;font-weight:700;color:#78aaff;margin:12px 0 7px 0;padding-bottom:4px;border-bottom:1px solid #2a3860;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px;}
+.card{background:#1a1e30;border:1px solid #2e3858;border-radius:8px;padding:12px;}
+.card .t{font-size:13px;font-weight:700;color:#c0d4ff;margin-bottom:5px;}
+.card .b{font-size:12px;color:#9aaac8;line-height:1.7;}
+.card-b{background:#0c1e38;border-color:#1e5090;}.card-b .t{color:#70c0ff;}.card-b .b{color:#90b8e8;}
+.card-g{background:#081c10;border-color:#1a6030;}.card-g .t{color:#50e880;}.card-g .b{color:#80c898;}
+.card-r{background:#200a0a;border-color:#702020;}.card-r .t{color:#ff7070;}.card-r .b{color:#e89090;}
+.card-y{background:#1e1600;border-color:#6a5000;}.card-y .t{color:#ffc840;}.card-y .b{color:#d8a860;}
+.card-p{background:#140c28;border-color:#4a30a0;}.card-p .t{color:#c0a0ff;}.card-p .b{color:#a888e8;}
+.card-o{background:#1e0c00;border-color:#6a3000;}.card-o .t{color:#ff9840;}.card-o .b{color:#d88040;}
+.note{border-left:4px solid #4080ff;background:#0c1e3a;color:#b0ccf8;padding:9px 13px;border-radius:0 7px 7px 0;margin:8px 0;font-size:12px;line-height:1.6;}
+.note b{color:#fff;}
+.note-g{border-left-color:#30c860;background:#081c10;color:#90e8a8;}.note-g b{color:#60ff90;}
+.note-r{border-left-color:#e03030;background:#200808;color:#f09090;}.note-r b{color:#ff8080;}
+.note-y{border-left-color:#e0a000;background:#1c1200;color:#e8c860;}.note-y b{color:#ffe060;}
+.note-p{border-left-color:#9070e0;background:#140c28;color:#c8b0ff;}.note-p b{color:#d8c8ff;}
+.note-o{border-left-color:#e07020;background:#1e0c00;color:#e8a060;}.note-o b{color:#ffc080;}
+.tg{display:inline-block;background:#0a2c14;color:#50e870;border:1px solid #208040;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;margin:2px;}
+.tr{display:inline-block;background:#2c0a0a;color:#ff7070;border:1px solid #802020;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;margin:2px;}
+.tb{display:inline-block;background:#0a1e3c;color:#60b0ff;border:1px solid #204880;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;margin:2px;}
+.ty{display:inline-block;background:#241800;color:#ffc040;border:1px solid #806000;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;margin:2px;}
+.tp{display:inline-block;background:#1a0830;color:#c0a0ff;border:1px solid #5030a0;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;margin:2px;}
+.to{display:inline-block;background:#1e0c00;color:#ff9840;border:1px solid #6a3000;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;margin:2px;}
+table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:10px;}
+th{background:#1a1e30;color:#78aaff;font-weight:700;padding:7px 9px;text-align:left;border-bottom:1px solid #2e3858;}
+td{padding:6px 9px;border-bottom:1px solid #1e2438;color:#c0cce8;vertical-align:top;}
+tr:hover td{background:#1a2040;}
+.cert-card{border-radius:10px;padding:14px;margin-bottom:12px;border:2px solid;}
+.cert-title{font-size:15px;font-weight:700;margin-bottom:2px;}
+.cert-code{font-size:11px;font-family:monospace;opacity:0.75;margin-bottom:8px;}
+.cert-meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
+.meta-pill{font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;}
+.cert-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.cert-section{font-size:11px;font-weight:700;color:#78aaff;margin-bottom:4px;margin-top:8px;}
+.cert-body{font-size:11px;color:#9aaac8;line-height:1.7;}
+.priority-badge{font-size:11px;font-weight:700;padding:4px 14px;border-radius:6px;display:inline-block;margin-bottom:8px;}
+.roadmap-row{display:flex;gap:0;margin-bottom:14px;align-items:stretch;}
+.rm-step{flex:1;background:#1a1e30;border:1px solid #2e3858;border-radius:0;padding:10px 12px;position:relative;}
+.rm-step:first-child{border-radius:8px 0 0 8px;}
+.rm-step:last-child{border-radius:0 8px 8px 0;}
+.rm-num{font-size:22px;font-weight:700;margin-bottom:2px;}
+.rm-title{font-size:12px;font-weight:700;color:#fff;margin-bottom:2px;}
+.rm-sub{font-size:10px;color:#8898b8;line-height:1.5;}
+.rm-arr{width:24px;background:#12141c;display:flex;align-items:center;justify-content:center;font-size:18px;color:#4080ff;flex-shrink:0;}
+.week-block{background:#1a1e30;border:1px solid #2e3858;border-radius:8px;padding:10px 13px;margin-bottom:7px;}
+.week-title{font-size:12px;font-weight:700;color:#ffc840;margin-bottom:4px;}
+.week-body{font-size:11px;color:#9aaac8;line-height:1.7;}
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:5px;}
+.bar-label{min-width:200px;font-size:11px;color:#c0cce8;}
+.bar-track{flex:1;height:11px;background:#1a1e30;border-radius:5px;overflow:hidden;}
+.bar-fill{height:11px;border-radius:5px;}
+.bar-val{min-width:38px;font-size:11px;font-weight:700;color:#fff;text-align:right;}
+.divider{height:1px;background:#2a3860;margin:10px 0;}
+</style>
+
+
+
+<div class="nav">
+  <div class="tab on" onclick="goTab(1)">1. The Big Picture</div>
+  <div class="tab" onclick="goTab(2)">2. Each Cert Deep Dive</div>
+  <div class="tab" onclick="goTab(3)">3. Your Order + Timeline</div>
+  <div class="tab" onclick="goTab(4)">4. What Each Covers</div>
+  <div class="tab" onclick="goTab(5)">5. Study Plan + Resources</div>
+</div>
+
+<!-- ══ TAB 1 ══ -->
+<div class="sec on" id="S1">
+<div class="badge bg-b">AWS CERTIFICATIONS FOR ML TRANSITION</div>
+<div class="h1">Which AWS Certs Complement Your ML Path</div>
+<div class="sub">4 certifications — ranked by relevance and recommended order for your exact situation</div>
+
+<div class="note"><b>Your situation in one sentence:</b> You are an experienced AWS Data Engineer transitioning to ML Engineering on Databricks + Azure. You want certs that (1) validate what you already know, (2) bridge your DE skills to ML, and (3) signal to employers you are a credible ML Engineer — not just someone who took a course.</div>
+
+<div class="sl">The 4 AWS certs that matter for your ML path</div>
+
+<!-- Visual cert ladder -->
+<div style="margin-bottom:14px;">
+  <!-- Row: Specialty at top -->
+  <div style="display:flex;justify-content:center;margin-bottom:6px;">
+    <div style="background:#200a0a;border:2px solid #8a2020;border-radius:10px;padding:10px 18px;text-align:center;min-width:280px;">
+      <div style="font-size:10px;color:#ff9090;font-weight:700;margin-bottom:2px;">LEVEL 3 — SPECIALTY ($300)</div>
+      <div style="font-size:14px;font-weight:700;color:#ff7070;">ML Specialty (MLS-C01)</div>
+      <div style="font-size:11px;color:#e89090;margin-top:2px;">Algorithms · Architecture · Deep ML theory</div>
+      <div style="font-size:10px;color:#ff7070;margin-top:4px;">⏱ 170 min · 65 questions · Pass: 750/1000</div>
+    </div>
+  </div>
+  <div style="text-align:center;font-size:22px;color:#4080ff;line-height:1.1;">↑</div>
+  <!-- Row: Two associates -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:4px 0;">
+    <div style="background:#081c10;border:2px solid #1a6030;border-radius:10px;padding:10px 14px;text-align:center;">
+      <div style="font-size:10px;color:#80c898;font-weight:700;margin-bottom:2px;">LEVEL 2 — ASSOCIATE ($150)</div>
+      <div style="font-size:13px;font-weight:700;color:#50e880;">ML Engineer Associate (MLA-C01)</div>
+      <div style="font-size:11px;color:#80c898;margin-top:2px;">SageMaker · MLOps · Deploy · Monitor</div>
+      <div style="font-size:10px;color:#50e880;margin-top:4px;">⏱ 130 min · 65 questions · Pass: 720/1000</div>
+    </div>
+    <div style="background:#0c1e38;border:2px solid #1e5090;border-radius:10px;padding:10px 14px;text-align:center;">
+      <div style="font-size:10px;color:#90b8e8;font-weight:700;margin-bottom:2px;">LEVEL 2 — ASSOCIATE ($150)</div>
+      <div style="font-size:13px;font-weight:700;color:#70c0ff;">Data Engineer Associate (DEA-C01)</div>
+      <div style="font-size:11px;color:#90b8e8;margin-top:2px;">Glue · Kinesis · Redshift · Lake Formation</div>
+      <div style="font-size:10px;color:#70c0ff;margin-top:4px;">⏱ 130 min · 65 questions · Pass: 720/1000</div>
+    </div>
+  </div>
+  <div style="text-align:center;font-size:22px;color:#4080ff;line-height:1.1;">↑</div>
+  <!-- Row: Foundation -->
+  <div style="display:flex;justify-content:center;margin-top:4px;">
+    <div style="background:#1e1600;border:2px solid #6a5000;border-radius:10px;padding:10px 18px;text-align:center;min-width:280px;">
+      <div style="font-size:10px;color:#d8a860;font-weight:700;margin-bottom:2px;">LEVEL 1 — FOUNDATIONAL ($75)</div>
+      <div style="font-size:14px;font-weight:700;color:#ffc840;">AI Practitioner (AIF-C01)</div>
+      <div style="font-size:11px;color:#d8a860;margin-top:2px;">AI/ML concepts · AWS AI services · GenAI · Responsible AI</div>
+      <div style="font-size:10px;color:#ffc840;margin-top:4px;">⏱ 90 min · 65 questions · Pass: 700/1000</div>
+    </div>
+  </div>
+</div>
+
+<div class="sl">Relevance to your ML transition — scored</div>
+<div style="margin-bottom:12px;">
+  <div class="bar-row"><span class="bar-label">DEA-C01 — Data Engineer Associate</span><div class="bar-track"><div class="bar-fill" style="width:95%;background:#70c0ff;"></div></div><span class="bar-val" style="color:#70c0ff;">9.5/10</span></div>
+  <div style="font-size:10px;color:#8898b8;margin-left:208px;margin-top:-2px;margin-bottom:6px;">You already know 80% of this. Low prep time, huge credential payoff. Do this FIRST.</div>
+
+  <div class="bar-row"><span class="bar-label">MLA-C01 — ML Engineer Associate</span><div class="bar-track"><div class="bar-fill" style="width:90%;background:#50e880;"></div></div><span class="bar-val" style="color:#50e880;">9.0/10</span></div>
+  <div style="font-size:10px;color:#8898b8;margin-left:208px;margin-top:-2px;margin-bottom:6px;">The core cert for your transition. SageMaker + MLOps. Do this SECOND after 3 months of ML study.</div>
+
+  <div class="bar-row"><span class="bar-label">AIF-C01 — AI Practitioner</span><div class="bar-track"><div class="bar-fill" style="width:72%;background:#ffc840;"></div></div><span class="bar-val" style="color:#ffc840;">7.2/10</span></div>
+  <div style="font-size:10px;color:#8898b8;margin-left:208px;margin-top:-2px;margin-bottom:6px;">Quick win ($75). Broad AI/GenAI coverage. Good for credibility, low depth. Do alongside DEA-C01.</div>
+
+  <div class="bar-row"><span class="bar-label">MLS-C01 — ML Specialty</span><div class="bar-track"><div class="bar-fill" style="width:80%;background:#ff7070;"></div></div><span class="bar-val" style="color:#ff7070;">8.0/10</span></div>
+  <div style="font-size:10px;color:#8898b8;margin-left:208px;margin-top:-2px;margin-bottom:6px;">Most rigorous. Algorithms + architecture depth. Do LAST — after 6+ months of ML experience.</div>
+</div>
+
+<div class="g3">
+  <div class="card card-b"><div class="t">Your recommended order</div><div class="b">
+    <b style="color:#70c0ff">Month 1:</b> DEA-C01<br>
+    Formalise what you already know. You should pass with 3–4 weeks of study given your AWS background.<br><br>
+    <b style="color:#ffc840">Month 2:</b> AIF-C01<br>
+    Cheap quick win while you build ML knowledge. Prep alongside Phase 1 ML study.<br><br>
+    <b style="color:#50e880">Month 4–5:</b> MLA-C01<br>
+    After Phase 1 ML study is done. SageMaker becomes meaningful once you know ML.<br><br>
+    <b style="color:#ff9090">Month 8+:</b> MLS-C01<br>
+    Once you have real ML project experience. Algorithms section rewards practice.
+  </div></div>
+  <div class="card card-g"><div class="t">Total investment</div><div class="b">
+    <b style="color:#50e880">DEA-C01:</b> $150 · ~3 weeks prep<br>
+    <b style="color:#ffc840">AIF-C01:</b> $75 · ~2 weeks prep<br>
+    <b style="color:#50e880">MLA-C01:</b> $150 · ~6 weeks prep<br>
+    <b style="color:#ff9090">MLS-C01:</b> $300 · ~8 weeks prep<br><br>
+    <b style="color:#80c898">Total: $675</b> across ~8 months<br><br>
+    All valid for 3 years. Recertify by retaking the same or higher exam.
+  </div></div>
+  <div class="card card-y"><div class="t">⚠ Time-sensitive flag</div><div class="b">
+    <b style="color:#ffd060">MLS-C01 prep resources expire March 31, 2026.</b><br><br>
+    AWS is phasing out the old exam prep materials. The exam itself continues, but the official study guides and practice questions for the current version will be replaced. If you plan to do MLS-C01, do not wait past early 2026 to start studying with current materials.<br><br>
+    <span class="tr">Act before March 31, 2026</span>
+  </div></div>
+</div>
+
+<div class="note note-g"><b>Why not skip straight to MLS-C01?</b> Because MLS-C01 without real ML experience produces a cert you cannot defend in an interview. DEA-C01 → MLA-C01 builds the practical foundation — SageMaker hands-on, MLOps workflows, data preparation for ML — that makes MLS-C01 meaningful rather than just memorised. AWS itself recommends completing DEA-C01 or MLA-C01 before attempting the Specialty.</div>
+</div>
+
+<!-- ══ TAB 2 ══ -->
+<div class="sec" id="S2">
+<div class="badge bg-g">EACH CERT — COMPLETE DETAILS</div>
+<div class="h1">Deep Dive — Every Cert You Need to Know</div>
+<div class="sub">Exam domains · What it covers · How relevant to you · Exact prep strategy</div>
+
+<!-- DEA-C01 -->
+<div class="cert-card" style="background:#0c1e38;border-color:#2a6aaa;">
+  <div class="priority-badge" style="background:#1a5cb8;color:#fff;">🥇 DO FIRST — Your Quick Win</div>
+  <div class="cert-title" style="color:#70c0ff;">AWS Certified Data Engineer — Associate</div>
+  <div class="cert-code">DEA-C01 · $150 · 130 min · 65 questions · Pass 720/1000 · Valid 3 years</div>
+  <div class="cert-meta">
+    <span class="meta-pill" style="background:#0a2c14;color:#50e870;border:1px solid #208040;">Associate Level</span>
+    <span class="meta-pill" style="background:#0a1e3c;color:#60b0ff;border:1px solid #204880;">2–3 yrs DE experience recommended</span>
+    <span class="meta-pill" style="background:#1e0c00;color:#ff9840;border:1px solid #6a3000;">~3 weeks prep (for you)</span>
+  </div>
+  <div class="cert-grid">
+    <div>
+      <div class="cert-section">Exam domains and weightings</div>
+      <div class="cert-body">
+        <b style="color:#70c0ff">Domain 1 (34%):</b> Data Ingestion and Transformation<br>
+        → Glue ETL, Kinesis Streams/Firehose, DMS, EMR Spark, batch vs streaming<br><br>
+        <b style="color:#70c0ff">Domain 2 (26%):</b> Data Store Management<br>
+        → S3 (data lake), Redshift (warehouse), DynamoDB, RDS/Aurora, partitioning, Parquet/ORC<br><br>
+        <b style="color:#70c0ff">Domain 3 (22%):</b> Data Operations and Support<br>
+        → Step Functions, MWAA (Airflow), EventBridge, CloudWatch, data quality<br><br>
+        <b style="color:#70c0ff">Domain 4 (18%):</b> Data Security and Governance<br>
+        → Lake Formation, IAM, encryption, data cataloguing, Macie
+      </div>
+      <div class="cert-section" style="margin-top:10px;">⚠ What is explicitly OUT of scope</div>
+      <div class="cert-body" style="color:#ff9090;">
+        "Perform ML training and inferences" is explicitly excluded from DEA-C01.<br>
+        This exam is pure data engineering — pipelines, storage, orchestration. No SageMaker, no model training.
+      </div>
+    </div>
+    <div>
+      <div class="cert-section">Why this is your #1 priority</div>
+      <div class="cert-body" style="color:#80c898;">
+        ✓ You already DO this work every day<br>
+        ✓ Glue, Kinesis, S3, Redshift, Step Functions — all familiar<br>
+        ✓ Formalises your existing skills with an official credential<br>
+        ✓ Required knowledge for MLA-C01 (Domain 1 = data prep for ML)<br>
+        ✓ Cheapest relative to preparation time needed<br>
+        ✓ AWS recommends DEA-C01 before MLS-C01<br>
+        ✓ Shows employers you are credentialed in both DE and ML paths
+      </div>
+      <div class="cert-section" style="margin-top:10px;">Prep strategy for you specifically</div>
+      <div class="cert-body">
+        Given 2-3 years of AWS DE experience, focus on:<br>
+        · Gap areas: Lake Formation governance details<br>
+        · Gap areas: MWAA (Managed Airflow) vs Step Functions decision<br>
+        · Gap areas: EMR Serverless vs EMR on EC2 trade-offs<br>
+        · Gap areas: Glue DataBrew vs Glue Studio vs Glue ETL<br>
+        · Strong areas (just review): S3, Kinesis, Glue, Redshift<br><br>
+        <b style="color:#70c0ff">Do 2 full practice exams (Tutorials Dojo) — pass both before scheduling</b>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AIF-C01 -->
+<div class="cert-card" style="background:#1e1600;border-color:#7a6000;">
+  <div class="priority-badge" style="background:#7a5800;color:#fff;">🥈 DO SECOND — Quick, Cheap, Broad Coverage</div>
+  <div class="cert-title" style="color:#ffc840;">AWS Certified AI Practitioner</div>
+  <div class="cert-code">AIF-C01 · $75 · 90 min · 65 questions · Pass 700/1000 · Valid 3 years</div>
+  <div class="cert-meta">
+    <span class="meta-pill" style="background:#1e1600;color:#ffc040;border:1px solid #806000;">Foundational Level</span>
+    <span class="meta-pill" style="background:#0a1e3c;color:#60b0ff;border:1px solid #204880;">No experience prerequisites</span>
+    <span class="meta-pill" style="background:#1e0c00;color:#ff9840;border:1px solid #6a3000;">~2 weeks prep</span>
+  </div>
+  <div class="cert-grid">
+    <div>
+      <div class="cert-section">Exam domains and weightings</div>
+      <div class="cert-body">
+        <b style="color:#ffc840">Domain 1 (20%):</b> Fundamentals of AI and ML<br>
+        → ML concepts, training/inference, bias, overfitting, common algorithms<br><br>
+        <b style="color:#ffc840">Domain 2 (24%):</b> Fundamentals of Generative AI<br>
+        → LLMs, foundation models, tokens, embeddings, prompting, RAG<br><br>
+        <b style="color:#ffc840">Domain 3 (28%):</b> Applications of Foundation Models<br>
+        → Bedrock, prompt engineering, fine-tuning, agents<br><br>
+        <b style="color:#ffc840">Domain 4 (14%):</b> Guidelines for Responsible AI<br>
+        → Fairness, transparency, explainability, governance<br><br>
+        <b style="color:#ffc840">Domain 5 (14%):</b> Security, Compliance, and Governance for AI Solutions<br>
+        → IAM for AI, model governance, data privacy
+      </div>
+    </div>
+    <div>
+      <div class="cert-section">Why this is worth doing</div>
+      <div class="cert-body" style="color:#80c898;">
+        ✓ Only $75 — lowest cost AWS cert<br>
+        ✓ Covers GenAI, RAG, Bedrock — directly relevant to your Azure OpenAI work<br>
+        ✓ Bridges general AI concepts to AWS services<br>
+        ✓ Can prep WHILE doing Phase 1 ML study — overlapping content<br>
+        ✓ Responsible AI section useful for enterprise work<br>
+        ✓ Good confidence builder before MLA-C01
+      </div>
+      <div class="cert-section" style="margin-top:10px;">Honest caveats</div>
+      <div class="cert-body" style="color:#e89090;">
+        ✗ Foundational level — will not impress experienced ML engineers<br>
+        ✗ No hands-on SageMaker required<br>
+        ✗ Some overlap with MLA-C01 (the associate covers everything here and more)<br><br>
+        <b style="color:#ffc840">Verdict:</b> Fast and cheap. Do it alongside DEA-C01 prep — the ML concepts section maps directly to what you are studying in Phase 1.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MLA-C01 -->
+<div class="cert-card" style="background:#081c10;border-color:#1a6030;">
+  <div class="priority-badge" style="background:#1a7a3a;color:#fff;">🥉 DO THIRD — The Career-Defining Cert for Your Transition</div>
+  <div class="cert-title" style="color:#50e880;">AWS Certified Machine Learning Engineer — Associate</div>
+  <div class="cert-code">MLA-C01 · $150 · 130 min · 65 questions · Pass 720/1000 · Valid 3 years · Released Aug 2024</div>
+  <div class="cert-meta">
+    <span class="meta-pill" style="background:#0a2c14;color:#50e870;border:1px solid #208040;">Associate Level</span>
+    <span class="meta-pill" style="background:#0a1e3c;color:#60b0ff;border:1px solid #204880;">1+ yr ML experience recommended</span>
+    <span class="meta-pill" style="background:#1e0c00;color:#ff9840;border:1px solid #6a3000;">~6 weeks prep</span>
+    <span class="meta-pill" style="background:#140c28;color:#c0a0ff;border:1px solid #5030a0;">New in 2024</span>
+  </div>
+  <div class="cert-grid">
+    <div>
+      <div class="cert-section">Exam domains and weightings</div>
+      <div class="cert-body">
+        <b style="color:#50e880">Domain 1 (28%):</b> Data Preparation for Machine Learning<br>
+        → Feature engineering, data preprocessing, SageMaker Data Wrangler, feature store<br><br>
+        <b style="color:#50e880">Domain 2 (26%):</b> ML Model Development<br>
+        → SageMaker Training, built-in algorithms, hyperparameter tuning (HPO), AutoML<br><br>
+        <b style="color:#50e880">Domain 3 (22%):</b> Deployment and Orchestration of ML Workloads<br>
+        → SageMaker Endpoints, Pipelines, MLflow on SageMaker, CI/CD for ML, SageMaker Jumpstart<br><br>
+        <b style="color:#50e880">Domain 4 (24%):</b> ML Solution Monitoring, Maintenance, and Security<br>
+        → Model Monitor, data drift, CloudWatch for ML, SageMaker Clarify (bias/explainability)
+      </div>
+    </div>
+    <div>
+      <div class="cert-section">Why this is THE cert for your transition</div>
+      <div class="cert-body" style="color:#80c898;">
+        ✓ Directly validates ML Engineering + MLOps skills<br>
+        ✓ Heavy SageMaker focus — AWS's ML platform<br>
+        ✓ Domain 1 (data prep) = your DE background + ML knowledge<br>
+        ✓ Domain 3 (deployment) = your Lambda/Step Functions knowledge + ML<br>
+        ✓ Newest cert (2024) — signals current, relevant skills<br>
+        ✓ Role-based: designed for ML Engineers, not data scientists<br>
+        ✓ Complements your Databricks ML Associate cert path perfectly
+      </div>
+      <div class="cert-section" style="margin-top:10px;">What makes MLA-C01 hard</div>
+      <div class="cert-body" style="color:#e89090;">
+        ✗ Heavy scenario-based questions — not just "what does X do"<br>
+        ✗ Requires actual hands-on SageMaker experience to answer correctly<br>
+        ✗ Domain 1+3 consistently reported as hardest by test-takers<br>
+        ✗ Questions test precise configuration details, not just concepts<br><br>
+        <b style="color:#50e880">Do NOT attempt until you have done at least 3 real ML projects using SageMaker or equivalent Databricks pipelines</b>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MLS-C01 -->
+<div class="cert-card" style="background:#200a0a;border-color:#702020;">
+  <div class="priority-badge" style="background:#8a2020;color:#fff;">4️⃣ DO LAST — Advanced, High Prestige, High Difficulty</div>
+  <div class="cert-title" style="color:#ff7070;">AWS Certified Machine Learning — Specialty</div>
+  <div class="cert-code">MLS-C01 · $300 · 170 min · 65 questions · Pass 750/1000 · Valid 3 years</div>
+  <div class="cert-meta">
+    <span class="meta-pill" style="background:#2c0a0a;color:#ff7070;border:1px solid #802020;">Specialty Level</span>
+    <span class="meta-pill" style="background:#0a1e3c;color:#60b0ff;border:1px solid #204880;">2+ yrs ML experience recommended</span>
+    <span class="meta-pill" style="background:#1e0c00;color:#ff9840;border:1px solid #6a3000;">~8 weeks prep</span>
+    <span class="meta-pill" style="background:#241800;color:#ffc040;border:1px solid #806000;">⚠ Resources expire Mar 31 2026</span>
+  </div>
+  <div class="cert-grid">
+    <div>
+      <div class="cert-section">Exam domains and weightings</div>
+      <div class="cert-body">
+        <b style="color:#ff7070">Domain 1 (24%):</b> Data Engineering<br>
+        → Data repositories, ingestion, transformation — overlaps heavily with DEA-C01<br><br>
+        <b style="color:#ff7070">Domain 2 (26%):</b> Exploratory Data Analysis<br>
+        → Feature engineering, statistical analysis, visualisation for ML<br><br>
+        <b style="color:#ff7070">Domain 3 (28%):</b> Modeling<br>
+        → Algorithm selection, training, hyperparameter tuning, evaluation — deepest ML content<br><br>
+        <b style="color:#ff7070">Domain 4 (22%):</b> ML Implementation and Operations<br>
+        → SageMaker deployment, inference types, MLOps, security
+      </div>
+    </div>
+    <div>
+      <div class="cert-section">MLS-C01 vs MLA-C01 — the real difference</div>
+      <div class="cert-body">
+        <b style="color:#ff9090">MLA-C01 (Associate):</b> How to implement and operationalise ML on AWS. SageMaker-heavy. Practical engineering focus. "How do you configure X to achieve Y?"<br><br>
+        <b style="color:#ff7070">MLS-C01 (Specialty):</b> Deeper ML theory. Algorithm selection logic. Hyperparameter impact on model behaviour. Architecture design. "Why would you choose XGBoost over linear learner for this use case?"<br><br>
+        Domain 3 (Modeling, 28%) is what makes MLS-C01 genuinely hard — it requires you to know ML algorithms deeply, not just know which AWS service to use.
+      </div>
+      <div class="cert-section" style="margin-top:10px;">Is MLS-C01 worth it for you?</div>
+      <div class="cert-body" style="color:#80c898;">
+        ✓ Highest prestige of all 4 ML-related AWS certs<br>
+        ✓ $300 signals serious commitment to ML<br>
+        ✓ Domain 3 (Modeling) rewards your Phase 1 ML study directly<br>
+        ✓ Completes the full AWS ML certification stack<br><br>
+        <b style="color:#ffc840">Verdict: Do after MLA-C01 + 6+ months of real ML project work. The algorithms knowledge from your study plan makes Domain 3 very achievable.</b>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══ TAB 3 ══ -->
+<div class="sec" id="S3">
+<div class="badge bg-y">YOUR ORDER + TIMELINE</div>
+<div class="h1">Personalised Certification Timeline</div>
+<div class="sub">Mapped to your 8-week ML study plan — exactly when to attempt each cert</div>
+
+<div class="note note-o"><b>The golden rule:</b> Never take a cert as a study milestone — take it as a validation of work you have already done. Each cert below is scheduled AFTER you have the practical skills it tests, not before. Studying for a cert before you have the experience means memorising without understanding.</div>
+
+<div class="sl">The complete timeline</div>
+<div style="position:relative;height:200px;margin-bottom:12px;"><canvas id="c3timeline"></canvas></div>
+
+<div class="sl">Month-by-month breakdown</div>
+
+<div class="week-block">
+  <div class="week-title">Month 1 — DEA-C01 (while starting Phase 1 ML study)</div>
+  <div class="week-body">
+    <b style="color:#70c0ff">Weeks 1-2:</b> Identify your gaps. Buy Stephane Maarek's DEA-C01 course on Udemy (~$15 on sale). Watch sections on Lake Formation, MWAA, and Glue DataBrew — these are likely your real gaps. Everything else is review.<br>
+    <b style="color:#70c0ff">Weeks 3-4:</b> Do 2 full Tutorials Dojo practice exams. Score 80%+ on both before scheduling. Take the exam. Pass.<br><br>
+    <b style="color:#80c898">Why it works:</b> Your existing AWS DE skills cover ~80% of this exam. You are filling 4-5 specific knowledge gaps, not learning everything from scratch. Treat it like a gap-filling exercise, not a full certification course.<br><br>
+    <b style="color:#ffc840">Parallel activity:</b> Start Phase 1 Week 1 (linear algebra) simultaneously. The DEA study does not interfere with ML study.
+  </div>
+</div>
+
+<div class="week-block">
+  <div class="week-title">Month 2 — AIF-C01 (while doing Phase 1 Weeks 3-4)</div>
+  <div class="week-body">
+    <b style="color:#ffc840">Weeks 5-6:</b> AIF-C01 prep runs PARALLEL to Phase 1 Week 3 (ML pipeline) and Week 4 (overfitting). The ML concepts you are studying for your learning plan map directly onto AIF-C01 Domain 1. You are essentially double-dipping — ML study IS AIF-C01 exam prep.<br>
+    <b style="color:#ffc840">Weeks 7-8:</b> Focus AIF-C01 prep on GenAI/Bedrock domain (Domain 3) — this is the part your ML study does NOT cover. Read the AWS Bedrock docs. Do the free AWS Skill Builder AIF-C01 course.<br><br>
+    <b style="color:#80c898">Why now:</b> $75 cert, fast to prep, GenAI domain is directly relevant to your Azure OpenAI work. The responsible AI section reinforces good habits for production ML work.
+  </div>
+</div>
+
+<div class="week-block">
+  <div class="week-title">Months 3-4 — Phase 1 ML Study (no exams, just build skills)</div>
+  <div class="week-body">
+    <b style="color:#9aaac8">Weeks 9-16:</b> Complete Phase 1 Weeks 5-8. Train real models. Build the Databricks capstone project. Finish the IBM Telco Churn project. Get your first model into MLflow Model Registry.<br><br>
+    <b style="color:#80c898">Why no cert this period:</b> This is your skill-building period. The MLA-C01 requires <i>real</i> hands-on experience — you need to have actually done the things it tests, not just read about them. Two months of focused ML project work is the fastest MLA-C01 prep you can do.<br><br>
+    <b style="color:#ffc840">Parallel activity:</b> Create a free AWS account and start hands-on SageMaker labs. AWS Skill Builder has free SageMaker courses. This gives you the SageMaker-specific knowledge MLA-C01 tests.
+  </div>
+</div>
+
+<div class="week-block">
+  <div class="week-title">Month 5 — MLA-C01 (after Phase 1 complete + SageMaker hands-on)</div>
+  <div class="week-body">
+    <b style="color:#50e880">Weeks 17-20:</b> Dedicated MLA-C01 prep. Take Stephane Maarek + Frank Kane's "AWS Certified ML Engineer Associate: Hands On!" course (Udemy). Do SageMaker Studio labs for each domain — especially SageMaker Pipelines and Model Monitor. These two are consistently flagged as hardest domains.<br>
+    <b style="color:#50e880">Week 21:</b> 3 full practice exams (Tutorials Dojo). Score 82%+ before scheduling — MLA-C01 is harder than DEA-C01 and the passing bar rewards more preparation.<br><br>
+    <b style="color:#80c898">Why it clicks now:</b> You have Phase 1 done. Feature engineering, model evaluation, bias-variance, MLflow — all familiar from your study. MLA-C01 Domain 1 (data prep for ML) maps directly to Weeks 7-8 of your study plan. You are validating skills you actually have.
+  </div>
+</div>
+
+<div class="week-block">
+  <div class="week-title">Months 6-7 — Phase 2 ML Study (Deep Learning + PyTorch)</div>
+  <div class="week-body">
+    <b style="color:#9aaac8">Weeks 22-32:</b> Phase 2 — CNNs, RNNs, Transformers. Build real deep learning projects. This gives you the neural network depth that MLS-C01 Domain 3 (Modeling) tests.
+  </div>
+</div>
+
+<div class="week-block">
+  <div class="week-title">Month 8 — MLS-C01 (if pursuing — ⚠ prep resources expire Mar 31 2026)</div>
+  <div class="week-body">
+    <b style="color:#ff9090">Weeks 33-40:</b> MLS-C01 is your optional final boss. If you are targeting senior ML Engineer or ML Architect roles, this cert is worth the $300 and 8 weeks. If you are satisfied with MLA-C01 and your Databricks ML Associate cert, you can skip MLS-C01.<br><br>
+    <b style="color:#ffc840">Decision rule:</b> If your target role at your company requires AWS-specific ML architecture decisions (choosing SageMaker vs EMR vs Bedrock for different use cases), do MLS-C01. If your primary platform is Databricks/Azure and AWS is secondary, MLA-C01 is sufficient.<br><br>
+    <b style="color:#ff9090">⚠ Action required:</b> Current exam prep resources (official practice questions, study guide) expire March 31, 2026. Start MLS-C01 prep no later than January 2026 if you want to use current materials.
+  </div>
+</div>
+
+<div class="sl">Credential stack you build over 8 months</div>
+<table>
+<tbody><tr><th>Month</th><th>Credential earned</th><th>What it signals to employers</th><th>Salary impact</th></tr>
+<tr><td>Month 1</td><td><b style="color:#70c0ff">AWS DEA-C01</b></td><td>Credentialed data engineer — trust me with pipelines and data at scale</td><td>Validates current salary, opens DE → ML transitions</td></tr>
+<tr><td>Month 2</td><td><b style="color:#ffc840">AWS AIF-C01</b></td><td>I understand AI/ML concepts and AWS's AI services including GenAI</td><td>Marginal alone, strong when combined with DEA</td></tr>
+<tr><td>Month 5</td><td><b style="color:#50e880">AWS MLA-C01</b></td><td>I am a practising ML Engineer who can productionise ML workloads on AWS</td><td>+15-25% for ML Engineer role vs DE-only</td></tr>
+<tr><td>Month 8</td><td><b style="color:#ff9090">AWS MLS-C01</b></td><td>I have deep ML knowledge — algorithms, architecture, the full stack</td><td>Opens ML Architect and Senior ML Engineer brackets</td></tr>
+</tbody></table>
+</div>
+
+<!-- ══ TAB 4 ══ -->
+<div class="sec" id="S4">
+<div class="badge bg-p">WHAT EACH CERT ACTUALLY COVERS</div>
+<div class="h1">Domain-by-Domain Coverage Map</div>
+<div class="sub">Exact topics tested — mapped to your Phase 1 ML study and AWS experience</div>
+
+<div class="sl">Coverage overlap across all 4 certs</div>
+<div style="position:relative;height:220px;margin-bottom:12px;"><canvas id="c4overlap"></canvas></div>
+
+<div class="sl">DEA-C01 — what you will actually be tested on</div>
+<div class="g2">
+  <div class="card card-b">
+    <div class="t">Topics you already know well ✓</div>
+    <div class="b" style="font-size:11px;line-height:1.8;">
+      ✓ S3 storage classes, lifecycle policies, versioning<br>
+      ✓ AWS Glue ETL jobs, crawlers, Data Catalog<br>
+      ✓ Kinesis Data Streams vs Kinesis Firehose<br>
+      ✓ Amazon Redshift — distribution keys, sort keys, WLM<br>
+      ✓ DynamoDB — partition keys, GSI, LSI, capacity modes<br>
+      ✓ AWS Step Functions — state machines, parallel states<br>
+      ✓ Apache Spark on EMR — transformations, actions<br>
+      ✓ CloudWatch metrics, alarms, log groups<br>
+      ✓ VPC, security groups, IAM roles/policies
+    </div>
+  </div>
+  <div class="card card-r">
+    <div class="t">Topics you may need to study ✗</div>
+    <div class="b" style="font-size:11px;line-height:1.8;">
+      ✗ AWS Lake Formation — permissions model, cross-account sharing<br>
+      ✗ MWAA (Managed Apache Airflow) — DAG design, operators<br>
+      ✗ Glue DataBrew vs Glue Studio — when to use each<br>
+      ✗ EMR Serverless vs EMR on EC2 vs EMR on EKS<br>
+      ✗ AWS Data Exchange — subscribing to 3rd party data<br>
+      ✗ Amazon OpenSearch Service — ingestion patterns<br>
+      ✗ Redshift Serverless vs provisioned — cost trade-offs<br>
+      ✗ AWS DataSync vs Transfer Family vs Storage Gateway<br>
+      ✗ Amazon Athena Federation — cross-service queries
+    </div>
+  </div>
+</div>
+
+<div class="sl">MLA-C01 — what you will actually be tested on</div>
+<div class="g2">
+  <div class="card card-g">
+    <div class="t">Topics your DE background covers ✓</div>
+    <div class="b" style="font-size:11px;line-height:1.8;">
+      ✓ Domain 1: Feature stores (SageMaker Feature Store ≈ Delta Feature Store concept)<br>
+      ✓ Domain 1: Data preprocessing — same as your Glue ETL work<br>
+      ✓ Domain 3: CI/CD for ML — same as your CodePipeline knowledge<br>
+      ✓ Domain 3: SageMaker Pipelines ≈ Step Functions for ML<br>
+      ✓ Domain 4: CloudWatch for ML monitoring ≈ your existing CloudWatch work<br>
+      ✓ Domain 4: IAM for SageMaker ≈ your existing IAM knowledge
+    </div>
+  </div>
+  <div class="card card-r">
+    <div class="t">Topics that are genuinely new ✗</div>
+    <div class="b" style="font-size:11px;line-height:1.8;">
+      ✗ SageMaker Training Jobs — instance types, distributed training<br>
+      ✗ SageMaker HPO (Hyperparameter Optimisation) — Bayesian vs grid<br>
+      ✗ SageMaker Autopilot — AutoML on AWS<br>
+      ✗ SageMaker JumpStart — pre-trained models<br>
+      ✗ SageMaker Clarify — bias detection, explainability (SHAP)<br>
+      ✗ SageMaker Model Monitor — data drift, model quality<br>
+      ✗ SageMaker Inference — real-time vs async vs batch<br>
+      ✗ SageMaker Ground Truth — data labelling<br>
+      ✗ MLflow on SageMaker — experiment tracking integration
+    </div>
+  </div>
+</div>
+
+<div class="sl">MLS-C01 — what makes Domain 3 (Modeling) hard</div>
+<table>
+<tbody><tr><th>Topic</th><th>What they test</th><th>Covered in your ML study?</th></tr>
+<tr><td>Algorithm selection</td><td>XGBoost vs Linear Learner vs KNN — when each wins</td><td><span class="tg">Yes — Phase 1 Week 5-6</span></td></tr>
+<tr><td>Hyperparameter tuning</td><td>L1/L2 reg, tree depth, learning rate — impact on bias/variance</td><td><span class="tg">Yes — Phase 1 Week 4</span></td></tr>
+<tr><td>Evaluation metrics</td><td>AUC vs F1 vs precision — which metric for which business problem</td><td><span class="tg">Yes — Phase 1 Week 7</span></td></tr>
+<tr><td>Class imbalance</td><td>SMOTE, class weights, threshold tuning</td><td><span class="tg">Yes — Phase 1 Week 4</span></td></tr>
+<tr><td>Neural network architecture</td><td>CNN for images, RNN for sequences, transformer for NLP</td><td><span class="ty">Phase 2 only</span></td></tr>
+<tr><td>Deep learning on SageMaker</td><td>TensorFlow/PyTorch containers, distributed training</td><td><span class="ty">Phase 2 only</span></td></tr>
+<tr><td>Embeddings and NLP</td><td>Word2Vec, BERT, fine-tuning, SageMaker NLP services</td><td><span class="ty">Phase 2-3</span></td></tr>
+<tr><td>Computer vision</td><td>Transfer learning, SageMaker image classification</td><td><span class="ty">Phase 2 only</span></td></tr>
+<tr><td>Reinforcement learning</td><td>SageMaker RL, reward functions, Q-learning basics</td><td><span class="tg">Yes — RL module</span></td></tr>
+<tr><td>Recommendation systems</td><td>Collaborative filtering, factorisation machines</td><td><span class="tr">Not in Phase 1</span></td></tr>
+</tbody></table>
+<div class="note note-y"><b>This table explains the optimal cert order:</b> Phase 1 ML study + DEA-C01 background covers roughly 70% of MLA-C01 content. To get to 70% of MLS-C01 Modeling domain, you need Phase 2 (deep learning). This is why MLS-C01 is a Month 8 target, not Month 5.</div>
+</div>
+
+<!-- ══ TAB 5 ══ -->
+<div class="sec" id="S5">
+<div class="badge bg-o">STUDY PLAN + RESOURCES</div>
+<div class="h1">Exact Study Plan for Each Cert</div>
+<div class="sub">What to buy, what to use free, how many hours, what to skip</div>
+
+<div class="sl">DEA-C01 — 3-week study plan</div>
+<div class="g2">
+<div>
+<div class="week-block">
+  <div class="week-title">Week 1 — Gap identification and targeted study</div>
+  <div class="week-body">
+    <b>Day 1:</b> Take a free practice test cold (AWS official sample questions). Note every wrong answer — these are your gaps.<br>
+    <b>Days 2-5:</b> Study ONLY your gap areas. Typical gaps: Lake Formation, MWAA, EMR variants, Redshift Serverless.<br>
+    <b>Days 6-7:</b> Read the official exam guide PDF cover to cover. Tick off every service you know. Study the ones you don't.
+  </div>
+</div>
+<div class="week-block">
+  <div class="week-title">Week 2 — Practice exams + targeted review</div>
+  <div class="week-body">
+    <b>Days 8-10:</b> First full Tutorials Dojo practice exam (65 questions, timed). Review every wrong answer — read the explanation AND the AWS docs page for the service.<br>
+    <b>Days 11-13:</b> Second full practice exam. Target 80%+ before moving to week 3.<br>
+    <b>Days 14:</b> Review weakest domain only.
+  </div>
+</div>
+<div class="week-block">
+  <div class="week-title">Week 3 — Final prep and exam</div>
+  <div class="week-body">
+    <b>Days 15-18:</b> Third practice exam. Review. Build a cheat sheet: one page per domain with key decision rules (e.g. "Kinesis Streams vs Firehose: if you need custom processing → Streams; if you just need delivery → Firehose").<br>
+    <b>Day 19:</b> Schedule and take the exam. Morning slot preferred — sharper focus.
+  </div>
+</div>
+</div>
+<div>
+<div class="card card-b">
+  <div class="t">Resources for DEA-C01</div>
+  <div class="b" style="font-size:11px;line-height:1.9;">
+    <b style="color:#70c0ff">Primary course (paid):</b><br>
+    Stephane Maarek + Frank Kane — "AWS Certified Data Engineer Associate" (Udemy, ~$15 on sale). Best course available. 20+ hours but skip sections you already know well.<br><br>
+    <b style="color:#70c0ff">Practice exams (paid):</b><br>
+    Tutorials Dojo DEA-C01 practice exams (~$15). The most accurate to real exam. Do 3 full exams minimum.<br><br>
+    <b style="color:#70c0ff">Free:</b><br>
+    AWS official exam guide PDF (free on aws.amazon.com)<br>
+    AWS Skill Builder DEA-C01 prep course (free)<br>
+    AWS official sample questions (20 free questions)<br><br>
+    <b style="color:#70c0ff">Skip:</b><br>
+    Brain dumps — they get outdated fast and do not build real understanding. If you memorise without understanding, you cannot do the job even if you pass.
+  </div>
+</div>
+</div>
+</div>
+
+<div class="sl">MLA-C01 — 6-week study plan</div>
+<div class="g2">
+<div>
+<div class="week-block">
+  <div class="week-title">Weeks 1-2 — SageMaker foundations</div>
+  <div class="week-body">
+    Take Maarek + Frank Kane's MLA-C01 course. Focus on SageMaker Studio, Training Jobs, and Processing Jobs. For each SageMaker service — actually launch it in your AWS account and run a small job. You cannot pass MLA-C01 without hands-on SageMaker experience.
+  </div>
+</div>
+<div class="week-block">
+  <div class="week-title">Weeks 3-4 — Deployment and monitoring</div>
+  <div class="week-body">
+    Deep dive Domain 3 (deployment) and Domain 4 (monitoring) — consistently reported as hardest. Build a SageMaker Pipeline end-to-end: data preprocessing → training → evaluation → deployment. Set up Model Monitor on a live endpoint. This hands-on work IS the exam prep.
+  </div>
+</div>
+<div class="week-block">
+  <div class="week-title">Weeks 5-6 — Practice exams and edge cases</div>
+  <div class="week-body">
+    3 full Tutorials Dojo MLA-C01 practice exams. Score 82%+ before scheduling. Pay attention to scenario-based questions — MLA-C01 asks "given THIS business requirement and THESE constraints, which SageMaker configuration do you choose?" Pattern recognition here is everything.
+  </div>
+</div>
+</div>
+<div>
+<div class="card card-g">
+  <div class="t">Resources for MLA-C01</div>
+  <div class="b" style="font-size:11px;line-height:1.9;">
+    <b style="color:#50e880">Primary course (paid):</b><br>
+    Maarek + Frank Kane "AWS Certified ML Engineer Associate: Hands On!" (Udemy, ~$15). Only MLA-C01 specific course with hands-on labs.<br><br>
+    <b style="color:#50e880">Hands-on (essential):</b><br>
+    AWS Skill Builder — SageMaker Studio Lab (free tier). Do the SageMaker Immersion Day labs. You MUST have hands-on SageMaker time — this exam cannot be passed by reading alone.<br><br>
+    <b style="color:#50e880">Practice exams (paid):</b><br>
+    Tutorials Dojo MLA-C01 practice exams. Most accurate available for this new cert.<br><br>
+    <b style="color:#50e880">Free:</b><br>
+    AWS Skill Builder MLA-C01 official prep course<br>
+    SageMaker documentation — read the "Use Cases" sections<br>
+    AWS Machine Learning blog — real implementation stories
+  </div>
+</div>
+</div>
+</div>
+
+<div class="sl">MLS-C01 — 8-week study plan (if pursuing)</div>
+<div class="week-block">
+  <div class="week-title">Weeks 1-2 — ML algorithm review</div>
+  <div class="week-body">
+    MLS-C01 Domain 3 (Modeling, 28%) is the differentiator. Review your Phase 1 notes: linear regression, logistic regression, decision trees, random forest, XGBoost, SVM, k-means. For each: when to use it on AWS, which SageMaker built-in algorithm maps to it, what hyperparameters matter and why.
+  </div>
+</div>
+<div class="week-block">
+  <div class="week-title">Weeks 3-4 — Deep learning and NLP</div>
+  <div class="week-body">
+    MLS-C01 tests neural networks, CNNs, RNNs, and NLP — this is Phase 2 content. Work through these with SageMaker: image classification with SageMaker's built-in image classifier, sequence-to-sequence, BlazingText for NLP. The exam tests which SageMaker algorithm to use for which problem.
+  </div>
+</div>
+<div class="week-block">
+  <div class="week-title">Weeks 5-6 — Data engineering + EDA domains</div>
+  <div class="week-body">
+    Domains 1 and 2 overlap heavily with DEA-C01 — these should be fast. Focus on the ML-specific parts: feature engineering for ML, handling imbalanced datasets, EDA for model selection, statistical significance tests for feature selection.
+  </div>
+</div>
+<div class="week-block">
+  <div class="week-title">Weeks 7-8 — Practice exams and scenario mastery</div>
+  <div class="week-body">
+    4 full practice exams (Tutorials Dojo + AWS official). MLS-C01 has a higher passing score (750 vs 720) and more abstract scenario questions. Target 85%+ on practice exams before scheduling. The extra 5% buffer matters here.
+  </div>
+</div>
+
+<div class="sl">Total cost summary</div>
+<table>
+<tbody><tr><th>Cert</th><th>Exam fee</th><th>Course (~Udemy sale)</th><th>Practice tests</th><th>Total</th><th>Free alternatives</th></tr>
+<tr><td><b style="color:#70c0ff">DEA-C01</b></td><td>$150</td><td>~$15</td><td>~$15</td><td><b>~$180</b></td><td>AWS Skill Builder course, official sample questions</td></tr>
+<tr><td><b style="color:#ffc840">AIF-C01</b></td><td>$75</td><td>~$15</td><td>~$12</td><td><b>~$102</b></td><td>AWS free Skill Builder course covers most prep needed</td></tr>
+<tr><td><b style="color:#50e880">MLA-C01</b></td><td>$150</td><td>~$15</td><td>~$15</td><td><b>~$180</b></td><td>SageMaker Studio Lab (free), AWS blogs</td></tr>
+<tr><td><b style="color:#ff9090">MLS-C01</b></td><td>$300</td><td>~$20</td><td>~$20</td><td><b>~$340</b></td><td>AWS Skill Builder, community notes</td></tr>
+<tr><td><b>Total (all 4)</b></td><td>$675</td><td>~$65</td><td>~$62</td><td><b>~$802</b></td><td>Can do AIF-C01 + prep almost entirely free</td></tr>
+</tbody></table>
+
+<div class="note note-g"><b>The most important prep advice across all 4 certs:</b> Buy Tutorials Dojo practice exams for every cert you take. They are the closest approximation to the real exam available, their explanations teach you the reasoning behind every answer, and they systematically reveal your gaps. The exam fee is $150-$300 — spending $15 on practice exams to increase your pass probability is the highest ROI study investment you can make.</div>
+</div>
+
+
+</div>
+  <div id="copy-toast"></div>
+  <div id="action-btns" hidden="">
+    <button id="more-btn" aria-label="Widget actions">
+      <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor"><path d="M4.5 8.5C5.32843 8.5 6 9.17157 6 10C6 10.8284 5.32843 11.5 4.5 11.5C3.67157 11.5 3 10.8284 3 10C3 9.17157 3.67157 8.5 4.5 8.5ZM10 8.5C10.8284 8.5 11.5 9.17157 11.5 10C11.5 10.8284 10.8284 11.5 10 11.5C9.17157 11.5 8.5 10.8284 8.5 10C8.5 9.17157 9.17157 8.5 10 8.5ZM15.5 8.5C16.3284 8.5 17 9.17157 17 10C17 10.8284 16.3284 11.5 15.5 11.5C14.6716 11.5 14 10.8284 14 10C14 9.17157 14.6716 8.5 15.5 8.5Z"></path></svg>
+    </button>
+    <div id="more-popover">
+      <button class="more-item" id="copy-btn">
+        <span class="more-item-icon" id="copy-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M12.5 3C13.3284 3 14 3.67157 14 4.5V6H15.5C16.3284 6 17 6.67157 17 7.5V15.5C17 16.3284 16.3284 17 15.5 17H7.5C6.67157 17 6 16.3284 6 15.5V14H4.5C3.67157 14 3 13.3284 3 12.5V4.5C3 3.67157 3.67157 3 4.5 3H12.5ZM14 12.5C14 13.3284 13.3284 14 12.5 14H7V15.5C7 15.7761 7.22386 16 7.5 16H15.5C15.7761 16 16 15.7761 16 15.5V7.5C16 7.22386 15.7761 7 15.5 7H14V12.5ZM4.5 4C4.22386 4 4 4.22386 4 4.5V12.5C4 12.7761 4.22386 13 4.5 13H12.5C12.7761 13 13 12.7761 13 12.5V4.5C13 4.22386 12.7761 4 12.5 4H4.5Z"></path></svg></span>
+        <span class="more-item-label" data-i18n="clipLabel">Copy to clipboard</span>
+      </button>
+      <button class="more-item" id="download-btn">
+        <span class="more-item-icon" id="download-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M16.5 13C16.7761 13 17 13.2239 17 13.5V15.5C17 16.3284 16.3284 17 15.5 17H4.5C3.67157 17 3 16.3284 3 15.5V13.5C3 13.2239 3.22386 13 3.5 13C3.77614 13 4 13.2239 4 13.5V15.5C4 15.7761 4.22386 16 4.5 16H15.5C15.7761 16 16 15.7761 16 15.5V13.5C16 13.2239 16.2239 13 16.5 13ZM10 3C10.2761 3 10.5 3.22386 10.5 3.5V12.1855L13.626 8.66797C13.8094 8.46166 14.1256 8.44275 14.332 8.62598C14.5383 8.80936 14.5573 9.12563 14.374 9.33203L10.374 13.832L10.2949 13.9033C10.21 13.9654 10.107 14 10 14C9.85718 14 9.72086 13.9388 9.62598 13.832L5.62598 9.33203L5.56738 9.25C5.45079 9.04872 5.48735 8.78653 5.66797 8.62598C5.84854 8.46567 6.1127 8.46039 6.29883 8.59961L6.37402 8.66797L9.5 12.1855V3.5C9.5 3.22386 9.72386 3 10 3Z"></path></svg></span>
+        <span class="more-item-label" data-i18n="grabLabel">Download file</span>
+      </button>
+    </div>
+  </div>
+  <script type="module">
+"use strict";
+(() => {
+  var __create = Object.create;
+  var __defProp = Object.defineProperty;
+  var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+  var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __getProtoOf = Object.getPrototypeOf;
+  var __hasOwnProp = Object.prototype.hasOwnProperty;
+  var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x, {
+    get: (a, b) => (typeof require !== "undefined" ? require : a)[b]
+  }) : x)(function(x) {
+    if (typeof require !== "undefined") return require.apply(this, arguments);
+    throw Error('Dynamic require of "' + x + '" is not supported');
+  });
+  var __copyProps = (to, from, except, desc) => {
+    if (from && typeof from === "object" || typeof from === "function") {
+      for (let key of __getOwnPropNames(from))
+        if (!__hasOwnProp.call(to, key) && key !== except)
+          __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+    }
+    return to;
+  };
+  var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+    // If the importer is in node compatibility mode or this is not an ESM
+    // file that has been converted to a CommonJS file using a Babel-
+    // compatible transform (i.e. "__esModule" has not been set), then set
+    // "default" to the CommonJS "module.exports" for node compatibility.
+    isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+    mod
+  ));
+
+  // src/scripts/mcp-app-helper.ts
+  var app2 = /* @__PURE__ */ (() => {
+    let nextId = 100;
+    return {
+      sendRequest({ method, params }) {
+        const id = nextId++;
+        window.parent.postMessage({ jsonrpc: "2.0", id, method, params }, "*");
+        return new Promise((resolve, reject) => {
+          window.addEventListener(
+            "message",
+            function listener(event) {
+              if (event.data?.id === id) {
+                window.removeEventListener("message", listener);
+                if (event.data?.result) {
+                  resolve(event.data.result);
+                } else if (event.data?.error) {
+                  const e = event.data.error;
+                  reject(
+                    new Error(
+                      typeof e === "string" ? e : e.message || JSON.stringify(e)
+                    )
+                  );
+                }
+              }
+            }
+          );
+        });
+      },
+      sendNotification({ method, params }) {
+        window.parent.postMessage({ jsonrpc: "2.0", method, params }, "*");
+      },
+      /**
+       * Attach files to the conversation — structured clone carries File objects
+       * through postMessage (web-only, mobile relay JSON.stringifies).
+       * Uses a non-JSON-RPC shape so PostMessageTransport drops it, raw listener
+       * in AppRenderer catches it. Requires real user click (userActivation gate
+       * enforced host-side per PR #31090).
+       */
+      attachFiles(files) {
+        window.parent.postMessage({ type: "anthropic:attach-files", files }, "*");
+      },
+      onNotification(method, handler) {
+        window.addEventListener(
+          "message",
+          function listener(event) {
+            if (event.data?.method === method) {
+              handler(event.data.params);
+            }
+          }
+        );
+      },
+      async requestDisplayMode({ mode }) {
+        return this.sendRequest({
+          method: "ui/request-display-mode",
+          params: { mode }
+        });
+      },
+      setupAutoResize() {
+        new ResizeObserver(() => {
+          const { body, documentElement: html } = document;
+          const htmlStyle = getComputedStyle(html);
+          const rect = body.getBoundingClientRect();
+          const width = Math.ceil(rect.width);
+          const height = Math.ceil(
+            rect.height + (parseFloat(htmlStyle.borderTop) || 0) + (parseFloat(htmlStyle.borderBottom) || 0)
+          );
+          this.sendNotification({
+            method: "ui/notifications/size-changed",
+            params: { width, height }
+          });
+        }).observe(document.body);
+      }
+    };
+  })();
+  window.app = app2;
+
+  // src/scripts/streaming-morph.ts
+  function createStreamingRenderer2(options = {}) {
+    const {
+      stripScripts = false,
+      widgetName = "Widget",
+      shouldRender = () => true,
+      onFirstRender
+    } = options;
+    let didFirstRender = false;
+    const markFirstRender2 = () => {
+      if (!didFirstRender) {
+        didFirstRender = true;
+        onFirstRender?.();
+      }
+    };
+    let parserModules = null;
+    let morphdomModule = null;
+    let streamingParser = null;
+    let prevCode = "";
+    async function renderPartial(container2, code) {
+      if (!code) return;
+      if (!parserModules || !morphdomModule) {
+        try {
+          const [htmlparser2, domhandler, domSerializer, morphdom] = await Promise.all([
+            import("https://esm.sh/htmlparser2@9.1.0"),
+            import("https://esm.sh/domhandler@5.0.3"),
+            import("https://esm.sh/dom-serializer@2.0.0"),
+            import("https://esm.sh/morphdom@2.7.4")
+          ]);
+          parserModules = {
+            Parser: htmlparser2.Parser,
+            DomHandler: domhandler.DomHandler,
+            render: domSerializer.default
+          };
+          morphdomModule = morphdom.default;
+        } catch (err) {
+          console.warn(
+            `[${widgetName}] CDN failed, falling back to innerHTML:`,
+            err
+          );
+          container2.innerHTML = code;
+          markFirstRender2();
+          return;
+        }
+      }
+      if (code.length < prevCode.length || !streamingParser) {
+        const handler = new parserModules.DomHandler();
+        streamingParser = {
+          parser: new parserModules.Parser(handler, {
+            decodeEntities: false,
+            lowerCaseAttributeNames: false,
+            lowerCaseTags: false,
+            recognizeSelfClosing: true
+          }),
+          handler,
+          write(chunk) {
+            this.parser.write(chunk);
+          },
+          serialize() {
+            return parserModules.render(this.handler.root.children, {
+              encodeEntities: false
+            });
+          }
+        };
+        prevCode = "";
+      }
+      const newChunk = code.substring(prevCode.length);
+      if (newChunk) {
+        streamingParser.write(newChunk);
+        prevCode = code;
+      }
+      let serialized = streamingParser.serialize();
+      if (serialized) {
+        if (stripScripts) {
+          serialized = serialized.replace(/<script[\s\S]*?<\/script>/gi, "");
+        }
+        if (shouldRender(serialized)) {
+          const tempContainer = container2.cloneNode(false);
+          tempContainer.innerHTML = serialized;
+          morphdomModule(container2, tempContainer, { childrenOnly: true });
+          markFirstRender2();
+        }
+      }
+    }
+    return { renderPartial };
+  }
+  window.createStreamingRenderer = createStreamingRenderer2;
+
+  // src/scripts/clipboard-copy.ts
+  var htmlToImage = null;
+  async function loadHtmlToImage() {
+    if (!htmlToImage) {
+      htmlToImage = await import("https://esm.sh/html-to-image@1.11.11");
+    }
+    return htmlToImage;
+  }
+  async function copyToClipboard2(_container) {
+    const lib = await loadHtmlToImage();
+    const target = document.body;
+    const width = target.scrollWidth || 700;
+    const height = target.scrollHeight || 400;
+    const blob = await lib.toBlob(target, {
+      pixelRatio: 2,
+      width,
+      height,
+      filter: (node) => !(node instanceof HTMLElement && (node.id === "action-btns" || node.id === "copy-toast"))
+    });
+    if (!blob) throw new Error("Failed to create PNG");
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    if (isSafari) {
+      await navigator.clipboard.write([
+        new ClipboardItem({ "image/png": Promise.resolve(blob) })
+      ]);
+    } else {
+      await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+    }
+  }
+  window.copyToClipboard = copyToClipboard2;
+
+  // src/scripts/host-init.ts
+  function initHostContext2(result) {
+    const hostContext = result.hostContext;
+    if (!hostContext) return;
+    const styles = hostContext.styles;
+    if (!styles) return;
+    const css = styles.css;
+    if (css?.fonts) {
+      const fontStyle = document.getElementById("mcp-host-fonts");
+      if (fontStyle) {
+        fontStyle.textContent = css.fonts;
+      }
+    }
+    const variables = styles.variables;
+    if (variables) {
+      const style = document.createElement("style");
+      style.id = "mcp-host-variables";
+      style.textContent = ":root {\n" + Object.entries(variables).map(([key, value]) => "  " + key + ": " + value + ";").join("\n") + "\n}";
+      document.head.appendChild(style);
+    }
+    applyHostStrings(hostContext._hostStrings);
+  }
+  function applyHostStrings(hostStrings) {
+    if (!hostStrings || typeof hostStrings !== "object") return;
+    const strings = hostStrings;
+    document.querySelectorAll("[data-i18n]").forEach((el) => {
+      const key = el.dataset.i18n;
+      const val = key ? strings[key] : void 0;
+      if (val && val.trim()) el.textContent = val;
+    });
+    window.__hostStrings = strings;
+  }
+  window.addEventListener("message", (event) => {
+    const data = event.data;
+    if (data?.method === "ui/notifications/host-context-changed") {
+      applyHostStrings(data.params?._hostStrings);
+    }
+  });
+  window.initHostContext = initHostContext2;
+
+  // src/scripts/send-prompt.ts
+  window.sendPrompt = function sendPrompt(text) {
+    app.sendRequest({
+      method: "ui/message",
+      params: { role: "user", content: [{ type: "text", text }] }
+    });
+  };
+
+  // src/scripts/elicitation.ts
+  var selectedFiles = /* @__PURE__ */ new Map();
+  var submittedKey;
+  var FADE_MS = 150;
+  function cssStringEscape(s) {
+    return s.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+  }
+  function fingerprint(s) {
+    let h = 5381;
+    for (let i = 0; i < s.length; i++) h = (h << 5) + h + s.charCodeAt(i) | 0;
+    return `elicit-submitted:${s.length}:${h.toString(36)}`;
+  }
+  function escapeHtml(s) {
+    const map = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    };
+    return s.replace(/[&<>"']/g, (c) => map[c]);
+  }
+  function renderFileTile(container2, name, file) {
+    const tile = document.createElement("div");
+    tile.className = "elicit-file-tile";
+    const dot = file.name.lastIndexOf(".");
+    const ext = dot > 0 && file.name.length - dot <= 6 ? file.name.slice(dot + 1).toUpperCase() : "FILE";
+    tile.innerHTML = `
+    <button type="button" class="remove" aria-label="Remove ${escapeHtml(file.name)}">\xD7</button>
+    <div class="name">${escapeHtml(file.name)}</div>
+    <div class="badge">${escapeHtml(ext)}</div>
+  `;
+    tile.querySelector(".remove")?.addEventListener("click", () => {
+      const list = selectedFiles.get(name);
+      if (list) {
+        const idx = list.indexOf(file);
+        if (idx >= 0) list.splice(idx, 1);
+      }
+      tile.remove();
+    });
+    container2.appendChild(tile);
+  }
+  function renderSubmittedSummary(form, answers, skipped) {
+    const summary = document.createElement("div");
+    summary.className = "elicit-summary";
+    const appendRow = (label, parts) => {
+      const row = document.createElement("div");
+      row.className = "elicit-summary-row";
+      if (label !== void 0) {
+        const q = document.createElement("span");
+        q.className = "elicit-summary-q";
+        q.textContent = label;
+        row.appendChild(q);
+      }
+      for (const part of parts) {
+        const a = document.createElement("span");
+        a.className = "elicit-summary-a";
+        a.textContent = part;
+        row.appendChild(a);
+      }
+      summary.appendChild(row);
+    };
+    const nonEmpty = (v) => {
+      if (v === void 0 || v === "") return void 0;
+      if (Array.isArray(v)) return v.length ? v.join(", ") : void 0;
+      return v;
+    };
+    if (skipped) {
+      appendRow(void 0, ["Skipped \u2014 proceeding with defaults."]);
+    } else {
+      const seen = /* @__PURE__ */ new Set();
+      form.querySelectorAll(".elicit-group").forEach((group) => {
+        const label = group.querySelector(".elicit-question")?.textContent?.trim();
+        const parts = [];
+        group.querySelectorAll("[data-name]").forEach((el) => {
+          const name = el.dataset.name;
+          if (!name || seen.has(name)) return;
+          seen.add(name);
+          const v = nonEmpty(answers[name]);
+          if (v !== void 0) parts.push(v);
+          const other = nonEmpty(answers[`${name}_other`]);
+          if (other !== void 0) {
+            seen.add(`${name}_other`);
+            parts.push(other);
+          }
+        });
+        if (parts.length) appendRow(label, parts);
+      });
+      for (const [name, value] of Object.entries(answers)) {
+        if (seen.has(name)) continue;
+        const v = nonEmpty(value);
+        if (v !== void 0) appendRow(name, [v]);
+      }
+      if (summary.childElementCount === 0) {
+        appendRow(void 0, ["Submitted with defaults."]);
+      }
+    }
+    form.querySelector(".elicit-body")?.replaceChildren(summary);
+  }
+  function wireElicitation() {
+    const form = document.querySelector("form.elicit");
+    if (!form) return;
+    selectedFiles.clear();
+    let submitted = false;
+    form.addEventListener("submit", (e) => e.preventDefault());
+    submittedKey = fingerprint(form.innerHTML);
+    try {
+      const stored = sessionStorage.getItem(submittedKey);
+      if (stored) {
+        form.classList.add("elicit-submitted", "elicit-restored");
+        const parsed = JSON.parse(stored);
+        if (parsed && typeof parsed === "object" && "answers" in parsed && "skipped" in parsed) {
+          renderSubmittedSummary(
+            form,
+            parsed.answers,
+            parsed.skipped
+          );
+        }
+        return;
+      }
+    } catch {
+    }
+    form.querySelectorAll(".elicit-pills").forEach((container2) => {
+      const isMulti = container2.dataset.multi === "true";
+      const name = container2.dataset.name;
+      container2.querySelectorAll(".elicit-pill").forEach((p) => p.setAttribute("aria-pressed", "false"));
+      container2.addEventListener("click", (e) => {
+        const pill = e.target.closest(
+          ".elicit-pill"
+        );
+        if (!pill) return;
+        if (!isMulti) {
+          container2.querySelectorAll(".elicit-pill[aria-pressed]").forEach((p) => {
+            if (p !== pill) p.setAttribute("aria-pressed", "false");
+          });
+        }
+        const nowSelected = pill.getAttribute("aria-pressed") !== "true";
+        pill.setAttribute("aria-pressed", String(nowSelected));
+        if (name) {
+          const otherInput = form.querySelector(
+            `.elicit-other[data-for="${cssStringEscape(name)}"]`
+          );
+          if (otherInput) {
+            const otherPillSelected = container2.querySelector(
+              '.elicit-pill[data-other][aria-pressed="true"]'
+            ) !== null;
+            otherInput.hidden = !otherPillSelected;
+            if (otherPillSelected) {
+              otherInput.focus();
+            }
+          }
+        }
+      });
+    });
+    form.querySelectorAll(".elicit-files[data-name]").forEach((container2) => {
+      const name = container2.dataset.name;
+      selectedFiles.set(name, []);
+      const dropzone = container2.querySelector(".elicit-dropzone");
+      const input = dropzone?.querySelector("input[type='file']");
+      if (!dropzone || !input) return;
+      if (dropzone.tagName !== "LABEL") {
+        dropzone.addEventListener("click", (e) => {
+          if (e.target === input) return;
+          input.click();
+        });
+      }
+      input.addEventListener("change", () => {
+        const files = Array.from(input.files ?? []);
+        for (const file of files) {
+          const entry = {
+            name: file.name,
+            size: file.size,
+            type: file.type,
+            raw: file
+          };
+          selectedFiles.get(name).push(entry);
+          renderFileTile(container2, name, entry);
+        }
+        input.value = "";
+      });
+    });
+    form.querySelector(".elicit-submit")?.addEventListener("click", () => {
+      if (submitted) return;
+      submitted = true;
+      window.submitElicitation(collectElicitAnswers());
+    });
+    form.querySelector(".elicit-skip")?.addEventListener("click", () => {
+      if (submitted) return;
+      submitted = true;
+      window.submitElicitation({}, { skipped: true });
+    });
+  }
+  function collectElicitAnswers() {
+    const form = document.querySelector("form.elicit");
+    if (!form) return {};
+    const answers = {};
+    form.querySelectorAll(".elicit-pills[data-name]").forEach((container2) => {
+      const name = container2.dataset.name;
+      const isMulti = container2.dataset.multi === "true";
+      const selected = Array.from(
+        container2.querySelectorAll(
+          ".elicit-pill[aria-pressed='true']"
+        )
+      ).map((p) => p.dataset.value ?? p.textContent?.trim() ?? "");
+      answers[name] = isMulti ? selected : selected[0] ?? "";
+      const otherInput = form.querySelector(
+        `.elicit-other[data-for="${cssStringEscape(name)}"]`
+      );
+      if (otherInput && !otherInput.hidden && otherInput.value.trim()) {
+        answers[`${name}_other`] = otherInput.value.trim();
+      }
+    });
+    for (const [name, files] of selectedFiles) {
+      if (files.length === 0) continue;
+      answers[name] = files.map((f) => `${f.name} (attached)`);
+    }
+    form.querySelectorAll(
+      "[data-name]:not(.elicit-pills):not(.elicit-other):not(.elicit-files)"
+    ).forEach((el) => {
+      const name = el.dataset.name;
+      if (name && el.value.trim()) {
+        answers[name] = el.value.trim();
+      }
+    });
+    return answers;
+  }
+  window.submitElicitation = function submitElicitation(answers, options = {}) {
+    const skipped = options.skipped ?? false;
+    const form = document.querySelector("form.elicit");
+    const title = form?.querySelector(".elicit-header > span")?.textContent?.trim();
+    if (form) {
+      form.classList.add("elicit-transitioning");
+      const swap = () => {
+        if (!form.isConnected) return;
+        form.classList.add("elicit-submitted");
+        renderSubmittedSummary(form, answers, skipped);
+        form.classList.remove("elicit-transitioning");
+      };
+      setTimeout(swap, FADE_MS);
+    }
+    const persistSubmitted = () => {
+      if (!submittedKey) return;
+      try {
+        sessionStorage.setItem(
+          submittedKey,
+          JSON.stringify({ answers, skipped })
+        );
+      } catch {
+        try {
+          sessionStorage.setItem(submittedKey, "1");
+        } catch {
+        }
+      }
+    };
+    if (skipped) {
+      window.sendPrompt(
+        "(Skipped the form \u2014 proceed with defaults or ask me in plain text)"
+      );
+      persistSubmitted();
+      return;
+    }
+    const rawFiles = [];
+    for (const list of selectedFiles.values()) {
+      for (const f of list) rawFiles.push(f.raw);
+    }
+    const humanizeKey = (k) => {
+      let suffix = "";
+      if (k.endsWith("_other")) {
+        k = k.slice(0, -"_other".length);
+        suffix = " (other)";
+      } else if (k.endsWith("_file")) {
+        k = k.slice(0, -"_file".length);
+        suffix = " file";
+      } else if (k.endsWith("_text")) {
+        k = k.slice(0, -"_text".length);
+      }
+      const words = k.replace(/_/g, " ");
+      return words.charAt(0).toUpperCase() + words.slice(1) + suffix;
+    };
+    const FOLD_AT = 200;
+    const prefix = title ? `${title} \u2014 ` : "";
+    const pairs = [];
+    const folds = [];
+    for (const [k, v] of Object.entries(answers)) {
+      if (v === "" || Array.isArray(v) && v.length === 0) continue;
+      const raw = Array.isArray(v) ? v.join(", ") : v;
+      const label = humanizeKey(k);
+      if (raw.length > FOLD_AT) {
+        pairs.push(`${label}: (${raw.length} chars \u2014 see below)`);
+        folds.push(`[${label}]
+${raw}`);
+      } else {
+        const flat = raw.replace(/\r?\n/g, " / ");
+        const value = flat.length > 80 ? `"${flat}"` : flat;
+        pairs.push(`${label}: ${value}`);
+      }
+    }
+    let payload = pairs.length === 0 ? `${prefix}proceeding with defaults.` : `${prefix}${pairs.join(" \xB7 ")}`;
+    if (folds.length > 0) {
+      payload += `
+
+--- Full content ---
+${folds.join("\n\n")}`;
+    }
+    if (rawFiles.length > 0) {
+      window.parent.postMessage(
+        { type: "anthropic:elicit-submit", text: payload, files: rawFiles },
+        "*"
+      );
+    } else {
+      window.sendPrompt(payload);
+      persistSubmitted();
+    }
+  };
+  window.collectElicitAnswers = collectElicitAnswers;
+  window._wireElicitation = wireElicitation;
+
+  // src/scripts/open-link.ts
+  window.openLink = function openLink(url) {
+    return app.sendRequest({
+      method: "ui/open-link",
+      params: { url }
+    });
+  };
+  document.getElementById("vis-container").addEventListener("click", (e) => {
+    const anchor = e.target?.closest?.("a[href]");
+    if (!anchor) return;
+    const href = anchor.getAttribute("href");
+    if (!href) return;
+    if (href.startsWith("#") || href.startsWith("javascript:")) return;
+    let url;
+    try {
+      url = new URL(href, window.location.href).href;
+    } catch {
+      return;
+    }
+    if (!/^https?:/.test(url)) return;
+    e.preventDefault();
+    window.openLink(url);
+  });
+
+  // src/scripts/svg-text-occlusion.ts
+  function fixSvgTextOcclusion2(container2) {
+    try {
+      const svg = container2.querySelector("svg");
+      if (!svg) return;
+      const NS = "http://www.w3.org/2000/svg";
+      const PAD_X = 4;
+      const PAD_Y = 2;
+      const MIN_CONNECTOR_LEN = 15;
+      const textRects = [];
+      svg.querySelectorAll("text").forEach((t) => {
+        if (t.closest("defs, mask, clipPath, marker")) return;
+        try {
+          const bb = t.getBBox();
+          if (bb.width < 1 || bb.height < 1) return;
+          textRects.push({
+            x: bb.x - PAD_X,
+            y: bb.y - PAD_Y,
+            w: bb.width + 2 * PAD_X,
+            h: bb.height + 2 * PAD_Y
+          });
+        } catch {
+        }
+      });
+      if (!textRects.length) return;
+      const candidates = [];
+      svg.querySelectorAll("line, path, polyline").forEach((el) => {
+        if (el.closest("defs, mask, clipPath, marker")) return;
+        if (el.tagName.toLowerCase() === "path") {
+          const fill = el.getAttribute("fill") || getComputedStyle(el).fill;
+          if (fill && fill !== "none" && fill !== "transparent" && !/^rgba\([^)]*,\s*0\)$/.test(fill))
+            return;
+        }
+        const geom = el;
+        try {
+          const len = geom.getTotalLength();
+          if (len < MIN_CONNECTOR_LEN) return;
+          candidates.push({ el: geom, len });
+        } catch {
+        }
+      });
+      if (!candidates.length) return;
+      const inRect = (px, py, r) => px >= r.x && px <= r.x + r.w && py >= r.y && py <= r.y + r.h;
+      const intersecting = [];
+      for (const { el, len } of candidates) {
+        const step = Math.max(2, len / 80);
+        let hit = false;
+        for (let d = 0; d <= len && !hit; d += step) {
+          const pt = el.getPointAtLength(d);
+          for (const r of textRects) {
+            if (inRect(pt.x, pt.y, r)) {
+              hit = true;
+              break;
+            }
+          }
+        }
+        if (hit) intersecting.push(el);
+      }
+      if (!intersecting.length) return;
+      let defs = svg.querySelector(":scope > defs");
+      if (!defs) {
+        defs = document.createElementNS(NS, "defs");
+        svg.insertBefore(defs, svg.firstChild);
+      }
+      const maskId = `imagine-text-gaps-${Math.random().toString(36).slice(2, 8)}`;
+      const mask = document.createElementNS(NS, "mask");
+      mask.setAttribute("id", maskId);
+      mask.setAttribute("maskUnits", "userSpaceOnUse");
+      const vb = (svg.getAttribute("viewBox") || "").trim().split(/[\s,]+/).map(Number);
+      const [vx, vy, vw, vh] = vb.length === 4 && vb.every((n) => Number.isFinite(n)) ? vb : (() => {
+        const bb = svg.getBBox();
+        return [bb.x, bb.y, bb.width, bb.height];
+      })();
+      const bg = document.createElementNS(NS, "rect");
+      bg.setAttribute("x", String(vx));
+      bg.setAttribute("y", String(vy));
+      bg.setAttribute("width", String(vw));
+      bg.setAttribute("height", String(vh));
+      bg.setAttribute("fill", "white");
+      mask.appendChild(bg);
+      for (const r of textRects) {
+        const hole = document.createElementNS(NS, "rect");
+        hole.setAttribute("x", String(r.x));
+        hole.setAttribute("y", String(r.y));
+        hole.setAttribute("width", String(r.w));
+        hole.setAttribute("height", String(r.h));
+        hole.setAttribute("fill", "black");
+        hole.setAttribute("rx", "2");
+        mask.appendChild(hole);
+      }
+      defs.appendChild(mask);
+      for (const el of intersecting) {
+        el.setAttribute("mask", `url(#${maskId})`);
+      }
+    } catch {
+    }
+  }
+  window.fixSvgTextOcclusion = fixSvgTextOcclusion2;
+
+  // src/scripts/svg-clip-fix.ts
+  function fixSvgClipping2(container2) {
+    try {
+      const svg = container2.querySelector("svg");
+      if (!svg) return;
+      const vb = svg.getAttribute("viewBox");
+      if (!vb) return;
+      const [vbX, vbY, vbW, vbH] = vb.split(/[\s,]+/).map(Number);
+      if (![vbX, vbY, vbW, vbH].every(Number.isFinite)) return;
+      if (vbW < 100 || vbH < 100) return;
+      let maxX = -Infinity;
+      let maxY = -Infinity;
+      svg.querySelectorAll(
+        ":scope > :not(defs):not(style):not(title):not(desc):not(metadata)"
+      ).forEach((el) => {
+        try {
+          const bb = el.getBBox();
+          if (bb.width < 0.5 && bb.height < 0.5) return;
+          maxX = Math.max(maxX, bb.x + bb.width);
+          maxY = Math.max(maxY, bb.y + bb.height);
+        } catch {
+        }
+      });
+      const PAD = 10;
+      const vbRight = vbX + vbW;
+      const vbBottom = vbY + vbH;
+      let newW = vbW;
+      if (maxX !== -Infinity && maxX + PAD > vbRight + 1) {
+        newW = maxX + PAD - vbX;
+      }
+      let newH = vbH;
+      if (maxY !== -Infinity && maxY + PAD > vbBottom + 1) {
+        newH = maxY + PAD - vbY;
+      }
+      if (newW !== vbW || newH !== vbH) {
+        svg.setAttribute(
+          "viewBox",
+          `${vbX} ${vbY} ${round(newW)} ${round(newH)}`
+        );
+        const hAttr = svg.getAttribute("height");
+        if (hAttr && newH !== vbH) {
+          const px = parseFloat(hAttr);
+          if (Number.isFinite(px)) {
+            svg.setAttribute("height", String(round(px * (newH / vbH))));
+          }
+        }
+      }
+      svg.style.maxWidth = `${round(newW)}px`;
+      svg.style.display = "block";
+      svg.style.marginInline = "auto";
+    } catch {
+    }
+  }
+  function round(n) {
+    return Math.round(n * 100) / 100;
+  }
+  globalThis.fixSvgClipping = fixSvgClipping2;
+
+  // src/scripts/svg-text-edge-fix.ts
+  function fixSvgTextEdgeClip2(container2) {
+    try {
+      const svg = container2.querySelector("svg");
+      if (!svg) return;
+      const vb = svg.getAttribute("viewBox");
+      if (!vb) return;
+      const [vbX, , vbW] = vb.split(/[\s,]+/).map(Number);
+      if (!Number.isFinite(vbX) || !Number.isFinite(vbW)) return;
+      const vbRight = vbX + vbW;
+      const byKey = /* @__PURE__ */ new Map();
+      svg.querySelectorAll("text").forEach((text) => {
+        if (text.closest("svg") !== svg) return;
+        if (text.closest("g[transform]")) return;
+        if (text.hasAttribute("transform")) return;
+        if (text.querySelector("tspan[x]")) return;
+        const p = text.parentElement;
+        if (p && p !== svg) {
+          const hasBox = Array.from(
+            p.querySelectorAll(
+              ":scope > rect, :scope > circle, :scope > ellipse"
+            )
+          ).some((shape) => {
+            try {
+              return shape.getBBox().width > 10;
+            } catch {
+              return true;
+            }
+          });
+          if (hasBox) return;
+        }
+        const anchor = text.getAttribute("text-anchor") || getComputedStyle(text).textAnchor || "start";
+        if (anchor !== "start" && anchor !== "end") return;
+        let bb;
+        try {
+          bb = text.getBBox();
+        } catch {
+          return;
+        }
+        if (bb.width < 1) return;
+        const xAttr = text.getAttribute("x");
+        if (!xAttr || /[\s,]/.test(xAttr)) return;
+        const x = parseFloat(xAttr);
+        if (!Number.isFinite(x)) return;
+        const overflow = anchor === "start" ? bb.x + bb.width - vbRight : vbX - bb.x;
+        const key = `${anchor}:${x}`;
+        const group = byKey.get(key) ?? [];
+        group.push({ text, x, anchor, overflow, width: bb.width });
+        byKey.set(key, group);
+      });
+      byKey.forEach((group) => {
+        const overflowing = group.filter((g) => g.overflow > 2);
+        if (!overflowing.length) return;
+        const worst = overflowing.reduce(
+          (a, b) => a.overflow > b.overflow ? a : b
+        );
+        if (worst.overflow > worst.width * 0.5) return;
+        const shift = group[0].anchor === "start" ? -worst.overflow : worst.overflow;
+        group.forEach(
+          ({ text, x }) => text.setAttribute("x", String(round2(x + shift)))
+        );
+      });
+    } catch {
+    }
+  }
+  function round2(n) {
+    return Math.round(n * 100) / 100;
+  }
+  globalThis.fixSvgTextEdgeClip = fixSvgTextEdgeClip2;
+
+  // src/scripts/widget-main.ts
+  var IMPLEMENTATION = { name: "visualize widget", version: "1.0.0" };
+  var container = document.getElementById("vis-container");
+  var isSvgCode = (code) => code.trimStart().startsWith("<svg");
+  var hasSvgVisuals = (code) => code && /<(rect|circle|ellipse|line|polyline|polygon|path|text|image|use|g|foreignObject)[\s>]/i.test(
+    code.replace(/<style[\s\S]*?<\/style>/gi, "").replace(/<defs[\s\S]*?<\/defs>/gi, "")
+  );
+  var hasHtmlVisuals = (code) => code && code.replace(/<style[\s\S]*?<\/style>/gi, "").replace(/<script[\s\S]*?<\/script>/gi, "").replace(/<!--[\s\S]*?-->/g, "").trim().length > 0;
+  var executeScripts = async () => {
+    const scripts = Array.from(container.querySelectorAll("script"));
+    for (const oldScript of scripts) {
+      const newScript = document.createElement("script");
+      Array.from(oldScript.attributes).forEach(
+        (attr) => newScript.setAttribute(attr.name, attr.value)
+      );
+      newScript.textContent = oldScript.textContent;
+      const hasSrc = newScript.hasAttribute("src");
+      const loaded = hasSrc ? new Promise((resolve) => {
+        newScript.onload = () => resolve();
+        newScript.onerror = () => resolve();
+      }) : Promise.resolve();
+      oldScript.parentNode?.replaceChild(newScript, oldScript);
+      await loaded;
+    }
+  };
+  var vizTitle = "visualize";
+  var iframeStartTime = performance.now();
+  var firstRenderSent = false;
+  var sendTiming = (event) => app.sendNotification({
+    method: "notifications/message",
+    params: {
+      level: "info",
+      logger: `viz:timing:${event}`,
+      data: { iframe_ms: Math.round(performance.now() - iframeStartTime) }
+    }
+  });
+  var sendAction = (action) => app.sendNotification({
+    method: "notifications/message",
+    params: { level: "info", logger: `viz:action:${action}`, data: { action } }
+  });
+  var markFirstRender = () => {
+    if (!firstRenderSent) {
+      firstRenderSent = true;
+      sendTiming("firstrender");
+    }
+  };
+  var svgRenderer = createStreamingRenderer({
+    widgetName: "VisualizeWidget-SVG",
+    shouldRender: hasSvgVisuals,
+    onFirstRender: markFirstRender
+  });
+  var htmlRenderer = createStreamingRenderer({
+    widgetName: "VisualizeWidget-HTML",
+    stripScripts: true,
+    shouldRender: hasHtmlVisuals,
+    onFirstRender: markFirstRender
+  });
+  var renderFinal = async (code) => {
+    container.classList.remove("streaming");
+    if (isSvgCode(code)) {
+      if (hasSvgVisuals(code)) {
+        container.innerHTML = code;
+        markFirstRender();
+        fixSvgTextEdgeClip(container);
+        fixSvgClipping(container);
+        fixSvgTextOcclusion(container);
+      }
+    } else {
+      if (hasHtmlVisuals(code)) {
+        container.innerHTML = code;
+        markFirstRender();
+        await executeScripts();
+        container.classList.remove("scripts-loading");
+        window._wireElicitation();
+        fixSvgTextEdgeClip(container);
+        fixSvgClipping(container);
+        fixSvgTextOcclusion(container);
+      }
+    }
+    window.dispatchEvent(
+      new CustomEvent("viz:complete", {
+        detail: { code, title: vizTitle }
+      })
+    );
+    sendTiming("complete");
+  };
+  var renderPartialCode = (code) => {
+    container.classList.add("streaming");
+    if (isSvgCode(code)) {
+      void svgRenderer.renderPartial(container, code);
+    } else {
+      void htmlRenderer.renderPartial(container, code);
+      if (code.includes("<script") && hasHtmlVisuals(code)) {
+        container.classList.add("scripts-loading");
+      }
+    }
+  };
+  var nextRequestId = 1;
+  async function connectToHost() {
+    try {
+      window.addEventListener("message", (event) => {
+        try {
+          const data = event.data;
+          if (data && data.jsonrpc === "2.0") {
+            if (data.id === 1 && data.result) {
+              initHostContext(data.result);
+              window.parent.postMessage(
+                {
+                  jsonrpc: "2.0",
+                  method: "ui/notifications/initialized",
+                  params: {}
+                },
+                "*"
+              );
+            }
+          }
+        } catch (err) {
+          console.error("[VisualizeWidget] Error handling message:", err);
+        }
+      });
+      app.onNotification("ui/notifications/tool-input-partial", (params) => {
+        const args = params?.arguments ?? {};
+        if (typeof args.title === "string" && args.title) vizTitle = args.title;
+        const code = args.widget_code ?? args.code;
+        if (code) renderPartialCode(code);
+      });
+      app.onNotification("ui/notifications/tool-input", (params) => {
+        const args = params?.arguments ?? {};
+        if (typeof args.title === "string" && args.title) vizTitle = args.title;
+        const code = args.widget_code ?? args.code;
+        if (code) {
+          void renderFinal(code);
+          if (!document.querySelector("form.elicit")) {
+            document.getElementById("action-btns")?.removeAttribute("hidden");
+          }
+        }
+      });
+      window.parent.postMessage(
+        {
+          jsonrpc: "2.0",
+          id: nextRequestId++,
+          method: "ui/initialize",
+          params: {
+            protocolVersion: "2025-11-21",
+            appInfo: IMPLEMENTATION,
+            appCapabilities: {}
+          }
+        },
+        "*"
+      );
+      app.setupAutoResize();
+      const hostStr = (key) => {
+        const s = window.__hostStrings;
+        const v = s?.[key];
+        return v && v.trim() ? v : void 0;
+      };
+      const FREEZE_PROPS = [
+        "fill",
+        "stroke",
+        "color",
+        "stroke-width",
+        "stroke-dasharray",
+        "stroke-linecap",
+        "stroke-linejoin",
+        "opacity",
+        "font-family",
+        "font-size",
+        "font-weight",
+        "font-style",
+        "text-anchor",
+        "dominant-baseline"
+      ];
+      const freezeSvgForDownload = () => {
+        const live = container.querySelector("svg");
+        if (!live) return null;
+        const clone = live.cloneNode(true);
+        if (!clone.hasAttribute("xmlns")) {
+          clone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+        }
+        clone.style.removeProperty("max-width");
+        clone.style.removeProperty("display");
+        clone.style.removeProperty("margin-inline");
+        const liveEls = live.querySelectorAll("*");
+        const cloneEls = clone.querySelectorAll("*");
+        for (let i = 0; i < liveEls.length; i++) {
+          const el = liveEls[i];
+          const out = cloneEls[i];
+          if (el.closest("defs, marker, mask, clipPath, pattern, symbol")) {
+            continue;
+          }
+          const cs = getComputedStyle(el);
+          const decls = [];
+          for (const p of FREEZE_PROPS) {
+            const v = cs.getPropertyValue(p);
+            if (!v) continue;
+            if (v.startsWith("url(")) continue;
+            if (v === "normal") continue;
+            if (v === "none" && p === "stroke-dasharray") continue;
+            decls.push(`${p}:${v}`);
+          }
+          if (decls.length) {
+            const existing = out.getAttribute("style");
+            out.setAttribute(
+              "style",
+              existing ? `${existing};${decls.join(";")}` : decls.join(";")
+            );
+          }
+          out.removeAttribute("class");
+        }
+        clone.querySelectorAll("style, script").forEach((n) => n.remove());
+        return new XMLSerializer().serializeToString(clone);
+      };
+      const downloadBtn = document.getElementById("download-btn");
+      const downloadIconEl = document.getElementById("download-icon");
+      const downloadLabelEl = downloadBtn?.querySelector(".more-item-label");
+      const downloadIcon = '<svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M16.5 13C16.7761 13 17 13.2239 17 13.5V15.5C17 16.3284 16.3284 17 15.5 17H4.5C3.67157 17 3 16.3284 3 15.5V13.5C3 13.2239 3.22386 13 3.5 13C3.77614 13 4 13.2239 4 13.5V15.5C4 15.7761 4.22386 16 4.5 16H15.5C15.7761 16 16 15.7761 16 15.5V13.5C16 13.2239 16.2239 13 16.5 13ZM10 3C10.2761 3 10.5 3.22386 10.5 3.5V12.1855L13.626 8.66797C13.8094 8.46166 14.1256 8.44275 14.332 8.62598C14.5383 8.80936 14.5573 9.12563 14.374 9.33203L10.374 13.832L10.2949 13.9033C10.21 13.9654 10.107 14 10 14C9.85718 14 9.72086 13.9388 9.62598 13.832L5.62598 9.33203L5.56738 9.25C5.45079 9.04872 5.48735 8.78653 5.66797 8.62598C5.84854 8.46567 6.1127 8.46039 6.29883 8.59961L6.37402 8.66797L9.5 12.1855V3.5C9.5 3.22386 9.72386 3 10 3Z"/></svg>';
+      const downloadCheckIcon = '<svg width="20" height="20" viewBox="0 0 20 20" fill="var(--color-text-success, #265b19)"><path d="M15.1883 5.10908C15.3699 4.96398 15.6346 4.96153 15.8202 5.11592C16.0056 5.27067 16.0504 5.53125 15.9403 5.73605L15.8836 5.82003L8.38354 14.8202C8.29361 14.9279 8.16242 14.9925 8.02221 14.9989C7.88203 15.0051 7.74545 14.9526 7.64622 14.8534L4.14617 11.3533L4.08172 11.2752C3.95384 11.0811 3.97542 10.817 4.14617 10.6463C4.31693 10.4755 4.58105 10.4539 4.77509 10.5818L4.85321 10.6463L7.96556 13.7586L15.1161 5.1794L15.1883 5.10908Z"/></svg>';
+      if (downloadIconEl) downloadIconEl.innerHTML = downloadIcon;
+      window.addEventListener("viz:complete", (ev) => {
+        const detail = ev.detail;
+        const code = detail?.code;
+        const title = detail?.title || "visualize";
+        if (!code || !downloadBtn || !downloadIconEl || !downloadLabelEl) return;
+        const isSvg = code.trimStart().startsWith("<svg");
+        const ext = isSvg ? "svg" : "html";
+        const mime = isSvg ? "image/svg+xml" : "text/html";
+        downloadBtn.onclick = async () => {
+          try {
+            sendAction("download");
+            const res = await app.sendRequest({
+              method: "ui/download-file",
+              params: {
+                contents: [
+                  {
+                    type: "resource",
+                    resource: {
+                      uri: `file:///${title}.${ext}`,
+                      mimeType: mime,
+                      text: isSvg ? freezeSvgForDownload() ?? code : code
+                    }
+                  }
+                ]
+              }
+            });
+            if (!res?.isError) {
+              const restore = downloadLabelEl.textContent;
+              downloadIconEl.innerHTML = downloadCheckIcon;
+              downloadLabelEl.textContent = hostStr("grabDone") ?? "Downloaded";
+              setTimeout(() => {
+                downloadIconEl.innerHTML = downloadIcon;
+                downloadLabelEl.textContent = restore;
+              }, 1500);
+            }
+          } catch {
+          }
+        };
+      });
+      const copyBtn = document.getElementById("copy-btn");
+      const copyIconEl = document.getElementById("copy-icon");
+      const copyLabelEl = copyBtn?.querySelector(".more-item-label");
+      const copyIcon = '<svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M12.5 3C13.3284 3 14 3.67157 14 4.5V6H15.5C16.3284 6 17 6.67157 17 7.5V15.5C17 16.3284 16.3284 17 15.5 17H7.5C6.67157 17 6 16.3284 6 15.5V14H4.5C3.67157 14 3 13.3284 3 12.5V4.5C3 3.67157 3.67157 3 4.5 3H12.5ZM14 12.5C14 13.3284 13.3284 14 12.5 14H7V15.5C7 15.7761 7.22386 16 7.5 16H15.5C15.7761 16 16 15.7761 16 15.5V7.5C16 7.22386 15.7761 7 15.5 7H14V12.5ZM4.5 4C4.22386 4 4 4.22386 4 4.5V12.5C4 12.7761 4.22386 13 4.5 13H12.5C12.7761 13 13 12.7761 13 12.5V4.5C13 4.22386 12.7761 4 12.5 4H4.5Z"/></svg>';
+      const copyCheckIcon = '<svg width="20" height="20" viewBox="0 0 20 20" fill="var(--color-text-success, #265b19)"><path d="M15.1883 5.10908C15.3699 4.96398 15.6346 4.96153 15.8202 5.11592C16.0056 5.27067 16.0504 5.53125 15.9403 5.73605L15.8836 5.82003L8.38354 14.8202C8.29361 14.9279 8.16242 14.9925 8.02221 14.9989C7.88203 15.0051 7.74545 14.9526 7.64622 14.8534L4.14617 11.3533L4.08172 11.2752C3.95384 11.0811 3.97542 10.817 4.14617 10.6463C4.31693 10.4755 4.58105 10.4539 4.77509 10.5818L4.85321 10.6463L7.96556 13.7586L15.1161 5.1794L15.1883 5.10908Z"/></svg>';
+      if (copyIconEl) copyIconEl.innerHTML = copyIcon;
+      if (copyBtn && copyIconEl && copyLabelEl) {
+        copyBtn.onclick = async () => {
+          try {
+            sendAction("copy");
+            await copyToClipboard(container);
+            const restore = copyLabelEl.textContent;
+            copyIconEl.innerHTML = copyCheckIcon;
+            copyLabelEl.textContent = hostStr("clipDone") ?? "Copied";
+            setTimeout(() => {
+              copyIconEl.innerHTML = copyIcon;
+              copyLabelEl.textContent = restore;
+            }, 1500);
+          } catch (_err) {
+            const toast = document.getElementById("copy-toast");
+            toast.textContent = "Copy failed \u2014 try from claude.ai in browser";
+            toast.classList.add("visible");
+            setTimeout(() => toast.classList.remove("visible"), 3e3);
+          }
+        };
+      }
+    } catch (err) {
+      console.error("[VisualizeWidget] Failed to connect:", err);
+    }
+  }
+  connectToHost();
+})();
+
+  </script>
+
+</body></html>

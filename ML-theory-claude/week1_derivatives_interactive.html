@@ -1,0 +1,118 @@
+
+<style>
+* { box-sizing: border-box; }
+.fn-tabs { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+.fn-tab { padding: 5px 14px; border-radius: 16px; border: 0.5px solid var(--color-border-secondary); font-size: 13px; cursor: pointer; color: var(--color-text-secondary); background: var(--color-background-secondary); }
+.fn-tab.active { background: var(--color-background-info); color: var(--color-text-info); border-color: var(--color-border-info); }
+.ctrl-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 13px; color: var(--color-text-secondary); }
+.stat-row { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; margin-bottom: 14px; }
+.s-card { background: var(--color-background-secondary); border-radius: 8px; padding: 10px 12px; }
+.s-lbl { font-size: 11px; color: var(--color-text-tertiary); margin-bottom: 3px; }
+.s-val { font-size: 18px; font-weight: 500; color: var(--color-text-primary); }
+.insight { font-size: 13px; color: var(--color-text-secondary); padding: 10px 14px; border-left: 3px solid var(--color-border-warning); border-radius: 0 8px 8px 0; background: var(--color-background-secondary); margin-top: 10px; }
+.insight b { color: var(--color-text-primary); font-weight: 500; }
+</style>
+
+<div style="font-size:15px;font-weight:500;color:var(--color-text-primary);margin-bottom:12px;">Derivatives — the slope at any point</div>
+
+<div class="fn-tabs">
+  <div class="fn-tab active" onclick="setFn('quad',this)">x² (loss curve)</div>
+  <div class="fn-tab" onclick="setFn('cubic',this)">x³ (non-convex)</div>
+  <div class="fn-tab" onclick="setFn('relu',this)">ReLU (activation)</div>
+  <div class="fn-tab" onclick="setFn('sigmoid',this)">Sigmoid (output)</div>
+</div>
+
+<div class="ctrl-row">
+  <span>Point x =</span>
+  <input type="range" min="-30" max="30" value="-15" step="1" id="x-slider" style="flex:1" oninput="updateX(this.value)">
+  <span id="x-val" style="min-width:32px;font-weight:500;color:var(--color-text-primary);">-1.5</span>
+</div>
+
+<div class="stat-row">
+  <div class="s-card"><div class="s-lbl">f(x)</div><div class="s-val" id="fx-val">—</div></div>
+  <div class="s-card"><div class="s-lbl">Slope / derivative</div><div class="s-val" id="dfx-val">—</div></div>
+  <div class="s-card"><div class="s-lbl">Direction to move</div><div class="s-val" id="dir-val">—</div></div>
+</div>
+
+<div style="position:relative;width:100%;height:220px;">
+  <canvas id="deriv-chart" role="img" aria-label="Interactive chart showing a function curve and its tangent line at a chosen point"></canvas>
+</div>
+<div class="insight" id="deriv-insight">Pick a function and drag the point.</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const fns = {
+  quad:    { f: x=>x*x,          df: x=>2*x,                name:'x²',         note:'This IS the loss surface shape in linear regression. Derivative = 2x — always points away from minimum at 0. Gradient descent subtracts it to move toward 0.' },
+  cubic:   { f: x=>0.1*x*x*x - x, df: x=>0.3*x*x - 1,      name:'0.1x³ − x',  note:'Non-convex — has local minima. This is why deep networks can get stuck. Derivative = 0.3x² − 1. Notice two places where slope = 0 (local min and max).' },
+  relu:    { f: x=>Math.max(0,x),  df: x=>x>0?1:0,           name:'ReLU max(0,x)', note:'ReLU derivative is either 1 (positive side) or 0 (negative side). This is the most used activation in deep learning — simple, but the dead neuron problem comes from the 0 side.' },
+  sigmoid: { f: x=>1/(1+Math.exp(-x*0.5)), df: x=>{ const s=1/(1+Math.exp(-x*0.5)); return s*(1-s); }, name:'sigmoid', note:'Sigmoid squashes any value to (0,1) — perfect for probability output. Derivative = σ(x)(1−σ(x)). Notice it vanishes near the edges — this causes the vanishing gradient problem in deep networks.' }
+};
+
+let currentFn = 'quad';
+let currentX = -1.5;
+let chart = null;
+
+function setFn(key, el) {
+  currentFn = key;
+  document.querySelectorAll('.fn-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  buildChart();
+  updateX(currentX * 10);
+}
+
+function updateX(rawVal) {
+  currentX = rawVal / 10;
+  document.getElementById('x-val').textContent = currentX.toFixed(1);
+  const fn = fns[currentFn];
+  const fx = fn.f(currentX);
+  const dfx = fn.df(currentX);
+  document.getElementById('fx-val').textContent = fx.toFixed(3);
+  document.getElementById('dfx-val').textContent = dfx.toFixed(3);
+  document.getElementById('dir-val').textContent = dfx > 0.01 ? '← decrease x' : dfx < -0.01 ? 'increase x →' : 'at minimum!';
+
+  const mlNote = fns[currentFn].note;
+  document.getElementById('deriv-insight').innerHTML = `<b>At x = ${currentX.toFixed(1)}:</b> slope = ${dfx.toFixed(3)}. In gradient descent, you'd update: x_new = ${currentX.toFixed(1)} − lr × ${dfx.toFixed(3)} = ~${(currentX - 0.1*dfx).toFixed(2)}. <br><br>${mlNote}`;
+
+  if(chart) {
+    const tangentX = [-3, currentX, 3].map(tx => currentX + (tx - currentX));
+    const slope = dfx;
+    const intercept = fx;
+    chart.data.datasets[1].data = chart.data.labels.map(lx => ({ x: lx, y: intercept + slope*(lx - currentX) }));
+    chart.data.datasets[2].data = [{ x: currentX, y: fx }];
+    chart.update('none');
+  }
+}
+
+function buildChart() {
+  const fn = fns[currentFn];
+  const xs = Array.from({length:61},(_,i)=>+((-3 + i*0.1).toFixed(1)));
+  const ys = xs.map(x=>fn.f(x));
+  const slope = fn.df(currentX);
+  const tangent = xs.map(x=>({ x, y: fn.f(currentX) + slope*(x-currentX) }));
+
+  if(chart) chart.destroy();
+  chart = new Chart(document.getElementById('deriv-chart'), {
+    type:'line',
+    data:{
+      labels: xs,
+      datasets:[
+        { label:'f(x)', data: ys, borderColor:'#378ADD', borderWidth:2, pointRadius:0, fill:false, tension:0.3 },
+        { label:'tangent', data: tangent, borderColor:'#D85A30', borderWidth:1.5, borderDash:[4,4], pointRadius:0, fill:false },
+        { label:'point', data:[{x:currentX, y:fn.f(currentX)}], type:'scatter', backgroundColor:'#D85A30', pointRadius:6, pointHoverRadius:8 }
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      parsing:{ xAxisKey:'x', yAxisKey:'y' },
+      plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label: i=>`f(x) = ${(+i.raw.y||i.raw).toFixed(3)}` }}},
+      scales:{
+        x:{ type:'linear', ticks:{font:{size:11},color:'#888',maxTicksLimit:7}, grid:{color:'rgba(128,128,128,0.1)'}},
+        y:{ ticks:{font:{size:11},color:'#888',maxTicksLimit:6}, grid:{color:'rgba(128,128,128,0.1)'}}
+      }
+    }
+  });
+}
+
+buildChart();
+updateX(-15);
+</script>

@@ -1,0 +1,580 @@
+
+<style>
+*{box-sizing:border-box;}
+.nav{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:18px;}
+.ntab{padding:10px 4px;border-radius:8px;border:2px solid #aaa;font-size:11px;font-weight:700;cursor:pointer;text-align:center;line-height:1.4;background:#eee;color:#444;}
+.ntab.on{background:#1560a8;color:#fff;border-color:#1560a8;}
+.sec{display:none;}.sec.on{display:block;}
+.h1{font-size:15px;font-weight:700;color:#111;margin-bottom:4px;}
+.sub{font-size:12px;color:#777;margin-bottom:14px;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px;}
+.box{background:#f2f4f8;border-radius:8px;padding:12px;border:1px solid #dde;}
+.box-b{background:#deedfb;border-color:#90bce8;}
+.box-g{background:#def7ec;border-color:#7ecba3;}
+.box-r{background:#fde8e8;border-color:#e8a0a0;}
+.box-y{background:#fef9e3;border-color:#e8d080;}
+.ct{font-size:13px;font-weight:700;color:#222;margin-bottom:5px;}
+.cb{font-size:12px;color:#444;line-height:1.6;}
+.note{font-size:13px;color:#333;padding:10px 14px;border-left:4px solid #1560a8;background:#deedfb;margin:10px 0;line-height:1.6;border-radius:0 8px 8px 0;}
+.note b{color:#000;}
+.note-g{border-left-color:#1a9e5f;background:#def7ec;}
+.note-r{border-left-color:#c0392b;background:#fde8e8;}
+.note-y{border-left-color:#c07800;background:#fef9e3;}
+.code{font-family:monospace;font-size:11px;background:#1e1e2e;border-radius:6px;padding:12px;line-height:1.8;color:#cdd6f4;margin:10px 0;white-space:pre-wrap;}
+.ctrl{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:10px;}
+.cg{display:flex;align-items:center;gap:6px;font-size:12px;color:#555;}
+.cg label{min-width:90px;}
+.vb{min-width:46px;font-weight:700;color:#111;font-size:13px;}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px;}
+.stats3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;}
+.sc{background:#f2f4f8;border-radius:8px;padding:10px;border:1px solid #dde;}
+.sc-l{font-size:10px;color:#888;margin-bottom:3px;}
+.sc-v{font-size:17px;font-weight:700;color:#111;}
+.sc-sub{font-size:10px;color:#888;margin-top:2px;}
+.btn{padding:6px 14px;border-radius:6px;border:1px solid #bbb;font-size:12px;cursor:pointer;background:#f2f2f2;margin-right:6px;}
+.divider{height:1px;background:#ddd;margin:14px 0;}
+.tbl{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:12px;}
+.tbl th{padding:7px 8px;background:#f2f4f8;color:#555;font-weight:700;text-align:left;border-bottom:1px solid #dde;}
+.tbl td{padding:6px 8px;border-bottom:1px solid #eee;color:#333;vertical-align:top;}
+.tbl tr:last-child td{border-bottom:none;}
+.tag{display:inline-block;font-size:10px;padding:2px 6px;border-radius:4px;font-weight:700;margin:2px;}
+.tg{background:#c3e6cb;color:#155724;}
+.tr{background:#f5c6cb;color:#721c24;}
+.tb{background:#bee5eb;color:#0c5460;}
+.ty{background:#ffeeba;color:#856404;}
+.coef-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:13px;}
+.coef-name{min-width:100px;font-weight:700;color:#222;}
+.coef-track{flex:1;height:12px;background:#e0e0e0;border-radius:6px;overflow:hidden;}
+.coef-fill{height:12px;border-radius:6px;transition:width 0.3s;}
+.coef-val{min-width:52px;text-align:right;font-weight:700;color:#111;font-size:13px;}
+</style>
+
+<div class="nav">
+  <div class="ntab on"  onclick="goTab(1)">1. What Is Each?</div>
+  <div class="ntab"     onclick="goTab(2)">2. Live Simple LR</div>
+  <div class="ntab"     onclick="goTab(3)">3. Live Multiple LR</div>
+  <div class="ntab"     onclick="goTab(4)">4. Key Differences</div>
+  <div class="ntab"     onclick="goTab(5)">5. Databricks Code</div>
+</div>
+
+<div class="sec on" id="S1">
+  <div class="h1">Simple Linear vs Multiple Linear Regression</div>
+  <div class="sub">Two models, same family — the difference is how many features you use to make predictions</div>
+  <div class="row2">
+    <div class="box box-b">
+      <div class="ct">Simple Linear Regression — 1 feature</div>
+      <div class="cb">
+        Predicts a continuous output using <b>exactly one input feature</b>. Draws the best straight line through the data.<br><br>
+        <b>Formula:</b><br>
+        <code style="background:#fff;padding:4px 8px;border-radius:4px;font-size:13px;display:block;margin:6px 0;font-weight:700;">y = w₁x + b</code>
+        <b>y</b> = prediction (what we output)<br>
+        <b>x</b> = the single input feature<br>
+        <b>w₁</b> = slope (how much y changes per unit of x)<br>
+        <b>b</b> = intercept (value of y when x = 0)<br><br>
+        <b>Real example:</b> Predict house price from size only.<br>
+        Price = 150 × size + 20000
+      </div>
+    </div>
+    <div class="box box-g">
+      <div class="ct">Multiple Linear Regression — many features</div>
+      <div class="cb">
+        Predicts a continuous output using <b>two or more input features</b>. Fits a hyperplane (flat surface) in high-dimensional space.<br><br>
+        <b>Formula:</b><br>
+        <code style="background:#fff;padding:4px 8px;border-radius:4px;font-size:13px;display:block;margin:6px 0;font-weight:700;">y = w₁x₁ + w₂x₂ + ... + wₙxₙ + b</code>
+        <b>x₁, x₂, ... xₙ</b> = multiple input features<br>
+        <b>w₁, w₂, ... wₙ</b> = one weight per feature<br>
+        <b>b</b> = intercept / bias term<br><br>
+        <b>Real example:</b> Predict house price from size, bedrooms, age, location score.<br>
+        Price = 150×size + 8000×bedrooms − 500×age + 200×location + 5000
+      </div>
+    </div>
+  </div>
+  <div class="note"><b>The key insight:</b> Simple linear regression is just multiple linear regression with n=1. They use the same math, same loss function (MSE), same optimisation (gradient descent or normal equation). The only difference is how many features are in the equation.</div>
+  <div class="divider"></div>
+  <div class="row3">
+    <div class="box">
+      <div class="ct">What both share</div>
+      <div class="cb">
+        · Linear relationship between features and output<br>
+        · Same loss function: MSE<br>
+        · Same optimisation: gradient descent<br>
+        · Coefficients interpretable as feature weights<br>
+        · Same assumptions (linearity, normality of errors)<br>
+        · Output is always a continuous number
+      </div>
+    </div>
+    <div class="box box-b">
+      <div class="ct">Simple LR — when to use</div>
+      <div class="cb">
+        · Quick baseline model<br>
+        · Understand one key driver<br>
+        · Very small datasets<br>
+        · When one feature dominates<br>
+        · Teaching / explanation<br><br>
+        <span class="tag tb">1 feature only</span>
+        <span class="tag tb">Easy to visualise</span>
+      </div>
+    </div>
+    <div class="box box-g">
+      <div class="ct">Multiple LR — when to use</div>
+      <div class="cb">
+        · Real-world problems (always multiple factors)<br>
+        · Better accuracy than simple LR<br>
+        · Feature importance analysis<br>
+        · Controlling for confounding variables<br>
+        · Your Databricks Delta tables<br><br>
+        <span class="tag tg">n features</span>
+        <span class="tag tg">Production models</span>
+      </div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="h1" style="font-size:14px;margin-bottom:8px;">The geometry — what each one draws</div>
+  <div class="row2">
+    <div class="box box-b">
+      <div class="ct">Simple LR — draws a LINE</div>
+      <div class="cb">
+        With 1 feature (x axis) and 1 output (y axis), the model is a 2D space. The best fit is a straight line.<br><br>
+        You can visualise it perfectly on paper.<br><br>
+        <b>2 parameters:</b> slope w₁ and intercept b<br><br>
+        The line minimises the sum of squared vertical distances from each data point to the line (MSE).
+      </div>
+    </div>
+    <div class="box box-g">
+      <div class="ct">Multiple LR — draws a HYPERPLANE</div>
+      <div class="cb">
+        With 2 features it's a plane in 3D space. With 3+ features it's a hyperplane — impossible to visualise but the math is identical.<br><br>
+        <b>n+1 parameters:</b> one weight per feature + intercept<br><br>
+        The hyperplane minimises the sum of squared perpendicular distances from each point to the surface.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sec" id="S2">
+  <div class="h1">Simple Linear Regression — live interactive</div>
+  <div class="sub">One feature, one line — see exactly how slope and intercept affect the fit</div>
+  <div class="ctrl">
+    <div class="cg"><label>True slope</label><input type="range" min="-30" max="30" value="15" step="1" id="s2-slope" oninput="drawS2()"><span class="vb" id="s2sv">1.5</span></div>
+    <div class="cg"><label>True intercept</label><input type="range" min="-50" max="50" value="10" step="1" id="s2-int" oninput="drawS2()"><span class="vb" id="s2iv">1.0</span></div>
+    <div class="cg"><label>Noise level</label><input type="range" min="1" max="40" value="10" step="1" id="s2-noise" oninput="drawS2()"><span class="vb" id="s2nv">10</span></div>
+    <button class="btn" onclick="resampleS2()">Resample data</button>
+  </div>
+  <div class="stats">
+    <div class="sc"><div class="sc-l">Fitted slope ŵ₁</div><div class="sc-v" id="s2fw">—</div><div class="sc-sub">true: <span id="s2tw">1.5</span></div></div>
+    <div class="sc"><div class="sc-l">Fitted intercept b̂</div><div class="sc-v" id="s2fb">—</div></div>
+    <div class="sc"><div class="sc-l">R² score</div><div class="sc-v" id="s2r2">—</div><div class="sc-sub">variance explained</div></div>
+    <div class="sc"><div class="sc-l">RMSE</div><div class="sc-v" id="s2rmse">—</div><div class="sc-sub">avg error</div></div>
+  </div>
+  <div style="position:relative;height:220px;margin-bottom:8px;"><canvas id="c2"></canvas></div>
+  <div class="note" id="s2note">Adjust sliders to see how the fitted line responds.</div>
+  <div class="divider"></div>
+  <div class="row3">
+    <div class="box box-b">
+      <div class="ct">Interpreting slope w₁</div>
+      <div class="cb">Slope = how much y changes for every 1-unit increase in x.<br><br>If w₁ = 1.5 and x = house size in m²: for every extra 1 m², price increases by 1.5 units.<br><br>Positive slope = positive relationship. Negative slope = inverse relationship.</div>
+    </div>
+    <div class="box box-y">
+      <div class="ct">Interpreting intercept b</div>
+      <div class="cb">Intercept = predicted value of y when x = 0.<br><br>Often not meaningful in practice (e.g. a house of 0 m² has no real price). But mathematically necessary to position the line correctly.<br><br>Always include intercept unless data is centred at 0.</div>
+    </div>
+    <div class="box box-g">
+      <div class="ct">What R² tells you</div>
+      <div class="cb">R² = proportion of variance in y explained by x.<br><br>R²=0.85 → x explains 85% of variation in y. The remaining 15% is due to other factors not in the model.<br><br>For simple LR, R² = correlation² between x and y.</div>
+    </div>
+  </div>
+  <div class="note note-y"><b>How it is solved:</b> Two approaches give the exact same answer.<br>1. <b>Normal equation:</b> w = (XᵀX)⁻¹Xᵀy — exact, instant, works for small data<br>2. <b>Gradient descent:</b> iteratively minimise MSE — scales to any data size (used by Spark ML)</div>
+</div>
+
+<div class="sec" id="S3">
+  <div class="h1">Multiple Linear Regression — live interactive</div>
+  <div class="sub">Three features predicting house price — adjust each coefficient and see the effect</div>
+  <div class="note"><b>Scenario:</b> Predicting house price (£k) from: size (m²), number of bedrooms, and age of house (years).<br>
+  Formula: Price = w₁×size + w₂×bedrooms + w₃×age + b</div>
+  <div class="ctrl">
+    <div class="cg"><label>w₁ (size coef)</label><input type="range" min="-5" max="20" value="8" step="1" id="w1" oninput="drawS3()"><span class="vb" id="w1v">8</span></div>
+    <div class="cg"><label>w₂ (bedrooms)</label><input type="range" min="-5" max="20" value="5" step="1" id="w2" oninput="drawS3()"><span class="vb" id="w2v">5</span></div>
+    <div class="cg"><label>w₃ (age — neg)</label><input type="range" min="-10" max="5" value="-3" step="1" id="w3" oninput="drawS3()"><span class="vb" id="w3v">-3</span></div>
+    <div class="cg"><label>Intercept b</label><input type="range" min="0" max="100" value="50" step="5" id="ib" oninput="drawS3()"><span class="vb" id="ibv">50</span></div>
+    <button class="btn" onclick="resampleS3()">Resample data</button>
+  </div>
+  <div class="stats">
+    <div class="sc"><div class="sc-l">R² score</div><div class="sc-v" id="s3r2">—</div></div>
+    <div class="sc"><div class="sc-l">RMSE (£k)</div><div class="sc-v" id="s3rmse">—</div></div>
+    <div class="sc"><div class="sc-l">MAE (£k)</div><div class="sc-v" id="s3mae">—</div></div>
+    <div class="sc"><div class="sc-l">Parameters</div><div class="sc-v">4</div><div class="sc-sub">3 weights + 1 bias</div></div>
+  </div>
+  <div style="margin-bottom:10px;" id="coef-bars"></div>
+  <div style="position:relative;height:190px;margin-bottom:8px;"><canvas id="c3"></canvas></div>
+  <div class="note" id="s3note">Adjust the coefficients to see which feature has the most impact on predictions.</div>
+  <div class="divider"></div>
+  <div class="row3">
+    <div class="box box-b">
+      <div class="ct">Interpreting each coefficient</div>
+      <div class="cb">Each weight wᵢ = change in y for a 1-unit increase in xᵢ <b>holding all other features constant</b>.<br><br>w₁=8 means: one extra m² adds £8k to price, assuming bedrooms and age stay the same.<br><br>This "all else equal" interpretation is the key difference from simple LR.</div>
+    </div>
+    <div class="box box-y">
+      <div class="ct">Multicollinearity problem</div>
+      <div class="cb">When two features are highly correlated (e.g. size and number of rooms), coefficients become unstable and hard to interpret.<br><br>The model may give one feature a huge positive weight and another a huge negative weight to compensate.<br><br><b>Fix:</b> Remove one of the correlated features, or use Ridge regression (L2 regularisation).</div>
+    </div>
+    <div class="box box-g">
+      <div class="ct">Feature scaling matters</div>
+      <div class="cb">Size ranges 50–300 m². Age ranges 0–100 years. Bedrooms ranges 1–6.<br><br>Without scaling, gradient descent updates size weights much faster than bedroom weights (larger gradient).<br><br><b>Fix:</b> Always z-score normalise features before training. StandardScaler in PySpark.</div>
+    </div>
+  </div>
+</div>
+
+<div class="sec" id="S4">
+  <div class="h1">Key Differences — side by side</div>
+  <div class="sub">Every dimension where simple and multiple linear regression differ</div>
+  <table class="tbl">
+    <tr><th>Aspect</th><th>Simple Linear Regression</th><th>Multiple Linear Regression</th></tr>
+    <tr><td><b>Number of features</b></td><td>Exactly 1 input feature (x)</td><td>2 or more input features (x₁, x₂, ..., xₙ)</td></tr>
+    <tr><td><b>Formula</b></td><td>y = w₁x + b</td><td>y = w₁x₁ + w₂x₂ + ... + wₙxₙ + b</td></tr>
+    <tr><td><b>Parameters learned</b></td><td>2 (one slope + one intercept)</td><td>n+1 (one weight per feature + intercept)</td></tr>
+    <tr><td><b>Geometry</b></td><td>A line in 2D space</td><td>A hyperplane in (n+1)-dimensional space</td></tr>
+    <tr><td><b>Visualisation</b></td><td>Easily plotted as scatter + line</td><td>Impossible to visualise beyond 2 features</td></tr>
+    <tr><td><b>Accuracy</b></td><td>Limited — only captures one relationship</td><td>Better — captures multiple drivers of y</td></tr>
+    <tr><td><b>Interpretability</b></td><td>Very easy — one slope to explain</td><td>Requires understanding of all coefficients</td></tr>
+    <tr><td><b>Risk of overfitting</b></td><td>Low (only 2 parameters)</td><td>Higher as n grows — use regularisation</td></tr>
+    <tr><td><b>Multicollinearity</b></td><td>Not applicable</td><td>Real risk — correlated features cause unstable coefficients</td></tr>
+    <tr><td><b>Feature scaling</b></td><td>Less critical</td><td>Important — different scales cause uneven gradient updates</td></tr>
+    <tr><td><b>Assumptions</b></td><td>Linearity, normal errors, homoscedasticity</td><td>Same + no multicollinearity, no autocorrelation</td></tr>
+    <tr><td><b>Use case</b></td><td>Quick baseline, one key driver, EDA</td><td>Real production models with multiple features</td></tr>
+    <tr><td><b>Spark ML class</b></td><td colspan="2">Both use: LinearRegression() — number of features in VectorAssembler determines which type</td></tr>
+  </table>
+  <div class="divider"></div>
+  <div class="h1" style="font-size:14px;margin-bottom:8px;">Assumptions of linear regression — both types</div>
+  <div class="row2">
+    <div class="box box-r">
+      <div class="ct">Assumptions you must check</div>
+      <div class="cb">
+        <b>1. Linearity</b> — relationship between X and y is linear. Check: residual vs fitted plot (should be random scatter).<br><br>
+        <b>2. Normality of residuals</b> — errors approximately normally distributed. Check: histogram of residuals.<br><br>
+        <b>3. Homoscedasticity</b> — constant variance of errors. Check: residual plot (no funnel shape).<br><br>
+        <b>4. No multicollinearity</b> — features not highly correlated with each other. Check: correlation matrix, VIF score.<br><br>
+        <b>5. Independence</b> — observations independent of each other. Important for time series data.
+      </div>
+    </div>
+    <div class="box box-g">
+      <div class="ct">What happens when assumptions are violated</div>
+      <div class="cb">
+        <b>Non-linearity →</b> Add polynomial features (x²) or use tree-based model.<br><br>
+        <b>Non-normal residuals →</b> Log-transform target. Use Huber loss.<br><br>
+        <b>Heteroscedasticity →</b> Log-transform target or features. Use weighted regression.<br><br>
+        <b>Multicollinearity →</b> Remove correlated features. Use Ridge (L2) regularisation which shrinks collinear weights.<br><br>
+        <b>Autocorrelation →</b> Add lag features. Use time series models.
+      </div>
+    </div>
+  </div>
+  <div style="position:relative;height:185px;margin-bottom:8px;"><canvas id="c4"></canvas></div>
+  <div class="note note-g" id="s4note">Chart shows how R² improves as you add more relevant features to the model.</div>
+</div>
+
+<div class="sec" id="S5">
+  <div class="h1">Databricks + PySpark Implementation</div>
+  <div class="sub">Complete code for both regression types on Delta tables — from raw data to MLflow</div>
+  <div class="note"><b>Important:</b> In Spark ML, both simple and multiple linear regression use the exact same class — <code>LinearRegression()</code>. The difference is purely in how many columns you pass to <code>VectorAssembler</code>. One column = simple. Multiple columns = multiple LR.</div>
+
+  <div class="row2">
+    <div class="box box-b">
+      <div class="ct">Simple Linear Regression in PySpark</div>
+      <div class="cb">One feature → VectorAssembler with one column → LinearRegression. Coefficient array has exactly 1 element.</div>
+    </div>
+    <div class="box box-g">
+      <div class="ct">Multiple Linear Regression in PySpark</div>
+      <div class="cb">Many features → VectorAssembler with multiple columns → same LinearRegression. Coefficient array has n elements — one per feature.</div>
+    </div>
+  </div>
+
+  <div class="code">
+from pyspark.ml.regression import LinearRegression
+from pyspark.ml.feature import VectorAssembler, StandardScaler
+from pyspark.ml.evaluation import RegressionEvaluator
+from pyspark.ml import Pipeline
+import mlflow
+
+# ── Load data from Delta table ─────────────────────────────────
+df = spark.table("catalog.schema.house_prices")
+train, val, test = df.randomSplit([0.7, 0.15, 0.15], seed=42)
+
+# ══════════════════════════════════════════════════════════════
+# SIMPLE LINEAR REGRESSION — one feature only
+# ══════════════════════════════════════════════════════════════
+assembler_simple = VectorAssembler(
+    inputCols=["size"],          # ← ONE feature
+    outputCol="features"
+)
+lr_simple = LinearRegression(
+    featuresCol="features",
+    labelCol="price",
+    regParam=0.01               # L2 regularisation
+)
+pipeline_simple = Pipeline(stages=[assembler_simple, lr_simple])
+
+with mlflow.start_run(run_name="simple_lr"):
+    model_simple = pipeline_simple.fit(train)
+    preds = model_simple.transform(val)
+
+    rmse = RegressionEvaluator(metricName="rmse").evaluate(preds)
+    r2   = RegressionEvaluator(metricName="r2").evaluate(preds)
+    mae  = RegressionEvaluator(metricName="mae").evaluate(preds)
+
+    mlflow.log_param("n_features", 1)
+    mlflow.log_metric("val_rmse", rmse)
+    mlflow.log_metric("val_r2",   r2)
+    mlflow.log_metric("val_mae",  mae)
+
+    # Extract learned parameters
+    lr_model = model_simple.stages[-1]
+    print(f"Slope (w1):    {lr_model.coefficients[0]:.4f}")
+    print(f"Intercept (b): {lr_model.intercept:.4f}")
+    print(f"R²:   {r2:.4f}")
+    print(f"RMSE: {rmse:.4f}")
+
+# ══════════════════════════════════════════════════════════════
+# MULTIPLE LINEAR REGRESSION — many features
+# ══════════════════════════════════════════════════════════════
+feature_cols = ["size", "bedrooms", "age", "location_score", "floor"]
+
+assembler_multi = VectorAssembler(
+    inputCols=feature_cols,      # ← MULTIPLE features
+    outputCol="raw_features"
+)
+# Scale features — critical for gradient descent convergence
+scaler = StandardScaler(
+    inputCol="raw_features",
+    outputCol="features",
+    withMean=True, withStd=True
+)
+lr_multi = LinearRegression(
+    featuresCol="features",
+    labelCol="price",
+    regParam=0.1,               # L2 — prevents multicollinearity issues
+    elasticNetParam=0.0         # 0.0 = pure Ridge
+)
+pipeline_multi = Pipeline(stages=[assembler_multi, scaler, lr_multi])
+
+with mlflow.start_run(run_name="multiple_lr"):
+    model_multi = pipeline_multi.fit(train)
+    preds = model_multi.transform(val)
+
+    rmse = RegressionEvaluator(metricName="rmse").evaluate(preds)
+    r2   = RegressionEvaluator(metricName="r2").evaluate(preds)
+
+    mlflow.log_param("n_features", len(feature_cols))
+    mlflow.log_metric("val_rmse", rmse)
+    mlflow.log_metric("val_r2",   r2)
+
+    # Extract and interpret coefficients
+    lr_model = model_multi.stages[-1]
+    coefs = lr_model.coefficients
+    for feat, coef in zip(feature_cols, coefs):
+        print(f"{feat:20s}: {coef:+.4f}")
+        mlflow.log_param(f"coef_{feat}", round(float(coef), 4))
+    print(f"Intercept: {lr_model.intercept:.4f}")
+
+# ══════════════════════════════════════════════════════════════
+# CHECKING ASSUMPTIONS on Databricks
+# ══════════════════════════════════════════════════════════════
+import numpy as np
+from pyspark.sql import functions as F
+
+# 1. Check multicollinearity — correlation matrix
+from pyspark.ml.stat import Correlation
+vec_df = assembler_multi.transform(df)
+corr_matrix = Correlation.corr(vec_df, "raw_features")
+print("Correlation matrix:"); print(corr_matrix.head()[0].toArray().round(2))
+
+# 2. Compute residuals for assumption checks
+preds_pd = preds.select("price", "prediction").toPandas()
+residuals = preds_pd["price"] - preds_pd["prediction"]
+print(f"Residual mean (should be ~0): {residuals.mean():.4f}")
+print(f"Residual std:                 {residuals.std():.4f}")
+print(f"Max residual:                 {residuals.abs().max():.4f}")
+
+# 3. VIF (Variance Inflation Factor) — multicollinearity check
+# VIF > 5 = moderate multicollinearity, > 10 = severe
+# Use statsmodels on single-node if dataset fits in memory
+from statsmodels.stats.outliers_influence import variance_inflation_factor
+import pandas as pd
+X_pd = df.select(feature_cols).toPandas()
+vif = pd.DataFrame()
+vif["feature"] = feature_cols
+vif["VIF"] = [variance_inflation_factor(X_pd.values, i)
+              for i in range(len(feature_cols))]
+print(vif.sort_values("VIF", ascending=False))
+# If VIF > 10 for any feature → remove it or use Ridge regression</div>
+
+  <div class="divider"></div>
+  <div class="h1" style="font-size:14px;margin-bottom:8px;">When to use which in practice</div>
+  <div class="row3">
+    <div class="box box-b">
+      <div class="ct">Use Simple LR when</div>
+      <div class="cb">
+        · Building a quick baseline<br>
+        · Explaining one key driver to stakeholders<br>
+        · Only one feature is available or relevant<br>
+        · You want to visualise the relationship<br>
+        · EDA — understand individual feature impact<br><br>
+        <span class="tag tb">Always start here for regression</span>
+      </div>
+    </div>
+    <div class="box box-g">
+      <div class="ct">Use Multiple LR when</div>
+      <div class="cb">
+        · Simple LR underfits (R² too low)<br>
+        · Multiple factors clearly drive the target<br>
+        · You need to control for confounders<br>
+        · Your Delta table has multiple useful features<br>
+        · Interpretability is required (e.g. finance)<br><br>
+        <span class="tag tg">The standard production regression model</span>
+      </div>
+    </div>
+    <div class="box box-y">
+      <div class="ct">Move beyond both when</div>
+      <div class="cb">
+        · Residual plot shows curves (non-linearity)<br>
+        · R² stuck below 0.6 despite many features<br>
+        · Interactions between features matter (x₁×x₂)<br>
+        → Add polynomial features<br>
+        → Try Random Forest or XGBoost<br><br>
+        <span class="tag ty">Tree models handle non-linearity automatically</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const CH={};
+function mk(id,cfg){if(CH[id])CH[id].destroy();CH[id]=new Chart(document.getElementById(id),cfg);}
+function rn(){let u=0,v=0;while(!u)u=Math.random();while(!v)v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
+
+function goTab(n){
+  for(let i=1;i<=5;i++) document.getElementById('S'+i).className='sec'+(i===n?' on':'');
+  document.querySelectorAll('.ntab').forEach((t,i)=>t.className='ntab'+(i===n-1?' on':''));
+  if(n===2) resampleS2();
+  if(n===3) resampleS3();
+  if(n===4) drawS4();
+}
+
+// ── Section 2: Simple LR ──────────────────────────────────────
+var s2data=[];
+function resampleS2(){
+  const slope=+document.getElementById('s2-slope').value/10;
+  const inter=+document.getElementById('s2-int').value/10;
+  const noise=+document.getElementById('s2-noise').value;
+  s2data=Array.from({length:40},(_,i)=>{
+    const x=-3+i*0.15;
+    return {x:+x.toFixed(2), y:+(slope*x+inter+rn()*noise/10).toFixed(3)};
+  });
+  drawS2();
+}
+function drawS2(){
+  const slope=+document.getElementById('s2-slope').value/10;
+  const inter=+document.getElementById('s2-int').value/10;
+  const noise=+document.getElementById('s2-noise').value;
+  document.getElementById('s2sv').textContent=slope.toFixed(1);
+  document.getElementById('s2iv').textContent=inter.toFixed(1);
+  document.getElementById('s2nv').textContent=noise;
+  document.getElementById('s2tw').textContent=slope.toFixed(1);
+  if(!s2data.length) resampleS2();
+  const xs=s2data.map(p=>p.x), ys=s2data.map(p=>p.y);
+  const n=xs.length;
+  const mx=xs.reduce((a,b)=>a+b)/n, my=ys.reduce((a,b)=>a+b)/n;
+  const fw=(xs.reduce((s,x,i)=>s+(x-mx)*(ys[i]-my),0))/(xs.reduce((s,x)=>s+(x-mx)**2,0));
+  const fb=my-fw*mx;
+  const preds=xs.map(x=>fw*x+fb);
+  const ssTot=ys.reduce((s,y)=>s+(y-my)**2,0);
+  const ssRes=ys.reduce((s,y,i)=>s+(y-preds[i])**2,0);
+  const r2=+(1-ssRes/ssTot).toFixed(3);
+  const rmse=+Math.sqrt(ssRes/n).toFixed(3);
+  document.getElementById('s2fw').textContent=fw.toFixed(3);
+  document.getElementById('s2fb').textContent=fb.toFixed(3);
+  document.getElementById('s2r2').textContent=r2;
+  document.getElementById('s2rmse').textContent=rmse;
+  const lineX=[Math.min(...xs), Math.max(...xs)];
+  const lineY=lineX.map(x=>+(fw*x+fb).toFixed(3));
+  // draw residual lines
+  const residualDatasets=s2data.map((p,i)=>({
+    type:'line',data:[{x:p.x,y:+p.y.toFixed(3)},{x:p.x,y:+preds[i].toFixed(3)}],
+    borderColor:'rgba(192,57,43,0.25)',borderWidth:1,pointRadius:0,fill:false
+  }));
+  mk('c2',{type:'scatter',data:{datasets:[
+    ...residualDatasets,
+    {data:s2data,backgroundColor:'rgba(21,96,168,0.6)',pointRadius:5,label:'data'},
+    {type:'line',data:lineX.map((x,i)=>({x,y:lineY[i]})),borderColor:'#1a9e5f',borderWidth:2.5,pointRadius:0,fill:false,label:'fit'}
+  ]},options:{responsive:true,maintainAspectRatio:false,parsing:{xAxisKey:'x',yAxisKey:'y'},plugins:{legend:{display:false}},scales:{x:{type:'linear',title:{display:true,text:'x (feature)',font:{size:10}},ticks:{font:{size:10},color:'#888'},grid:{color:'rgba(0,0,0,0.05)'}},y:{title:{display:true,text:'y (target)',font:{size:10}},ticks:{font:{size:10},color:'#888'},grid:{color:'rgba(0,0,0,0.05)'}}}}});
+  document.getElementById('s2note').innerHTML=
+    `Fitted line: <b>ŷ = ${fw.toFixed(2)}x + ${fb.toFixed(2)}</b>. R² = <b>${r2}</b> — the model explains <b>${(Math.max(0,r2)*100).toFixed(0)}%</b> of variance in y. Red lines = residuals (individual errors). ${r2>0.8?'Strong fit.':r2>0.5?'Moderate fit — consider adding more features (multiple LR).':'Weak fit — one feature is not enough.'}`;
+}
+
+// ── Section 3: Multiple LR ─────────────────────────────────────
+var s3data=[];
+function resampleS3(){
+  s3data=Array.from({length:50},()=>({
+    size:    +(50+Math.random()*250).toFixed(1),
+    beds:    +(1+Math.floor(Math.random()*5)).toFixed(0),
+    age:     +(5+Math.floor(Math.random()*95)).toFixed(0)
+  }));
+  drawS3();
+}
+function drawS3(){
+  const w1=+document.getElementById('w1').value;
+  const w2=+document.getElementById('w2').value;
+  const w3=+document.getElementById('w3').value;
+  const ib=+document.getElementById('ib').value;
+  document.getElementById('w1v').textContent=w1;
+  document.getElementById('w2v').textContent=w2;
+  document.getElementById('w3v').textContent=w3;
+  document.getElementById('ibv').textContent=ib;
+  if(!s3data.length) resampleS3();
+  const trueW1=8,trueW2=5,trueW3=-3,trueB=50;
+  const trueY=s3data.map(d=>trueW1*d.size/10+trueW2*d.beds+trueW3*d.age/10+trueB+rn()*8);
+  const predY=s3data.map(d=>w1*d.size/10+w2*d.beds+w3*d.age/10+ib);
+  const n=s3data.length;
+  const my=trueY.reduce((a,b)=>a+b)/n;
+  const ssRes=trueY.reduce((s,y,i)=>s+(y-predY[i])**2,0);
+  const ssTot=trueY.reduce((s,y)=>s+(y-my)**2,0);
+  const r2=+(1-ssRes/ssTot).toFixed(3);
+  const rmse=+Math.sqrt(ssRes/n).toFixed(2);
+  const mae=+(trueY.reduce((s,y,i)=>s+Math.abs(y-predY[i]),0)/n).toFixed(2);
+  document.getElementById('s3r2').textContent=r2;
+  document.getElementById('s3rmse').textContent=rmse;
+  document.getElementById('s3mae').textContent=mae;
+  const maxAbs=Math.max(Math.abs(w1),Math.abs(w2),Math.abs(w3),1);
+  const bars=[
+    {name:'w₁ (size)',val:w1,color:'#1560a8'},
+    {name:'w₂ (bedrooms)',val:w2,color:'#1a9e5f'},
+    {name:'w₃ (age)',val:w3,color:'#c0392b'}
+  ];
+  document.getElementById('coef-bars').innerHTML=bars.map(b=>`
+    <div class="coef-row">
+      <span class="coef-name">${b.name}</span>
+      <div class="coef-track"><div class="coef-fill" style="width:${Math.min(100,Math.abs(b.val)/maxAbs*100).toFixed(0)}%;background:${b.color};"></div></div>
+      <span class="coef-val" style="color:${b.val>=0?'#1a9e5f':'#c0392b'}">${b.val>0?'+':''}${b.val}</span>
+    </div>`).join('');
+  mk('c3',{type:'scatter',data:{datasets:[
+    {data:predY.map((p,i)=>({x:+trueY[i].toFixed(2),y:+p.toFixed(2)})),backgroundColor:'rgba(21,96,168,0.5)',pointRadius:5,label:'predictions'},
+    {type:'line',data:[{x:Math.min(...trueY),y:Math.min(...trueY)},{x:Math.max(...trueY),y:Math.max(...trueY)}],borderColor:'#c0392b',borderWidth:1.5,borderDash:[4,3],pointRadius:0,fill:false,label:'perfect'}
+  ]},options:{responsive:true,maintainAspectRatio:false,parsing:{xAxisKey:'x',yAxisKey:'y'},plugins:{legend:{display:false}},scales:{x:{title:{display:true,text:'actual price (£k)',font:{size:10}},ticks:{font:{size:10},color:'#888'},grid:{color:'rgba(0,0,0,0.05)'}},y:{title:{display:true,text:'predicted price (£k)',font:{size:10}},ticks:{font:{size:10},color:'#888'},grid:{color:'rgba(0,0,0,0.05)'}}}}});
+  document.getElementById('s3note').innerHTML=
+    `Model: <b>Price = ${w1}×(size/10) + ${w2}×beds + ${w3}×(age/10) + ${ib}</b>. R²=<b>${r2}</b>. RMSE=<b>£${rmse}k</b>. ${r2>0.85?'Excellent fit — coefficients close to true values.':r2>0.6?'Good fit. Try adjusting w₁ toward 8, w₂ toward 5, w₃ toward -3 for better fit.':'Poor fit — coefficients far from true values (true: w₁=8, w₂=5, w₃=-3, b=50).'}`;
+}
+
+// ── Section 4: Differences chart ──────────────────────────────
+function drawS4(){
+  const features=[1,2,3,4,5,6,8,10];
+  const r2s=features.map(n=>+Math.min(0.97,0.35+n*0.07-Math.max(0,n-6)*0.01+rn()*0.03).toFixed(3));
+  mk('c4',{type:'line',data:{labels:features.map(n=>n+' feature'+(n>1?'s':'')),datasets:[
+    {label:'R² score',data:r2s,borderColor:'#1560a8',borderWidth:2.5,pointRadius:5,pointBackgroundColor:'#1560a8',fill:true,backgroundColor:'rgba(21,96,168,0.08)'}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{font:{size:10},color:'#888'},grid:{color:'rgba(0,0,0,0.05)'}},y:{min:0,max:1,title:{display:true,text:'R² score',font:{size:10}},ticks:{font:{size:10},color:'#888'},grid:{color:'rgba(0,0,0,0.05)'}}}}});
+  document.getElementById('s4note').innerHTML=
+    'R² improves as you add more relevant features (simple → multiple LR). But adding irrelevant features can hurt — always check val R², not just train R².';
+}
+
+// ── Init ───────────────────────────────────────────────────────
+resampleS2();
+</script>

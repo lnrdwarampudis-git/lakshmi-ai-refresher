@@ -1,0 +1,705 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html,body{background:#12141c !important;color:#f0f0f0 !important;font-family:Arial,sans-serif;font-size:13px;margin:0;padding:8px;}
+*{box-sizing:border-box;}
+.nav{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-bottom:14px;}
+.tab{background:#1e2235;color:#b0c4f8;border:2px solid #3a4870;border-radius:7px;padding:9px 4px;font-size:10px;font-weight:700;cursor:pointer;text-align:center;line-height:1.4;}
+.tab.on{background:#1a5cb8;color:#fff;border-color:#5090ff;}
+.sec{display:none;}.sec.on{display:block;}
+.h1{font-size:16px;font-weight:700;color:#fff;margin-bottom:3px;}
+.sub{font-size:12px;color:#8898bb;margin-bottom:12px;}
+.badge{display:inline-block;color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;margin-bottom:8px;}
+.bg-b{background:#1a5cb8;}.bg-g{background:#1a7a3a;}.bg-y{background:#7a5800;}.bg-p{background:#5a30a0;}.bg-o{background:#7a3800;}
+.sl{font-size:13px;font-weight:700;color:#78aaff;margin:12px 0 7px 0;padding-bottom:4px;border-bottom:1px solid #2a3860;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px;}
+.card{background:#1a1e30;border:1px solid #2e3858;border-radius:8px;padding:12px;}
+.card .t{font-size:13px;font-weight:700;color:#c0d4ff;margin-bottom:5px;}
+.card .b{font-size:12px;color:#9aaac8;line-height:1.7;}
+.card-b{background:#0c1e38;border-color:#1e5090;}.card-b .t{color:#70c0ff;}.card-b .b{color:#90b8e8;}
+.card-g{background:#081c10;border-color:#1a6030;}.card-g .t{color:#50e880;}.card-g .b{color:#80c898;}
+.card-r{background:#200a0a;border-color:#702020;}.card-r .t{color:#ff7070;}.card-r .b{color:#e89090;}
+.card-y{background:#1e1600;border-color:#6a5000;}.card-y .t{color:#ffc840;}.card-y .b{color:#d8a860;}
+.card-p{background:#140c28;border-color:#4a30a0;}.card-p .t{color:#c0a0ff;}.card-p .b{color:#a888e8;}
+.card-o{background:#1e0c00;border-color:#6a3000;}.card-o .t{color:#ff9840;}.card-o .b{color:#d88040;}
+.note{border-left:4px solid #4080ff;background:#0c1e3a;color:#b0ccf8;padding:9px 13px;border-radius:0 7px 7px 0;margin:8px 0;font-size:12px;line-height:1.6;}
+.note b{color:#fff;}
+.note-g{border-left-color:#30c860;background:#081c10;color:#90e8a8;}.note-g b{color:#60ff90;}
+.note-r{border-left-color:#e03030;background:#200808;color:#f09090;}.note-r b{color:#ff8080;}
+.note-y{border-left-color:#e0a000;background:#1c1200;color:#e8c860;}.note-y b{color:#ffe060;}
+.note-p{border-left-color:#9070e0;background:#140c28;color:#c8b0ff;}.note-p b{color:#d8c8ff;}
+.note-o{border-left-color:#e07020;background:#1e0c00;color:#e8a060;}.note-o b{color:#ffc080;}
+.tg{display:inline-block;background:#0a2c14;color:#50e870;border:1px solid #208040;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;margin:2px;}
+.tr{display:inline-block;background:#2c0a0a;color:#ff7070;border:1px solid #802020;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;margin:2px;}
+.tb{display:inline-block;background:#0a1e3c;color:#60b0ff;border:1px solid #204880;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;margin:2px;}
+.ty{display:inline-block;background:#241800;color:#ffc040;border:1px solid #806000;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;margin:2px;}
+.tp{display:inline-block;background:#1a0830;color:#c0a0ff;border:1px solid #5030a0;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;margin:2px;}
+.to{display:inline-block;background:#1e0c00;color:#ff9840;border:1px solid #6a3000;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;margin:2px;}
+table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:10px;}
+th{background:#1a1e30;color:#78aaff;font-weight:700;padding:7px 9px;text-align:left;border-bottom:1px solid #2e3858;}
+td{padding:6px 9px;border-bottom:1px solid #1e2438;color:#c0cce8;vertical-align:top;}
+tr:hover td{background:#1a2040;}
+.cert-card{border-radius:10px;padding:14px;margin-bottom:12px;border:2px solid;}
+.cert-title{font-size:15px;font-weight:700;margin-bottom:2px;}
+.cert-code{font-size:11px;font-family:monospace;opacity:0.75;margin-bottom:8px;}
+.cert-meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
+.meta-pill{font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;}
+.cert-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.cert-section{font-size:11px;font-weight:700;color:#78aaff;margin-bottom:4px;margin-top:8px;}
+.cert-body{font-size:11px;color:#9aaac8;line-height:1.7;}
+.priority-badge{font-size:11px;font-weight:700;padding:4px 14px;border-radius:6px;display:inline-block;margin-bottom:8px;}
+.roadmap-row{display:flex;gap:0;margin-bottom:14px;align-items:stretch;}
+.rm-step{flex:1;background:#1a1e30;border:1px solid #2e3858;border-radius:0;padding:10px 12px;position:relative;}
+.rm-step:first-child{border-radius:8px 0 0 8px;}
+.rm-step:last-child{border-radius:0 8px 8px 0;}
+.rm-num{font-size:22px;font-weight:700;margin-bottom:2px;}
+.rm-title{font-size:12px;font-weight:700;color:#fff;margin-bottom:2px;}
+.rm-sub{font-size:10px;color:#8898b8;line-height:1.5;}
+.rm-arr{width:24px;background:#12141c;display:flex;align-items:center;justify-content:center;font-size:18px;color:#4080ff;flex-shrink:0;}
+.week-block{background:#1a1e30;border:1px solid #2e3858;border-radius:8px;padding:10px 13px;margin-bottom:7px;}
+.week-title{font-size:12px;font-weight:700;color:#ffc840;margin-bottom:4px;}
+.week-body{font-size:11px;color:#9aaac8;line-height:1.7;}
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:5px;}
+.bar-label{min-width:200px;font-size:11px;color:#c0cce8;}
+.bar-track{flex:1;height:11px;background:#1a1e30;border-radius:5px;overflow:hidden;}
+.bar-fill{height:11px;border-radius:5px;}
+.bar-val{min-width:38px;font-size:11px;font-weight:700;color:#fff;text-align:right;}
+.divider{height:1px;background:#2a3860;margin:10px 0;}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <div class="tab on"  onclick="goTab(1)">1. The Big Picture</div>
+  <div class="tab"     onclick="goTab(2)">2. Each Cert Deep Dive</div>
+  <div class="tab"     onclick="goTab(3)">3. Your Order + Timeline</div>
+  <div class="tab"     onclick="goTab(4)">4. What Each Covers</div>
+  <div class="tab"     onclick="goTab(5)">5. Study Plan + Resources</div>
+</div>
+
+<!-- ══ TAB 1 ══ -->
+<div class="sec on" id="S1">
+<div class="badge bg-b">AWS CERTIFICATIONS FOR ML TRANSITION</div>
+<div class="h1">Which AWS Certs Complement Your ML Path</div>
+<div class="sub">4 certifications — ranked by relevance and recommended order for your exact situation</div>
+
+<div class="note"><b>Your situation in one sentence:</b> You are an experienced AWS Data Engineer transitioning to ML Engineering on Databricks + Azure. You want certs that (1) validate what you already know, (2) bridge your DE skills to ML, and (3) signal to employers you are a credible ML Engineer — not just someone who took a course.</div>
+
+<div class="sl">The 4 AWS certs that matter for your ML path</div>
+
+<!-- Visual cert ladder -->
+<div style="margin-bottom:14px;">
+  <!-- Row: Specialty at top -->
+  <div style="display:flex;justify-content:center;margin-bottom:6px;">
+    <div style="background:#200a0a;border:2px solid #8a2020;border-radius:10px;padding:10px 18px;text-align:center;min-width:280px;">
+      <div style="font-size:10px;color:#ff9090;font-weight:700;margin-bottom:2px;">LEVEL 3 — SPECIALTY ($300)</div>
+      <div style="font-size:14px;font-weight:700;color:#ff7070;">ML Specialty (MLS-C01)</div>
+      <div style="font-size:11px;color:#e89090;margin-top:2px;">Algorithms · Architecture · Deep ML theory</div>
+      <div style="font-size:10px;color:#ff7070;margin-top:4px;">⏱ 170 min · 65 questions · Pass: 750/1000</div>
+    </div>
+  </div>
+  <div style="text-align:center;font-size:22px;color:#4080ff;line-height:1.1;">↑</div>
+  <!-- Row: Two associates -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:4px 0;">
+    <div style="background:#081c10;border:2px solid #1a6030;border-radius:10px;padding:10px 14px;text-align:center;">
+      <div style="font-size:10px;color:#80c898;font-weight:700;margin-bottom:2px;">LEVEL 2 — ASSOCIATE ($150)</div>
+      <div style="font-size:13px;font-weight:700;color:#50e880;">ML Engineer Associate (MLA-C01)</div>
+      <div style="font-size:11px;color:#80c898;margin-top:2px;">SageMaker · MLOps · Deploy · Monitor</div>
+      <div style="font-size:10px;color:#50e880;margin-top:4px;">⏱ 130 min · 65 questions · Pass: 720/1000</div>
+    </div>
+    <div style="background:#0c1e38;border:2px solid #1e5090;border-radius:10px;padding:10px 14px;text-align:center;">
+      <div style="font-size:10px;color:#90b8e8;font-weight:700;margin-bottom:2px;">LEVEL 2 — ASSOCIATE ($150)</div>
+      <div style="font-size:13px;font-weight:700;color:#70c0ff;">Data Engineer Associate (DEA-C01)</div>
+      <div style="font-size:11px;color:#90b8e8;margin-top:2px;">Glue · Kinesis · Redshift · Lake Formation</div>
+      <div style="font-size:10px;color:#70c0ff;margin-top:4px;">⏱ 130 min · 65 questions · Pass: 720/1000</div>
+    </div>
+  </div>
+  <div style="text-align:center;font-size:22px;color:#4080ff;line-height:1.1;">↑</div>
+  <!-- Row: Foundation -->
+  <div style="display:flex;justify-content:center;margin-top:4px;">
+    <div style="background:#1e1600;border:2px solid #6a5000;border-radius:10px;padding:10px 18px;text-align:center;min-width:280px;">
+      <div style="font-size:10px;color:#d8a860;font-weight:700;margin-bottom:2px;">LEVEL 1 — FOUNDATIONAL ($75)</div>
+      <div style="font-size:14px;font-weight:700;color:#ffc840;">AI Practitioner (AIF-C01)</div>
+      <div style="font-size:11px;color:#d8a860;margin-top:2px;">AI/ML concepts · AWS AI services · GenAI · Responsible AI</div>
+      <div style="font-size:10px;color:#ffc840;margin-top:4px;">⏱ 90 min · 65 questions · Pass: 700/1000</div>
+    </div>
+  </div>
+</div>
+
+<div class="sl">Relevance to your ML transition — scored</div>
+<div style="margin-bottom:12px;">
+  <div class="bar-row"><span class="bar-label">DEA-C01 — Data Engineer Associate</span><div class="bar-track"><div class="bar-fill" style="width:95%;background:#70c0ff;"></div></div><span class="bar-val" style="color:#70c0ff;">9.5/10</span></div>
+  <div style="font-size:10px;color:#8898b8;margin-left:208px;margin-top:-2px;margin-bottom:6px;">You already know 80% of this. Low prep time, huge credential payoff. Do this FIRST.</div>
+
+  <div class="bar-row"><span class="bar-label">MLA-C01 — ML Engineer Associate</span><div class="bar-track"><div class="bar-fill" style="width:90%;background:#50e880;"></div></div><span class="bar-val" style="color:#50e880;">9.0/10</span></div>
+  <div style="font-size:10px;color:#8898b8;margin-left:208px;margin-top:-2px;margin-bottom:6px;">The core cert for your transition. SageMaker + MLOps. Do this SECOND after 3 months of ML study.</div>
+
+  <div class="bar-row"><span class="bar-label">AIF-C01 — AI Practitioner</span><div class="bar-track"><div class="bar-fill" style="width:72%;background:#ffc840;"></div></div><span class="bar-val" style="color:#ffc840;">7.2/10</span></div>
+  <div style="font-size:10px;color:#8898b8;margin-left:208px;margin-top:-2px;margin-bottom:6px;">Quick win ($75). Broad AI/GenAI coverage. Good for credibility, low depth. Do alongside DEA-C01.</div>
+
+  <div class="bar-row"><span class="bar-label">MLS-C01 — ML Specialty</span><div class="bar-track"><div class="bar-fill" style="width:80%;background:#ff7070;"></div></div><span class="bar-val" style="color:#ff7070;">8.0/10</span></div>
+  <div style="font-size:10px;color:#8898b8;margin-left:208px;margin-top:-2px;margin-bottom:6px;">Most rigorous. Algorithms + architecture depth. Do LAST — after 6+ months of ML experience.</div>
+</div>
+
+<div class="g3">
+  <div class="card card-b"><div class="t">Your recommended order</div><div class="b">
+    <b style="color:#70c0ff">Month 1:</b> DEA-C01<br>
+    Formalise what you already know. You should pass with 3–4 weeks of study given your AWS background.<br><br>
+    <b style="color:#ffc840">Month 2:</b> AIF-C01<br>
+    Cheap quick win while you build ML knowledge. Prep alongside Phase 1 ML study.<br><br>
+    <b style="color:#50e880">Month 4–5:</b> MLA-C01<br>
+    After Phase 1 ML study is done. SageMaker becomes meaningful once you know ML.<br><br>
+    <b style="color:#ff9090">Month 8+:</b> MLS-C01<br>
+    Once you have real ML project experience. Algorithms section rewards practice.
+  </div></div>
+  <div class="card card-g"><div class="t">Total investment</div><div class="b">
+    <b style="color:#50e880">DEA-C01:</b> $150 · ~3 weeks prep<br>
+    <b style="color:#ffc840">AIF-C01:</b> $75 · ~2 weeks prep<br>
+    <b style="color:#50e880">MLA-C01:</b> $150 · ~6 weeks prep<br>
+    <b style="color:#ff9090">MLS-C01:</b> $300 · ~8 weeks prep<br><br>
+    <b style="color:#80c898">Total: $675</b> across ~8 months<br><br>
+    All valid for 3 years. Recertify by retaking the same or higher exam.
+  </div></div>
+  <div class="card card-y"><div class="t">⚠ Time-sensitive flag</div><div class="b">
+    <b style="color:#ffd060">MLS-C01 prep resources expire March 31, 2026.</b><br><br>
+    AWS is phasing out the old exam prep materials. The exam itself continues, but the official study guides and practice questions for the current version will be replaced. If you plan to do MLS-C01, do not wait past early 2026 to start studying with current materials.<br><br>
+    <span class="tr">Act before March 31, 2026</span>
+  </div></div>
+</div>
+
+<div class="note note-g"><b>Why not skip straight to MLS-C01?</b> Because MLS-C01 without real ML experience produces a cert you cannot defend in an interview. DEA-C01 → MLA-C01 builds the practical foundation — SageMaker hands-on, MLOps workflows, data preparation for ML — that makes MLS-C01 meaningful rather than just memorised. AWS itself recommends completing DEA-C01 or MLA-C01 before attempting the Specialty.</div>
+</div>
+
+<!-- ══ TAB 2 ══ -->
+<div class="sec" id="S2">
+<div class="badge bg-g">EACH CERT — COMPLETE DETAILS</div>
+<div class="h1">Deep Dive — Every Cert You Need to Know</div>
+<div class="sub">Exam domains · What it covers · How relevant to you · Exact prep strategy</div>
+
+<!-- DEA-C01 -->
+<div class="cert-card" style="background:#0c1e38;border-color:#2a6aaa;">
+  <div class="priority-badge" style="background:#1a5cb8;color:#fff;">🥇 DO FIRST — Your Quick Win</div>
+  <div class="cert-title" style="color:#70c0ff;">AWS Certified Data Engineer — Associate</div>
+  <div class="cert-code">DEA-C01 · $150 · 130 min · 65 questions · Pass 720/1000 · Valid 3 years</div>
+  <div class="cert-meta">
+    <span class="meta-pill" style="background:#0a2c14;color:#50e870;border:1px solid #208040;">Associate Level</span>
+    <span class="meta-pill" style="background:#0a1e3c;color:#60b0ff;border:1px solid #204880;">2–3 yrs DE experience recommended</span>
+    <span class="meta-pill" style="background:#1e0c00;color:#ff9840;border:1px solid #6a3000;">~3 weeks prep (for you)</span>
+  </div>
+  <div class="cert-grid">
+    <div>
+      <div class="cert-section">Exam domains and weightings</div>
+      <div class="cert-body">
+        <b style="color:#70c0ff">Domain 1 (34%):</b> Data Ingestion and Transformation<br>
+        → Glue ETL, Kinesis Streams/Firehose, DMS, EMR Spark, batch vs streaming<br><br>
+        <b style="color:#70c0ff">Domain 2 (26%):</b> Data Store Management<br>
+        → S3 (data lake), Redshift (warehouse), DynamoDB, RDS/Aurora, partitioning, Parquet/ORC<br><br>
+        <b style="color:#70c0ff">Domain 3 (22%):</b> Data Operations and Support<br>
+        → Step Functions, MWAA (Airflow), EventBridge, CloudWatch, data quality<br><br>
+        <b style="color:#70c0ff">Domain 4 (18%):</b> Data Security and Governance<br>
+        → Lake Formation, IAM, encryption, data cataloguing, Macie
+      </div>
+      <div class="cert-section" style="margin-top:10px;">⚠ What is explicitly OUT of scope</div>
+      <div class="cert-body" style="color:#ff9090;">
+        "Perform ML training and inferences" is explicitly excluded from DEA-C01.<br>
+        This exam is pure data engineering — pipelines, storage, orchestration. No SageMaker, no model training.
+      </div>
+    </div>
+    <div>
+      <div class="cert-section">Why this is your #1 priority</div>
+      <div class="cert-body" style="color:#80c898;">
+        ✓ You already DO this work every day<br>
+        ✓ Glue, Kinesis, S3, Redshift, Step Functions — all familiar<br>
+        ✓ Formalises your existing skills with an official credential<br>
+        ✓ Required knowledge for MLA-C01 (Domain 1 = data prep for ML)<br>
+        ✓ Cheapest relative to preparation time needed<br>
+        ✓ AWS recommends DEA-C01 before MLS-C01<br>
+        ✓ Shows employers you are credentialed in both DE and ML paths
+      </div>
+      <div class="cert-section" style="margin-top:10px;">Prep strategy for you specifically</div>
+      <div class="cert-body">
+        Given 2-3 years of AWS DE experience, focus on:<br>
+        · Gap areas: Lake Formation governance details<br>
+        · Gap areas: MWAA (Managed Airflow) vs Step Functions decision<br>
+        · Gap areas: EMR Serverless vs EMR on EC2 trade-offs<br>
+        · Gap areas: Glue DataBrew vs Glue Studio vs Glue ETL<br>
+        · Strong areas (just review): S3, Kinesis, Glue, Redshift<br><br>
+        <b style="color:#70c0ff">Do 2 full practice exams (Tutorials Dojo) — pass both before scheduling</b>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AIF-C01 -->
+<div class="cert-card" style="background:#1e1600;border-color:#7a6000;">
+  <div class="priority-badge" style="background:#7a5800;color:#fff;">🥈 DO SECOND — Quick, Cheap, Broad Coverage</div>
+  <div class="cert-title" style="color:#ffc840;">AWS Certified AI Practitioner</div>
+  <div class="cert-code">AIF-C01 · $75 · 90 min · 65 questions · Pass 700/1000 · Valid 3 years</div>
+  <div class="cert-meta">
+    <span class="meta-pill" style="background:#1e1600;color:#ffc040;border:1px solid #806000;">Foundational Level</span>
+    <span class="meta-pill" style="background:#0a1e3c;color:#60b0ff;border:1px solid #204880;">No experience prerequisites</span>
+    <span class="meta-pill" style="background:#1e0c00;color:#ff9840;border:1px solid #6a3000;">~2 weeks prep</span>
+  </div>
+  <div class="cert-grid">
+    <div>
+      <div class="cert-section">Exam domains and weightings</div>
+      <div class="cert-body">
+        <b style="color:#ffc840">Domain 1 (20%):</b> Fundamentals of AI and ML<br>
+        → ML concepts, training/inference, bias, overfitting, common algorithms<br><br>
+        <b style="color:#ffc840">Domain 2 (24%):</b> Fundamentals of Generative AI<br>
+        → LLMs, foundation models, tokens, embeddings, prompting, RAG<br><br>
+        <b style="color:#ffc840">Domain 3 (28%):</b> Applications of Foundation Models<br>
+        → Bedrock, prompt engineering, fine-tuning, agents<br><br>
+        <b style="color:#ffc840">Domain 4 (14%):</b> Guidelines for Responsible AI<br>
+        → Fairness, transparency, explainability, governance<br><br>
+        <b style="color:#ffc840">Domain 5 (14%):</b> Security, Compliance, and Governance for AI Solutions<br>
+        → IAM for AI, model governance, data privacy
+      </div>
+    </div>
+    <div>
+      <div class="cert-section">Why this is worth doing</div>
+      <div class="cert-body" style="color:#80c898;">
+        ✓ Only $75 — lowest cost AWS cert<br>
+        ✓ Covers GenAI, RAG, Bedrock — directly relevant to your Azure OpenAI work<br>
+        ✓ Bridges general AI concepts to AWS services<br>
+        ✓ Can prep WHILE doing Phase 1 ML study — overlapping content<br>
+        ✓ Responsible AI section useful for enterprise work<br>
+        ✓ Good confidence builder before MLA-C01
+      </div>
+      <div class="cert-section" style="margin-top:10px;">Honest caveats</div>
+      <div class="cert-body" style="color:#e89090;">
+        ✗ Foundational level — will not impress experienced ML engineers<br>
+        ✗ No hands-on SageMaker required<br>
+        ✗ Some overlap with MLA-C01 (the associate covers everything here and more)<br><br>
+        <b style="color:#ffc840">Verdict:</b> Fast and cheap. Do it alongside DEA-C01 prep — the ML concepts section maps directly to what you are studying in Phase 1.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MLA-C01 -->
+<div class="cert-card" style="background:#081c10;border-color:#1a6030;">
+  <div class="priority-badge" style="background:#1a7a3a;color:#fff;">🥉 DO THIRD — The Career-Defining Cert for Your Transition</div>
+  <div class="cert-title" style="color:#50e880;">AWS Certified Machine Learning Engineer — Associate</div>
+  <div class="cert-code">MLA-C01 · $150 · 130 min · 65 questions · Pass 720/1000 · Valid 3 years · Released Aug 2024</div>
+  <div class="cert-meta">
+    <span class="meta-pill" style="background:#0a2c14;color:#50e870;border:1px solid #208040;">Associate Level</span>
+    <span class="meta-pill" style="background:#0a1e3c;color:#60b0ff;border:1px solid #204880;">1+ yr ML experience recommended</span>
+    <span class="meta-pill" style="background:#1e0c00;color:#ff9840;border:1px solid #6a3000;">~6 weeks prep</span>
+    <span class="meta-pill" style="background:#140c28;color:#c0a0ff;border:1px solid #5030a0;">New in 2024</span>
+  </div>
+  <div class="cert-grid">
+    <div>
+      <div class="cert-section">Exam domains and weightings</div>
+      <div class="cert-body">
+        <b style="color:#50e880">Domain 1 (28%):</b> Data Preparation for Machine Learning<br>
+        → Feature engineering, data preprocessing, SageMaker Data Wrangler, feature store<br><br>
+        <b style="color:#50e880">Domain 2 (26%):</b> ML Model Development<br>
+        → SageMaker Training, built-in algorithms, hyperparameter tuning (HPO), AutoML<br><br>
+        <b style="color:#50e880">Domain 3 (22%):</b> Deployment and Orchestration of ML Workloads<br>
+        → SageMaker Endpoints, Pipelines, MLflow on SageMaker, CI/CD for ML, SageMaker Jumpstart<br><br>
+        <b style="color:#50e880">Domain 4 (24%):</b> ML Solution Monitoring, Maintenance, and Security<br>
+        → Model Monitor, data drift, CloudWatch for ML, SageMaker Clarify (bias/explainability)
+      </div>
+    </div>
+    <div>
+      <div class="cert-section">Why this is THE cert for your transition</div>
+      <div class="cert-body" style="color:#80c898;">
+        ✓ Directly validates ML Engineering + MLOps skills<br>
+        ✓ Heavy SageMaker focus — AWS's ML platform<br>
+        ✓ Domain 1 (data prep) = your DE background + ML knowledge<br>
+        ✓ Domain 3 (deployment) = your Lambda/Step Functions knowledge + ML<br>
+        ✓ Newest cert (2024) — signals current, relevant skills<br>
+        ✓ Role-based: designed for ML Engineers, not data scientists<br>
+        ✓ Complements your Databricks ML Associate cert path perfectly
+      </div>
+      <div class="cert-section" style="margin-top:10px;">What makes MLA-C01 hard</div>
+      <div class="cert-body" style="color:#e89090;">
+        ✗ Heavy scenario-based questions — not just "what does X do"<br>
+        ✗ Requires actual hands-on SageMaker experience to answer correctly<br>
+        ✗ Domain 1+3 consistently reported as hardest by test-takers<br>
+        ✗ Questions test precise configuration details, not just concepts<br><br>
+        <b style="color:#50e880">Do NOT attempt until you have done at least 3 real ML projects using SageMaker or equivalent Databricks pipelines</b>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MLS-C01 -->
+<div class="cert-card" style="background:#200a0a;border-color:#702020;">
+  <div class="priority-badge" style="background:#8a2020;color:#fff;">4️⃣ DO LAST — Advanced, High Prestige, High Difficulty</div>
+  <div class="cert-title" style="color:#ff7070;">AWS Certified Machine Learning — Specialty</div>
+  <div class="cert-code">MLS-C01 · $300 · 170 min · 65 questions · Pass 750/1000 · Valid 3 years</div>
+  <div class="cert-meta">
+    <span class="meta-pill" style="background:#2c0a0a;color:#ff7070;border:1px solid #802020;">Specialty Level</span>
+    <span class="meta-pill" style="background:#0a1e3c;color:#60b0ff;border:1px solid #204880;">2+ yrs ML experience recommended</span>
+    <span class="meta-pill" style="background:#1e0c00;color:#ff9840;border:1px solid #6a3000;">~8 weeks prep</span>
+    <span class="meta-pill" style="background:#241800;color:#ffc040;border:1px solid #806000;">⚠ Resources expire Mar 31 2026</span>
+  </div>
+  <div class="cert-grid">
+    <div>
+      <div class="cert-section">Exam domains and weightings</div>
+      <div class="cert-body">
+        <b style="color:#ff7070">Domain 1 (24%):</b> Data Engineering<br>
+        → Data repositories, ingestion, transformation — overlaps heavily with DEA-C01<br><br>
+        <b style="color:#ff7070">Domain 2 (26%):</b> Exploratory Data Analysis<br>
+        → Feature engineering, statistical analysis, visualisation for ML<br><br>
+        <b style="color:#ff7070">Domain 3 (28%):</b> Modeling<br>
+        → Algorithm selection, training, hyperparameter tuning, evaluation — deepest ML content<br><br>
+        <b style="color:#ff7070">Domain 4 (22%):</b> ML Implementation and Operations<br>
+        → SageMaker deployment, inference types, MLOps, security
+      </div>
+    </div>
+    <div>
+      <div class="cert-section">MLS-C01 vs MLA-C01 — the real difference</div>
+      <div class="cert-body">
+        <b style="color:#ff9090">MLA-C01 (Associate):</b> How to implement and operationalise ML on AWS. SageMaker-heavy. Practical engineering focus. "How do you configure X to achieve Y?"<br><br>
+        <b style="color:#ff7070">MLS-C01 (Specialty):</b> Deeper ML theory. Algorithm selection logic. Hyperparameter impact on model behaviour. Architecture design. "Why would you choose XGBoost over linear learner for this use case?"<br><br>
+        Domain 3 (Modeling, 28%) is what makes MLS-C01 genuinely hard — it requires you to know ML algorithms deeply, not just know which AWS service to use.
+      </div>
+      <div class="cert-section" style="margin-top:10px;">Is MLS-C01 worth it for you?</div>
+      <div class="cert-body" style="color:#80c898;">
+        ✓ Highest prestige of all 4 ML-related AWS certs<br>
+        ✓ $300 signals serious commitment to ML<br>
+        ✓ Domain 3 (Modeling) rewards your Phase 1 ML study directly<br>
+        ✓ Completes the full AWS ML certification stack<br><br>
+        <b style="color:#ffc840">Verdict: Do after MLA-C01 + 6+ months of real ML project work. The algorithms knowledge from your study plan makes Domain 3 very achievable.</b>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══ TAB 3 ══ -->
+<div class="sec" id="S3">
+<div class="badge bg-y">YOUR ORDER + TIMELINE</div>
+<div class="h1">Personalised Certification Timeline</div>
+<div class="sub">Mapped to your 8-week ML study plan — exactly when to attempt each cert</div>
+
+<div class="note note-o"><b>The golden rule:</b> Never take a cert as a study milestone — take it as a validation of work you have already done. Each cert below is scheduled AFTER you have the practical skills it tests, not before. Studying for a cert before you have the experience means memorising without understanding.</div>
+
+<div class="sl">The complete timeline</div>
+<div style="position:relative;height:200px;margin-bottom:12px;"><canvas id="c3timeline"></canvas></div>
+
+<div class="sl">Month-by-month breakdown</div>
+
+<div class="week-block">
+  <div class="week-title">Month 1 — DEA-C01 (while starting Phase 1 ML study)</div>
+  <div class="week-body">
+    <b style="color:#70c0ff">Weeks 1-2:</b> Identify your gaps. Buy Stephane Maarek's DEA-C01 course on Udemy (~$15 on sale). Watch sections on Lake Formation, MWAA, and Glue DataBrew — these are likely your real gaps. Everything else is review.<br>
+    <b style="color:#70c0ff">Weeks 3-4:</b> Do 2 full Tutorials Dojo practice exams. Score 80%+ on both before scheduling. Take the exam. Pass.<br><br>
+    <b style="color:#80c898">Why it works:</b> Your existing AWS DE skills cover ~80% of this exam. You are filling 4-5 specific knowledge gaps, not learning everything from scratch. Treat it like a gap-filling exercise, not a full certification course.<br><br>
+    <b style="color:#ffc840">Parallel activity:</b> Start Phase 1 Week 1 (linear algebra) simultaneously. The DEA study does not interfere with ML study.
+  </div>
+</div>
+
+<div class="week-block">
+  <div class="week-title">Month 2 — AIF-C01 (while doing Phase 1 Weeks 3-4)</div>
+  <div class="week-body">
+    <b style="color:#ffc840">Weeks 5-6:</b> AIF-C01 prep runs PARALLEL to Phase 1 Week 3 (ML pipeline) and Week 4 (overfitting). The ML concepts you are studying for your learning plan map directly onto AIF-C01 Domain 1. You are essentially double-dipping — ML study IS AIF-C01 exam prep.<br>
+    <b style="color:#ffc840">Weeks 7-8:</b> Focus AIF-C01 prep on GenAI/Bedrock domain (Domain 3) — this is the part your ML study does NOT cover. Read the AWS Bedrock docs. Do the free AWS Skill Builder AIF-C01 course.<br><br>
+    <b style="color:#80c898">Why now:</b> $75 cert, fast to prep, GenAI domain is directly relevant to your Azure OpenAI work. The responsible AI section reinforces good habits for production ML work.
+  </div>
+</div>
+
+<div class="week-block">
+  <div class="week-title">Months 3-4 — Phase 1 ML Study (no exams, just build skills)</div>
+  <div class="week-body">
+    <b style="color:#9aaac8">Weeks 9-16:</b> Complete Phase 1 Weeks 5-8. Train real models. Build the Databricks capstone project. Finish the IBM Telco Churn project. Get your first model into MLflow Model Registry.<br><br>
+    <b style="color:#80c898">Why no cert this period:</b> This is your skill-building period. The MLA-C01 requires <i>real</i> hands-on experience — you need to have actually done the things it tests, not just read about them. Two months of focused ML project work is the fastest MLA-C01 prep you can do.<br><br>
+    <b style="color:#ffc840">Parallel activity:</b> Create a free AWS account and start hands-on SageMaker labs. AWS Skill Builder has free SageMaker courses. This gives you the SageMaker-specific knowledge MLA-C01 tests.
+  </div>
+</div>
+
+<div class="week-block">
+  <div class="week-title">Month 5 — MLA-C01 (after Phase 1 complete + SageMaker hands-on)</div>
+  <div class="week-body">
+    <b style="color:#50e880">Weeks 17-20:</b> Dedicated MLA-C01 prep. Take Stephane Maarek + Frank Kane's "AWS Certified ML Engineer Associate: Hands On!" course (Udemy). Do SageMaker Studio labs for each domain — especially SageMaker Pipelines and Model Monitor. These two are consistently flagged as hardest domains.<br>
+    <b style="color:#50e880">Week 21:</b> 3 full practice exams (Tutorials Dojo). Score 82%+ before scheduling — MLA-C01 is harder than DEA-C01 and the passing bar rewards more preparation.<br><br>
+    <b style="color:#80c898">Why it clicks now:</b> You have Phase 1 done. Feature engineering, model evaluation, bias-variance, MLflow — all familiar from your study. MLA-C01 Domain 1 (data prep for ML) maps directly to Weeks 7-8 of your study plan. You are validating skills you actually have.
+  </div>
+</div>
+
+<div class="week-block">
+  <div class="week-title">Months 6-7 — Phase 2 ML Study (Deep Learning + PyTorch)</div>
+  <div class="week-body">
+    <b style="color:#9aaac8">Weeks 22-32:</b> Phase 2 — CNNs, RNNs, Transformers. Build real deep learning projects. This gives you the neural network depth that MLS-C01 Domain 3 (Modeling) tests.
+  </div>
+</div>
+
+<div class="week-block">
+  <div class="week-title">Month 8 — MLS-C01 (if pursuing — ⚠ prep resources expire Mar 31 2026)</div>
+  <div class="week-body">
+    <b style="color:#ff9090">Weeks 33-40:</b> MLS-C01 is your optional final boss. If you are targeting senior ML Engineer or ML Architect roles, this cert is worth the $300 and 8 weeks. If you are satisfied with MLA-C01 and your Databricks ML Associate cert, you can skip MLS-C01.<br><br>
+    <b style="color:#ffc840">Decision rule:</b> If your target role at your company requires AWS-specific ML architecture decisions (choosing SageMaker vs EMR vs Bedrock for different use cases), do MLS-C01. If your primary platform is Databricks/Azure and AWS is secondary, MLA-C01 is sufficient.<br><br>
+    <b style="color:#ff9090">⚠ Action required:</b> Current exam prep resources (official practice questions, study guide) expire March 31, 2026. Start MLS-C01 prep no later than January 2026 if you want to use current materials.
+  </div>
+</div>
+
+<div class="sl">Credential stack you build over 8 months</div>
+<table>
+<tr><th>Month</th><th>Credential earned</th><th>What it signals to employers</th><th>Salary impact</th></tr>
+<tr><td>Month 1</td><td><b style="color:#70c0ff">AWS DEA-C01</b></td><td>Credentialed data engineer — trust me with pipelines and data at scale</td><td>Validates current salary, opens DE → ML transitions</td></tr>
+<tr><td>Month 2</td><td><b style="color:#ffc840">AWS AIF-C01</b></td><td>I understand AI/ML concepts and AWS's AI services including GenAI</td><td>Marginal alone, strong when combined with DEA</td></tr>
+<tr><td>Month 5</td><td><b style="color:#50e880">AWS MLA-C01</b></td><td>I am a practising ML Engineer who can productionise ML workloads on AWS</td><td>+15-25% for ML Engineer role vs DE-only</td></tr>
+<tr><td>Month 8</td><td><b style="color:#ff9090">AWS MLS-C01</b></td><td>I have deep ML knowledge — algorithms, architecture, the full stack</td><td>Opens ML Architect and Senior ML Engineer brackets</td></tr>
+</table>
+</div>
+
+<!-- ══ TAB 4 ══ -->
+<div class="sec" id="S4">
+<div class="badge bg-p">WHAT EACH CERT ACTUALLY COVERS</div>
+<div class="h1">Domain-by-Domain Coverage Map</div>
+<div class="sub">Exact topics tested — mapped to your Phase 1 ML study and AWS experience</div>
+
+<div class="sl">Coverage overlap across all 4 certs</div>
+<div style="position:relative;height:220px;margin-bottom:12px;"><canvas id="c4overlap"></canvas></div>
+
+<div class="sl">DEA-C01 — what you will actually be tested on</div>
+<div class="g2">
+  <div class="card card-b">
+    <div class="t">Topics you already know well ✓</div>
+    <div class="b" style="font-size:11px;line-height:1.8;">
+      ✓ S3 storage classes, lifecycle policies, versioning<br>
+      ✓ AWS Glue ETL jobs, crawlers, Data Catalog<br>
+      ✓ Kinesis Data Streams vs Kinesis Firehose<br>
+      ✓ Amazon Redshift — distribution keys, sort keys, WLM<br>
+      ✓ DynamoDB — partition keys, GSI, LSI, capacity modes<br>
+      ✓ AWS Step Functions — state machines, parallel states<br>
+      ✓ Apache Spark on EMR — transformations, actions<br>
+      ✓ CloudWatch metrics, alarms, log groups<br>
+      ✓ VPC, security groups, IAM roles/policies
+    </div>
+  </div>
+  <div class="card card-r">
+    <div class="t">Topics you may need to study ✗</div>
+    <div class="b" style="font-size:11px;line-height:1.8;">
+      ✗ AWS Lake Formation — permissions model, cross-account sharing<br>
+      ✗ MWAA (Managed Apache Airflow) — DAG design, operators<br>
+      ✗ Glue DataBrew vs Glue Studio — when to use each<br>
+      ✗ EMR Serverless vs EMR on EC2 vs EMR on EKS<br>
+      ✗ AWS Data Exchange — subscribing to 3rd party data<br>
+      ✗ Amazon OpenSearch Service — ingestion patterns<br>
+      ✗ Redshift Serverless vs provisioned — cost trade-offs<br>
+      ✗ AWS DataSync vs Transfer Family vs Storage Gateway<br>
+      ✗ Amazon Athena Federation — cross-service queries
+    </div>
+  </div>
+</div>
+
+<div class="sl">MLA-C01 — what you will actually be tested on</div>
+<div class="g2">
+  <div class="card card-g">
+    <div class="t">Topics your DE background covers ✓</div>
+    <div class="b" style="font-size:11px;line-height:1.8;">
+      ✓ Domain 1: Feature stores (SageMaker Feature Store ≈ Delta Feature Store concept)<br>
+      ✓ Domain 1: Data preprocessing — same as your Glue ETL work<br>
+      ✓ Domain 3: CI/CD for ML — same as your CodePipeline knowledge<br>
+      ✓ Domain 3: SageMaker Pipelines ≈ Step Functions for ML<br>
+      ✓ Domain 4: CloudWatch for ML monitoring ≈ your existing CloudWatch work<br>
+      ✓ Domain 4: IAM for SageMaker ≈ your existing IAM knowledge
+    </div>
+  </div>
+  <div class="card card-r">
+    <div class="t">Topics that are genuinely new ✗</div>
+    <div class="b" style="font-size:11px;line-height:1.8;">
+      ✗ SageMaker Training Jobs — instance types, distributed training<br>
+      ✗ SageMaker HPO (Hyperparameter Optimisation) — Bayesian vs grid<br>
+      ✗ SageMaker Autopilot — AutoML on AWS<br>
+      ✗ SageMaker JumpStart — pre-trained models<br>
+      ✗ SageMaker Clarify — bias detection, explainability (SHAP)<br>
+      ✗ SageMaker Model Monitor — data drift, model quality<br>
+      ✗ SageMaker Inference — real-time vs async vs batch<br>
+      ✗ SageMaker Ground Truth — data labelling<br>
+      ✗ MLflow on SageMaker — experiment tracking integration
+    </div>
+  </div>
+</div>
+
+<div class="sl">MLS-C01 — what makes Domain 3 (Modeling) hard</div>
+<table>
+<tr><th>Topic</th><th>What they test</th><th>Covered in your ML study?</th></tr>
+<tr><td>Algorithm selection</td><td>XGBoost vs Linear Learner vs KNN — when each wins</td><td><span class="tg">Yes — Phase 1 Week 5-6</span></td></tr>
+<tr><td>Hyperparameter tuning</td><td>L1/L2 reg, tree depth, learning rate — impact on bias/variance</td><td><span class="tg">Yes — Phase 1 Week 4</span></td></tr>
+<tr><td>Evaluation metrics</td><td>AUC vs F1 vs precision — which metric for which business problem</td><td><span class="tg">Yes — Phase 1 Week 7</span></td></tr>
+<tr><td>Class imbalance</td><td>SMOTE, class weights, threshold tuning</td><td><span class="tg">Yes — Phase 1 Week 4</span></td></tr>
+<tr><td>Neural network architecture</td><td>CNN for images, RNN for sequences, transformer for NLP</td><td><span class="ty">Phase 2 only</span></td></tr>
+<tr><td>Deep learning on SageMaker</td><td>TensorFlow/PyTorch containers, distributed training</td><td><span class="ty">Phase 2 only</span></td></tr>
+<tr><td>Embeddings and NLP</td><td>Word2Vec, BERT, fine-tuning, SageMaker NLP services</td><td><span class="ty">Phase 2-3</span></td></tr>
+<tr><td>Computer vision</td><td>Transfer learning, SageMaker image classification</td><td><span class="ty">Phase 2 only</span></td></tr>
+<tr><td>Reinforcement learning</td><td>SageMaker RL, reward functions, Q-learning basics</td><td><span class="tg">Yes — RL module</span></td></tr>
+<tr><td>Recommendation systems</td><td>Collaborative filtering, factorisation machines</td><td><span class="tr">Not in Phase 1</span></td></tr>
+</table>
+<div class="note note-y"><b>This table explains the optimal cert order:</b> Phase 1 ML study + DEA-C01 background covers roughly 70% of MLA-C01 content. To get to 70% of MLS-C01 Modeling domain, you need Phase 2 (deep learning). This is why MLS-C01 is a Month 8 target, not Month 5.</div>
+</div>
+
+<!-- ══ TAB 5 ══ -->
+<div class="sec" id="S5">
+<div class="badge bg-o">STUDY PLAN + RESOURCES</div>
+<div class="h1">Exact Study Plan for Each Cert</div>
+<div class="sub">What to buy, what to use free, how many hours, what to skip</div>
+
+<div class="sl">DEA-C01 — 3-week study plan</div>
+<div class="g2">
+<div>
+<div class="week-block">
+  <div class="week-title">Week 1 — Gap identification and targeted study</div>
+  <div class="week-body">
+    <b>Day 1:</b> Take a free practice test cold (AWS official sample questions). Note every wrong answer — these are your gaps.<br>
+    <b>Days 2-5:</b> Study ONLY your gap areas. Typical gaps: Lake Formation, MWAA, EMR variants, Redshift Serverless.<br>
+    <b>Days 6-7:</b> Read the official exam guide PDF cover to cover. Tick off every service you know. Study the ones you don't.
+  </div>
+</div>
+<div class="week-block">
+  <div class="week-title">Week 2 — Practice exams + targeted review</div>
+  <div class="week-body">
+    <b>Days 8-10:</b> First full Tutorials Dojo practice exam (65 questions, timed). Review every wrong answer — read the explanation AND the AWS docs page for the service.<br>
+    <b>Days 11-13:</b> Second full practice exam. Target 80%+ before moving to week 3.<br>
+    <b>Days 14:</b> Review weakest domain only.
+  </div>
+</div>
+<div class="week-block">
+  <div class="week-title">Week 3 — Final prep and exam</div>
+  <div class="week-body">
+    <b>Days 15-18:</b> Third practice exam. Review. Build a cheat sheet: one page per domain with key decision rules (e.g. "Kinesis Streams vs Firehose: if you need custom processing → Streams; if you just need delivery → Firehose").<br>
+    <b>Day 19:</b> Schedule and take the exam. Morning slot preferred — sharper focus.
+  </div>
+</div>
+</div>
+<div>
+<div class="card card-b">
+  <div class="t">Resources for DEA-C01</div>
+  <div class="b" style="font-size:11px;line-height:1.9;">
+    <b style="color:#70c0ff">Primary course (paid):</b><br>
+    Stephane Maarek + Frank Kane — "AWS Certified Data Engineer Associate" (Udemy, ~$15 on sale). Best course available. 20+ hours but skip sections you already know well.<br><br>
+    <b style="color:#70c0ff">Practice exams (paid):</b><br>
+    Tutorials Dojo DEA-C01 practice exams (~$15). The most accurate to real exam. Do 3 full exams minimum.<br><br>
+    <b style="color:#70c0ff">Free:</b><br>
+    AWS official exam guide PDF (free on aws.amazon.com)<br>
+    AWS Skill Builder DEA-C01 prep course (free)<br>
+    AWS official sample questions (20 free questions)<br><br>
+    <b style="color:#70c0ff">Skip:</b><br>
+    Brain dumps — they get outdated fast and do not build real understanding. If you memorise without understanding, you cannot do the job even if you pass.
+  </div>
+</div>
+</div>
+</div>
+
+<div class="sl">MLA-C01 — 6-week study plan</div>
+<div class="g2">
+<div>
+<div class="week-block">
+  <div class="week-title">Weeks 1-2 — SageMaker foundations</div>
+  <div class="week-body">
+    Take Maarek + Frank Kane's MLA-C01 course. Focus on SageMaker Studio, Training Jobs, and Processing Jobs. For each SageMaker service — actually launch it in your AWS account and run a small job. You cannot pass MLA-C01 without hands-on SageMaker experience.
+  </div>
+</div>
+<div class="week-block">
+  <div class="week-title">Weeks 3-4 — Deployment and monitoring</div>
+  <div class="week-body">
+    Deep dive Domain 3 (deployment) and Domain 4 (monitoring) — consistently reported as hardest. Build a SageMaker Pipeline end-to-end: data preprocessing → training → evaluation → deployment. Set up Model Monitor on a live endpoint. This hands-on work IS the exam prep.
+  </div>
+</div>
+<div class="week-block">
+  <div class="week-title">Weeks 5-6 — Practice exams and edge cases</div>
+  <div class="week-body">
+    3 full Tutorials Dojo MLA-C01 practice exams. Score 82%+ before scheduling. Pay attention to scenario-based questions — MLA-C01 asks "given THIS business requirement and THESE constraints, which SageMaker configuration do you choose?" Pattern recognition here is everything.
+  </div>
+</div>
+</div>
+<div>
+<div class="card card-g">
+  <div class="t">Resources for MLA-C01</div>
+  <div class="b" style="font-size:11px;line-height:1.9;">
+    <b style="color:#50e880">Primary course (paid):</b><br>
+    Maarek + Frank Kane "AWS Certified ML Engineer Associate: Hands On!" (Udemy, ~$15). Only MLA-C01 specific course with hands-on labs.<br><br>
+    <b style="color:#50e880">Hands-on (essential):</b><br>
+    AWS Skill Builder — SageMaker Studio Lab (free tier). Do the SageMaker Immersion Day labs. You MUST have hands-on SageMaker time — this exam cannot be passed by reading alone.<br><br>
+    <b style="color:#50e880">Practice exams (paid):</b><br>
+    Tutorials Dojo MLA-C01 practice exams. Most accurate available for this new cert.<br><br>
+    <b style="color:#50e880">Free:</b><br>
+    AWS Skill Builder MLA-C01 official prep course<br>
+    SageMaker documentation — read the "Use Cases" sections<br>
+    AWS Machine Learning blog — real implementation stories
+  </div>
+</div>
+</div>
+</div>
+
+<div class="sl">MLS-C01 — 8-week study plan (if pursuing)</div>
+<div class="week-block">
+  <div class="week-title">Weeks 1-2 — ML algorithm review</div>
+  <div class="week-body">
+    MLS-C01 Domain 3 (Modeling, 28%) is the differentiator. Review your Phase 1 notes: linear regression, logistic regression, decision trees, random forest, XGBoost, SVM, k-means. For each: when to use it on AWS, which SageMaker built-in algorithm maps to it, what hyperparameters matter and why.
+  </div>
+</div>
+<div class="week-block">
+  <div class="week-title">Weeks 3-4 — Deep learning and NLP</div>
+  <div class="week-body">
+    MLS-C01 tests neural networks, CNNs, RNNs, and NLP — this is Phase 2 content. Work through these with SageMaker: image classification with SageMaker's built-in image classifier, sequence-to-sequence, BlazingText for NLP. The exam tests which SageMaker algorithm to use for which problem.
+  </div>
+</div>
+<div class="week-block">
+  <div class="week-title">Weeks 5-6 — Data engineering + EDA domains</div>
+  <div class="week-body">
+    Domains 1 and 2 overlap heavily with DEA-C01 — these should be fast. Focus on the ML-specific parts: feature engineering for ML, handling imbalanced datasets, EDA for model selection, statistical significance tests for feature selection.
+  </div>
+</div>
+<div class="week-block">
+  <div class="week-title">Weeks 7-8 — Practice exams and scenario mastery</div>
+  <div class="week-body">
+    4 full practice exams (Tutorials Dojo + AWS official). MLS-C01 has a higher passing score (750 vs 720) and more abstract scenario questions. Target 85%+ on practice exams before scheduling. The extra 5% buffer matters here.
+  </div>
+</div>
+
+<div class="sl">Total cost summary</div>
+<table>
+<tr><th>Cert</th><th>Exam fee</th><th>Course (~Udemy sale)</th><th>Practice tests</th><th>Total</th><th>Free alternatives</th></tr>
+<tr><td><b style="color:#70c0ff">DEA-C01</b></td><td>$150</td><td>~$15</td><td>~$15</td><td><b>~$180</b></td><td>AWS Skill Builder course, official sample questions</td></tr>
+<tr><td><b style="color:#ffc840">AIF-C01</b></td><td>$75</td><td>~$15</td><td>~$12</td><td><b>~$102</b></td><td>AWS free Skill Builder course covers most prep needed</td></tr>
+<tr><td><b style="color:#50e880">MLA-C01</b></td><td>$150</td><td>~$15</td><td>~$15</td><td><b>~$180</b></td><td>SageMaker Studio Lab (free), AWS blogs</td></tr>
+<tr><td><b style="color:#ff9090">MLS-C01</b></td><td>$300</td><td>~$20</td><td>~$20</td><td><b>~$340</b></td><td>AWS Skill Builder, community notes</td></tr>
+<tr><td><b>Total (all 4)</b></td><td>$675</td><td>~$65</td><td>~$62</td><td><b>~$802</b></td><td>Can do AIF-C01 + prep almost entirely free</td></tr>
+</table>
+
+<div class="note note-g"><b>The most important prep advice across all 4 certs:</b> Buy Tutorials Dojo practice exams for every cert you take. They are the closest approximation to the real exam available, their explanations teach you the reasoning behind every answer, and they systematically reveal your gaps. The exam fee is $150-$300 — spending $15 on practice exams to increase your pass probability is the highest ROI study investment you can make.</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const CH={};
+function mk(id,cfg){if(CH[id])CH[id].destroy();CH[id]=new Chart(document.getElementById(id),cfg);}
+function goTab(n){
+  for(var i=1;i<=5;i++) document.getElementById('S'+i).className='sec'+(i===n?' on':'');
+  document.querySelectorAll('.tab').forEach(function(t,i){t.className='tab'+(i===n-1?' on':'');});
+  if(n===3) drawTimeline();
+  if(n===4) drawOverlap();
+}
+
+function drawTimeline(){
+  const labels=['Month 1','Month 2','Month 3','Month 4','Month 5','Month 6','Month 7','Month 8'];
+  mk('c3timeline',{type:'bar',data:{labels,datasets:[
+    {label:'DEA-C01 prep',data:[80,0,0,0,0,0,0,0],backgroundColor:'rgba(112,192,255,0.8)',borderRadius:4,stack:'a'},
+    {label:'AIF-C01 prep',data:[0,70,0,0,0,0,0,0],backgroundColor:'rgba(255,200,64,0.8)',borderRadius:4,stack:'a'},
+    {label:'Phase 1 ML study',data:[40,60,90,90,30,0,0,0],backgroundColor:'rgba(80,200,128,0.5)',borderRadius:4,stack:'b'},
+    {label:'MLA-C01 prep',data:[0,0,0,0,80,20,0,0],backgroundColor:'rgba(80,232,128,0.85)',borderRadius:4,stack:'a'},
+    {label:'Phase 2 DL study',data:[0,0,0,0,0,80,90,50],backgroundColor:'rgba(192,160,255,0.5)',borderRadius:4,stack:'b'},
+    {label:'MLS-C01 prep',data:[0,0,0,0,0,0,0,80],backgroundColor:'rgba(255,112,112,0.85)',borderRadius:4,stack:'a'},
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#c0d4ff',font:{size:10},boxWidth:12}}},scales:{x:{ticks:{color:'#8898b8',font:{size:10}},grid:{color:'rgba(255,255,255,0.04)'}},y:{title:{display:true,text:'Effort intensity (0-100)',color:'#8898b8'},ticks:{color:'#8898b8',font:{size:9}},grid:{color:'rgba(255,255,255,0.05)'},max:200}}}});
+}
+
+function drawOverlap(){
+  const domains=['Data Ingestion / ETL','Data Storage + Lakes','Orchestration / Pipelines','Security + Governance','ML Concepts (Algorithms)','Feature Engineering','Model Training + Tuning','Deployment + Endpoints','Monitoring + Drift','GenAI / Bedrock','Deep Learning / NLP'];
+  mk('c4overlap',{type:'bar',data:{labels:domains,datasets:[
+    {label:'DEA-C01',data:[9,9,8,8,0,0,0,0,0,0,0],backgroundColor:'rgba(112,192,255,0.75)',borderRadius:3},
+    {label:'AIF-C01',data:[0,0,0,4,7,4,4,3,3,9,5],backgroundColor:'rgba(255,200,64,0.75)',borderRadius:3},
+    {label:'MLA-C01',data:[7,6,7,7,5,9,8,9,9,4,3],backgroundColor:'rgba(80,232,128,0.75)',borderRadius:3},
+    {label:'MLS-C01',data:[8,7,6,6,9,8,9,7,7,5,9],backgroundColor:'rgba(255,112,112,0.75)',borderRadius:3},
+  ]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{labels:{color:'#c0d4ff',font:{size:10},boxWidth:12}}},scales:{x:{min:0,max:10,title:{display:true,text:'Coverage depth (0=none, 10=heavy)',color:'#8898b8'},ticks:{color:'#8898b8',font:{size:9}},grid:{color:'rgba(255,255,255,0.05)'}},y:{ticks:{color:'#c0cce8',font:{size:10}},grid:{color:'rgba(255,255,255,0.04)'}}}}});
+}
+</script>
+</body>
+</html>

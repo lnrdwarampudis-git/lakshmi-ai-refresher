@@ -1,0 +1,164 @@
+
+<style>
+* { box-sizing: border-box; }
+.cr-tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+.crtab { padding: 5px 14px; border-radius: 16px; border: 0.5px solid var(--color-border-secondary); font-size: 13px; cursor: pointer; color: var(--color-text-secondary); background: var(--color-background-secondary); }
+.crtab.active { background: var(--color-background-danger); color: var(--color-text-danger); border-color: var(--color-border-danger); }
+.node-row { display: flex; align-items: center; gap: 0; margin-bottom: 20px; overflow-x: auto; }
+.node-box { min-width: 90px; padding: 10px 8px; border-radius: 10px; border: 0.5px solid var(--color-border-secondary); text-align: center; background: var(--color-background-secondary); }
+.node-box.active-node { border-color: var(--color-border-danger); background: var(--color-background-danger); }
+.node-name { font-size: 11px; color: var(--color-text-tertiary); margin-bottom: 2px; }
+.node-val { font-size: 15px; font-weight: 500; color: var(--color-text-primary); }
+.node-box.active-node .node-val { color: var(--color-text-danger); }
+.arrow-wrap { display: flex; flex-direction: column; align-items: center; min-width: 52px; }
+.arrow-line { width: 40px; height: 2px; background: var(--color-border-secondary); }
+.arrow-label { font-size: 11px; color: var(--color-text-secondary); margin-top: 3px; font-family: var(--font-mono); white-space: nowrap; }
+.arrow-head { width: 0; height: 0; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left: 7px solid var(--color-border-secondary); }
+.back-row { display: flex; align-items: center; gap: 0; margin-bottom: 16px; overflow-x: auto; flex-direction: row-reverse; }
+.back-arrow { display: flex; flex-direction: column; align-items: center; min-width: 52px; }
+.back-line { width: 40px; height: 2px; background: #D85A30; }
+.back-lbl { font-size: 11px; color: #D85A30; margin-top: 3px; font-family: var(--font-mono); white-space: nowrap; }
+.back-head { width: 0; height: 0; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-right: 7px solid #D85A30; }
+.section-lbl { font-size: 12px; font-weight: 500; color: var(--color-text-tertiary); margin-bottom: 8px; letter-spacing: 0.04em; }
+.ctrl-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-bottom: 14px; font-size: 13px; color: var(--color-text-secondary); }
+.ctrl-grp { display: flex; align-items: center; gap: 8px; }
+.val-b { min-width: 34px; font-weight: 500; color: var(--color-text-primary); font-size: 13px; }
+.insight { font-size: 13px; color: var(--color-text-secondary); padding: 10px 14px; border-left: 3px solid var(--color-border-danger); border-radius: 0 8px 8px 0; background: var(--color-background-secondary); margin-top: 10px; line-height: 1.6; }
+.insight b { color: var(--color-text-primary); font-weight: 500; }
+.formula-box { font-family: var(--font-mono); font-size: 13px; background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: 8px; padding: 10px 14px; margin-bottom: 14px; line-height: 1.8; color: var(--color-text-primary); }
+</style>
+
+<div style="font-size:15px;font-weight:500;color:var(--color-text-primary);margin-bottom:12px;">Chain rule — how gradients flow backward</div>
+
+<div class="cr-tabs">
+  <div class="crtab active" onclick="setCR('simple',this)">Simple: y=(2x+1)²</div>
+  <div class="crtab" onclick="setCR('neuron',this)">Neuron: loss=CE(sigmoid(wx+b))</div>
+  <div class="crtab" onclick="setCR('twolayer',this)">2-layer network</div>
+</div>
+
+<div id="cr-content"></div>
+
+<script>
+const crModes = {
+  simple: {
+    formula: 'y = (2x + 1)²   →   dy/dx = 2·(2x+1)·2 = 4(2x+1)',
+    insight: 'Chain rule: d/dx[f(g(x))] = f\'(g(x)) · g\'(x). Here f(u)=u², g(x)=2x+1. So dy/dx = 2u · 2 = 4(2x+1). <b>This exact pattern appears in every layer of a neural network</b> — the outer function is the loss, the inner functions are layers.',
+    getNodes: (x) => {
+      const u = 2*x+1; const y = u*u;
+      return {
+        fwd: [
+          {name:'input x', val:x.toFixed(2)},
+          {name:'u = 2x+1', val:u.toFixed(2)},
+          {name:'y = u²', val:y.toFixed(2)}
+        ],
+        fwdLabels: ['×2 +1', 'u²'],
+        bwd: [
+          {name:'dy/dy=1', val:'1.000'},
+          {name:'dy/du=2u', val:(2*u).toFixed(3)},
+          {name:'dy/dx=4(2x+1)', val:(4*(2*x+1)).toFixed(3)}
+        ],
+        bwdLabels: ['×2u', '×2']
+      };
+    }
+  },
+  neuron: {
+    formula: 'z=wx+b  →  a=sigmoid(z)  →  L=−[y·log(a)+(1−y)·log(1−a)]',
+    insight: 'This is <b>logistic regression backprop</b>. Chain rule gives: dL/dw = dL/da · da/dz · dz/dw. The beautiful result: dL/dw = (a−y)·x — the error times the input. <b>This is the gradient used to update every weight in a binary classifier.</b>',
+    getNodes: (x) => {
+      const w=0.5, b=0.1, ytrue=1;
+      const z = w*x+b;
+      const a = 1/(1+Math.exp(-z));
+      const L = -(ytrue*Math.log(a+1e-9)+(1-ytrue)*Math.log(1-a+1e-9));
+      const dLda = -ytrue/a + (1-ytrue)/(1-a);
+      const dadz = a*(1-a);
+      const dzdw = x;
+      const dLdw = (a-ytrue)*x;
+      return {
+        fwd: [
+          {name:'input x', val:x.toFixed(2)},
+          {name:'z=wx+b', val:z.toFixed(3)},
+          {name:'a=σ(z)', val:a.toFixed(3)},
+          {name:'L=CE(a)', val:L.toFixed(3)}
+        ],
+        fwdLabels: ['w·x+b', 'sigmoid', 'cross-ent'],
+        bwd: [
+          {name:'dL/dw', val:dLdw.toFixed(3)},
+          {name:'dL/dz=a−y', val:(a-ytrue).toFixed(3)},
+          {name:'dL/da', val:dLda.toFixed(3)},
+          {name:'dL/dL=1', val:'1.000'}
+        ],
+        bwdLabels: ['×x', '×σ\'(z)', '×1']
+      };
+    }
+  },
+  twolayer: {
+    formula: 'x→[W1,ReLU]→h→[W2,sigmoid]→a→Loss',
+    insight: 'In a 2-layer network, the chain rule extends across both layers. The gradient of the loss flows backward: first through the output layer (same as single neuron), then through ReLU (derivative=1 if z>0, else 0), then through the first weight matrix. <b>This is exactly what PyTorch autograd computes when you call loss.backward().</b>',
+    getNodes: (x) => {
+      const w1=0.4, w2=0.6, b1=0.1, b2=0.0, ytrue=1;
+      const z1=w1*x+b1; const h=Math.max(0,z1);
+      const z2=w2*h+b2; const a=1/(1+Math.exp(-z2));
+      const L=-(ytrue*Math.log(a+1e-9));
+      const dLda=-(ytrue/(a+1e-9));
+      const dadz2=a*(1-a);
+      const dz2dh=w2;
+      const dhdz1=z1>0?1:0;
+      const dLdw1=(a-ytrue)*dz2dh*dhdz1*x;
+      return {
+        fwd: [
+          {name:'x', val:x.toFixed(2)},
+          {name:'z1=w1x+b1', val:z1.toFixed(3)},
+          {name:'h=ReLU(z1)', val:h.toFixed(3)},
+          {name:'z2=w2h+b2', val:z2.toFixed(3)},
+          {name:'a=σ(z2)', val:a.toFixed(3)}
+        ],
+        fwdLabels:['layer1','ReLU','layer2','sigmoid'],
+        bwd:[
+          {name:'dL/dw1', val:dLdw1.toFixed(4)},
+          {name:'dh/dz1='+dhdz1, val:dhdz1.toFixed(1)},
+          {name:'dL/dh', val:((a-ytrue)*w2).toFixed(4)},
+          {name:'dL/dz2=a−y', val:(a-ytrue).toFixed(3)},
+          {name:'dL/dL=1', val:'1.000'}
+        ],
+        bwdLabels:['×x','×ReLU\'','×w2','×σ\'']
+      };
+    }
+  }
+};
+
+let crMode = 'simple';
+let crX = 1.5;
+
+function setCR(m, el) {
+  crMode = m;
+  document.querySelectorAll('.crtab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  renderCR();
+}
+
+function renderCR() {
+  const cfg = crModes[crMode];
+  const data = cfg.getNodes(crX);
+  let html = `<div class="formula-box">${cfg.formula}</div>`;
+  html += `<div class="ctrl-row"><div class="ctrl-grp"><label>x = </label><input type="range" min="-30" max="30" value="${Math.round(crX*10)}" step="1" style="width:160px" oninput="crX=this.value/10;renderCR()"><span class="val-b">${crX.toFixed(1)}</span></div></div>`;
+
+  html += `<div class="section-lbl">FORWARD PASS →</div><div class="node-row">`;
+  data.fwd.forEach((n,i)=>{
+    html+=`<div class="node-box"><div class="node-name">${n.name}</div><div class="node-val">${n.val}</div></div>`;
+    if(i<data.fwd.length-1) html+=`<div class="arrow-wrap"><div style="display:flex;align-items:center"><div class="arrow-line"></div><div class="arrow-head"></div></div><div class="arrow-label">${data.fwdLabels[i]}</div></div>`;
+  });
+  html += `</div>`;
+
+  html += `<div class="section-lbl">← BACKWARD PASS (gradients)</div><div class="back-row">`;
+  data.bwd.forEach((n,i)=>{
+    html+=`<div class="node-box active-node"><div class="node-name">${n.name}</div><div class="node-val">${n.val}</div></div>`;
+    if(i<data.bwd.length-1) html+=`<div class="back-arrow"><div style="display:flex;align-items:center"><div class="back-head"></div><div class="back-line"></div></div><div class="back-lbl">${data.bwdLabels[i]}</div></div>`;
+  });
+  html += `</div>`;
+
+  html += `<div class="insight">${cfg.insight}</div>`;
+  document.getElementById('cr-content').innerHTML = html;
+}
+
+renderCR();
+</script>
