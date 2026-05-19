@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap');
+html,body{background:#0d0f1a;color:#e8eaf6;font-family:'Syne',Arial,sans-serif;font-size:13px;margin:0;padding:10px;}
+*{box-sizing:border-box;}
+h1.hero{font-size:22px;font-weight:800;color:#fff;margin:0 0 2px 0;letter-spacing:-0.5px;}
+.hero-sub{font-size:12px;color:#6878a8;margin-bottom:14px;}
+.nav{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;margin-bottom:14px;}
+.tab{background:#13162a;color:#7888c8;border:2px solid #252a48;border-radius:7px;padding:7px 2px;font-size:9px;font-weight:700;cursor:pointer;text-align:center;line-height:1.4;transition:all .2s;}
+.tab:hover{background:#1a1f3a;color:#a0b0f0;}
+.tab.on{background:#1a3a8a;color:#fff;border-color:#4060d0;}
+.sec{display:none;}.sec.on{display:block;}
+/* typography */
+.h1{font-size:17px;font-weight:800;color:#fff;margin-bottom:3px;letter-spacing:-0.3px;}
+.sub{font-size:12px;color:#7888a8;margin-bottom:12px;}
+.sl{font-size:13px;font-weight:700;color:#6898ff;margin:16px 0 8px 0;padding-bottom:4px;border-bottom:1px solid #202850;}
+/* badges */
+.badge{display:inline-block;font-size:9.5px;font-weight:700;padding:3px 10px;border-radius:10px;margin-bottom:8px;}
+.badge-b{background:#1a3a8a;color:#90b8ff;}
+.badge-g{background:#0a2a18;color:#50d880;}
+.badge-r{background:#2a0a0a;color:#ff7878;}
+.badge-y{background:#1e1400;color:#ffc040;}
+.badge-p{background:#180a30;color:#c090ff;}
+.badge-c{background:#0a1e2a;color:#40d0f0;}
+/* grids */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px;}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-bottom:10px;}
+/* cards */
+.card{background:#13162a;border:1px solid #222848;border-radius:8px;padding:12px;}
+.card .t{font-size:12px;font-weight:700;color:#b0c8ff;margin-bottom:5px;}
+.card .b{font-size:11.5px;color:#8898c0;line-height:1.7;}
+.card-b{background:#0a1430;border-color:#1a3060;}.card-b .t{color:#60a0ff;}.card-b .b{color:#7898c8;}
+.card-g{background:#081810;border-color:#184030;}.card-g .t{color:#40d870;}.card-g .b{color:#70b888;}
+.card-r{background:#180808;border-color:#601818;}.card-r .t{color:#ff6868;}.card-r .b{color:#d88080;}
+.card-y{background:#181000;border-color:#604800;}.card-y .t{color:#ffb830;}.card-y .b{color:#c89858;}
+.card-p{background:#100818;border-color:#402880;}.card-p .t{color:#b880ff;}.card-p .b{color:#9870d0;}
+.card-c{background:#081420;border-color:#186080;}.card-c .t{color:#30c8e8;}.card-c .b{color:#5898b0;}
+.card-o{background:#180e00;border-color:#704000;}.card-o .t{color:#ff9030;}.card-o .b{color:#c07838;}
+/* notes */
+.note{border-left:4px solid #3060d0;background:#0a1430;color:#90b0f8;padding:10px 14px;border-radius:0 7px 7px 0;margin:10px 0;font-size:12.5px;line-height:1.65;}
+.note b,.note strong{color:#fff;}
+.note-g{border-left-color:#28b858;background:#081810;color:#80d898;}.note-g b{color:#60ff88;}
+.note-r{border-left-color:#c82828;background:#180808;color:#e88080;}.note-r b{color:#ff7070;}
+.note-y{border-left-color:#c89000;background:#181000;color:#d8b858;}.note-y b{color:#ffe050;}
+.note-p{border-left-color:#8050d0;background:#100818;color:#c0a0f8;}.note-p b{color:#d8c8ff;}
+.note-c{border-left-color:#2098c0;background:#081420;color:#80c8e0;}.note-c b{color:#40e8ff;}
+/* code */
+.code{background:#07080f;border:1px solid #1a2040;border-radius:7px;padding:13px 15px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#c8d8ff;line-height:1.85;white-space:pre-wrap;margin:10px 0;overflow-x:auto;}
+.code .cm{color:#4a6090;}
+.code .kw{color:#c080ff;}
+.code .fn{color:#60d0ff;}
+.code .st{color:#80e890;}
+.code .nu{color:#ffaa40;}
+/* steps */
+.step{display:flex;gap:10px;margin-bottom:10px;align-items:flex-start;}
+.sn{min-width:26px;height:26px;border-radius:50%;background:#1a3a8a;color:#fff;font-weight:700;font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.st-t{font-size:13px;font-weight:700;color:#d0e0ff;margin-bottom:2px;}
+.st-d{font-size:11.5px;color:#7888a8;line-height:1.6;}
+/* tags */
+.tg{display:inline-block;background:#0a2814;color:#40e870;border:1px solid #1a7040;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;margin:2px;}
+.tr{display:inline-block;background:#280a0a;color:#ff6868;border:1px solid #701818;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;margin:2px;}
+.tb{display:inline-block;background:#0a1830;color:#60a8ff;border:1px solid #183870;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;margin:2px;}
+.ty{display:inline-block;background:#201200;color:#ffb030;border:1px solid #705000;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;margin:2px;}
+.tp{display:inline-block;background:#180a28;color:#c088ff;border:1px solid #502890;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;margin:2px;}
+/* table */
+table{width:100%;border-collapse:collapse;font-size:11.5px;margin-bottom:10px;}
+th{background:#13162a;color:#6898ff;font-weight:700;padding:7px 8px;text-align:left;border-bottom:1px solid #202848;}
+td{padding:6px 8px;border-bottom:1px solid #181c30;color:#b0bcd8;vertical-align:top;}
+tr:hover td{background:#181c38;}
+/* dataset pill */
+.ds{display:inline-block;background:#0a2030;color:#30c0e8;border:1px solid #1a6090;font-size:9.5px;padding:2px 8px;border-radius:12px;margin-left:6px;font-weight:700;}
+.divider{height:1px;background:#1a2040;margin:14px 0;}
+/* formula */
+.formula{background:#070910;border:1px solid #182040;border-radius:6px;padding:10px 14px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#a0c0ff;margin:8px 0;text-align:center;}
+</style>
+</head>
+<body>
+
+<h1 class="hero">🎓 Advanced Analytics Mastery</h1>
+<div class="hero-sub">Statistical Foundations · Visualization · Imbalanced Data · Time Series · Model Evaluation · Data Leakage · Production · SQL EDA — with real sklearn datasets</div>
+
+<div class="nav" id="NAV">
+  <div class="tab on"  onclick="goTab(1)">1. Statistics</div>
+  <div class="tab"     onclick="goTab(2)">2. Adv. Viz</div>
+  <div class="tab"     onclick="goTab(3)">3. Imbalanced</div>
+  <div class="tab"     onclick="goTab(4)">4. Time Series</div>
+  <div class="tab"     onclick="goTab(5)">5. Model Eval</div>
+  <div class="tab"     onclick="goTab(6)">6. Data Leakage</div>
+  <div class="tab"     onclick="goTab(7)">7. Production</div>
+  <div class="tab"     onclick="goTab(8)">8. SQL EDA</div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     TAB 1 — STATISTICAL FOUNDATIONS
+══════════════════════════════════════════════ -->
+<div class="sec on" id="S1">
+<div class="badge badge-b">TAB 1</div>
+<div class="h1">Statistical Foundations <span class="ds">breast_cancer · diabetes · iris</span></div>
+<div class="sub">The math behind the decisions — understand WHY patterns exist, not just THAT they exist</div>
+
+<div class="note"><b>Why this matters:</b> EDA shows you <em>what</em> is in the data. Statistics tells you whether what you see is <em>real or random</em>. Without it, you're guessing.</div>
+
+<div class="sl">Core Concepts Every Analyst Must Know</div>
+<div class="g3">
+  <div class="card card-b"><div class="t">Central Tendency & Spread</div><div class="b">· Mean — sensitive to outliers<br>· Median — robust to outliers<br>· Mode — categorical distributions<br>· Variance σ² — average squared deviation<br>· Std Dev σ — same units as data<br>· IQR — Q3−Q1, robust spread<br>· Skewness — tail direction<br>· Kurtosis — tail heaviness</div></div>
+  <div class="card card-g"><div class="t">Distributions</div><div class="b">· Normal — bell curve, CLT result<br>· Binomial — success/fail counts<br>· Poisson — rare event counts<br>· Exponential — time between events<br>· Uniform — equal probability<br>· Log-normal — right-skewed continuous<br>· Beta — probabilities [0,1]<br>· Pareto — 80/20 phenomena</div></div>
+  <div class="card card-y"><div class="t">Key Theorems</div><div class="b">· <b>CLT:</b> sample means → Normal as n→∞<br>· <b>Law of Large Numbers:</b> sample mean → population mean<br>· <b>Bayes' Theorem:</b> P(A|B)=P(B|A)·P(A)/P(B)<br>· <b>Chebyshev:</b> P(|X−μ|≥kσ) ≤ 1/k²<br>· No distribution assumption needed above n≈30</div></div>
+</div>
+
+<div class="sl">Hypothesis Testing — Decision Framework</div>
+<div class="note-y"><b>Golden Rule:</b> Never test a hypothesis suggested by looking at the data — you'll find false patterns. Pre-register your hypothesis <em>before</em> looking.</div>
+
+<table>
+  <tr><th>Test</th><th>When to Use</th><th>Dataset Example</th><th>Key Output</th></tr>
+  <tr><td><b>t-test (independent)</b></td><td>Compare means of 2 groups</td><td>Tumor size: malignant vs benign</td><td>p-value, t-statistic</td></tr>
+  <tr><td><b>t-test (paired)</b></td><td>Same subjects, 2 conditions</td><td>Patient glucose before/after</td><td>p-value, effect size</td></tr>
+  <tr><td><b>ANOVA (one-way)</b></td><td>Compare means of 3+ groups</td><td>Iris: sepal_length across 3 species</td><td>F-statistic, p-value</td></tr>
+  <tr><td><b>Chi-Square</b></td><td>Association between categoricals</td><td>Titanic: sex vs survived</td><td>χ², p-value</td></tr>
+  <tr><td><b>Mann-Whitney U</b></td><td>Non-normal 2-group comparison</td><td>House prices: waterfront vs not</td><td>U-statistic, p-value</td></tr>
+  <tr><td><b>Shapiro-Wilk</b></td><td>Test if data is Normal</td><td>Any continuous feature</td><td>W, p-value (p&gt;0.05 = normal)</td></tr>
+  <tr><td><b>Levene's Test</b></td><td>Test equal variances (t-test prerequisite)</td><td>Before comparing group means</td><td>p-value (p&gt;0.05 = equal var)</td></tr>
+  <tr><td><b>Pearson r</b></td><td>Linear correlation, both normal</td><td>Age vs glucose in diabetes</td><td>r ∈ [−1,1], p-value</td></tr>
+  <tr><td><b>Spearman ρ</b></td><td>Monotonic correlation, non-normal</td><td>Ordinal features, ranked data</td><td>ρ ∈ [−1,1], p-value</td></tr>
+</table>
+
+<div class="sl">Code: Full Statistical Testing Workflow</div>
+<div class="code">
+import numpy as np
+import pandas as pd
+from scipy import stats
+from sklearn.datasets import load_breast_cancer, load_iris, load_diabetes
+import warnings; warnings.filterwarnings('ignore')
+
+# ── Dataset: Breast Cancer ──────────────────────────────────
+bc = load_breast_cancer(as_frame=True)
+df = bc.frame.copy()
+df['target_name'] = df['target'].map({0:'malignant', 1:'benign'})
+
+mal = df[df['target']==0]['mean radius']
+ben = df[df['target']==1]['mean radius']
+
+# ── 1. Check Normality (prerequisite for t-test) ───────────
+stat_m, p_m = stats.shapiro(mal[:50])   # Shapiro needs n < 5000; sample if large
+stat_b, p_b = stats.shapiro(ben[:50])
+print(f"Normality check — malignant: p={p_m:.4f}  benign: p={p_b:.4f}")
+print(f"  → {'Both normal' if p_m>0.05 and p_b>0.05 else 'Non-normal detected — use Mann-Whitney'}")
+
+# ── 2. Equal Variance Check (Levene) ───────────────────────
+lev_stat, lev_p = stats.levene(mal, ben)
+print(f"\nLevene's test: p={lev_p:.4f}  → equal_var={lev_p > 0.05}")
+
+# ── 3. Independent t-test ───────────────────────────────────
+t_stat, t_p = stats.ttest_ind(mal, ben, equal_var=(lev_p > 0.05))
+print(f"\nt-test: t={t_stat:.3f}, p={t_p:.2e}")
+print(f"  → {'SIGNIFICANT difference' if t_p<0.05 else 'No significant difference'} in mean radius (α=0.05)")
+
+# ── 4. Effect Size (Cohen's d) ─────────────────────────────
+pooled_std = np.sqrt((mal.var() + ben.var()) / 2)
+cohens_d   = (mal.mean() - ben.mean()) / pooled_std
+print(f"  Cohen's d = {cohens_d:.3f}  ({'large' if abs(cohens_d)>0.8 else 'medium' if abs(cohens_d)>0.5 else 'small'} effect)")
+
+# ── 5. Mann-Whitney (non-parametric alternative) ───────────
+u_stat, u_p = stats.mannwhitneyu(mal, ben, alternative='two-sided')
+print(f"\nMann-Whitney U: p={u_p:.2e}  (non-parametric confirmation)")
+
+# ── 6. Chi-Square — Categorical association ────────────────
+# Titanic-like: use breast cancer target vs high/low radius
+df['radius_group'] = pd.cut(df['mean radius'], bins=2, labels=['low','high'])
+ct = pd.crosstab(df['radius_group'], df['target_name'])
+chi2, chi_p, dof, expected = stats.chi2_contingency(ct)
+print(f"\nChi-Square: χ²={chi2:.2f}, p={chi_p:.2e}, dof={dof}")
+print(f"  → {'Associated' if chi_p<0.05 else 'No association'} between radius group and diagnosis")
+
+# ── 7. ANOVA — 3+ groups (Iris) ────────────────────────────
+iris = load_iris(as_frame=True)
+df_i = iris.frame
+groups = [df_i[df_i['target']==t]['sepal length (cm)'] for t in [0,1,2]]
+f_stat, anova_p = stats.f_oneway(*groups)
+print(f"\nANOVA (sepal length across 3 Iris species): F={f_stat:.2f}, p={anova_p:.2e}")
+print(f"  → At least one species has a significantly different sepal length")
+
+# ── 8. Correlation tests ───────────────────────────────────
+diab = load_diabetes(as_frame=True)
+df_d = diab.frame
+r, r_p   = stats.pearsonr(df_d['age'], df_d['target'])   # linear correlation
+rho, s_p = stats.spearmanr(df_d['age'], df_d['target'])  # rank correlation
+print(f"\nDiabetes — Age vs Progression:")
+print(f"  Pearson  r  = {r:.4f}  p={r_p:.4f}")
+print(f"  Spearman ρ  = {rho:.4f}  p={s_p:.4f}")
+
+# ── 9. Confidence Intervals ────────────────────────────────
+n, mean, se = len(mal), mal.mean(), stats.sem(mal)
+ci_low, ci_high = stats.t.interval(0.95, df=n-1, loc=mean, scale=se)
+print(f"\n95% CI for malignant mean radius: [{ci_low:.3f}, {ci_high:.3f}]")
+print(f"  Interpretation: we are 95% confident the true mean lies in this range")
+</div>
+
+<div class="sl">Interpreting Results — Common Mistakes</div>
+<div class="g2">
+  <div class="card card-r"><div class="t">❌ What p-value is NOT</div><div class="b">· NOT the probability your hypothesis is true<br>· NOT the probability of a false positive<br>· NOT a measure of effect size<br>· p &lt; 0.05 with n=10,000 is trivially easy<br>· A tiny but significant effect may be useless in practice<br><br><b>Always report effect size (Cohen's d, r²) alongside p-value</b></div></div>
+  <div class="card card-g"><div class="t">✅ Decision Framework</div><div class="b">1. State H₀ and H₁ before looking at data<br>2. Choose α (usually 0.05 or 0.01)<br>3. Check assumptions (normality, variance)<br>4. Run test → get p-value<br>5. Compute effect size<br>6. Report: "statistically significant AND practically meaningful"<br><br><b>Both significance AND effect size must be large to matter</b></div></div>
+</div>
+
+<div class="note-g"><b>Bonferroni Correction:</b> Testing 20 features at α=0.05 means ~1 false positive by chance. Divide α by number of tests: new threshold = 0.05/20 = 0.0025. Use when running many simultaneous tests.</div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     TAB 2 — ADVANCED VISUALIZATION
+══════════════════════════════════════════════ -->
+<div class="sec" id="S2">
+<div class="badge badge-p">TAB 2</div>
+<div class="h1">Advanced Visualization <span class="ds">california_housing · breast_cancer · diabetes</span></div>
+<div class="sub">Beyond histograms — visuals that reveal structure, model behavior, and prediction quality</div>
+
+<div class="sl">Visualization Taxonomy — What Plot for What Question</div>
+<table>
+  <tr><th>Question</th><th>Best Plot</th><th>When to Use</th></tr>
+  <tr><td>Distribution shape</td><td>KDE plot, violin, QQ-plot</td><td>Checking normality, skewness</td></tr>
+  <tr><td>Feature importance</td><td>SHAP beeswarm / bar</td><td>After training any model</td></tr>
+  <tr><td>Prediction quality (regression)</td><td>Residual plot, actual vs predicted</td><td>Model diagnostics</td></tr>
+  <tr><td>Classification quality</td><td>Confusion matrix, ROC, PR curve</td><td>Threshold selection, class tradeoff</td></tr>
+  <tr><td>Model calibration</td><td>Calibration curve (reliability diagram)</td><td>When probabilities matter (risk scoring)</td></tr>
+  <tr><td>Business value</td><td>Lift/Gain chart, cumulative response</td><td>Marketing, fraud, targeting campaigns</td></tr>
+  <tr><td>High-dimensional data</td><td>UMAP, t-SNE, PCA biplot</td><td>Cluster discovery, embedding quality</td></tr>
+  <tr><td>Model learning behavior</td><td>Learning curves</td><td>Diagnosing overfitting/underfitting</td></tr>
+  <tr><td>Feature effect</td><td>Partial dependence plot (PDP), ICE</td><td>How one feature affects prediction</td></tr>
+</table>
+
+<div class="sl">Code: SHAP Feature Importance</div>
+<div class="note-p"><b>SHAP (SHapley Additive exPlanations)</b> tells you how much each feature contributed to each individual prediction — not just overall importance. Works with ANY model.</div>
+<div class="code">
+import numpy as np, pandas as pd, matplotlib.pyplot as plt
+from sklearn.datasets import load_breast_cancer
+from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+# pip install shap  (if not installed)
+import shap
+
+# ── Data ──────────────────────────────────────────────────
+bc = load_breast_cancer(as_frame=True)
+X, y = bc.data, bc.target
+X_tr, X_te, y_tr, y_te = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
+
+# ── Train Model ───────────────────────────────────────────
+model = GradientBoostingClassifier(n_estimators=200, random_state=42)
+model.fit(X_tr, y_tr)
+print(f"Test accuracy: {model.score(X_te, y_te):.4f}")
+
+# ── SHAP Values ───────────────────────────────────────────
+explainer   = shap.TreeExplainer(model)
+shap_values = explainer.shap_values(X_te)   # shape: (n_samples, n_features)
+
+# Global importance bar chart
+shap.summary_plot(shap_values, X_te, plot_type="bar", show=False)
+plt.title("SHAP Feature Importance (Global)")
+plt.tight_layout(); plt.savefig("shap_bar.png", dpi=150, bbox_inches='tight')
+
+# Beeswarm — shows direction AND magnitude
+shap.summary_plot(shap_values, X_te, show=False)
+plt.title("SHAP Beeswarm — Direction of Feature Effect")
+plt.tight_layout(); plt.savefig("shap_beeswarm.png", dpi=150, bbox_inches='tight')
+
+# Single prediction explanation
+i = 5  # explain the 6th test sample
+print(f"\nSample {i}: True={y_te.iloc[i]}, Pred={model.predict(X_te)[i]}")
+shap.waterfall_plot(shap.Explanation(
+    values=shap_values[i], base_values=explainer.expected_value,
+    data=X_te.iloc[i], feature_names=X_te.columns.tolist()), show=False)
+plt.tight_layout(); plt.savefig("shap_waterfall.png", dpi=150, bbox_inches='tight')
+print("Saved: shap_bar.png, shap_beeswarm.png, shap_waterfall.png")
+
+# ── Partial Dependence Plot ───────────────────────────────
+from sklearn.inspection import PartialDependenceDisplay
+fig, ax = plt.subplots(1, 2, figsize=(12, 4))
+PartialDependenceDisplay.from_estimator(
+    model, X_tr, features=[0, 7],   # worst radius, mean concave points
+    feature_names=X_tr.columns.tolist(), ax=ax)
+plt.suptitle("Partial Dependence Plots — How features affect P(benign)")
+plt.tight_layout(); plt.savefig("pdp.png", dpi=150, bbox_inches='tight')
+print("Saved: pdp.png  — shows average effect of each feature on prediction")
+</div>
+
+<div class="sl">Code: Calibration Curve + Lift/Gain Chart</div>
+<div class="note-c"><b>Calibration:</b> A model that says "70% probability" should be correct 70% of the time. Many models (especially tree ensembles) are over-confident. Always check calibration when outputting probabilities for decisions.</div>
+<div class="code">
+from sklearn.calibration import CalibrationDisplay, CalibratedClassifierCV
+from sklearn.linear_model import LogisticRegression
+import matplotlib.pyplot as plt
+
+# ── Calibration Curve ─────────────────────────────────────
+fig, ax = plt.subplots(figsize=(7,5))
+ax.plot([0,1],[0,1],'k--', label='Perfect calibration')
+
+for name, clf in [('GBM (uncalibrated)', model),
+                  ('LR (well-calibrated)', LogisticRegression(max_iter=1000).fit(X_tr,y_tr))]:
+    disp = CalibrationDisplay.from_estimator(clf, X_te, y_te,
+                                              n_bins=10, ax=ax, name=name)
+ax.set_title("Calibration Curve — Do Probabilities Mean What They Say?")
+plt.tight_layout(); plt.savefig("calibration.png", dpi=150, bbox_inches='tight')
+
+# ── Lift / Gain Chart ─────────────────────────────────────
+# Use case: Marketing campaign — find top 20% most likely responders
+probs = model.predict_proba(X_te)[:,1]
+idx   = np.argsort(-probs)          # sort by descending probability
+y_sorted = y_te.values[idx]
+
+n      = len(y_sorted)
+pct_pop = np.arange(1, n+1) / n * 100
+cum_pos = np.cumsum(y_sorted) / y_sorted.sum() * 100   # cumulative % of positives captured
+random  = pct_pop   # random baseline
+
+fig, (ax1,ax2) = plt.subplots(1,2,figsize=(12,4))
+
+# Gain chart
+ax1.plot(pct_pop, cum_pos, 'b-',  label='Model', lw=2)
+ax1.plot(pct_pop, random,  'r--', label='Random baseline')
+ax1.fill_between(pct_pop, cum_pos, random, alpha=0.15)
+ax1.set_xlabel("% Population Contacted")
+ax1.set_ylabel("% Positives Captured")
+ax1.set_title("Cumulative Gain Chart")
+ax1.legend(); ax1.grid(alpha=0.3)
+
+# Lift chart
+lift = cum_pos / (pct_pop + 1e-9)
+ax2.plot(pct_pop, lift, 'g-', lw=2)
+ax2.axhline(1, color='r', ls='--', label='No lift (random)')
+ax2.set_xlabel("% Population")
+ax2.set_ylabel("Lift")
+ax2.set_title("Lift Chart — Model vs Random")
+ax2.legend(); ax2.grid(alpha=0.3)
+plt.tight_layout(); plt.savefig("lift_gain.png", dpi=150, bbox_inches='tight')
+print("Lift at top 20%:", lift[int(0.2*n)])
+print("→ Contacting top 20% captures this many times more positives than random")
+
+# ── QQ-Plot — check normality visually ───────────────────
+fig, ax = plt.subplots(figsize=(5,5))
+from scipy import stats
+stats.probplot(bc.data['mean radius'], plot=ax)
+ax.set_title("QQ-Plot: Mean Radius vs Normal Distribution")
+plt.tight_layout(); plt.savefig("qqplot.png", dpi=150, bbox_inches='tight')
+print("QQ-Plot: points on line = normally distributed")
+</div>
+
+<div class="sl">UMAP — Visualizing High-Dimensional Data in 2D</div>
+<div class="code">
+# pip install umap-learn
+import umap
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_breast_cancer
+from sklearn.preprocessing import StandardScaler
+
+bc   = load_breast_cancer(as_frame=True)
+X_sc = StandardScaler().fit_transform(bc.data)
+
+reducer    = umap.UMAP(n_components=2, random_state=42)
+embedding  = reducer.fit_transform(X_sc)   # shape: (569, 2)
+
+fig, ax = plt.subplots(figsize=(8,6))
+scatter = ax.scatter(embedding[:,0], embedding[:,1],
+                     c=bc.target, cmap='coolwarm', alpha=0.7, s=20)
+ax.set_title("UMAP: Breast Cancer in 2D\n(red=malignant, blue=benign)")
+plt.colorbar(scatter, ax=ax)
+plt.tight_layout(); plt.savefig("umap.png", dpi=150, bbox_inches='tight')
+print("If clusters are separated → features are informative for classification")
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     TAB 3 — IMBALANCED DATA
+══════════════════════════════════════════════ -->
+<div class="sec" id="S3">
+<div class="badge badge-r">TAB 3</div>
+<div class="h1">Imbalanced Data <span class="ds">credit fraud · breast_cancer</span></div>
+<div class="sub">When 99% accuracy is a lie — handling skewed class distributions</div>
+
+<div class="note-r"><b>The trap:</b> A fraud detector that predicts "not fraud" for every transaction achieves 99.9% accuracy on a dataset where fraud is 0.1% of cases. Accuracy is useless here. You need the right metric AND the right sampling strategy.</div>
+
+<div class="sl">Imbalance Strategies — Choose Based on Severity</div>
+<table>
+  <tr><th>Imbalance Ratio</th><th>Strategy</th><th>Method</th></tr>
+  <tr><td>Mild (1:3 to 1:10)</td><td>Class weights</td><td>class_weight='balanced' in sklearn</td></tr>
+  <tr><td>Moderate (1:10 to 1:100)</td><td>Oversampling minority</td><td>SMOTE, ADASYN</td></tr>
+  <tr><td>Moderate</td><td>Undersampling majority</td><td>RandomUnderSampler, TomekLinks</td></tr>
+  <tr><td>Severe (1:100+)</td><td>Combined</td><td>SMOTE + Tomek, SMOTE + ENN</td></tr>
+  <tr><td>Any</td><td>Threshold tuning</td><td>Adjust decision threshold from 0.5</td></tr>
+  <tr><td>Severe</td><td>Anomaly detection framing</td><td>IsolationForest, One-Class SVM</td></tr>
+</table>
+
+<div class="sl">Code: SMOTE + Correct Evaluation</div>
+<div class="code">
+import numpy as np, pandas as pd
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split, StratifiedKFold, cross_val_score
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import (classification_report, confusion_matrix,
+                              roc_auc_score, average_precision_score,
+                              precision_recall_curve, f1_score)
+# pip install imbalanced-learn
+from imblearn.over_sampling  import SMOTE, ADASYN
+from imblearn.under_sampling import RandomUnderSampler, TomekLinks
+from imblearn.combine        import SMOTETomek
+from imblearn.pipeline       import Pipeline as ImbPipeline
+import warnings; warnings.filterwarnings('ignore')
+
+# ── Simulate imbalanced dataset (10:1 ratio) ──────────────
+bc = load_breast_cancer(as_frame=True)
+X, y = bc.data, bc.target
+
+# Create artificial imbalance: keep all malignant, 10% benign
+mal_idx = np.where(y==0)[0]        # malignant = minority (212)
+ben_idx = np.where(y==1)[0]        # benign = majority (357)
+keep    = np.concatenate([mal_idx, ben_idx[:40]])  # 212 vs 40
+X_imb, y_imb = X.iloc[keep], y.iloc[keep]
+print(f"Class distribution: {dict(y_imb.value_counts())}")
+print(f"Imbalance ratio: 1:{y_imb.value_counts()[1]/y_imb.value_counts()[0]:.1f}")
+
+X_tr, X_te, y_tr, y_te = train_test_split(
+    X_imb, y_imb, test_size=0.25, random_state=42, stratify=y_imb)
+
+# ── Approach 1: Naive (wrong) ─────────────────────────────
+rf_naive = RandomForestClassifier(n_estimators=100, random_state=42)
+rf_naive.fit(X_tr, y_tr)
+acc_naive = rf_naive.score(X_te, y_te)
+f1_naive  = f1_score(y_te, rf_naive.predict(X_te), average='macro')
+print(f"\nNaive RF — Accuracy={acc_naive:.4f}  Macro-F1={f1_naive:.4f}")
+print("  (High accuracy may hide poor minority class recall)")
+
+# ── Approach 2: Class weights ─────────────────────────────
+rf_cw = RandomForestClassifier(n_estimators=100, class_weight='balanced', random_state=42)
+rf_cw.fit(X_tr, y_tr)
+f1_cw = f1_score(y_te, rf_cw.predict(X_te), average='macro')
+print(f"Balanced weights — Macro-F1={f1_cw:.4f}")
+
+# ── Approach 3: SMOTE pipeline (CORRECT way) ──────────────
+# CRITICAL: Apply SMOTE only to training data, NEVER to test data
+smote = SMOTE(random_state=42, k_neighbors=3)
+X_tr_sm, y_tr_sm = smote.fit_resample(X_tr, y_tr)
+print(f"\nAfter SMOTE — training: {dict(pd.Series(y_tr_sm).value_counts())}")
+
+rf_smote = RandomForestClassifier(n_estimators=100, random_state=42)
+rf_smote.fit(X_tr_sm, y_tr_sm)
+y_pred   = rf_smote.predict(X_te)
+y_prob   = rf_smote.predict_proba(X_te)[:,1]
+
+print("\nSMOTE RF Results:")
+print(classification_report(y_te, y_pred, target_names=['malignant','benign']))
+print(f"  ROC-AUC:  {roc_auc_score(y_te, y_prob):.4f}")
+print(f"  PR-AUC:   {average_precision_score(y_te, y_prob):.4f}")
+
+# ── Approach 4: SMOTETomek (combined) ─────────────────────
+smt = SMOTETomek(random_state=42)
+X_tr_smt, y_tr_smt = smt.fit_resample(X_tr, y_tr)
+rf_smt = RandomForestClassifier(n_estimators=100, random_state=42)
+rf_smt.fit(X_tr_smt, y_tr_smt)
+f1_smt = f1_score(y_te, rf_smt.predict(X_te), average='macro')
+print(f"\nSMOTETomek — Macro-F1={f1_smt:.4f}")
+
+# ── Threshold Tuning ──────────────────────────────────────
+prec, rec, thr = precision_recall_curve(y_te, y_prob)
+f1s  = 2*prec*rec / (prec+rec+1e-9)
+best_thr = thr[np.argmax(f1s)]
+y_thr_pred = (y_prob >= best_thr).astype(int)
+print(f"\nOptimal threshold: {best_thr:.3f}  (default=0.50)")
+print(f"F1 at 0.50: {f1_score(y_te, rf_smote.predict(X_te)):.4f}")
+print(f"F1 at {best_thr:.2f}: {f1_score(y_te, y_thr_pred):.4f}")
+print("→ Never blindly use 0.5; tune threshold for your business cost")
+
+# ── Correct Metrics for Imbalanced Data ───────────────────
+print("\n── RIGHT metrics for imbalanced problems ──")
+print(f"  Precision-Recall AUC: {average_precision_score(y_te, y_prob):.4f}  ← primary metric")
+print(f"  ROC-AUC:              {roc_auc_score(y_te, y_prob):.4f}  ← secondary")
+print(f"  Macro F1:             {f1_score(y_te, y_pred, average='macro'):.4f}")
+print(f"  Accuracy:             {rf_smote.score(X_te,y_te):.4f}  ← MISLEADING for imbalanced!")
+</div>
+
+<div class="sl">Choosing the Right Metric</div>
+<div class="g3">
+  <div class="card card-r"><div class="t">When FP is costly</div><div class="b">Maximize <b>Precision</b><br><br>Example: Cancer biopsy — don't want to send healthy people to surgery<br><br>Metric: Precision = TP/(TP+FP)</div></div>
+  <div class="card card-g"><div class="t">When FN is costly</div><div class="b">Maximize <b>Recall</b><br><br>Example: Fraud detection — don't want to miss a fraudulent transaction<br><br>Metric: Recall = TP/(TP+FN)</div></div>
+  <div class="card card-b"><div class="t">Balanced tradeoff</div><div class="b">Maximize <b>F1 / PR-AUC</b><br><br>F1 = 2·(P·R)/(P+R) — harmonic mean<br>PR-AUC = area under PR curve — best for severe imbalance<br><br>Use Macro-F1 for multi-class</div></div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     TAB 4 — TIME SERIES
+══════════════════════════════════════════════ -->
+<div class="sec" id="S4">
+<div class="badge badge-c">TAB 4</div>
+<div class="h1">Time Series Analysis <span class="ds">AirPassengers · stock prices · energy</span></div>
+<div class="sub">Temporal data breaks all standard ML assumptions — here's how to handle it correctly</div>
+
+<div class="note-r"><b>Critical rule:</b> NEVER use random train/test split on time series data. The future cannot inform the past. Always split chronologically — train on earlier data, test on later data.</div>
+
+<div class="sl">Time Series Components</div>
+<div class="g4">
+  <div class="card card-b"><div class="t">Trend</div><div class="b">Long-term upward or downward movement. Remove with differencing or detrending.</div></div>
+  <div class="card card-g"><div class="t">Seasonality</div><div class="b">Repeating pattern at fixed intervals (daily, weekly, yearly). Detected with ACF plot.</div></div>
+  <div class="card card-y"><div class="t">Cyclicality</div><div class="b">Non-fixed-length patterns (business cycles). Unlike seasonality — irregular in timing.</div></div>
+  <div class="card card-r"><div class="t">Residual/Noise</div><div class="b">What's left after removing trend + seasonality. Should be random (white noise).</div></div>
+</div>
+
+<div class="sl">Code: Decomposition + Feature Engineering + Correct Split</div>
+<div class="code">
+import numpy as np, pandas as pd
+import matplotlib.pyplot as plt
+from statsmodels.tsa.seasonal import seasonal_decompose
+from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
+from statsmodels.tsa.stattools import adfuller
+from sklearn.ensemble import GradientBoostingRegressor
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+import warnings; warnings.filterwarnings('ignore')
+
+# ── Load AirPassengers dataset ────────────────────────────
+url = "https://raw.githubusercontent.com/jbrownlee/Datasets/master/airline-passengers.csv"
+df  = pd.read_csv(url, header=0, names=['Month','Passengers'], parse_dates=['Month'])
+df  = df.set_index('Month').asfreq('MS')   # month-start frequency
+print(f"Shape: {df.shape}  |  Date range: {df.index[0]} → {df.index[-1]}")
+
+# ── 1. Visualise ──────────────────────────────────────────
+fig, axes = plt.subplots(4,1, figsize=(12,10), sharex=True)
+df['Passengers'].plot(ax=axes[0], title='Original Time Series')
+result = seasonal_decompose(df['Passengers'], model='multiplicative', period=12)
+result.trend.plot(ax=axes[1],   title='Trend')
+result.seasonal.plot(ax=axes[2],title='Seasonality (Monthly)')
+result.resid.plot(ax=axes[3],   title='Residual (Noise)')
+plt.tight_layout(); plt.savefig("ts_decompose.png", dpi=150, bbox_inches='tight')
+
+# ── 2. Stationarity Test (ADF) ────────────────────────────
+adf, p, _, _, crit, _ = adfuller(df['Passengers'].dropna())
+print(f"\nADF Test: statistic={adf:.3f}, p={p:.4f}")
+print(f"  → {'Stationary' if p<0.05 else 'NON-STATIONARY — differencing needed'}")
+
+# Make stationary via log + differencing
+df['log_pass']  = np.log(df['Passengers'])
+df['log_diff']  = df['log_pass'].diff(1)
+adf2, p2, *_    = adfuller(df['log_diff'].dropna())
+print(f"After log+diff: p={p2:.4f} → {'Stationary ✓' if p2<0.05 else 'Still non-stationary'}")
+
+# ── 3. ACF / PACF — identify lag structure ────────────────
+fig, (ax1,ax2) = plt.subplots(2,1, figsize=(10,6))
+plot_acf( df['log_diff'].dropna(), lags=30, ax=ax1, title='ACF — MA order')
+plot_pacf(df['log_diff'].dropna(), lags=30, ax=ax2, title='PACF — AR order')
+plt.tight_layout(); plt.savefig("acf_pacf.png", dpi=150, bbox_inches='tight')
+print("\nACF: spikes show seasonal pattern (12-month) → seasonal model needed")
+print("PACF: first significant lag → AR(1) component")
+
+# ── 4. Feature Engineering for ML on Time Series ─────────
+df2 = df[['Passengers']].copy()
+
+# Lag features — past values as predictors
+for lag in [1, 2, 3, 6, 12]:
+    df2[f'lag_{lag}'] = df2['Passengers'].shift(lag)
+
+# Rolling statistics — window features
+df2['roll_mean_3']  = df2['Passengers'].rolling(3).mean()
+df2['roll_std_3']   = df2['Passengers'].rolling(3).std()
+df2['roll_mean_12'] = df2['Passengers'].rolling(12).mean()
+
+# Calendar features
+df2['month']        = df2.index.month
+df2['quarter']      = df2.index.quarter
+df2['year']         = df2.index.year
+
+# Percent change
+df2['pct_change_1']  = df2['Passengers'].pct_change(1)
+df2['pct_change_12'] = df2['Passengers'].pct_change(12)  # YoY
+
+df2 = df2.dropna()
+print(f"\nFeatures created: {df2.columns.tolist()}")
+
+# ── 5. CORRECT Time-Based Train/Test Split ────────────────
+cutoff = '1959-01-01'    # last ~2 years for test
+train  = df2[df2.index <  cutoff]
+test   = df2[df2.index >= cutoff]
+print(f"\nTrain: {len(train)} months  |  Test: {len(test)} months")
+print(f"  Train: {train.index[0]} → {train.index[-1]}")
+print(f"  Test:  {test.index[0]}  → {test.index[-1]}")
+
+# ── 6. Train + Evaluate ───────────────────────────────────
+feat_cols = [c for c in df2.columns if c != 'Passengers']
+X_tr, y_tr = train[feat_cols], train['Passengers']
+X_te, y_te = test[feat_cols],  test['Passengers']
+
+model = GradientBoostingRegressor(n_estimators=300, learning_rate=0.05, random_state=42)
+model.fit(X_tr, y_tr)
+y_pred = model.predict(X_te)
+
+mae  = mean_absolute_error(y_te, y_pred)
+rmse = mean_squared_error(y_te, y_pred, squared=False)
+mape = np.mean(np.abs((y_te - y_pred)/y_te)) * 100
+r2   = r2_score(y_te, y_pred)
+print(f"\nTest Results: MAE={mae:.1f}  RMSE={rmse:.1f}  MAPE={mape:.1f}%  R²={r2:.4f}")
+
+# ── 7. Time Series Cross-Validation (TimeSeriesSplit) ─────
+from sklearn.model_selection import TimeSeriesSplit, cross_val_score
+tscv = TimeSeriesSplit(n_splits=5)
+cv_scores = cross_val_score(model, df2[feat_cols], df2['Passengers'],
+                            cv=tscv, scoring='neg_mean_absolute_error')
+print(f"\nTimeSeriesSplit CV MAE: {-cv_scores.mean():.1f} ± {cv_scores.std():.1f}")
+print("→ Each fold uses only past data to predict future — no leakage")
+</div>
+
+<div class="sl">Key Time Series Rules</div>
+<div class="g2">
+  <div class="card card-r"><div class="t">❌ Common Mistakes</div><div class="b">· Random train/test split (leaks future into past)<br>· Scaling before splitting (leaks test stats into train)<br>· Using future values as features (look-ahead bias)<br>· Ignoring seasonality in feature engineering<br>· Using K-Fold CV (folds contain future data)</div></div>
+  <div class="card card-g"><div class="t">✅ Best Practices</div><div class="b">· Always split chronologically<br>· Fit scaler on train only, transform test<br>· Lag features must be from past only<br>· Use TimeSeriesSplit for cross-validation<br>· Test multiple horizons (1-step, multi-step)<br>· Always include naive baseline (last value, seasonal naive)</div></div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     TAB 5 — MODEL EVALUATION DEPTH
+══════════════════════════════════════════════ -->
+<div class="sec" id="S5">
+<div class="badge badge-g">TAB 5</div>
+<div class="h1">Model Evaluation Depth <span class="ds">breast_cancer · diabetes · california_housing</span></div>
+<div class="sub">Beyond accuracy — diagnosing exactly what your model is doing and why</div>
+
+<div class="sl">The Bias-Variance Tradeoff</div>
+<div class="g3">
+  <div class="card card-r"><div class="t">High Bias (Underfitting)</div><div class="b">· Train error HIGH, Test error HIGH<br>· Model too simple for the problem<br>· Symptoms: flat learning curve, poor CV score<br>· Fix: more features, complex model, less regularization</div></div>
+  <div class="card card-g"><div class="t">Good Balance</div><div class="b">· Train error LOW, Test error LOW<br>· Both curves converge to a low value<br>· Generalization gap is small<br>· This is the goal</div></div>
+  <div class="card card-y"><div class="t">High Variance (Overfitting)</div><div class="b">· Train error LOW, Test error HIGH<br>· Model memorizing training data<br>· Symptoms: large gap between train and test<br>· Fix: more data, regularization, simpler model, dropout</div></div>
+</div>
+
+<div class="sl">Code: Learning Curves + CV Strategies + Full Diagnostics</div>
+<div class="code">
+import numpy as np, pandas as pd, matplotlib.pyplot as plt
+from sklearn.datasets import load_breast_cancer, load_diabetes, fetch_california_housing
+from sklearn.model_selection import (train_test_split, learning_curve,
+    StratifiedKFold, GroupKFold, TimeSeriesSplit, cross_validate)
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingRegressor
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import (confusion_matrix, ConfusionMatrixDisplay,
+    roc_curve, precision_recall_curve, roc_auc_score, average_precision_score,
+    mean_squared_error, r2_score, mean_absolute_error,
+    f1_score, matthews_corrcoef)
+import warnings; warnings.filterwarnings('ignore')
+
+# ── Dataset ───────────────────────────────────────────────
+bc = load_breast_cancer(as_frame=True)
+X, y = bc.data, bc.target
+X_tr, X_te, y_tr, y_te = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
+model = RandomForestClassifier(n_estimators=200, random_state=42)
+model.fit(X_tr, y_tr)
+
+# ── 1. Learning Curves ────────────────────────────────────
+train_sz, train_sc, val_sc = learning_curve(
+    model, X, y, cv=5, scoring='roc_auc',
+    train_sizes=np.linspace(0.1, 1.0, 10), n_jobs=-1)
+
+fig, ax = plt.subplots(figsize=(8,5))
+ax.plot(train_sz, train_sc.mean(1), 'b-o', label='Train AUC')
+ax.plot(train_sz, val_sc.mean(1),   'r-o', label='CV Val AUC')
+ax.fill_between(train_sz, train_sc.mean(1)-train_sc.std(1),
+                           train_sc.mean(1)+train_sc.std(1), alpha=0.1, color='b')
+ax.fill_between(train_sz, val_sc.mean(1)-val_sc.std(1),
+                           val_sc.mean(1)+val_sc.std(1),   alpha=0.1, color='r')
+ax.set_xlabel("Training Size"); ax.set_ylabel("ROC-AUC")
+ax.set_title("Learning Curve — Bias vs Variance Diagnosis")
+ax.legend(); ax.grid(alpha=0.3)
+plt.tight_layout(); plt.savefig("learning_curve.png", dpi=150, bbox_inches='tight')
+print("Learning curve saved. Interpretation:")
+print("  • Gap between lines = variance (overfitting)")
+print("  • Low val score plateau = bias (underfitting)")
+print("  • Both converge high = well-fitted")
+
+# ── 2. Confusion Matrix + All Metrics ─────────────────────
+y_pred = model.predict(X_te)
+y_prob = model.predict_proba(X_te)[:,1]
+cm     = confusion_matrix(y_te, y_pred)
+tn,fp,fn,tp = cm.ravel()
+print(f"\n── Confusion Matrix ──")
+print(f"  TN={tn}  FP={fp}  FN={fn}  TP={tp}")
+print(f"  Accuracy:    {(tp+tn)/(tp+tn+fp+fn):.4f}")
+print(f"  Precision:   {tp/(tp+fp):.4f}  (of predicted positive, how many correct)")
+print(f"  Recall:      {tp/(tp+fn):.4f}  (of actual positive, how many found)")
+print(f"  F1:          {f1_score(y_te,y_pred):.4f}")
+print(f"  ROC-AUC:     {roc_auc_score(y_te,y_prob):.4f}")
+print(f"  PR-AUC:      {average_precision_score(y_te,y_prob):.4f}")
+print(f"  MCC:         {matthews_corrcoef(y_te,y_pred):.4f}  (best single metric for imbalance)")
+print(f"  Specificity: {tn/(tn+fp):.4f}  (true negative rate)")
+
+# ── 3. ROC + PR Curves side by side ───────────────────────
+fig, (ax1,ax2) = plt.subplots(1,2, figsize=(12,5))
+
+# ROC
+fpr,tpr,_ = roc_curve(y_te, y_prob)
+ax1.plot(fpr,tpr,'b-',lw=2,label=f'AUC={roc_auc_score(y_te,y_prob):.4f}')
+ax1.plot([0,1],[0,1],'r--',label='Random')
+ax1.set_xlabel("FPR"); ax1.set_ylabel("TPR")
+ax1.set_title("ROC Curve"); ax1.legend(); ax1.grid(alpha=0.3)
+
+# PR
+prec,rec,_ = precision_recall_curve(y_te, y_prob)
+ax2.plot(rec,prec,'g-',lw=2,label=f'PR-AUC={average_precision_score(y_te,y_prob):.4f}')
+ax2.axhline(y_te.mean(), color='r', ls='--', label='Random (prevalence)')
+ax2.set_xlabel("Recall"); ax2.set_ylabel("Precision")
+ax2.set_title("Precision-Recall Curve"); ax2.legend(); ax2.grid(alpha=0.3)
+plt.tight_layout(); plt.savefig("roc_pr.png", dpi=150, bbox_inches='tight')
+
+# ── 4. Cross-Validation Strategies ───────────────────────
+print("\n── Cross-Validation Strategies ──")
+
+# Standard stratified
+skf = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+cv_res = cross_validate(model, X, y, cv=skf,
+                         scoring=['roc_auc','f1','accuracy'],
+                         return_train_score=True)
+print(f"Stratified 5-Fold:")
+print(f"  Train AUC: {cv_res['train_roc_auc'].mean():.4f} ± {cv_res['train_roc_auc'].std():.4f}")
+print(f"  Val   AUC: {cv_res['test_roc_auc'].mean():.4f}  ± {cv_res['test_roc_auc'].std():.4f}")
+gap = cv_res['train_roc_auc'].mean() - cv_res['test_roc_auc'].mean()
+print(f"  Overfit gap: {gap:.4f}  {'⚠ High variance' if gap>0.05 else '✓ Well generalised'}")
+
+# ── 5. Regression Diagnostics (California Housing) ────────
+print("\n── Regression Diagnostics ──")
+cal = fetch_california_housing(as_frame=True)
+Xr, yr = cal.data, cal.target
+Xr_tr,Xr_te,yr_tr,yr_te = train_test_split(Xr,yr,test_size=0.2,random_state=42)
+gb = GradientBoostingRegressor(n_estimators=300, random_state=42).fit(Xr_tr, yr_tr)
+yr_pred   = gb.predict(Xr_te)
+residuals = yr_te - yr_pred
+
+print(f"  MAE:     {mean_absolute_error(yr_te,yr_pred):.4f}")
+print(f"  RMSE:    {mean_squared_error(yr_te,yr_pred,squared=False):.4f}")
+print(f"  R²:      {r2_score(yr_te,yr_pred):.4f}")
+print(f"  MAPE:    {np.mean(np.abs(residuals/yr_te))*100:.2f}%")
+
+fig, axes = plt.subplots(1,3,figsize=(15,4))
+# Actual vs Predicted
+axes[0].scatter(yr_te, yr_pred, alpha=0.3, s=5)
+axes[0].plot([0,5],[0,5],'r--'); axes[0].set_title("Actual vs Predicted")
+axes[0].set_xlabel("Actual"); axes[0].set_ylabel("Predicted")
+# Residuals vs Predicted
+axes[1].scatter(yr_pred, residuals, alpha=0.3, s=5)
+axes[1].axhline(0, color='r', ls='--'); axes[1].set_title("Residuals vs Fitted")
+axes[1].set_xlabel("Predicted"); axes[1].set_ylabel("Residuals")
+# Residual distribution
+axes[2].hist(residuals, bins=50, color='steelblue', edgecolor='none')
+axes[2].set_title("Residual Distribution (should be ~Normal)")
+plt.tight_layout(); plt.savefig("regression_diag.png", dpi=150, bbox_inches='tight')
+print("Saved: regression_diag.png")
+print("  → Random residuals around 0 = good fit")
+print("  → Patterns in residuals = model missing structure")
+</div>
+
+<div class="sl">Threshold Tuning Guide</div>
+<div class="note"><b>The default 0.5 threshold is arbitrary.</b> For fraud: lower threshold to catch more fraud (boost recall). For diagnosis screening: lower threshold to catch more disease cases. For spam: raise threshold to avoid blocking legitimate mail (boost precision). Always tune based on the business cost of FP vs FN.</div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     TAB 6 — DATA LEAKAGE
+══════════════════════════════════════════════ -->
+<div class="sec" id="S6">
+<div class="badge badge-y">TAB 6</div>
+<div class="h1">Data Leakage Prevention <span class="ds">breast_cancer · diabetes · housing</span></div>
+<div class="sub">The silent model killer — inflated metrics that collapse in production</div>
+
+<div class="note-r"><b>Data leakage</b> is when information from outside the training set is used to build the model. It makes your model look great during development, then fail catastrophically in production. It's the #1 cause of ML project failures.</div>
+
+<div class="sl">Types of Data Leakage</div>
+<table>
+  <tr><th>Type</th><th>Description</th><th>Real Example</th><th>How to Detect</th></tr>
+  <tr><td><b>Target Leakage</b></td><td>Feature derived from or caused by the target after the event</td><td>Using "medication prescribed" to predict "disease diagnosis" — you only prescribe after diagnosing</td><td>Feature importance suspiciously high; logic check</td></tr>
+  <tr><td><b>Train/Test Contamination</b></td><td>Preprocessing fitted on entire dataset before split</td><td>StandardScaler fit on all 1000 rows, then split — test stats bleed into train normalization</td><td>Always split first, then preprocess</td></tr>
+  <tr><td><b>Temporal Leakage</b></td><td>Using future data to predict past events</td><td>Random shuffle in time series — model sees next month's sales when predicting this month</td><td>Check split is chronological</td></tr>
+  <tr><td><b>Group Leakage</b></td><td>Same entity appears in train and test</td><td>Patient appears 5x in dataset; 4 visits in train, 1 in test — model memorizes patient</td><td>Use GroupKFold by entity ID</td></tr>
+  <tr><td><b>Duplicate Leakage</b></td><td>Near-duplicate rows split across train/test</td><td>Augmented images of same photo in both sets</td><td>Check duplicates before splitting</td></tr>
+</table>
+
+<div class="sl">Code: Detecting and Preventing Each Type</div>
+<div class="code">
+import numpy as np, pandas as pd
+from sklearn.datasets import load_breast_cancer, load_diabetes
+from sklearn.model_selection import train_test_split, cross_val_score, GroupKFold
+from sklearn.preprocessing import StandardScaler
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.pipeline import Pipeline
+import warnings; warnings.filterwarnings('ignore')
+
+bc = load_breast_cancer(as_frame=True)
+X, y = bc.data.copy(), bc.target.copy()
+
+# ════════════════════════════════════════════════════════════
+# LEAKAGE TYPE 1: Train/Test Contamination
+# ════════════════════════════════════════════════════════════
+print("=" * 60)
+print("LEAKAGE TYPE 1: Scaling before split")
+
+# ❌ WRONG — scale on ALL data, then split
+scaler_bad = StandardScaler()
+X_bad = pd.DataFrame(scaler_bad.fit_transform(X), columns=X.columns)   # LEAKS test → train
+X_tr_bad, X_te_bad, y_tr, y_te = train_test_split(X_bad, y, test_size=0.2, random_state=42)
+rf_bad = RandomForestClassifier(n_estimators=100, random_state=42).fit(X_tr_bad, y_tr)
+score_bad = rf_bad.score(X_te_bad, y_te)
+
+# ✅ CORRECT — split first, then scale using ONLY train stats
+X_tr_raw, X_te_raw, y_tr, y_te = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
+scaler_good = StandardScaler()
+X_tr_sc = scaler_good.fit_transform(X_tr_raw)   # fit on train ONLY
+X_te_sc = scaler_good.transform(X_te_raw)        # transform with train params
+rf_good = RandomForestClassifier(n_estimators=100, random_state=42).fit(X_tr_sc, y_tr)
+score_good = rf_good.score(X_te_sc, y_te)
+
+print(f"  ❌ Wrong (scale-then-split): {score_bad:.4f}")
+print(f"  ✅ Correct (split-then-scale): {score_good:.4f}")
+print(f"  Leakage inflation: {(score_bad - score_good)*100:+.2f}%")
+
+# ════════════════════════════════════════════════════════════
+# LEAKAGE TYPE 2: Using sklearn Pipeline (the right way)
+# ════════════════════════════════════════════════════════════
+print("\n" + "=" * 60)
+print("BEST PRACTICE: Use sklearn Pipeline — leakage impossible")
+pipe = Pipeline([
+    ('scaler', StandardScaler()),
+    ('clf',    RandomForestClassifier(n_estimators=100, random_state=42))
+])
+# Pipeline AUTOMATICALLY fits scaler only on train fold during CV
+cv_scores = cross_val_score(pipe, X, y, cv=5, scoring='accuracy')
+print(f"  Pipeline CV Accuracy: {cv_scores.mean():.4f} ± {cv_scores.std():.4f}")
+print("  → Scaler is re-fit on each train fold. Test fold is never seen during fit.")
+
+# ════════════════════════════════════════════════════════════
+# LEAKAGE TYPE 3: Target Leakage — Feature Selection
+# ════════════════════════════════════════════════════════════
+print("\n" + "=" * 60)
+print("LEAKAGE TYPE 3: Feature selection using full dataset")
+
+# ❌ WRONG — select features using ALL data correlation
+corr_all = X.corrwith(pd.Series(y.values, index=X.index)).abs()
+top10_bad = corr_all.nlargest(10).index.tolist()
+
+# ✅ CORRECT — select inside CV loop, on train only
+from sklearn.feature_selection import SelectKBest, f_classif
+pipe_correct = Pipeline([
+    ('select', SelectKBest(f_classif, k=10)),
+    ('scaler', StandardScaler()),
+    ('clf',    RandomForestClassifier(n_estimators=100, random_state=42))
+])
+cv_correct = cross_val_score(pipe_correct, X, y, cv=5, scoring='roc_auc')
+print(f"  ✅ Feature selection inside pipeline CV AUC: {cv_correct.mean():.4f}")
+
+# ════════════════════════════════════════════════════════════
+# LEAKAGE TYPE 4: Group Leakage — Patient / Entity IDs
+# ════════════════════════════════════════════════════════════
+print("\n" + "=" * 60)
+print("LEAKAGE TYPE 4: Same entity in train and test")
+
+# Simulate: each patient appears 3x (3 hospital visits)
+np.random.seed(42)
+n = len(X)
+patient_ids = np.repeat(np.arange(n//3), 3)[:n]   # patient 0,0,0,1,1,1,...
+
+# ❌ Wrong: standard K-Fold — same patient in train+test
+cv_bad  = cross_val_score(pipe, X, y, cv=5, scoring='roc_auc')
+
+# ✅ Correct: GroupKFold — all visits of one patient in same fold
+gkf = GroupKFold(n_splits=5)
+cv_good = cross_val_score(pipe, X, y, cv=gkf, groups=patient_ids, scoring='roc_auc')
+print(f"  ❌ Standard 5-Fold AUC:    {cv_bad.mean():.4f} (patient leakage)")
+print(f"  ✅ GroupKFold AUC:         {cv_good.mean():.4f} (correct isolation)")
+print(f"  Leakage inflation: {(cv_bad.mean()-cv_good.mean())*100:+.2f}%")
+
+# ════════════════════════════════════════════════════════════
+# LEAKAGE TYPE 5: Imputation before split
+# ════════════════════════════════════════════════════════════
+print("\n" + "=" * 60)
+print("LEAKAGE TYPE 5: Imputing missing values on full dataset")
+from sklearn.impute import SimpleImputer
+
+# ❌ WRONG
+X_missing = X.copy()
+X_missing.iloc[::5, 0] = np.nan   # simulate 20% missingness in feature 0
+imputer_bad = SimpleImputer(strategy='mean')
+X_imputed_bad = imputer_bad.fit_transform(X_missing)   # uses test mean — LEAKS
+
+# ✅ CORRECT: Imputer inside Pipeline
+from sklearn.impute import SimpleImputer
+pipe_imp = Pipeline([
+    ('imputer', SimpleImputer(strategy='mean')),
+    ('scaler',  StandardScaler()),
+    ('clf',     RandomForestClassifier(n_estimators=100, random_state=42))
+])
+X_tr_m, X_te_m, y_tr_m, y_te_m = train_test_split(
+    X_missing, y, test_size=0.2, random_state=42, stratify=y)
+pipe_imp.fit(X_tr_m, y_tr_m)   # imputer.fit() runs on X_tr only
+print(f"  ✅ Pipeline with imputer test accuracy: {pipe_imp.score(X_te_m, y_te_m):.4f}")
+print("\n✅ GOLDEN RULE: Everything that learns from data goes in the Pipeline")
+print("   Order: Imputer → Feature Selection → Scaler → Model")
+</div>
+
+<div class="sl">Leakage Red Flags Checklist</div>
+<div class="g2">
+  <div class="card card-r"><div class="t">🚨 Suspicious Signs of Leakage</div><div class="b">· Model accuracy much higher than domain experts expect<br>· One feature has dramatically higher importance than others<br>· Tiny gap between train and CV performance<br>· Performance drops dramatically in production<br>· Feature name contains "target", "outcome", "result", "post"<br>· Feature is a date/time AFTER the prediction event</div></div>
+  <div class="card card-g"><div class="t">✅ Prevention Checklist</div><div class="b">· Split data before any preprocessing<br>· Use sklearn Pipeline for all transformations<br>· Use GroupKFold when rows share an entity<br>· Use TimeSeriesSplit for temporal data<br>· Verify no feature was created using future information<br>· Check feature timestamps vs target timestamp<br>· Validate with a holdout set never touched during dev</div></div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     TAB 7 — PRODUCTION & MLFLOW
+══════════════════════════════════════════════ -->
+<div class="sec" id="S7">
+<div class="badge badge-o">TAB 7</div>
+<div class="h1">Production & MLflow <span class="ds">breast_cancer · california_housing</span></div>
+<div class="sub">Saving, versioning, serving, and monitoring models beyond the notebook</div>
+
+<div class="sl">Model Lifecycle</div>
+<div class="g4">
+  <div class="card card-b"><div class="t">1. Experiment</div><div class="b">Train multiple models, log metrics and params with MLflow</div></div>
+  <div class="card card-g"><div class="t">2. Register</div><div class="b">Save best model to MLflow Model Registry with versioning</div></div>
+  <div class="card card-y"><div class="t">3. Serve</div><div class="b">Deploy via REST API (mlflow models serve) or embed in app</div></div>
+  <div class="card card-r"><div class="t">4. Monitor</div><div class="b">Track drift — data distribution shifts, prediction drift, performance decay</div></div>
+</div>
+
+<div class="sl">Code: Saving + Loading with joblib + MLflow Logging</div>
+<div class="code">
+import numpy as np, pandas as pd, joblib, json, os
+from sklearn.datasets import load_breast_cancer, fetch_california_housing
+from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.ensemble import GradientBoostingClassifier, GradientBoostingRegressor
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import roc_auc_score, classification_report, r2_score
+import warnings; warnings.filterwarnings('ignore')
+
+# ════════════════════════════════════════════════════════════
+# PART 1: Save and Load with joblib (lightweight, no MLflow)
+# ════════════════════════════════════════════════════════════
+bc = load_breast_cancer(as_frame=True)
+X, y = bc.data, bc.target
+X_tr, X_te, y_tr, y_te = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
+
+pipe = Pipeline([
+    ('scaler', StandardScaler()),
+    ('clf',    GradientBoostingClassifier(n_estimators=200, learning_rate=0.1, random_state=42))
+])
+pipe.fit(X_tr, y_tr)
+auc = roc_auc_score(y_te, pipe.predict_proba(X_te)[:,1])
+print(f"Model trained. AUC: {auc:.4f}")
+
+# Save pipeline (includes scaler params + model)
+os.makedirs("models", exist_ok=True)
+joblib.dump(pipe, "models/breast_cancer_pipeline_v1.pkl")
+print("Saved: models/breast_cancer_pipeline_v1.pkl")
+
+# Save metadata alongside model
+meta = {
+    "model_version":  "1.0",
+    "training_date":  pd.Timestamp.now().isoformat(),
+    "features":       X.columns.tolist(),
+    "n_train":        len(X_tr),
+    "test_auc":       round(auc, 4),
+    "threshold":      0.5,
+    "target_names":   bc.target_names.tolist()
+}
+with open("models/breast_cancer_metadata_v1.json", "w") as f:
+    json.dump(meta, f, indent=2)
+print("Saved: models/breast_cancer_metadata_v1.json")
+
+# Load and verify
+pipe_loaded = joblib.load("models/breast_cancer_pipeline_v1.pkl")
+auc_loaded  = roc_auc_score(y_te, pipe_loaded.predict_proba(X_te)[:,1])
+print(f"\nLoaded model AUC: {auc_loaded:.4f}  (should match original)")
+assert abs(auc - auc_loaded) < 1e-6, "Model mismatch after load!"
+print("✅ Model load verified")
+
+# ════════════════════════════════════════════════════════════
+# PART 2: MLflow Experiment Tracking
+# ════════════════════════════════════════════════════════════
+# pip install mlflow
+try:
+    import mlflow
+    import mlflow.sklearn
+
+    mlflow.set_tracking_uri("./mlruns")  # local filesystem tracking
+    mlflow.set_experiment("breast_cancer_classification")
+
+    configs = [
+        {"n_estimators": 100, "learning_rate": 0.1, "max_depth": 3},
+        {"n_estimators": 200, "learning_rate": 0.05, "max_depth": 4},
+        {"n_estimators": 300, "learning_rate": 0.02, "max_depth": 5},
+    ]
+
+    best_auc, best_run_id = 0, None
+    for cfg in configs:
+        with mlflow.start_run(run_name=f"GBM_n{cfg['n_estimators']}_lr{cfg['learning_rate']}"):
+            # Log hyperparameters
+            mlflow.log_params(cfg)
+            mlflow.log_param("model_type", "GradientBoosting")
+            mlflow.log_param("dataset", "breast_cancer")
+
+            # Train
+            pipe_mlf = Pipeline([
+                ('scaler', StandardScaler()),
+                ('clf',    GradientBoostingClassifier(**cfg, random_state=42))
+            ])
+            pipe_mlf.fit(X_tr, y_tr)
+            y_prob_mlf = pipe_mlf.predict_proba(X_te)[:,1]
+
+            # Log metrics
+            run_auc = roc_auc_score(y_te, y_prob_mlf)
+            cv_auc  = cross_val_score(pipe_mlf, X, y, cv=5, scoring='roc_auc').mean()
+            mlflow.log_metric("test_auc",  run_auc)
+            mlflow.log_metric("cv_auc",    cv_auc)
+            mlflow.log_metric("n_features",len(X.columns))
+
+            # Log model
+            mlflow.sklearn.log_model(pipe_mlf, artifact_path="model",
+                                     registered_model_name="BC_Classifier")
+
+            print(f"  Config {cfg} → Test AUC={run_auc:.4f}, CV AUC={cv_auc:.4f}")
+            if run_auc > best_auc:
+                best_auc, best_run_id = run_auc, mlflow.active_run().info.run_id
+
+    print(f"\nBest run: {best_run_id}  (AUC={best_auc:.4f})")
+    print("View experiments: mlflow ui  (then go to http://localhost:5000)")
+
+    # Load best model from MLflow
+    best_model = mlflow.sklearn.load_model(f"runs:/{best_run_id}/model")
+    print(f"Best model loaded. Verify AUC: {roc_auc_score(y_te, best_model.predict_proba(X_te)[:,1]):.4f}")
+
+except ImportError:
+    print("MLflow not installed. Run: pip install mlflow")
+    print("Core pattern: log_params → train → log_metrics → log_model → register")
+
+# ════════════════════════════════════════════════════════════
+# PART 3: Handling Schema Drift (new categories at inference)
+# ════════════════════════════════════════════════════════════
+print("\n── Schema Drift at Inference ──")
+print("Problem: model trained with feature 'embarked_Q', but new data has 'embarked_X'")
+print("Solution: OneHotEncoder(handle_unknown='ignore') — silently zeros unknown categories")
+print("Solution: validate input schema before prediction")
+
+def predict_safe(model, df_input, expected_cols, meta):
+    """Production-safe prediction with schema validation."""
+    # 1. Check all expected columns exist
+    missing_cols = set(expected_cols) - set(df_input.columns)
+    if missing_cols:
+        raise ValueError(f"Missing columns: {missing_cols}")
+
+    # 2. Check column order matches training
+    df_aligned = df_input[expected_cols]
+
+    # 3. Basic range checks (optional but good practice)
+    probs  = model.predict_proba(df_aligned)[:,1]
+    labels = (probs >= meta['threshold']).astype(int)
+    return {"probabilities": probs.tolist(), "predictions": labels.tolist()}
+
+# Simulate inference
+sample     = X_te.iloc[:3].copy()
+prediction = predict_safe(pipe_loaded, sample, meta['features'], meta)
+print(f"\nPredictions for 3 samples: {prediction['predictions']}")
+print(f"Probabilities:             {[round(p,3) for p in prediction['probabilities']]}")
+</div>
+
+<div class="sl">Production Monitoring — Detecting Drift</div>
+<div class="code">
+from scipy import stats
+import numpy as np, pandas as pd
+
+# ── Data Drift Detection (Population Stability Index) ─────
+def psi(expected, actual, buckets=10):
+    """PSI < 0.1: no drift. 0.1-0.2: slight drift. >0.2: significant drift."""
+    expected_pct = np.histogram(expected, bins=buckets)[0] / len(expected) + 1e-10
+    actual_pct   = np.histogram(actual,   bins=buckets)[0] / len(actual)   + 1e-10
+    return np.sum((actual_pct - expected_pct) * np.log(actual_pct / expected_pct))
+
+np.random.seed(42)
+train_dist = np.random.normal(0, 1, 1000)   # training distribution
+prod_dist  = np.random.normal(0.5, 1.2, 1000)  # production (drifted)
+psi_val    = psi(train_dist, prod_dist)
+print(f"PSI: {psi_val:.4f}  → {'⚠ Significant drift! Retrain needed' if psi_val>0.2 else 'Acceptable'}")
+
+# ── KS Test for Feature Drift ─────────────────────────────
+ks_stat, ks_p = stats.ks_2samp(train_dist, prod_dist)
+print(f"KS Test: statistic={ks_stat:.4f}, p={ks_p:.4f}")
+print(f"  → {'Distributions DIFFER significantly' if ks_p<0.05 else 'No significant drift'}")
+
+# ── Prediction Drift ──────────────────────────────────────
+# Monitor average predicted probability over time
+# Alert if rolling mean shifts more than 2 std devs from baseline
+baseline_probs = np.random.beta(2, 5, 500)   # historical predicted probs
+production_probs = np.random.beta(3, 4, 100)  # recent probs (shifted)
+baseline_mean, baseline_std = baseline_probs.mean(), baseline_probs.std()
+prod_mean = production_probs.mean()
+z_score   = (prod_mean - baseline_mean) / (baseline_std / np.sqrt(len(production_probs)))
+print(f"\nPrediction drift Z-score: {z_score:.2f}")
+print(f"  {'⚠ Alert: prediction distribution shifted' if abs(z_score)>2 else '✓ Prediction distribution stable'}")
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     TAB 8 — SQL EDA
+══════════════════════════════════════════════ -->
+<div class="sec" id="S8">
+<div class="badge badge-c">TAB 8</div>
+<div class="h1">SQL-Based EDA <span class="ds">In-memory SQLite · real patterns</span></div>
+<div class="sub">Profiling data at source before pulling into Python — faster, scalable, database-native</div>
+
+<div class="note"><b>Why SQL EDA first:</b> Databases hold billions of rows. You can't load that into a pandas DataFrame. SQL lets you profile, aggregate, and detect quality issues at the source — then pull only the clean, relevant subset into Python.</div>
+
+<div class="sl">SQL EDA Checklist</div>
+<div class="g3">
+  <div class="card card-b"><div class="t">Data Quality</div><div class="b">· NULL counts per column<br>· Duplicate row detection<br>· Impossible/invalid values<br>· Value ranges (MIN, MAX)<br>· Distinct value counts<br>· Inconsistent casing/spaces</div></div>
+  <div class="card card-g"><div class="t">Distributions</div><div class="b">· COUNT/GROUP BY for categoricals<br>· Percentile approximation<br>· Histogram via CASE WHEN buckets<br>· Time-based trend (GROUP BY month)<br>· Target variable breakdown</div></div>
+  <div class="card card-y"><div class="t">Relationships</div><div class="b">· Join quality (orphan keys)<br>· Referential integrity<br>· Aggregation by group<br>· Feature vs target correlation via CORR()<br>· Rolling aggregates with window functions</div></div>
+</div>
+
+<div class="sl">Code: Complete SQL EDA with SQLite (any dataset)</div>
+<div class="code">
+import sqlite3, pandas as pd, numpy as np
+from sklearn.datasets import load_breast_cancer, fetch_california_housing
+
+# ── Load data into SQLite (simulates a real database) ─────
+bc   = load_breast_cancer(as_frame=True)
+df   = bc.frame.copy()
+df.columns = [c.replace(' ','_').replace('(','').replace(')','') for c in df.columns]
+df['diagnosis'] = df['target'].map({0:'malignant', 1:'benign'})
+
+conn = sqlite3.connect(":memory:")
+df.to_sql("patients", conn, index=False, if_exists="replace")
+print("Data loaded into SQLite. Table: patients")
+
+def sql(query, label=""):
+    result = pd.read_sql(query, conn)
+    if label: print(f"\n── {label} ──")
+    return result
+
+# ════════════════════════════════════════════════════════════
+# 1. TABLE OVERVIEW
+# ════════════════════════════════════════════════════════════
+overview = sql("""
+    SELECT
+        COUNT(*)                         AS total_rows,
+        COUNT(DISTINCT diagnosis)        AS unique_diagnoses,
+        ROUND(AVG(mean_radius), 3)       AS avg_mean_radius,
+        MIN(mean_radius)                 AS min_radius,
+        MAX(mean_radius)                 AS max_radius,
+        ROUND(AVG(mean_area), 2)         AS avg_area
+    FROM patients
+""", "TABLE OVERVIEW")
+print(overview.to_string(index=False))
+
+# ════════════════════════════════════════════════════════════
+# 2. NULL COUNTS — all columns
+# ════════════════════════════════════════════════════════════
+# For SQLite: must check each column individually via Python
+cols = df.columns.tolist()
+null_results = []
+for col in cols:
+    r = sql(f"SELECT '{col}' AS col, SUM(CASE WHEN [{col}] IS NULL THEN 1 ELSE 0 END) AS nulls FROM patients")
+    null_results.append((col, int(r['nulls'][0])))
+
+null_df = pd.DataFrame(null_results, columns=['column','null_count'])
+print(f"\n── NULL COUNTS ──")
+print(null_df[null_df['null_count']>0].to_string(index=False) or "  No nulls found ✓")
+
+# ════════════════════════════════════════════════════════════
+# 3. DUPLICATE DETECTION
+# ════════════════════════════════════════════════════════════
+dupes = sql("""
+    SELECT COUNT(*) - COUNT(DISTINCT mean_radius || '_' || mean_texture || '_' || mean_perimeter)
+        AS approximate_duplicates
+    FROM patients
+""", "DUPLICATE DETECTION")
+print(dupes.to_string(index=False))
+
+# ════════════════════════════════════════════════════════════
+# 4. TARGET DISTRIBUTION
+# ════════════════════════════════════════════════════════════
+dist = sql("""
+    SELECT
+        diagnosis,
+        COUNT(*)                                    AS count,
+        ROUND(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER(), 2) AS pct
+    FROM patients
+    GROUP BY diagnosis
+    ORDER BY count DESC
+""", "TARGET DISTRIBUTION (% breakdown)")
+print(dist.to_string(index=False))
+
+# ════════════════════════════════════════════════════════════
+# 5. FEATURE SUMMARY BY CLASS
+# ════════════════════════════════════════════════════════════
+summary = sql("""
+    SELECT
+        diagnosis,
+        COUNT(*)                         AS n,
+        ROUND(AVG(mean_radius), 2)       AS avg_radius,
+        ROUND(AVG(mean_texture), 2)      AS avg_texture,
+        ROUND(AVG(mean_area), 2)         AS avg_area,
+        ROUND(AVG(mean_concavity), 4)    AS avg_concavity,
+        ROUND(AVG(worst_radius), 2)      AS avg_worst_radius
+    FROM patients
+    GROUP BY diagnosis
+    ORDER BY diagnosis
+""", "FEATURE MEANS BY CLASS")
+print(summary.to_string(index=False))
+
+# ════════════════════════════════════════════════════════════
+# 6. HISTOGRAM VIA SQL (bucket distribution)
+# ════════════════════════════════════════════════════════════
+hist = sql("""
+    SELECT
+        CASE
+            WHEN mean_radius <  8  THEN '< 8'
+            WHEN mean_radius < 12  THEN '8-12'
+            WHEN mean_radius < 16  THEN '12-16'
+            WHEN mean_radius < 20  THEN '16-20'
+            ELSE '20+'
+        END AS radius_bucket,
+        COUNT(*) AS count,
+        REPLACE(PRINTF('%.*c', COUNT(*)/3, '*'), ' ', '*') AS bar
+    FROM patients
+    GROUP BY radius_bucket
+    ORDER BY MIN(mean_radius)
+""", "HISTOGRAM (mean_radius distribution)")
+print(hist.to_string(index=False))
+
+# ════════════════════════════════════════════════════════════
+# 7. PERCENTILES (SQLite approximation)
+# ════════════════════════════════════════════════════════════
+pct_df = pd.read_sql("SELECT mean_radius FROM patients ORDER BY mean_radius", conn)
+vals   = pct_df['mean_radius']
+print(f"\n── PERCENTILES (mean_radius) ──")
+for p in [10, 25, 50, 75, 90, 95, 99]:
+    print(f"  P{p:3d}: {np.percentile(vals, p):.3f}")
+
+# ════════════════════════════════════════════════════════════
+# 8. OUTLIER DETECTION VIA SQL (IQR method)
+# ════════════════════════════════════════════════════════════
+q1 = float(np.percentile(vals, 25))
+q3 = float(np.percentile(vals, 75))
+iqr = q3 - q1
+outlier_q = sql(f"""
+    SELECT COUNT(*) AS outliers,
+           MIN(mean_radius) AS min_outlier,
+           MAX(mean_radius) AS max_outlier
+    FROM patients
+    WHERE mean_radius < {q1 - 1.5*iqr}
+       OR mean_radius > {q3 + 1.5*iqr}
+""", f"OUTLIERS in mean_radius (IQR bounds: [{q1-1.5*iqr:.2f}, {q3+1.5*iqr:.2f}])")
+print(outlier_q.to_string(index=False))
+
+# ════════════════════════════════════════════════════════════
+# 9. WINDOW FUNCTIONS — running totals, ranking
+# ════════════════════════════════════════════════════════════
+window_q = sql("""
+    SELECT
+        diagnosis,
+        ROUND(mean_radius, 2)  AS radius,
+        RANK() OVER (PARTITION BY diagnosis ORDER BY mean_radius DESC) AS rank_within_class,
+        ROUND(AVG(mean_radius) OVER (PARTITION BY diagnosis), 2) AS class_avg
+    FROM patients
+    ORDER BY diagnosis, rank_within_class
+    LIMIT 10
+""", "WINDOW FUNCTIONS — rank within class")
+print(window_q.to_string(index=False))
+
+# ════════════════════════════════════════════════════════════
+# 10. CORRELATION PROXY VIA SQL
+# ════════════════════════════════════════════════════════════
+# SQL doesn't have CORR() in SQLite, so compute in Python post-query
+feat_data = pd.read_sql("SELECT mean_radius, mean_area, mean_concavity, target FROM patients", conn)
+print("\n── CORRELATION WITH TARGET (Python after SQL extract) ──")
+corrs = feat_data.drop('target',axis=1).corrwith(feat_data['target']).sort_values(key=abs, ascending=False)
+for feat, corr in corrs.items():
+    bar = '█' * int(abs(corr)*20)
+    print(f"  {feat:25s}: {corr:+.4f}  {bar}")
+
+conn.close()
+print("\n✅ SQL EDA complete — ready to pull clean, filtered data into pandas")
+</div>
+
+<div class="sl">When to Use SQL vs Python EDA</div>
+<table>
+  <tr><th>Task</th><th>Use SQL</th><th>Use Python/Pandas</th></tr>
+  <tr><td>Data lives in a database</td><td>✅ Always start here</td><td>After pulling subset</td></tr>
+  <tr><td>Billion-row dataset</td><td>✅ Aggregate in DB</td><td>Not practical</td></tr>
+  <tr><td>NULL counts, duplicates</td><td>✅ Fast, native</td><td>Also fine for small data</td></tr>
+  <tr><td>Complex visualizations</td><td>❌ Not possible</td><td>✅ Use matplotlib/seaborn</td></tr>
+  <tr><td>SHAP, ML models</td><td>❌</td><td>✅ sklearn only</td></tr>
+  <tr><td>Multi-table joins + EDA</td><td>✅ Ideal</td><td>Possible but verbose</td></tr>
+  <tr><td>Statistical tests</td><td>Limited (no scipy)</td><td>✅ Full scipy.stats</td></tr>
+  <tr><td>Iterative exploration</td><td>Slower iteration</td><td>✅ Notebooks are faster</td></tr>
+</table>
+
+<div class="note-g"><b>Pro workflow:</b> SQL for initial profiling and aggregation on the full database → pull a clean, relevant subset into Python → full EDA + modeling pipeline. For Spark/BigQuery/Snowflake, replace SQLite with the relevant connector — the SQL patterns are identical.</div>
+</div>
+
+<script>
+function goTab(n){
+  for(var i=1;i<=8;i++){
+    document.getElementById('S'+i).className='sec'+(i===n?' on':'');
+  }
+  var tabs=document.querySelectorAll('.tab');
+  tabs.forEach(function(t,i){t.className='tab'+(i===n-1?' on':'');});
+}
+</script>
+</body>
+</html>
