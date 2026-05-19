@@ -1,0 +1,692 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-size:14px;font-family:var(--font-sans);}
+.ds-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:20px;}
+.ds-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:14px;cursor:pointer;transition:border-color .15s;}
+.ds-card:hover{border-color:var(--color-border-primary);}
+.ds-card.active{border:2px solid var(--color-border-info);}
+.ds-icon{font-size:22px;margin-bottom:8px;}
+.ds-name{font-size:14px;font-weight:500;color:var(--color-text-primary);margin-bottom:2px;}
+.ds-type{font-size:12px;color:var(--color-text-secondary);}
+.badge{display:inline-block;font-size:11px;font-weight:500;padding:2px 8px;border-radius:var(--border-radius-md);margin:2px;}
+.badge-class{background:var(--color-background-info);color:var(--color-text-info);}
+.badge-reg{background:var(--color-background-success);color:var(--color-text-success);}
+.badge-clust{background:var(--color-background-warning);color:var(--color-text-warning);}
+.badge-exp{background:#EEEDFE;color:#3C3489;}
+.content{display:none;}
+.content.active{display:block;}
+.skill-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:12px 0;}
+.skill-card{background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:12px;}
+.skill-title{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+.skill-body{font-size:12px;color:var(--color-text-secondary);line-height:1.7;}
+.step-list{counter-reset:step;padding:0;}
+.step-list li{counter-increment:step;list-style:none;padding:8px 0 8px 32px;position:relative;border-bottom:0.5px solid var(--color-border-tertiary);font-size:13px;color:var(--color-text-secondary);line-height:1.6;}
+.step-list li:last-child{border-bottom:none;}
+.step-list li::before{content:counter(step);position:absolute;left:0;top:10px;width:20px;height:20px;background:var(--color-background-info);color:var(--color-text-info);border-radius:50%;font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;}
+.step-list li strong{color:var(--color-text-primary);font-weight:500;}
+.code-block{background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:12px;font-family:var(--font-mono);font-size:11px;color:var(--color-text-primary);line-height:1.8;white-space:pre-wrap;margin:8px 0;overflow-x:auto;}
+.section-label{font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--color-text-tertiary);margin:16px 0 8px;}
+.metric-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0;}
+.metric{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px;text-align:center;}
+.metric .val{font-size:18px;font-weight:500;color:var(--color-text-primary);}
+.metric .lbl{font-size:11px;color:var(--color-text-tertiary);margin-top:2px;}
+.warn-box{border-left:3px solid var(--color-border-warning);background:var(--color-background-warning);padding:10px 14px;border-radius:0 var(--border-radius-md) var(--border-radius-md) 0;margin:10px 0;font-size:12px;color:var(--color-text-warning);line-height:1.6;}
+.info-box{border-left:3px solid var(--color-border-info);background:var(--color-background-info);padding:10px 14px;border-radius:0 var(--border-radius-md) var(--border-radius-md) 0;margin:10px 0;font-size:12px;color:var(--color-text-info);line-height:1.6;}
+.success-box{border-left:3px solid var(--color-border-success);background:var(--color-background-success);padding:10px 14px;border-radius:0 var(--border-radius-md) var(--border-radius-md) 0;margin:10px 0;font-size:12px;color:var(--color-text-success);line-height:1.6;}
+.tab-row{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
+.tab-btn{font-size:12px;padding:5px 12px;border-radius:20px;border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-secondary);cursor:pointer;}
+.tab-btn.on{background:var(--color-background-info);color:var(--color-text-info);border-color:var(--color-border-info);}
+.tab-content{display:none;}
+.tab-content.on{display:block;}
+.ask-btn{font-size:12px;padding:6px 14px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-info);cursor:pointer;margin-top:10px;display:inline-block;}
+.ask-btn:hover{background:var(--color-background-info);}
+</style>
+
+<h2 class="sr-only">Practical analysis scenarios for Titanic, Breast Cancer, House Prices, and customer churn datasets</h2>
+
+<div style="padding-top:4px;">
+<p style="font-size:13px;color:var(--color-text-secondary);margin-bottom:14px;">Select a dataset to explore its full practical workflow — what skills it teaches, step-by-step plan, and working code.</p>
+
+<div class="ds-grid">
+  <div class="ds-card active" onclick="switchDS('titanic',this)">
+    <div class="ds-icon"><i class="ti ti-ship" style="font-size:22px;color:var(--color-text-info);" aria-hidden="true"></i></div>
+    <div class="ds-name">Titanic</div>
+    <div class="ds-type" style="margin-bottom:6px;">891 rows · 12 features</div>
+    <span class="badge badge-class">Binary classification</span>
+  </div>
+  <div class="ds-card" onclick="switchDS('cancer',this)">
+    <div class="ds-icon"><i class="ti ti-microscope" style="font-size:22px;color:var(--color-text-danger);" aria-hidden="true"></i></div>
+    <div class="ds-name">Breast cancer</div>
+    <div class="ds-type" style="margin-bottom:6px;">569 rows · 30 features</div>
+    <span class="badge badge-class">Binary classification</span>
+    <span class="badge badge-exp">High-dim</span>
+  </div>
+  <div class="ds-card" onclick="switchDS('housing',this)">
+    <div class="ds-icon"><i class="ti ti-home" style="font-size:22px;color:var(--color-text-success);" aria-hidden="true"></i></div>
+    <div class="ds-name">House prices</div>
+    <div class="ds-type" style="margin-bottom:6px;">1460 rows · 79 features</div>
+    <span class="badge badge-reg">Regression</span>
+    <span class="badge badge-exp">Feature-rich</span>
+  </div>
+  <div class="ds-card" onclick="switchDS('churn',this)">
+    <div class="ds-icon"><i class="ti ti-users" style="font-size:22px;color:var(--color-text-warning);" aria-hidden="true"></i></div>
+    <div class="ds-name">Customer churn</div>
+    <div class="ds-type" style="margin-bottom:6px;">7043 rows · 21 features</div>
+    <span class="badge badge-class">Binary classification</span>
+    <span class="badge badge-clust">Imbalanced</span>
+  </div>
+</div>
+
+<!-- ===== TITANIC ===== -->
+<div id="ds-titanic" class="content active">
+  <div class="info-box"><strong>Real-world scenario:</strong> You are a data scientist at a maritime safety authority. Management wants a model that predicts survival probability based on passenger profile — to study what factors most influenced survival in historical disasters.</div>
+
+  <div class="metric-row">
+    <div class="metric"><div class="val">891</div><div class="lbl">Passengers</div></div>
+    <div class="metric"><div class="val">38%</div><div class="lbl">Survived</div></div>
+    <div class="metric"><div class="val">3</div><div class="lbl">Key features</div></div>
+    <div class="metric"><div class="val">20%</div><div class="lbl">Missing (age)</div></div>
+  </div>
+
+  <div class="section-label">Skills this dataset teaches</div>
+  <div class="skill-grid">
+    <div class="skill-card"><div class="skill-title"><i class="ti ti-chart-bar" aria-hidden="true"></i> Missing value imputation</div><div class="skill-body">Age is 20% missing. Learn median imputation + KNN imputation. Add a binary missing indicator column — whether age was missing may itself be predictive.</div></div>
+    <div class="skill-card"><div class="skill-title"><i class="ti ti-tag" aria-hidden="true"></i> Categorical encoding</div><div class="skill-body">Sex (binary encode), Embarked (one-hot), Pclass (ordinal). Practice every encoding type on one dataset.</div></div>
+    <div class="skill-card"><div class="skill-title"><i class="ti ti-tool" aria-hidden="true"></i> Feature engineering</div><div class="skill-body">Create FamilySize = SibSp + Parch + 1, IsAlone, extract Title from Name (Mr/Mrs/Miss/Master), FarePerPerson. These boost accuracy significantly.</div></div>
+    <div class="skill-card"><div class="skill-title"><i class="ti ti-adjustments" aria-hidden="true"></i> Class imbalance handling</div><div class="skill-body">62% died vs 38% survived — mild imbalance. Learn class_weight='balanced', why accuracy is misleading here, and use AUC-ROC + F1 instead.</div></div>
+    <div class="skill-card"><div class="skill-title"><i class="ti ti-chart-dots" aria-hidden="true"></i> Model interpretability</div><div class="skill-body">Use SHAP to answer "what factors most predicted survival?" — Sex, Pclass, Age, FamilySize will dominate. Great first SHAP exercise.</div></div>
+    <div class="skill-card"><div class="skill-title"><i class="ti ti-git-compare" aria-hidden="true"></i> Model comparison</div><div class="skill-body">Compare Logistic Regression, Random Forest, and Gradient Boosting. Understand why LR is a strong baseline here despite its simplicity.</div></div>
+  </div>
+
+  <div class="section-label">Step-by-step workflow</div>
+  <div class="tab-row">
+    <button class="tab-btn on" onclick="switchTab('titanic','eda',this)">EDA</button>
+    <button class="tab-btn" onclick="switchTab('titanic','prep',this)">Prep</button>
+    <button class="tab-btn" onclick="switchTab('titanic','model',this)">Model</button>
+    <button class="tab-btn" onclick="switchTab('titanic','eval',this)">Evaluate</button>
+    <button class="tab-btn" onclick="switchTab('titanic','explain',this)">Explain</button>
+  </div>
+
+  <div id="titanic-eda" class="tab-content on">
+    <ol class="step-list">
+      <li><strong>Load & inspect:</strong> df.shape, df.info(), df.describe() — note Cabin is 77% missing, Age 20%, Embarked 0.2%</li>
+      <li><strong>Target distribution:</strong> df['Survived'].value_counts(normalize=True) — confirm 38%/62% split</li>
+      <li><strong>Survival by group:</strong> groupby Sex, Pclass, Embarked — the "women and children first" pattern will jump out immediately</li>
+      <li><strong>Age distribution:</strong> histogram of age by survived — look for the child survival bump under age 10</li>
+      <li><strong>Fare outliers:</strong> boxplot of Fare — heavily right-skewed, one ticket cost £512. Plan log-transform.</li>
+      <li><strong>Correlation heatmap:</strong> Pclass and Fare are negatively correlated (−0.55) — wealthier classes paid more and survived more</li>
+    </ol>
+<div class="code-block">from sklearn.datasets import fetch_openml
+import pandas as pd, numpy as np, seaborn as sns, matplotlib.pyplot as plt
+
+titanic = fetch_openml('titanic', version=1, as_frame=True, parser='auto')
+df = titanic.frame.copy()
+df['survived'] = df['survived'].astype(int)
+
+print(df[['survived','sex','pclass','age','fare']].describe())
+print("\nSurvival rate by sex:")
+print(df.groupby('sex')['survived'].mean().round(3))
+print("\nSurvival rate by class:")
+print(df.groupby('pclass')['survived'].mean().round(3))
+
+fig, axes = plt.subplots(1, 3, figsize=(14, 4))
+df['survived'].value_counts().plot(kind='bar', ax=axes[0], title='Target balance')
+df[df['survived']==1]['age'].dropna().hist(ax=axes[1], alpha=0.7, label='Survived', bins=20)
+df[df['survived']==0]['age'].dropna().hist(ax=axes[1], alpha=0.7, label='Died', bins=20)
+axes[1].legend(); axes[1].set_title('Age by survival')
+df.boxplot(column='fare', by='pclass', ax=axes[2]); axes[2].set_title('Fare by class')
+plt.tight_layout(); plt.show()</div>
+  </div>
+
+  <div id="titanic-prep" class="tab-content">
+    <ol class="step-list">
+      <li><strong>Drop Cabin:</strong> 77% missing — not recoverable. Drop Name after extracting Title.</li>
+      <li><strong>Extract Title from Name:</strong> regex to pull Mr/Mrs/Miss/Master — rare titles map to "Other"</li>
+      <li><strong>Impute Age:</strong> median per Title group (Masters are children, Miss are young women) — much better than global median</li>
+      <li><strong>Impute Embarked:</strong> 2 rows missing — use mode ('S')</li>
+      <li><strong>Engineer features:</strong> FamilySize, IsAlone, FarePerPerson, is_child (age < 16)</li>
+      <li><strong>Log-transform Fare:</strong> log1p(fare) reduces skewness from 4.8 to 0.6</li>
+      <li><strong>Encode:</strong> binary for sex, OHE for embarked and title, keep pclass as ordinal int</li>
+      <li><strong>Scale:</strong> StandardScaler on age, fare_log, family_size for LR/SVM. Trees don't need it.</li>
+    </ol>
+<div class="code-block">import re
+from sklearn.model_selection import train_test_split
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
+
+df['title'] = df['name'].str.extract(r' ([A-Za-z]+)\.', expand=False)
+df['title'] = df['title'].replace(['Lady','Countess','Capt','Col','Don','Dr',
+                                    'Major','Rev','Sir','Jonkheer','Dona'], 'Rare')
+df['title'] = df['title'].replace('Mlle','Miss').replace('Ms','Miss').replace('Mme','Mrs')
+
+df['family_size'] = df['sibsp'].astype(int) + df['parch'].astype(int) + 1
+df['is_alone']    = (df['family_size'] == 1).astype(int)
+df['fare_log']    = np.log1p(df['fare'].astype(float))
+df['sex_bin']     = (df['sex'] == 'male').astype(int)
+
+for title in df['title'].unique():
+    mask = df['title'] == title
+    median_age = df.loc[mask, 'age'].dropna().median()
+    df.loc[mask & df['age'].isna(), 'age'] = median_age
+
+print("Missing after imputation:")
+print(df[['age','embarked','fare']].isnull().sum())</div>
+  </div>
+
+  <div id="titanic-model" class="tab-content">
+<div class="code-block">from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
+from sklearn.model_selection import cross_val_score, StratifiedKFold
+
+features = ['pclass','sex_bin','age','fare_log','family_size','is_alone']
+X = df[features].astype(float)
+y = df['survived']
+X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.2,stratify=y,random_state=42)
+
+scaler = StandardScaler()
+X_tr_sc = scaler.fit_transform(X_train)
+X_te_sc = scaler.transform(X_test)
+
+cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+
+models = {
+    'Logistic Regression': LogisticRegression(C=1.0, max_iter=1000),
+    'Random Forest':       RandomForestClassifier(n_estimators=200, max_depth=6, random_state=42),
+    'Gradient Boosting':   GradientBoostingClassifier(n_estimators=200, learning_rate=0.05, max_depth=3),
+}
+for name, mdl in models.items():
+    X_fit = X_tr_sc if 'Logistic' in name else X_train
+    scores = cross_val_score(mdl, X_fit, y_train, cv=cv, scoring='roc_auc')
+    print(f"{name:25s}: AUC = {scores.mean():.4f} ± {scores.std():.4f}")</div>
+    <div class="warn-box">Always use StratifiedKFold for imbalanced targets — it preserves the class ratio in every fold. Plain KFold can put all minority class samples in one fold.</div>
+  </div>
+
+  <div id="titanic-eval" class="tab-content">
+<div class="code-block">from sklearn.metrics import classification_report, roc_auc_score, ConfusionMatrixDisplay
+import matplotlib.pyplot as plt
+
+best_model = GradientBoostingClassifier(n_estimators=200, learning_rate=0.05, max_depth=3, random_state=42)
+best_model.fit(X_train, y_train)
+y_pred = best_model.predict(X_test)
+y_prob = best_model.predict_proba(X_test)[:,1]
+
+print(classification_report(y_test, y_pred, target_names=['Died','Survived']))
+print(f"AUC-ROC: {roc_auc_score(y_test, y_prob):.4f}")
+
+fig, axes = plt.subplots(1,2,figsize=(10,4))
+ConfusionMatrixDisplay.from_predictions(y_test, y_pred, ax=axes[0],
+    display_labels=['Died','Survived'], cmap='Blues')
+from sklearn.metrics import RocCurveDisplay
+RocCurveDisplay.from_estimator(best_model, X_test, y_test, ax=axes[1])
+plt.tight_layout(); plt.show()</div>
+    <div class="success-box"><strong>Expected results:</strong> AUC-ROC ~0.87, F1 ~0.82. If accuracy shows 83% but F1 for "Survived" is low — you have a threshold problem. Try threshold = 0.4 instead of default 0.5.</div>
+  </div>
+
+  <div id="titanic-explain" class="tab-content">
+<div class="code-block">import shap
+
+explainer = shap.TreeExplainer(best_model)
+shap_values = explainer.shap_values(X_test)
+
+shap.summary_plot(shap_values, X_test, feature_names=features)
+shap.waterfall_plot(shap.Explanation(
+    values=shap_values[0],
+    base_values=explainer.expected_value,
+    data=X_test.iloc[0],
+    feature_names=features
+))</div>
+    <div class="info-box"><strong>What you will learn from SHAP:</strong> sex_bin (female=0) is the most powerful predictor. pclass pushes survival probability strongly. is_alone surprises — solo travelers died at higher rates, possibly due to no one to help them to lifeboats.</div>
+    <button class="ask-btn" onclick="sendPrompt('Show me the full Titanic SHAP analysis with a beeswarm plot and dependence plots for the top 3 features')">Deep dive: SHAP analysis ↗</button>
+  </div>
+</div>
+
+<!-- ===== BREAST CANCER ===== -->
+<div id="ds-cancer" class="content">
+  <div class="info-box"><strong>Real-world scenario:</strong> You are building a clinical decision support tool. Given 30 numerical measurements from a fine needle aspirate biopsy, predict whether a tumor is malignant or benign. False negatives (missing cancer) are far more costly than false positives.</div>
+
+  <div class="metric-row">
+    <div class="metric"><div class="val">569</div><div class="lbl">Samples</div></div>
+    <div class="metric"><div class="val">37%</div><div class="lbl">Malignant</div></div>
+    <div class="metric"><div class="val">30</div><div class="lbl">Features</div></div>
+    <div class="metric"><div class="val">0%</div><div class="lbl">Missing</div></div>
+  </div>
+
+  <div class="section-label">Skills this dataset uniquely teaches</div>
+  <div class="skill-grid">
+    <div class="skill-card"><div class="skill-title"><i class="ti ti-arrows-minimize" aria-hidden="true"></i> Dimensionality reduction</div><div class="skill-body">30 features — perfect for PCA. Reduce to 2 components to visualise class separation. Learn how to choose n_components via explained variance ratio (aim for 95%).</div></div>
+    <div class="skill-card"><div class="skill-title"><i class="ti ti-scale" aria-hidden="true"></i> Precision vs recall tradeoff</div><div class="skill-body">Medical context: false negatives (missing cancer) cost lives. Learn to optimise for recall, not accuracy. Move threshold from 0.5 to 0.3 — observe precision drop but recall rise.</div></div>
+    <div class="skill-card"><div class="skill-title"><i class="ti ti-activity" aria-hidden="true"></i> Multicollinearity in depth</div><div class="skill-body">Mean/SE/worst variants of the same measurement are extremely correlated. VIF analysis here is essential — great introduction to VIF scores and feature selection.</div></div>
+    <div class="skill-card"><div class="skill-title"><i class="ti ti-chart-line" aria-hidden="true"></i> Learning curves</div><div class="skill-body">Only 569 rows — practice plotting learning curves to see if more data would help. Answer: SVM on this dataset is near-optimal already at 400 samples.</div></div>
+    <div class="skill-card"><div class="skill-title"><i class="ti ti-database" aria-hidden="true"></i> Feature selection methods</div><div class="skill-body">Compare SelectKBest (univariate), RFE (recursive), and SHAP-based selection. With 30 features you can actually see how each method disagrees on which to keep.</div></div>
+    <div class="skill-card"><div class="skill-title"><i class="ti ti-adjustments-alt" aria-hidden="true"></i> Calibration</div><div class="skill-body">In medical models, probability calibration matters. Learn reliability diagrams and Platt scaling — a model saying 70% risk should be right 70% of the time.</div></div>
+  </div>
+
+  <div class="section-label">Step-by-step workflow</div>
+  <div class="tab-row">
+    <button class="tab-btn on" onclick="switchTab('cancer','eda',this)">EDA</button>
+    <button class="tab-btn" onclick="switchTab('cancer','pca',this)">PCA</button>
+    <button class="tab-btn" onclick="switchTab('cancer','threshold',this)">Threshold</button>
+    <button class="tab-btn" onclick="switchTab('cancer','select',this)">Feature selection</button>
+  </div>
+
+  <div id="cancer-eda" class="tab-content on">
+    <ol class="step-list">
+      <li><strong>Load dataset:</strong> sklearn.datasets.load_breast_cancer() — already clean, no missing values</li>
+      <li><strong>Feature groups:</strong> 30 features = 10 measurements × 3 stats (mean, SE, worst). Understanding this structure matters.</li>
+      <li><strong>Correlation analysis:</strong> radius_mean and perimeter_mean have r = 0.998 — near-perfect multicollinearity. VIF will be > 1000.</li>
+      <li><strong>Distribution shapes:</strong> Most features are right-skewed. Benign vs malignant distributions overlap significantly for some features, cleanly separate for others.</li>
+      <li><strong>Pairplot top 5:</strong> Select top 5 features by correlation with target and pairplot — you can see clear separation clusters even in 2D space.</li>
+    </ol>
+<div class="code-block">from sklearn.datasets import load_breast_cancer
+import pandas as pd, numpy as np
+
+data = load_breast_cancer()
+df = pd.DataFrame(data.data, columns=data.feature_names)
+df['target'] = data.target  # 1=benign, 0=malignant
+
+print("Feature correlations with target (top 10):")
+corr = df.corr()['target'].abs().sort_values(ascending=False)
+print(corr.head(11))
+
+print("\nHighly correlated feature pairs (|r| > 0.95):")
+c = df.drop('target',axis=1).corr().abs()
+high = [(c.columns[i],c.columns[j],c.iloc[i,j])
+        for i in range(len(c.columns))
+        for j in range(i+1,len(c.columns))
+        if c.iloc[i,j]>0.95]
+for f1,f2,r in sorted(high,key=lambda x:-x[2])[:8]:
+    print(f"  {f1:35s} <-> {f2}: r={r:.3f}")</div>
+  </div>
+
+  <div id="cancer-pca" class="tab-content">
+<div class="code-block">from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+import matplotlib.pyplot as plt
+
+X = df.drop('target',axis=1)
+y = df['target']
+
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+pca = PCA()
+pca.fit(X_scaled)
+
+explained = np.cumsum(pca.explained_variance_ratio_)
+n_95 = np.argmax(explained >= 0.95) + 1
+print(f"Components needed for 95% variance: {n_95}")
+
+pca2 = PCA(n_components=2)
+X_pca = pca2.fit_transform(X_scaled)
+
+fig, axes = plt.subplots(1,2,figsize=(12,4))
+axes[0].plot(range(1,31), explained)
+axes[0].axhline(0.95, color='red', linestyle='--', label='95% threshold')
+axes[0].axvline(n_95, color='orange', linestyle='--', label=f'{n_95} components')
+axes[0].set_xlabel('n_components'); axes[0].set_ylabel('Cumulative variance explained')
+axes[0].legend(); axes[0].set_title('Scree plot — how many components?')
+
+colors = ['#E24B4A' if v==0 else '#1D9E75' for v in y]
+axes[1].scatter(X_pca[:,0], X_pca[:,1], c=colors, alpha=0.6, s=20)
+axes[1].set_title('PCA 2D — Malignant (red) vs Benign (green)')
+plt.tight_layout(); plt.show()</div>
+    <div class="success-box"><strong>What you will see:</strong> Only 7 PCA components capture 95% of variance. The 2D plot shows clear separation — linear models on PCA features can achieve 97%+ AUC.</div>
+  </div>
+
+  <div id="cancer-threshold" class="tab-content">
+<div class="code-block">from sklearn.svm import SVC
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import precision_recall_curve, f1_score, recall_score
+
+X_tr, X_te, y_tr, y_te = train_test_split(X_scaled, y, stratify=y, test_size=0.2, random_state=42)
+
+clf = SVC(probability=True, kernel='rbf', C=10, gamma='scale')
+clf.fit(X_tr, y_tr)
+probs = clf.predict_proba(X_te)[:,1]
+
+thresholds = np.arange(0.1, 0.9, 0.05)
+print(f"{'Threshold':10s} {'Precision':10s} {'Recall':8s} {'F1':8s} {'Missed cancers':15s}")
+print("-"*55)
+for t in thresholds:
+    preds = (probs >= t).astype(int)
+    p = precision_score(y_te, preds, zero_division=0)
+    r = recall_score(y_te, preds)
+    f = f1_score(y_te, preds)
+    missed = ((preds==1)&(y_te==0)).sum()
+    print(f"  {t:.2f}     {p:.3f}     {r:.3f}    {f:.3f}    {missed}")</div>
+    <div class="warn-box"><strong>Key lesson:</strong> At threshold 0.5, recall might be 0.94 — still missing 6% of cancers. At 0.3, recall rises to 0.98 — you catch nearly all cancers at the cost of more false alarms. In medical contexts, this tradeoff is explicit and must be a business decision, not an algorithmic default.</div>
+    <button class="ask-btn" onclick="sendPrompt('Show me how to build a precision-recall curve and F1 vs threshold plot for the breast cancer dataset')">Plot precision-recall curve ↗</button>
+  </div>
+
+  <div id="cancer-select" class="tab-content">
+<div class="code-block">from sklearn.feature_selection import SelectKBest, f_classif, RFE
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import precision_score, recall_score
+
+X_tr, X_te, y_tr, y_te = train_test_split(X_scaled, y, stratify=y, test_size=0.2, random_state=42)
+
+skb = SelectKBest(f_classif, k=10)
+X_tr_k = skb.fit_transform(X_tr, y_tr)
+X_te_k = skb.transform(X_te)
+selected_kbest = [data.feature_names[i] for i in skb.get_support(indices=True)]
+print(f"SelectKBest top 10: {selected_kbest[:5]}...")
+
+lr = LogisticRegression(max_iter=1000)
+rfe = RFE(estimator=lr, n_features_to_select=10)
+rfe.fit(X_tr, y_tr)
+selected_rfe = [data.feature_names[i] for i,s in enumerate(rfe.support_) if s]
+print(f"RFE top 10:         {selected_rfe[:5]}...")
+
+overlap = set(selected_kbest) & set(selected_rfe)
+print(f"\nBoth methods agree on: {overlap}")</div>
+  </div>
+</div>
+
+<!-- ===== HOUSING ===== -->
+<div id="ds-housing" class="content">
+  <div class="success-box"><strong>Real-world scenario:</strong> You are a data scientist at Zillow or a real estate analytics firm. Build a model to predict house sale prices in Ames, Iowa from 79 property features. Stakeholders want both accurate predictions and explainable insights on what drives value.</div>
+
+  <div class="metric-row">
+    <div class="metric"><div class="val">1460</div><div class="lbl">Houses</div></div>
+    <div class="metric"><div class="val">$180k</div><div class="lbl">Median price</div></div>
+    <div class="metric"><div class="val">79</div><div class="lbl">Features</div></div>
+    <div class="metric"><div class="val">43</div><div class="lbl">With missing</div></div>
+  </div>
+
+  <div class="section-label">Skills this dataset uniquely teaches</div>
+  <div class="skill-grid">
+    <div class="skill-card"><div class="skill-title"><i class="ti ti-trending-up" aria-hidden="true"></i> Regression evaluation</div><div class="skill-body">Learn RMSE, MAE, MAPE, and R². Why RMSE penalises large errors more. Why log-transform target before modelling. Competition metric is RMSLE (log error).</div></div>
+    <div class="skill-card"><div class="skill-title"><i class="ti ti-layers" aria-hidden="true"></i> Mixed missing patterns</div><div class="skill-body">Some nulls mean "not applicable" (no pool = PoolQC is null, not missing). Others are genuinely missing. Differentiating them is a real professional skill.</div></div>
+    <div class="skill-card"><div class="skill-title"><i class="ti ti-sort-ascending" aria-hidden="true"></i> Ordinal encoding in depth</div><div class="skill-body">Quality features (ExterQual, KitchenQual) go from Po/Fa/TA/Gd/Ex — must encode as 1-5 with correct order, not random numbers. Wrong encoding = model learns backwards.</div></div>
+    <div class="skill-card"><div class="skill-title"><i class="ti ti-brand-git" aria-hidden="true"></i> Gradient boosting tuning</div><div class="skill-body">XGBoost/LightGBM on this dataset is the standard kaggle workflow. Learn n_estimators + learning_rate + max_depth grid search, plus early stopping.</div></div>
+    <div class="skill-card"><div class="skill-title"><i class="ti ti-stack" aria-hidden="true"></i> Model stacking</div><div class="skill-body">Blend Ridge regression predictions with gradient boosting predictions. A weighted average of two different model types regularly beats either alone.</div></div>
+    <div class="skill-card"><div class="skill-title"><i class="ti ti-chart-area" aria-hidden="true"></i> Residual analysis</div><div class="skill-body">Plot predicted vs actual, residuals vs fitted. Identify where the model fails — luxury homes? Cheap homes? Heteroscedasticity? This is essential for regression.</div></div>
+  </div>
+
+  <div class="section-label">Step-by-step workflow</div>
+  <div class="tab-row">
+    <button class="tab-btn on" onclick="switchTab('housing','eda',this)">EDA</button>
+    <button class="tab-btn" onclick="switchTab('housing','missing',this)">Missing values</button>
+    <button class="tab-btn" onclick="switchTab('housing','target',this)">Target transform</button>
+    <button class="tab-btn" onclick="switchTab('housing','model',this)">Model & tune</button>
+  </div>
+
+  <div id="housing-eda" class="tab-content on">
+    <ol class="step-list">
+      <li><strong>Download data:</strong> Kaggle "House Prices" or use sklearn fetch_openml('house_prices', version=3). Note: 79 features, mix of int and object types.</li>
+      <li><strong>Target skewness:</strong> SalePrice skewness ≈ 1.88 — strongly right-skewed. log1p(SalePrice) gives skewness ≈ 0.12. Always model log(price) for house prices.</li>
+      <li><strong>Missing audit:</strong> 43 columns have missing values. Categorise: structural nulls (no feature = NA) vs genuine unknowns vs data entry errors.</li>
+      <li><strong>Numeric correlations:</strong> OverallQual (r=0.79), GrLivArea (r=0.71), GarageCars (r=0.64) are top predictors. Visualise with heatmap.</li>
+      <li><strong>Outliers in GrLivArea:</strong> Two houses with >4000 sq ft sell cheaply — likely partial sales or errors. Remove them before training.</li>
+    </ol>
+<div class="code-block">import pandas as pd, numpy as np, matplotlib.pyplot as plt, seaborn as sns
+
+df = pd.read_csv('train.csv')
+print(f"Shape: {df.shape}")
+print(f"\nTarget skewness: {df['SalePrice'].skew():.2f}")
+print(f"Log-target skewness: {np.log1p(df['SalePrice']).skew():.2f}")
+
+missing = df.isnull().sum()
+missing = missing[missing > 0].sort_values(ascending=False)
+print(f"\nTop 10 missing columns:")
+print((missing / len(df) * 100).head(10).round(1))
+
+num_cols = df.select_dtypes(include='number').columns.drop('SalePrice')
+corr_target = df[num_cols].corrwith(df['SalePrice']).abs().sort_values(ascending=False)
+print(f"\nTop 10 numeric predictors:")
+print(corr_target.head(10).round(3))
+
+fig, axes = plt.subplots(1,2,figsize=(12,4))
+df['SalePrice'].hist(bins=50, ax=axes[0]); axes[0].set_title('SalePrice — skewed')
+np.log1p(df['SalePrice']).hist(bins=50, ax=axes[1]); axes[1].set_title('log(SalePrice) — normal')
+plt.tight_layout(); plt.show()</div>
+  </div>
+
+  <div id="housing-missing" class="tab-content">
+<div class="code-block">none_features = ['Alley','BsmtQual','BsmtCond','BsmtExposure','BsmtFinType1',
+                  'BsmtFinType2','FireplaceQu','GarageType','GarageFinish',
+                  'GarageQual','GarageCond','PoolQC','Fence','MiscFeature']
+
+for col in none_features:
+    df[col] = df[col].fillna('None')
+
+zero_features = ['GarageYrBlt','GarageArea','GarageCars',
+                 'BsmtFinSF1','BsmtFinSF2','BsmtUnfSF','TotalBsmtSF',
+                 'BsmtFullBath','BsmtHalfBath','MasVnrArea']
+
+for col in zero_features:
+    df[col] = df[col].fillna(0)
+
+df['LotFrontage'] = df.groupby('Neighborhood')['LotFrontage'].transform(
+    lambda x: x.fillna(x.median())
+)
+
+for col in df.select_dtypes(include='object').columns:
+    df[col] = df[col].fillna(df[col].mode()[0])
+
+print(f"Remaining missing: {df.isnull().sum().sum()}")</div>
+    <div class="warn-box"><strong>Key insight:</strong> PoolQC is null for houses with no pool — filling with "None" is correct. Filling with the mode "Gd" would tell the model there IS a pool. This semantic understanding of missingness is what separates good analysts from beginners.</div>
+  </div>
+
+  <div id="housing-target" class="tab-content">
+<div class="code-block">from sklearn.preprocessing import LabelEncoder
+from scipy.stats import skew
+
+y = np.log1p(df['SalePrice'])
+df_model = df.drop('SalePrice', axis=1)
+
+qual_map = {'Po':1,'Fa':2,'TA':3,'Gd':4,'Ex':5,'None':0,'NA':0}
+ordinal_cols = ['ExterQual','ExterCond','BsmtQual','BsmtCond',
+                'HeatingQC','KitchenQual','FireplaceQu','GarageQual','GarageCond']
+for col in ordinal_cols:
+    if col in df_model.columns:
+        df_model[col] = df_model[col].map(qual_map).fillna(0).astype(int)
+
+num_cols = df_model.select_dtypes(include='number').columns
+skewed = df_model[num_cols].apply(skew).abs()
+skewed_features = skewed[skewed > 0.75].index
+df_model[skewed_features] = np.log1p(df_model[skewed_features].clip(lower=0))
+
+df_model = pd.get_dummies(df_model)
+print(f"Final shape after encoding: {df_model.shape}")</div>
+  </div>
+
+  <div id="housing-model" class="tab-content">
+<div class="code-block">from sklearn.linear_model import Ridge, Lasso, ElasticNet
+from sklearn.model_selection import cross_val_score, train_test_split
+from sklearn.metrics import mean_squared_error
+import numpy as np
+
+X_train, X_test, y_train, y_test = train_test_split(
+    df_model.fillna(0), y, test_size=0.2, random_state=42)
+
+models = {
+    'Ridge (alpha=10)':    Ridge(alpha=10),
+    'Lasso (alpha=0.001)': Lasso(alpha=0.001, max_iter=10000),
+    'ElasticNet':          ElasticNet(alpha=0.001, l1_ratio=0.5, max_iter=10000),
+}
+for name, mdl in models.items():
+    cv_rmse = np.sqrt(-cross_val_score(mdl, X_train, y_train,
+                      cv=5, scoring='neg_mean_squared_error'))
+    print(f"{name:25s}: CV RMSLE = {cv_rmse.mean():.4f} ± {cv_rmse.std():.4f}")
+
+ridge = Ridge(alpha=10)
+ridge.fit(X_train, y_train)
+y_pred = ridge.predict(X_test)
+
+residuals = y_test - y_pred
+import matplotlib.pyplot as plt
+fig, axes = plt.subplots(1,2,figsize=(10,4))
+axes[0].scatter(y_pred, y_test, alpha=0.3)
+axes[0].plot([10,14],[10,14],'r--'); axes[0].set_title('Predicted vs Actual (log scale)')
+axes[1].scatter(y_pred, residuals, alpha=0.3)
+axes[1].axhline(0, color='red', linestyle='--'); axes[1].set_title('Residual plot')
+plt.tight_layout(); plt.show()</div>
+    <button class="ask-btn" onclick="sendPrompt('Show me how to tune XGBoost with Optuna on the house prices dataset and create a stacked model with Ridge + XGBoost')">Add XGBoost + stacking ↗</button>
+  </div>
+</div>
+
+<!-- ===== CHURN ===== -->
+<div id="ds-churn" class="content">
+  <div class="warn-box"><strong>Real-world scenario:</strong> You are a data scientist at a telecom company. Marketing wants to identify customers likely to cancel in the next 30 days so they can offer a retention discount. Preventing 1 churn saves ~£500 in revenue. False alarms cost £20 in discount vouchers. This cost asymmetry changes how you evaluate models.</div>
+
+  <div class="metric-row">
+    <div class="metric"><div class="val">7043</div><div class="lbl">Customers</div></div>
+    <div class="metric"><div class="val">26.5%</div><div class="lbl">Churned</div></div>
+    <div class="metric"><div class="val">21</div><div class="lbl">Features</div></div>
+    <div class="metric"><div class="val">11</div><div class="lbl">Missing rows</div></div>
+  </div>
+
+  <div class="section-label">Skills this dataset uniquely teaches</div>
+  <div class="skill-grid">
+    <div class="skill-card"><div class="skill-title"><i class="ti ti-coin" aria-hidden="true"></i> Business cost framing</div><div class="skill-body">Don't optimise for F1 — optimise for expected profit. Correct churn prediction = £500 saved. False alarm = £20 wasted. This changes your optimal threshold completely.</div></div>
+    <div class="skill-card"><div class="skill-title"><i class="ti ti-arrows-split" aria-hidden="true"></i> Imbalanced class handling</div><div class="skill-body">26.5% minority class — moderate imbalance. Compare: class_weight, SMOTE, threshold tuning, and AUC-PR. See how each changes results on this real dataset.</div></div>
+    <div class="skill-card"><div class="skill-title"><i class="ti ti-binary" aria-hidden="true"></i> Mixed feature types</div><div class="skill-body">Mix of binary (Yes/No), multi-category, and numeric. Real-world wrangling: TotalCharges stored as string, SeniorCitizen stored as 0/1 int but is actually categorical.</div></div>
+    <div class="skill-card"><div class="skill-title"><i class="ti ti-device-analytics" aria-hidden="true"></i> Segment analysis</div><div class="skill-body">After modelling, group predictions: which contract type churns most? Which tenure band? Month-to-month customers churn 5× more than 2-year contracts. SHAP makes this visual.</div></div>
+    <div class="skill-card"><div class="skill-title"><i class="ti ti-report-analytics" aria-hidden="true"></i> Probability calibration</div><div class="skill-body">When you say "70% churn probability" it should mean 70% of those customers actually churn. Learn reliability diagrams and CalibratedClassifierCV.</div></div>
+    <div class="skill-card"><div class="skill-title"><i class="ti ti-chart-dots-2" aria-hidden="true"></i> Cohort & A/B thinking</div><div class="skill-body">Split customers by tenure cohort (0-12, 12-24, 24+ months). Each cohort has different churn drivers — great intro to cohort analysis and stratified EDA.</div></div>
+  </div>
+
+  <div class="section-label">Step-by-step workflow</div>
+  <div class="tab-row">
+    <button class="tab-btn on" onclick="switchTab('churn','load',this)">Load & clean</button>
+    <button class="tab-btn" onclick="switchTab('churn','imbalance',this)">Imbalance</button>
+    <button class="tab-btn" onclick="switchTab('churn','cost',this)">Cost-based eval</button>
+    <button class="tab-btn" onclick="switchTab('churn','segment',this)">Segmentation</button>
+  </div>
+
+  <div id="churn-load" class="tab-content on">
+<div class="code-block">import pandas as pd, numpy as np
+
+df = pd.read_csv('WA_Fn-UseC_-Telco-Customer-Churn.csv')
+
+df['TotalCharges'] = pd.to_numeric(df['TotalCharges'], errors='coerce')
+print(f"TotalCharges NaN after coerce: {df['TotalCharges'].isnull().sum()}")
+df['TotalCharges'].fillna(df['TotalCharges'].median(), inplace=True)
+
+df['Churn'] = (df['Churn'] == 'Yes').astype(int)
+df.drop('customerID', axis=1, inplace=True)
+
+binary_cols = ['gender','Partner','Dependents','PhoneService','PaperlessBilling']
+for col in binary_cols:
+    df[col] = (df[col].isin(['Yes','Male','Female'])).astype(int)
+    if col == 'gender':
+        df[col] = (df['gender'] == 'Male').astype(int)
+
+print(f"\nChurn rate: {df['Churn'].mean():.1%}")
+print(f"Churn by contract type:")
+print(df.groupby('Contract')['Churn'].mean().round(3))</div>
+    <div class="info-box"><strong>Data trap:</strong> TotalCharges is stored as string with 11 empty strings for new customers. pd.to_numeric with errors='coerce' converts them to NaN — then impute. If you miss this, the column silently becomes object type and your model fails.</div>
+  </div>
+
+  <div id="churn-imbalance" class="tab-content">
+<div class="code-block">from sklearn.model_selection import train_test_split, cross_val_score, StratifiedKFold
+from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.metrics import average_precision_score, f1_score
+from imblearn.over_sampling import SMOTE
+import pandas as pd
+
+cat_cols = df.select_dtypes('object').columns
+df_enc = pd.get_dummies(df, columns=cat_cols, drop_first=True)
+X = df_enc.drop('Churn', axis=1).astype(float)
+y = df_enc['Churn']
+
+X_tr, X_te, y_tr, y_te = train_test_split(X, y, stratify=y, test_size=0.2, random_state=42)
+
+results = {}
+
+clf_base = GradientBoostingClassifier(n_estimators=100, random_state=42)
+clf_base.fit(X_tr, y_tr)
+results['No adjustment'] = average_precision_score(y_te, clf_base.predict_proba(X_te)[:,1])
+
+clf_w = GradientBoostingClassifier(n_estimators=100, random_state=42)
+X_tr_w, y_tr_w = X_tr.copy(), y_tr.copy()
+smote = SMOTE(random_state=42)
+X_sm, y_sm = smote.fit_resample(X_tr, y_tr)
+clf_w.fit(X_sm, y_sm)
+results['SMOTE'] = average_precision_score(y_te, clf_w.predict_proba(X_te)[:,1])
+
+print("Average Precision (AUC-PR) — better than AUC-ROC for imbalanced:")
+for name, score in results.items():
+    print(f"  {name:20s}: {score:.4f}")</div>
+    <div class="info-box"><strong>Why AUC-PR not AUC-ROC here?</strong> AUC-ROC can look great (0.85) even when a model ignores the minority class. AUC-PR (Average Precision) punishes models that miss positive cases — it is the right metric when the minority class is what you care about.</div>
+  </div>
+
+  <div id="churn-cost" class="tab-content">
+<div class="code-block">import numpy as np, matplotlib.pyplot as plt
+
+RETENTION_VALUE = 500
+VOUCHER_COST    = 20
+
+probs = clf_base.predict_proba(X_te)[:,1]
+y_te_arr = y_te.values
+
+thresholds = np.arange(0.05, 0.95, 0.025)
+profits = []
+for t in thresholds:
+    preds = (probs >= t).astype(int)
+    tp = ((preds==1)&(y_te_arr==1)).sum()
+    fp = ((preds==1)&(y_te_arr==0)).sum()
+    profit = tp * RETENTION_VALUE - fp * VOUCHER_COST
+    profits.append(profit)
+
+best_t = thresholds[np.argmax(profits)]
+best_profit = max(profits)
+
+plt.figure(figsize=(8,4))
+plt.plot(thresholds, profits)
+plt.axvline(best_t, color='red', linestyle='--', label=f'Optimal threshold: {best_t:.2f}')
+plt.xlabel('Threshold'); plt.ylabel('Expected profit (£)')
+plt.title(f'Cost-benefit optimisation — max profit £{best_profit:,.0f}')
+plt.legend(); plt.tight_layout(); plt.show()
+print(f"Default threshold (0.5) profit: £{profits[list(thresholds).index(min(thresholds, key=lambda x: abs(x-0.5)))]:.0f}")
+print(f"Optimal threshold ({best_t:.2f}) profit: £{best_profit:,.0f}")</div>
+    <div class="success-box"><strong>Key outcome:</strong> The optimal threshold is typically around 0.25-0.35, not 0.5. Sending a voucher to someone 30% likely to churn is profitable. This is the most important practical lesson in applied ML.</div>
+    <button class="ask-btn" onclick="sendPrompt('Build a full cost-benefit analysis for the churn model with a confusion matrix showing pound values instead of counts, and a customer-level ROI breakdown')">Full cost-benefit matrix ↗</button>
+  </div>
+
+  <div id="churn-segment" class="tab-content">
+<div class="code-block">import shap, matplotlib.pyplot as plt
+
+explainer = shap.TreeExplainer(clf_base)
+shap_vals = explainer.shap_values(X_te)
+shap.summary_plot(shap_vals, X_te, max_display=15, show=False)
+plt.title('Top churn drivers (SHAP)'); plt.tight_layout(); plt.show()
+
+X_te_copy = X_te.copy()
+X_te_copy['churn_prob'] = probs
+X_te_copy['tenure'] = df.loc[y_te.index, 'tenure'].values
+
+bins = [0,12,24,60,100]
+labels = ['0-12m','12-24m','24-60m','60m+']
+X_te_copy['tenure_band'] = pd.cut(X_te_copy['tenure'], bins=bins, labels=labels)
+
+print("Churn rate and avg probability by tenure band:")
+print(X_te_copy.groupby('tenure_band', observed=True).agg(
+    actual_churn=('churn_prob', lambda x: (y_te.loc[x.index]==1).mean()),
+    pred_prob=('churn_prob','mean'),
+    n=('churn_prob','count')
+).round(3))</div>
+    <div class="info-box"><strong>Segmentation insight:</strong> 0-12 month customers have the highest churn risk but are also the cheapest to save (less invested). 24-60 month customers who churn are the highest value loss — focus retention budget there.</div>
+  </div>
+</div>
+
+</div>
+
+<script>
+function switchDS(id, card) {
+  document.querySelectorAll('.ds-card').forEach(c => c.classList.remove('active'));
+  card.classList.add('active');
+  document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+  document.getElementById('ds-' + id).classList.add('active');
+}
+function switchTab(ds, tab, btn) {
+  const prefix = ds + '-';
+  document.querySelectorAll('#ds-' + ds + ' .tab-btn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('#ds-' + ds + ' .tab-content').forEach(c => c.classList.remove('on'));
+  const el = document.getElementById(prefix + tab);
+  if (el) el.classList.add('on');
+}
+</script>

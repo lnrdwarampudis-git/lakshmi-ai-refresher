@@ -1,0 +1,163 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--font-sans);}
+.wrap{padding:16px 0;max-width:680px;}
+.section-label{font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--color-text-tertiary);margin:20px 0 8px;}
+.row{display:flex;gap:8px;margin-bottom:8px;}
+.pill{display:flex;align-items:center;gap:6px;padding:7px 12px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid transparent;transition:opacity .15s;}
+.pill:hover{opacity:.8;}
+.covered{background:var(--color-background-success);color:var(--color-text-success);border-color:var(--color-border-success);}
+.gap{background:var(--color-background-danger);color:var(--color-text-danger);border-color:var(--color-border-danger);}
+.partial{background:var(--color-background-warning);color:var(--color-text-warning);border-color:var(--color-border-warning);}
+.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.d-green{background:var(--color-text-success);}
+.d-red{background:var(--color-text-danger);}
+.d-yellow{background:var(--color-text-warning);}
+.legend{display:flex;gap:16px;font-size:11px;color:var(--color-text-secondary);margin-bottom:16px;align-items:center;}
+.detail-box{background:var(--color-background-secondary);border:1px solid var(--color-border-tertiary);border-radius:10px;padding:14px 16px;margin-top:12px;font-size:13px;display:none;}
+.detail-box.open{display:block;}
+.detail-box h3{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:8px;}
+.detail-box ul{padding-left:18px;color:var(--color-text-secondary);line-height:1.8;}
+.detail-box ul li{margin-bottom:2px;}
+.detail-box .tag{display:inline-block;font-size:10px;font-weight:500;padding:2px 7px;border-radius:4px;margin-right:4px;}
+.tag-easy{background:var(--color-background-success);color:var(--color-text-success);}
+.tag-med{background:var(--color-background-warning);color:var(--color-text-warning);}
+.tag-hard{background:var(--color-background-danger);color:var(--color-text-danger);}
+.progress-bar{height:6px;background:var(--color-border-tertiary);border-radius:3px;margin-bottom:6px;overflow:hidden;}
+.progress-fill{height:100%;border-radius:3px;background:var(--color-text-success);transition:width .4s;}
+.pct{font-size:11px;color:var(--color-text-tertiary);}
+</style>
+<div class="wrap">
+
+<div style="font-size:15px;font-weight:500;color:var(--color-text-primary);margin-bottom:4px;">Data Analysis Mastery — Gap Analysis</div>
+<div style="font-size:12px;color:var(--color-text-secondary);margin-bottom:14px;">Based on your EDA & Data Preparation guide. Click any topic to see what to learn next.</div>
+
+<div class="legend">
+  <span style="display:flex;align-items:center;gap:5px;"><span class="dot d-green"></span> Covered in your guide</span>
+  <span style="display:flex;align-items:center;gap:5px;"><span class="dot d-yellow"></span> Partially covered</span>
+  <span style="display:flex;align-items:center;gap:5px;"><span class="dot d-red"></span> Not covered — gap</span>
+</div>
+
+<div style="font-size:12px;color:var(--color-text-secondary);margin-bottom:4px;">Overall coverage estimate</div>
+<div class="progress-bar"><div class="progress-fill" style="width:40%"></div></div>
+<div class="pct" style="margin-bottom:16px;">~40% of the full analysis skill stack</div>
+
+<!-- DATA FOUNDATIONS -->
+<div class="section-label">1 · Data Foundations (covered well)</div>
+<div class="row" style="flex-wrap:wrap;">
+  <span class="pill covered" onclick="toggle('c1')"><span class="dot d-green"></span>EDA workflow</span>
+  <span class="pill covered" onclick="toggle('c2')"><span class="dot d-green"></span>Missing value handling</span>
+  <span class="pill covered" onclick="toggle('c3')"><span class="dot d-green"></span>Outlier detection & treatment</span>
+  <span class="pill covered" onclick="toggle('c4')"><span class="dot d-green"></span>Encoding (OHE, label, target)</span>
+  <span class="pill covered" onclick="toggle('c5')"><span class="dot d-green"></span>Feature scaling</span>
+  <span class="pill covered" onclick="toggle('c6')"><span class="dot d-green"></span>Feature engineering basics</span>
+  <span class="pill covered" onclick="toggle('c7')"><span class="dot d-green"></span>Correlation & collinearity</span>
+  <span class="pill covered" onclick="toggle('c8')"><span class="dot d-green"></span>Train/val/test splits</span>
+</div>
+
+<!-- STATISTICS -->
+<div class="section-label">2 · Statistics & Probability — critical gaps</div>
+<div class="row" style="flex-wrap:wrap;">
+  <span class="pill partial" onclick="toggle('s1')"><span class="dot d-yellow"></span>Descriptive stats</span>
+  <span class="pill gap" onclick="toggle('s2')"><span class="dot d-red"></span>Hypothesis testing</span>
+  <span class="pill gap" onclick="toggle('s3')"><span class="dot d-red"></span>Confidence intervals</span>
+  <span class="pill gap" onclick="toggle('s4')"><span class="dot d-red"></span>Probability distributions</span>
+  <span class="pill gap" onclick="toggle('s5')"><span class="dot d-red"></span>Statistical power & sample size</span>
+  <span class="pill gap" onclick="toggle('s6')"><span class="dot d-red"></span>Bayesian thinking</span>
+  <span class="pill gap" onclick="toggle('s7')"><span class="dot d-red"></span>A/B testing</span>
+</div>
+
+<!-- ML MODELLING -->
+<div class="section-label">3 · Machine Learning Modelling</div>
+<div class="row" style="flex-wrap:wrap;">
+  <span class="pill partial" onclick="toggle('m1')"><span class="dot d-yellow"></span>Model comparison</span>
+  <span class="pill gap" onclick="toggle('m2')"><span class="dot d-red"></span>Hyperparameter tuning</span>
+  <span class="pill gap" onclick="toggle('m3')"><span class="dot d-red"></span>Regularisation (L1/L2/elastic net)</span>
+  <span class="pill gap" onclick="toggle('m4')"><span class="dot d-red"></span>Cross-validation strategies</span>
+  <span class="pill gap" onclick="toggle('m5')"><span class="dot d-red"></span>Imbalanced classes (SMOTE, etc)</span>
+  <span class="pill gap" onclick="toggle('m6')"><span class="dot d-red"></span>Clustering (K-means, DBSCAN)</span>
+  <span class="pill gap" onclick="toggle('m7')"><span class="dot d-red"></span>Dimensionality reduction (PCA, UMAP)</span>
+  <span class="pill gap" onclick="toggle('m8')"><span class="dot d-red"></span>Time series analysis</span>
+</div>
+
+<!-- MODEL EVALUATION -->
+<div class="section-label">4 · Model Evaluation & Interpretation</div>
+<div class="row" style="flex-wrap:wrap;">
+  <span class="pill partial" onclick="toggle('e1')"><span class="dot d-yellow"></span>Classification metrics</span>
+  <span class="pill gap" onclick="toggle('e2')"><span class="dot d-red"></span>Regression metrics (RMSE, MAE, MAPE)</span>
+  <span class="pill gap" onclick="toggle('e3')"><span class="dot d-red"></span>Calibration & reliability diagrams</span>
+  <span class="pill gap" onclick="toggle('e4')"><span class="dot d-red"></span>SHAP values & feature importance</span>
+  <span class="pill gap" onclick="toggle('e5')"><span class="dot d-red"></span>Learning curves (bias vs variance)</span>
+  <span class="pill gap" onclick="toggle('e6')"><span class="dot d-red"></span>Error analysis</span>
+</div>
+
+<!-- DATA WRANGLING -->
+<div class="section-label">5 · Advanced Data Wrangling</div>
+<div class="row" style="flex-wrap:wrap;">
+  <span class="pill gap" onclick="toggle('w1')"><span class="dot d-red"></span>SQL for analysis</span>
+  <span class="pill gap" onclick="toggle('w2')"><span class="dot d-red"></span>Pandas advanced (groupby, merge, reshape)</span>
+  <span class="pill gap" onclick="toggle('w3')"><span class="dot d-red"></span>Working with dates & time zones</span>
+  <span class="pill gap" onclick="toggle('w4')"><span class="dot d-red"></span>Text/NLP preprocessing</span>
+  <span class="pill gap" onclick="toggle('w5')"><span class="dot d-red"></span>Large data (Polars, Spark basics)</span>
+</div>
+
+<!-- VISUALISATION -->
+<div class="section-label">6 · Data Visualisation</div>
+<div class="row" style="flex-wrap:wrap;">
+  <span class="pill gap" onclick="toggle('v1')"><span class="dot d-red"></span>Chart selection principles</span>
+  <span class="pill gap" onclick="toggle('v2')"><span class="dot d-red"></span>Matplotlib / Seaborn mastery</span>
+  <span class="pill gap" onclick="toggle('v3')"><span class="dot d-red"></span>Plotly interactive charts</span>
+  <span class="pill gap" onclick="toggle('v4')"><span class="dot d-red"></span>Dashboard design (storytelling)</span>
+</div>
+
+<!-- PRODUCTION -->
+<div class="section-label">7 · Production & MLOps</div>
+<div class="row" style="flex-wrap:wrap;">
+  <span class="pill gap" onclick="toggle('p1')"><span class="dot d-red"></span>MLflow / experiment tracking</span>
+  <span class="pill gap" onclick="toggle('p2')"><span class="dot d-red"></span>Model deployment (APIs, Docker)</span>
+  <span class="pill gap" onclick="toggle('p3')"><span class="dot d-red"></span>Data drift & monitoring</span>
+  <span class="pill gap" onclick="toggle('p4')"><span class="dot d-red"></span>Pipelines (sklearn, Kedro)</span>
+</div>
+
+<!-- DETAIL BOXES -->
+<div id="det-c1" class="detail-box"><h3>EDA Workflow ✅</h3><ul><li>Covered: shape, dtypes, missing, duplicates, univariate, bivariate, multivariate, target analysis, outlier summary</li><li>Nothing to add here — your guide is thorough</li></ul></div>
+<div id="det-s2" class="detail-box"><h3>Hypothesis Testing <span class="tag tag-med">Next priority</span></h3><ul><li>t-test, Mann-Whitney U — compare group means</li><li>Chi-squared — test independence of categorical features</li><li>ANOVA — compare 3+ group means</li><li>p-values, Type I / Type II errors, multiple comparisons (Bonferroni)</li><li>When to use each test — parametric vs non-parametric</li></ul></div>
+<div id="det-s3" class="detail-box"><h3>Confidence Intervals <span class="tag tag-med">Next priority</span></h3><ul><li>Bootstrap CIs — resampling approach, works on any statistic</li><li>Interpreting CIs vs p-values — what they actually mean</li><li>CIs for model metrics (AUC-ROC CI, accuracy CI)</li></ul></div>
+<div id="det-s4" class="detail-box"><h3>Probability Distributions <span class="tag tag-med">Medium priority</span></h3><ul><li>Normal, Poisson, Binomial, Exponential, Beta — when each appears in real data</li><li>scipy.stats — fitting distributions, KS test for goodness of fit</li><li>How distributions map to ML loss functions</li></ul></div>
+<div id="det-s7" class="detail-box"><h3>A/B Testing <span class="tag tag-hard">Advanced</span></h3><ul><li>Experiment design, randomisation, control vs treatment</li><li>Minimum detectable effect, sample size calculation</li><li>Sequential testing, peeking problem, novelty effects</li><li>Metric selection: guardrail vs primary metric</li></ul></div>
+<div id="det-m2" class="detail-box"><h3>Hyperparameter Tuning <span class="tag tag-med">Next priority</span></h3><ul><li>GridSearchCV, RandomizedSearchCV — exhaustive vs random</li><li>Optuna / Bayesian optimisation — smarter search</li><li>Key parameters per model: n_estimators, max_depth, learning_rate, C, gamma</li><li>Early stopping in gradient boosting</li></ul></div>
+<div id="det-m4" class="detail-box"><h3>Cross-Validation Strategies <span class="tag tag-med">Next priority</span></h3><ul><li>Stratified K-Fold — preserve class balance in each fold</li><li>Group K-Fold — when rows from same entity must not split across folds</li><li>Time-series CV (TimeSeriesSplit) — no future leakage</li><li>Repeated K-Fold — reduce variance of CV estimate</li></ul></div>
+<div id="det-m5" class="detail-box"><h3>Imbalanced Classes <span class="tag tag-med">High value</span></h3><ul><li>class_weight='balanced' — free fix in sklearn</li><li>SMOTE, ADASYN — synthetic minority oversampling</li><li>Undersampling — RandomUnderSampler, Tomek links</li><li>Threshold tuning — optimise at the right F1/precision/recall point</li><li>imbalanced-learn library</li></ul></div>
+<div id="det-m7" class="detail-box"><h3>Dimensionality Reduction <span class="tag tag-med">Medium priority</span></h3><ul><li>PCA — variance explained, scree plot, how many components</li><li>t-SNE / UMAP — visualise high-dimensional clusters</li><li>When to apply: >50 features, embedding spaces, image pixels</li><li>Explained variance ratio — selecting n_components</li></ul></div>
+<div id="det-m8" class="detail-box"><h3>Time Series Analysis <span class="tag tag-hard">Separate track</span></h3><ul><li>Stationarity, ADF test, differencing</li><li>Autocorrelation (ACF/PACF plots)</li><li>ARIMA, SARIMA, Prophet, LSTM</li><li>Rolling features, lag features, expanding windows</li><li>Train/test split must be chronological — never random</li></ul></div>
+<div id="det-e4" class="detail-box"><h3>SHAP Values <span class="tag tag-easy">High ROI</span></h3><ul><li>shap library — works with any sklearn model</li><li>Summary plot, waterfall plot, force plot, dependence plot</li><li>Global vs local (per-prediction) explanations</li><li>SHAP vs permutation importance — when each is better</li></ul></div>
+<div id="det-e5" class="detail-box"><h3>Learning Curves <span class="tag tag-easy">High ROI</span></h3><ul><li>sklearn.model_selection.learning_curve</li><li>Diagnosing high bias (underfit) vs high variance (overfit)</li><li>How many training examples do I need?</li><li>Validation curves — find the right regularisation strength</li></ul></div>
+<div id="det-w1" class="detail-box"><h3>SQL for Analysis <span class="tag tag-easy">Essential</span></h3><ul><li>Window functions: ROW_NUMBER, RANK, LAG, LEAD, NTILE</li><li>CTEs and subqueries for complex aggregations</li><li>Date arithmetic, cohort analysis in SQL</li><li>CASE WHEN for feature engineering in SQL</li><li>Query optimisation: indexes, EXPLAIN plans</li></ul></div>
+<div id="det-w2" class="detail-box"><h3>Advanced Pandas <span class="tag tag-easy">High ROI</span></h3><ul><li>groupby + agg with custom functions</li><li>merge types: inner, left, outer, cross — when to use each</li><li>pivot_table vs crosstab vs melt vs stack/unstack</li><li>apply vs vectorisation — performance traps</li><li>MultiIndex and complex hierarchical data</li></ul></div>
+<div id="det-v1" class="detail-box"><h3>Chart Selection Principles <span class="tag tag-easy">Foundational</span></h3><ul><li>Which chart for which question: distribution → histogram/KDE; comparison → bar; correlation → scatter; trend → line; part-of-whole → stacked bar/pie</li><li>The lie factor — chart design that distorts truth</li><li>Pre-attentive attributes: colour, size, position</li><li>Storytelling: annotation, progressive reveal</li></ul></div>
+<div id="det-p1" class="detail-box"><h3>MLflow & Experiment Tracking <span class="tag tag-med">Important</span></h3><ul><li>mlflow.log_param, log_metric, log_artifact</li><li>Comparing runs visually in MLflow UI</li><li>Model registry — promoting models to staging/production</li><li>Integrating MLflow into your existing sklearn pipelines</li></ul></div>
+<div id="det-p3" class="detail-box"><h3>Data Drift & Monitoring <span class="tag tag-hard">Advanced</span></h3><ul><li>PSI (Population Stability Index) — detect feature drift</li><li>KS test and Wasserstein distance for distribution shift</li><li>Evidently library — automated drift reports</li><li>Concept drift vs data drift — different causes, different fixes</li></ul></div>
+</div>
+
+<script>
+let open = null;
+const map = {
+  'c1':'c1','c2':'c2','c3':'c3','c4':'c4','c5':'c5','c6':'c6','c7':'c7','c8':'c8',
+  's2':'s2','s3':'s3','s4':'s4','s7':'s7',
+  'm2':'m2','m4':'m4','m5':'m5','m7':'m7','m8':'m8',
+  'e4':'e4','e5':'e5',
+  'w1':'w1','w2':'w2',
+  'v1':'v1',
+  'p1':'p1','p3':'p3'
+};
+function toggle(id) {
+  const key = map[id];
+  if (!key) return;
+  const el = document.getElementById('det-' + key);
+  if (!el) return;
+  if (open && open !== el) { open.classList.remove('open'); }
+  el.classList.toggle('open');
+  open = el.classList.contains('open') ? el : null;
+}
+</script>
